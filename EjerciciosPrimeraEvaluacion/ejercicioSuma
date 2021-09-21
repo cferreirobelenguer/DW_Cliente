@@ -1,0 +1,68 @@
+
+DOCUMENTO HTML
+______________
+
+<!--EJEMPLO DE CALCULADORA DE SUMA EN JS EN LA QUE SE AÑADEN DOS INPUT TEXT PARA OBTENER LOS DATOS Y DOS BOTONES:
+UNO PARA MOSTRAR EL RESULTADO Y OTRO PARA BORRAR-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio suma</title>
+</head>
+<body>
+    <p>
+        <input type="text"  id="numero1" value="Introduce número"/>
+    </p>
+    <p>
+        <input type="text"  id="numero2" value="Introduce número"/>
+    </p>
+    <p>
+    <input type="submit" id="boton" value="Ver resultado" onclick="resultado();"/>
+    <input type="submit" id="boton" value="Borrar resultado" onclick="borrarResultado();"/>
+        <section id="boton1">
+        <br>
+        </section>
+        
+    </p>
+    <br>
+    
+    <script src="suma.js"></script>
+</body>
+</html>
+
+
+
+
+DOCUMENTO JS
+____________
+
+
+//EJEMPLO DE CALCULADORA DE SUMA EN JS
+
+function resultado(){
+    //Obtenemos los valores de los números y el operador
+    let resultado1=document.getElementById("boton1");
+    let num1=document.getElementById("numero1").value;
+    console.log(num1);
+    
+    let num2=document.getElementById("numero2").value;
+    console.log(num2);
+    resultado1.innerHTML="Usted ha elegido los números: "+num1+" "+num2;
+
+    //Pasamos los números a integer
+    let numero1_=parseInt(num1);
+    let numero2_=parseInt(num2);
+    let resultado=numero1_+numero2_;
+    resultado1.innerHTML=("El resultado de la suma es: "+resultado);
+
+}
+function borrarResultado(){
+    let borrar_=document.getElementById("boton1");
+    borrar_.innerHTML=(" ");
+}
+
+
