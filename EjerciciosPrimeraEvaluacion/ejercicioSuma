@@ -41,6 +41,8 @@ DOCUMENTO JS
 ____________
 
 
+
+
 //EJEMPLO DE CALCULADORA DE SUMA EN JS
 
 function resultado(){
@@ -65,4 +67,15 @@ function borrarResultado(){
     borrar_.innerHTML=(" ");
 }
 
+/*OTRA FORMA DE HACER EL EJERCICIO:
+getElementsByName manipula los name de os input type text , es un array que coge los valores del name
+
+var a
+function Sumar(){
+    let b=document.getElementsByName("operandos")[1].value;
+    a=document.getElementsByName("operandos")[0].value;
+    dcument.getElementsById("resutado").value=a+b;
+}
+
+*/
 
