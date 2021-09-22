@@ -41,8 +41,6 @@ DOCUMENTO JS
 ____________
 
 
-
-
 //EJEMPLO DE CALCULADORA DE SUMA EN JS
 
 function resultado(){
@@ -60,6 +58,7 @@ function resultado(){
     let numero2_=parseInt(num2);
     let resultado=numero1_+numero2_;
     resultado1.innerHTML=("El resultado de la suma es: "+resultado);
+    document.getElementById("resultado_").value=numero1_+numero2_;
 
 }
 function borrarResultado(){
@@ -78,4 +77,3 @@ function Sumar(){
 }
 
 */
-
