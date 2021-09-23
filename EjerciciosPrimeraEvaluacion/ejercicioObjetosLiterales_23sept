@@ -1,0 +1,39 @@
+
+
+
+<!--Crear array de objetos literales de los días de la semana,
+en el cual a través d eun input text 
+recibimos un índice y si le damos al botón buscar nos imprime en un text area
+el día de la semana en la posición del índice.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de objetos literales</title>
+</head>
+<body>
+    <p>
+    <label for="">Introduzca número: </label>
+    
+    <input type="text" id="indice" name="numero1" value="Numero"/>
+    </p>
+    <p>
+    <button id="boton" onclick="respuestaIndice();">Buscar</button>
+    
+    </p>
+    <textarea id="respuesta" width="20px" height="30px"></textarea>
+    <script>
+        function respuestaIndice(){
+            let valor=document.getElementsByTagName("input")[0].value;
+            let texto="Buenos días, hoy es "+dia[valor];
+            document.getElementById("respuesta").value=texto;
+            
+            
+        }
+        var dia=["Lunes","Martes","Miércoles","Jueves","Viernes"];
+    </script>
+</body>
+</html>
