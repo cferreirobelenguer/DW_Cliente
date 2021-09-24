@@ -1,0 +1,25 @@
+
+//ARCHIVO JS
+
+function crearObjeto() {
+  let lista = [];
+  let marca = document.getElementsByTagName("input")[0].value;
+  lista.push(marca);
+  let modelo = document.getElementsByTagName("input")[1].value;
+  lista.push(modelo);
+  let año = document.getElementsByTagName("input")[2].value;
+  lista.push(año);
+  let nombre = document.getElementsByTagName("input")[3].value;
+  lista.push(nombre);
+  let apellidos = document.getElementsByTagName("input")[4].value;
+  lista.push(apellidos);
+  let telefono = document.getElementsByTagName("input")[5].value;
+  lista.push(telefono);
+  console.log(lista);
+  var i;
+  var texto2;
+  let texto = "Los datos disponibles del objeto son: ";
+  texto2 = lista.toString();
+
+  document.getElementById("textoTotal").value = texto + "\n" + texto2;
+}
