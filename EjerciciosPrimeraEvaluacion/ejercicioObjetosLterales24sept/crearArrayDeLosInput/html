@@ -1,0 +1,36 @@
+
+</head>
+<body>
+    <hr>
+    <p>Vehículo:</p>
+    <p>
+        <label for="">Marca:</label>
+        <input type="text" id="marca" name="marca_"/>
+    </p>
+        <label for="">Modelo:</label>
+        <input type="text" id="modelo" name="modelo_"/>
+    </p>
+        <label for="">Año:</label>
+        <input type="text" id="año" name="año_"/>
+    </p>
+    <hr>
+    <p>Propietario:</p>
+    <p>
+        <label for="">Nombre:</label>
+        <input type="text" id="nombre" name="nombre_"/>
+    </p>
+    <p>
+        <label for="">Apellidos:</label>
+        <input type="text" id="apellidos" name="apellidos_"/>
+    </p>
+    <p>
+        <label for="">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono_"/>
+    </p>
+    <button id="boton" onclick="crearObjeto();">Ver datos</button>
+    <p>
+        <textarea id="textoTotal" width:20px height:30px></textarea>
+    </p>
+    <script src="ejer24sept.js" ></script>
+</body>
+</html>
