@@ -30,5 +30,13 @@ function valorTotal(){
     let valorTelefono=auto.telefono;
     console.log(auto[5]);
     document.getElementsByTagName("input")[5].value=valorTelefono;
+    
+    /(Podría ser así
+    /* for(let i=0;i<document.getElementByTagName("input").length;i++){
+        document.getElementsByTagName("input")[i].value=Object.values(auto)[i];
+        
+     */
 }
 let auto={"marca":"Seat","modelo":"León","año":2019,"nombre":"Albert","apellidos":"Einstein","telefono":"600123456"};
+
+
