@@ -31,7 +31,7 @@ function valorTotal(){
     console.log(auto[5]);
     document.getElementsByTagName("input")[5].value=valorTelefono;
     
-    /(Podría ser así
+    /(Podría ser cnn un for para reducir código
     /* for(let i=0;i<document.getElementByTagName("input").length;i++){
         document.getElementsByTagName("input")[i].value=Object.values(auto)[i];
         
