@@ -1,5 +1,5 @@
 
-<!--EJERCICIO DE NÚMERO PRIMO, DECIR SI ES PRIMO Y MOSTRAR EL NÚMERO PRIMO-->
+<!--EJERCICIO DE NÚMERO PRIMO, MOSTRAR PRIMOS EN INTERVALO DE UN NÚMERO-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,6 +9,8 @@
     <title>Document</title>
 </head>
 <body>
+    <button id="boton" onclick="numeroPrimo();">Ver números primos</button>
+    <textarea id="texto"></textarea>
     <script>
       
 function numeroPrimo(){
@@ -17,31 +19,30 @@ function numeroPrimo(){
     let numero=parseInt(prompt("Escriba un número"));
     
     let divisores=0;
-   for(let i=0;i<=numero;i++){
-        if(numero%i==0){
+   for(let i=2;i<=numero;i++){
+       for(let j=1;j<=numero;j++){
+        if(i%j==0){
             divisores++;
-            array_divisores.push(divisores);
-
+            
+            }
         }
+         if(divisores==2){
+           array.push(i);
+       }else{
+           divisores=0;
+       }
     }
     
-       if(divisores==2){
-           console.log("Es número primo: ")
-           array.push(numero);
-       }else{
-           console.log("No es número primo.")
-       }
-       
-   for(let i in array){
-       console.log(array[i]);
-   }
-   console.log("Número de divisores de este número: ");
-   for(let j=0;j<array_divisores.length;j++){
-        console.log(array_divisores[j]);
-   }
-}
+   console.log("Listado de primos : ");
    
-numeroPrimo();
+   for(let i in array){
+    console.log(array[i])
+      
+   }
+   
+    let texto=document.getElementById("texto").value="Listado de números primos "+array;
+}
+
     </script>
 </body>
 </html>
