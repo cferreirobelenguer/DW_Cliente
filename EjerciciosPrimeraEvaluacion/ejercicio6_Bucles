@@ -1,5 +1,4 @@
 
-
 <!-- 6.- Escribe un bucle que solicite un número mayor que 100. Si el usuario introduce (en caja de texto) otro número, se le pedirá que introduzca un valor de nuevo.
 El bucle debe pedir un número hasta que el usuario introduzca un número mayor que 100, o bien cancele la entrada/introduzca una línea vacía.
 Aquí podemos asumir que el usuario solo introducirá números. No hay necesidad de implementar un manejo especial para entradas no numéricas en esta tarea.
@@ -20,7 +19,7 @@ Aquí podemos asumir que el usuario solo introducirá números. No hay necesidad
                 
                 var numero=parseInt(prompt("Escriba un número"));
                 console.log(numero);
-                while((numero<100)||(numero==null)){
+                while((numero<=100)&&(numero!=null)){
                     numero=parseInt(prompt("Escriba un número"));
                 }
             } 
