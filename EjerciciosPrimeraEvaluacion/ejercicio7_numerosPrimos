@@ -1,0 +1,47 @@
+
+<!--EJERCICIO DE NÚMERO PRIMO, DECIR SI ES PRIMO Y MOSTRAR EL NÚMERO PRIMO-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      
+function numeroPrimo(){
+    let array=[];  
+    let array_divisores=[];
+    let numero=parseInt(prompt("Escriba un número"));
+    
+    let divisores=0;
+   for(let i=0;i<=numero;i++){
+        if(numero%i==0){
+            divisores++;
+            array_divisores.push(divisores);
+
+        }
+    }
+    
+       if(divisores==2){
+           console.log("Es número primo: ")
+           array.push(numero);
+       }else{
+           console.log("No es número primo.")
+       }
+       
+   for(let i in array){
+       console.log(array[i]);
+   }
+   console.log("Número de divisores de este número: ");
+   for(let j=0;j<array_divisores.length;j++){
+        console.log(array_divisores[j]);
+   }
+}
+   
+numeroPrimo();
+    </script>
+</body>
+</html>
