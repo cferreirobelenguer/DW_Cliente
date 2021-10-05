@@ -1,0 +1,65 @@
+
+
+
+
+
+
+<!-- EJERCICIO TIRADA DADOS ALEATORIOS MI VERSIÓN-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dados</title>
+</head>
+<body>
+    <button id="tiradaDados" onclick="tiradasDados(dados);" >Tirar dados</button>
+    <br>
+    <center>
+    <img src='' name="midado" width='50px' heigth='50px' />
+    </center>
+    <script>
+        var dados=[6];
+
+        function tiradasDados(dados){
+            let imagen1="";
+            let imagen2="";
+            let imagen3="";
+            let imagen4="";
+            let imagen5="";
+            let imagen6="";
+
+            let tirada=Math.floor(Math.random()*6);
+            for(let i of dados){
+                dados[i]=tirada;
+                switch(i){
+                    case 1:
+                        document.images["midado"].src="dados1.jpg";
+                    break;
+                    case 2:
+                        document.images["midado"].src="dados2.jpg";
+                    break;
+                    case 3:
+                        document.images["midado"].src="dados3.jpg";
+                    break;
+                    case 4:
+                        document.images["midado"].src="dados4.jpg";
+                    break;
+                    case 5:
+                        document.images["midado"].src="dados5.jpg";
+                    break;
+                    case 6:
+                        document.images["midado"].src="dados6.jpg";
+                    break;
+                    
+                    }
+            }
+
+        }
+        
+
+    </script>
+</body>
+</html>
