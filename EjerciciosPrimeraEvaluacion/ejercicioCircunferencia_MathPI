@@ -1,0 +1,24 @@
+<!-- CALCULAR AREA DE CIRCUNFERENCIA PIDIENDO A USUARIO
+EL RADIO Y CALCULANDO EL PI CON MATH.PI-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>longitud circunferencia</title>
+</head>
+<body>
+    
+    <script>
+        let radio=parseInt(prompt("Introduce un radio para calcular una circunferencia"));
+        function calcularCircunferencia(radio){
+            let numeroPi=Math.PI;
+            let radioTotal=2*numeroPi*radio;
+            alert("EL resultado del área de la circunferencia es "+radioTotal);
+        }
+        calcularCircunferencia(radio);
+    </script>
+</body>
+</html>
