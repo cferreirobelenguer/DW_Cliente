@@ -1,0 +1,111 @@
+
+<!-- Decir si una persona es mayor de edad-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio fecha mayor de edad</title>
+    <style>
+        #formulario{
+            background-color: cornflowerblue;
+            color:aliceblue;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding:20px;
+            margin:20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="formulario">
+        <h1>Formulario de datos</h1>
+    </div>
+    <center>
+        <p>
+            <label for="nombre_">Nombre</label>
+            <input type="text" name="dato" required>
+        </p>
+        <p>
+            <label for="apellido_">Apellido</label>
+            <input type="text" name="dato" required>
+        </p>
+        <p>
+            <label for="fechaNaci_">Fecha de nacimiento</label>
+            <input type='Date' value='' id="fechaNaci" required>
+        </p>
+        <button id="boton" onclick="datosPersona();">Enviar datos</button>
+        
+    <section id="imprimirDatos">
+        <br>
+    </section>
+    <button id="borrar" onclick="borrarDatosPersona();">Borrar datos</button>
+</center>
+    <script>
+        function datosPersona(){
+            let nombre=document.getElementsByName("dato")[0].value;
+            console.log ("Nombre: "+nombre);
+            let escribirDatos=document.getElementById("imprimirDatos");
+            let escribirNombre=document.createElement("h1");
+            escribirNombre.innerText=("Nombre: "+nombre);
+            escribirDatos.appendChild(escribirNombre);
+
+        
+            let apellido=document.getElementsByName("dato")[1].value;
+            console.log("Apellido: "+apellido);
+            let escribirApellido=document.createElement("h1");
+            escribirApellido.innerText=("Apellido: "+apellido);
+            escribirDatos.appendChild(escribirApellido);
+            
+            //Fecha de nacimiento que el usuario escribe
+            let fechaNacimiento=document.getElementById("fechaNaci").value;
+            console.log(fechaNacimiento);
+            let escribirFecha=document.createElement("h1");
+            escribirFecha.innerText=("Fecha de nacimiento: "+fechaNacimiento);
+            escribirDatos.appendChild(escribirFecha);
+            
+            let fechas=fechaNacimiento.split("-");
+            let diaNacimiento=fechas[2];
+            let mesNacimiento=fechas[1];
+            let añoNacimiento=fechas[0];
+            console.log("Fecha de nacimiento: ");
+            console.log("Día: "+diaNacimiento);
+            console.log("Mes: "+mesNacimiento);
+            console.log("Año: "+añoNacimiento);
+
+            //Fecha actual
+
+            let fechaActual=new Date();
+            let diaActual=fechaActual.getDay();
+            let mesActual=fechaActual.getMonth()+1;
+            let añoActual=fechaActual.getFullYear();
+
+            console.log("Fecha actual: "+fechaActual);
+
+            let resta=añoActual-añoNacimiento;
+            if(resta<18){
+                console.log(nombre+" "+apellido+" es menor de edad, tiene "+resta+" años");
+                let escribirAños=document.createElement("h1");
+                escribirAños.innerText=(nombre+" "+apellido+" es menor de edad, tiene "+resta+" años");
+                escribirDatos.appendChild(escribirAños);
+            }else{
+                console.log(nombre+" "+apellido+" es mayor de edad, tiene "+resta+" años");
+                let escribirAños2=document.createElement("h1");
+                escribirAños2.innerText=(nombre+" "+apellido+" es mayor de edad, tiene "+resta+" años");
+                escribirDatos.appendChild(escribirAños2);
+            }
+
+
+
+
+        }
+        function borrarDatosPersona(){
+            //Botón de borrado de información escrita
+            document.getElementById("imprimirDatos").innerHTML = ""
+        }
+
+    </script>
+</body>
+</html>
