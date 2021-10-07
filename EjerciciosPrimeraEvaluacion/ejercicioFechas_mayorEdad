@@ -103,7 +103,7 @@
         }
         function borrarDatosPersona(){
             //Botón de borrado de información escrita
-            document.getElementById("imprimirDatos").innerHTML = ""
+            document.getElementById("imprimirDatos").innerHTML = " ";
         }
 
     </script>
