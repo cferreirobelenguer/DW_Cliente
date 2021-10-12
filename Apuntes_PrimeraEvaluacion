@@ -1,0 +1,729 @@
+
+
+
+
+JS PRIMERA EVLUACIÓN
+____________________
+
+NOTAS
+_____
+
+DECLARACIÓN DE VARIABLES:
+_________________________
+
+Cuando se declara una variable global que sirve para todo el programa y todas las funciones se usa var
+Cuando se declara una variable local que sirve únicamente para la función se usa let
+Cuando se declara una variable estática o constante se usa const. Esta no se puede ya modificar en todo el programa.
+
+INCREMENTAR VARIABLE Y OPERADORES
+_________________________________
+
+operadores de comparación (Se usan con if if else):
+== Se usa para comparar dos valores que son iguales en valor
+=== Se usa para comparar dos valores que son iguales en tipo y en valor
+>< mayor que y menor que
+AND &&
+OR ||
+operadores:
++ - * / % (sumar, restar,multiplicar,dividir,resto)
+
+= fuera del if (de la condición) se usa como asignación, para asignar a una variable un valor
+variable+=i;   //Esto es igual a variable=variable+i; se usa para incrementar variable a i en un bucle por ejemplo.
+
+typeof
+______
+: el operador typeof devuelkve una cadena de caracteres con el tipo de operando, es usado de las siguientes maneras:
+	typeof operando
+	typeof(operando)
+	
+	typeof miFunction //devuelve function
+	typeof true //devuelve boolean
+	typeof 62 //devuelve number
+
+
+PASAR DE CADENA DE CARACTERES A INT O FLOAT:
+_____________________________________________
+
+parseInt: sirve para pasar un valor a integer
+parseFloat: sirve para pasar un valor a float
+
+FORMAS DE INTRODUCIR DATOS EN JS:
+_________________________________
+
+Se pueden introducir datos mediante prompt o mediante input texto input number.
+
+PROMPT:
+_______
+
+Es la ventana mediante la que se introducen datos en el navegador, no puede modificarse su estilo mediante css ya que pertecene al navegador.
+
+let ejemplo=prompt("Introduce un valor");
+
+Por defecto este valor va a ser una cadena de caracteres. Si se quiere pasar a integer habrá que hacer un paseInt.
+
+let ejemplo=parseInt("Introduce un valor");
+
+INPUT TYPE TEXT
+______________
+
+También podemos introducir valores mediante los input (text o number).
+
+<label for="ejemplo_">Nombre: </label>
+<input type="text" name="ejemplo" id="ejemplo1" class="ejemplo1_">
+
+
+<label for="ejemplo_">Edad: </label>
+<input type="number" name="edad" id="ejemplo2" class="ejemplo2_">
+
+Se pueden llamar de varias maneras en el DOM:
+
+	Mediante id: document.getElementById("ejemplo1").value;
+	Mediante etiqueta: document.getElementTagByName("input")[0].value;  //En este caso es un array con los input e indicamos la posición
+	Mediante name: document.getElementByName("ejemplo")[0].value;  //También funciona como un array y se indica la posición, se llama al name del input
+	Mediante class: document.getElementsByClassName("ejemplo2_").value;
+
+NOTA: SIEMPRE HAY QUE PONER .value PARA COGER EL VALOR DE ESE INPUT.
+
+También podemos rellenar con valores el text area:
+
+<textarea name="textarea" rows="10" cols="50">Write something here</textarea>
+
+let texto="Hola Mundo";
+
+document.getElementByName("textarea")[0].value=texto;
+
+Con esto le damos el valor Hola Mundo al text area.
+
+
+
+ESTRUCTURAS DE CONTROL:
+_______________________
+
+Son iguales que en java
+
+CONDICIONAL:
+_____________
+
+if (condición1)
+   sentencia1
+else if (condición2)
+   sentencia2
+else if (condición3)
+   sentencia3
+...
+else
+   sentenciaN
+
+BUCLES:
+_______
+
+WHILE O DO WHILE:
+
+while (n < 3) {
+  n ++;
+  x += n;
+}
+
+do {
+  i = i + 1;
+  result = result + i;
+} while (i < 5);
+
+FOR
+____
+
+for (var i = 0; i < 9; i++) {
+   n += i;
+   mifuncion(n);
+}
+
+FOR IN (SE USA PARA OBJETOS LITERALES):
+_________________________________________________________
+
+const object = { a: 1, b: 2, c: 3 };
+
+for (const property in object) {
+  console.log(`${property}: ${object[property]}`);
+}
+
+FOR OF( SE USA PARA RECORRER ARRAYS):
+______________________________________
+
+let iterable = [10, 20, 30];
+
+for (let value of iterable) {
+  value += 1;
+  console.log(value);
+}
+
+También para recorrer una cadena de caracteres:
+
+let iterable = "boo";
+
+for (let value of iterable) {
+  console.log(value);
+}
+
+SWITCH
+______
+La declaración switch evalúa una expresión, 
+comparando el valor de esa expresión con una instancia case, y ejecuta declaraciones asociadas a ese case, 
+así como las declaraciones en los case que siguen.
+
+switch (expr) {
+  case 'Naranjas':
+    console.log('El kilogramo de naranjas cuesta $0.59.');
+    break;
+  case 'Manzanas':
+    console.log('El kilogramo de manzanas cuesta $0.32.');
+    break;
+  case 'Platanos':
+    console.log('El kilogramo de platanos cuesta $0.48.');
+    break;
+  case 'Cerezas':
+    console.log('El kilogramo de cerezas cuesta $3.00.');
+    break;
+  case 'Mangos':
+  case 'Papayas':
+    console.log('El kilogramo de mangos y papayas cuesta $2.79.');
+    break;
+  default:
+    console.log('Lo lamentamos, por el momento no disponemos de ' + expr + '.');
+}
+
+console.log("¿Hay algo más que te quisiera consultar?");
+
+BREAK: se usa para salir de un bucle 
+
+for(i=0;i<a.length;i++){
+	if(a[i]==elValor){
+	break;
+	}
+}
+
+CONTINUE: puede usarse para reinicar una sentencia while, do-while, for o label
+
+	Puede ser: continue o continue label
+
+	i=0;
+	n=0;
+	while(i<5){
+	i++;
+	if(i==3){
+	continue;
+	}
+	
+	n+=i;
+	}
+
+MATH
+____
+
+Math.pow se usa para calcular potencias:
+Math.pow(7, 2);    // 49
+
+Math.round() redondea un número
+// Retorna el valor 20
+x = Math.round(20.49);
+
+Math.floor() Devuelve el máximo entero menor o igual a un número
+
+Math.PI() nos da el número PI
+
+Math.random() devuelve un número aleatorio entre un número y otro número.
+	
+	ejemplo1:
+	let r=parseInt(Math.random()*255); //número aleatorio entre 0 y 255
+	
+	ejemplo2: // caso de número aleatorio entre un número y otro distintos de 0
+	// Retorna un número aleatorio entre min (incluido) y max (excluido)
+	function getRandomArbitrary(min, max) {
+  	return Math.random() * (max - min) + min;
+	}
+Math.max() devuelve el valor máximo
+var arr = [1, 2, 3];
+var max = Math.max(...arr);
+
+Math.min() devuelve el valor mínimo
+var x = 10, y = -20;
+var z = Math.min(x, y);
+
+Math.abs() retorna el valor absoluto de un número
+
+
+FECHAS:
+_______
+
+	Con input type date se consigue el valor de una fecha.
+            <label for="fechaNaci_">Fecha de nacimiento</label>
+            <input type='Date' value='' id="fechaNaci" required>
+	
+Para poder asignar cada valor del año, mes y dia a variables independiente se puede usar el método split que divide la variable del input type date en un array.
+Luego de ahí ya se asignan los valores en variables a través de la posición del array.
+
+   let fechaNacimiento=document.getElementById("fechaNaci").value;
+            console.log(fechaNacimiento);
+            let escribirFecha=document.createElement("h1");
+            escribirFecha.innerText=("Fecha de nacimiento: "+fechaNacimiento);
+            escribirDatos.appendChild(escribirFecha);
+            
+            let fechas=fechaNacimiento.split("-");
+            let diaNacimiento=fechas[2];
+            let mesNacimiento=fechas[1];
+            let añoNacimiento=fechas[0];
+            console.log("Fecha de nacimiento: ");
+            console.log("Día: "+diaNacimiento);
+            console.log("Mes: "+mesNacimiento);
+            console.log("Año: "+añoNacimiento);
+
+	También se podía obtener el día, mes y año a través del input type="text".
+	
+	Para obtener la fecha actual se utilizan los siguientes métodos:
+
+	//Fecha actual
+
+            let fechaActual=new Date();
+            let diaActual=fechaActual.getDay();
+            let mesActual=fechaActual.getMonth()+1;
+            let añoActual=fechaActual.getFullYear();
+
+	También se puede declarar una fecha específica con new Date y usar los siguientes métodos para saber la fecha declarada:
+
+        GETDATE()
+	_________
+	getDate() es el método por el cual se puede saber el día de la fecha local según la fecha especificada.
+
+	var Xmas95 = new Date('December 25, 1995 23:15:30');
+	var day = Xmas95.getDate();
+
+	console.log(day); // 25
+
+	GETMONTH()
+	__________
+	getMonth() devuekve el mes de la hora local según la fecha especificada.
+	var Navidad = new Date('December 25, 2014 23:15:30');
+	var mes = Navidad.getMonth();
+
+	console.log(mes); // 11
+
+	GETFULLYEAR()
+	_____________
+	
+	getFullYear() devuelve el año local según la fecha especificada
+	var today = new Date();
+	var year = today.getFullYear();	
+
+	GETMINUTES()
+	____________
+	Con getMinutes() se obtienen los minutos locales según la fecha especificada.
+
+	var Xmas95 = new Date('December 25, 1995 23:15:30');
+	var minutos = Xmas95.getMinutes();
+
+	console.log(minutos); // 15
+
+
+	GETSECONDS()
+	____________
+	Con getSeconds() se obtienen los segundos locales según la fecha especificada.
+
+
+	GETHOURS()
+	___________
+
+	Con getHours() se obtienen la hora local según la fecha especificada.
+
+	var Xmas95 = new Date('December 25, 1995 23:15:30');
+	var hours = Xmas95.getHours();
+
+	console.log(hours); // 23
+	
+	Otros métodos de fecha:
+	Métodos
+	
+	 Date.getUTCDate()
+	o Devuelve el día del mes de la fecha especificada según la hora universal.
+
+	 Date.getUTCDay()
+	o Devuelve el día de la semana de la fecha especificada según la hora
+	universal. Ej: console.log(fecha.getUTCDay()); // 1
+
+	 Date.getUTCFullYear()
+	o Devuelve el día el año de la fecha especificada según la hora universal.
+
+	 Date.getUTCHours()
+	o Devuelve las horas de la fecha especificada según la hora universal.
+	
+	 Date.getUTCMinutes()
+	o Devuelve los minutos de la fecha especificada según la hora universal.
+
+	 Date.getUTCSeconds()
+	o Devuelve los segundos de la fecha especificada según la hora universal.
+
+	 Date.getMilliseconds()
+	o Devuelve los milisegundos de la fecha especificada según la hora local.
+
+	 Date.getUTCMilliseconds()
+	o Devuelve los milisegundos de la fecha especificada según la hora
+	universal.
+
+	 Date.getUTCMonth()
+	Devuelve el mes de la fecha especificada según la hora universal.
+
+	 Date.getTime()
+	o Devuelve el valor numérico correspondiente a la hora especificada según
+	la hora universal.
+
+	 Date.getTimezoneOffset()
+	o Devuelve la diferencia horaria en minutos para la zona geográfica actual.
+	(valor en msg usando el formato universal)
+
+	 Date.setDate(día)
+	o Establece el día del mes de la fecha especificada según la hora local.
+
+	 Date.setUTCDate(día)
+	Establece el día del mes de la fecha especificada según la hora universal.
+
+	 Date.setFullYear(año)
+	o Establece el año completo de la fecha especificada según la hora local.
+
+	 Date.setUTCFullYear(año)
+	o Establece el año completo de la fecha especificada según la hora
+	universal.
+
+	 Date.setHours(hora)
+	o Establece las horas de la fecha especificada según la hora local.
+
+	 Date.setUTCHours(hora)
+	o Establece la hora de la fecha especificada según la hora universal.
+
+	 Date.setMilliseconds(msg)
+	o Establece los milisegundos de la fecha especificada según la hora local.
+
+	 Date.setUTCMilliseconds(msg)
+	o Establece los milisegundos de la fecha especificada según la hora
+	universal.
+
+	 Date.setMinutes(min)
+	o Establece los minutos de la fecha especificada según la hora local.
+
+	 Date.setUTCMinutes(min)
+	o Establece los minutos de la fecha especificada según la hora universal.
+
+	 Date.setSeconds(sg)
+	o Establece los segundos de la fecha especificada según la hora local.
+
+	 Date.setUTCSeconds(sg)
+	o Establece los segundos de la fecha especificada según la hora universal.
+	
+	 Date.setMonth(mes)
+	o Establece el mes de la fecha especificada según la hora local.
+
+	 Date.setUTCMonth(mes)
+	o Establece el mes de la fecha especificada según la hora universal.
+
+	 Date.setTime(msg)
+	o Establece el valor del objeto Date según la hora local. Modifica la fecha
+	haciendo que valga la fecha correspondiente a aplicar el número de
+	milisegundos indicados, contados a partir del 1 de enero de 1970.
+
+	 Date.toDateString()
+	o Muestra la fecha en un formato de lectura más humano.
+	let fecha=new Date(2021,9,4,18,38,45);
+	console.log(fecha.toDateString()); //resultado: Mon Oct 04 2021
+
+	 Date.toGMTString()
+	o Igual que la anterior, pero antes de mostrarla convierte la fecha a la
+	correspondiente según el meridiano de Greenwich.
+	console.log(fecha.toGMTString());//resultado:
+	//Mon, 04 Oct 2021 16:38:45 GMT
+
+	 Date.toISOString()
+	o Muestra la fecha en formato ISO, el cuál cumple con la siguiente
+	plantilla: yyyy-mm-ddThh:mm:ss:ssZ
+	console.log(fecha.toISOString());//Lo referencia al meridiano de
+	//Greenwich.
+	//resultado: 2021-10-04T16:38:45.000Z
+
+
+	 Date.toLocaleString([código local[,opciones]])
+	o Sin parámetros muestra la fecha y hora en formato de texto usando la
+	configuración local.
+
+	console.log(fecha.toLocaleString());
+	//resultado: 4/10/2021 18:38:45
+	Pero es posible indicar el código de país:
+	console.log(fecha.toLocaleString("de"));
+	//resultado: 4.10.2021, 18:38:45
+	console.log(fecha.toLocaleString("en"));
+	//resultado: 10/4/2021, 6:38:45 PM
+	Las opciones permiten indicar formato numérico, zona horaria, formato
+	de hora, etc. Ejemplo:
+	console.log(fecha.toLocaleString("es",{"timeZone":"UTC"}));
+	//resultado: 4/10/2021 16:38:45
+
+	 Date.toLocaleDateString()
+	o Muestra la fecha (sin la hora) en formato de texto usando la
+	configuración local.
+
+	 Date.toTimeString()
+	o Muestra la hora (sin la fecha) en formato de texto usando la
+	configuración local.
+
+	 Date.toString()
+	o Muestra la fecha en formato de texto usando la configuración habitual de
+	JavaScript.
+
+	 Date.toUTCString()
+	o Versión en formato universal de la anterior.
+
+	 Date.toJSON()
+	o Muestra la fecha en formato JSON. Obtiene lo mismo que la anterior
+
+
+	Métodos Estáticos de Date:
+	__________________________
+	
+	Estos métodos usan directamente el objeto global Date. Se usan de la siguiente forma:
+
+	Date.nombreMétodo.
+
+	Date.now()
+	__________
+	Fecha actual en milisegundos desde el día 1 de enero de 1970.
+	console.log(Date.now());
+	//resultado: 1633281746574
+
+
+	Date.parse(objetoFecha)
+	_______________________
+	Transforma una cadena que representa una fecha, y devuelve el número de
+	milisegundos desde el 1 de enero de 1970, hora local 00:00:00.
+	console.log(Date.parse(fecha));
+	//resultado: 1633365525000
+
+	Date.UTC(año,mes,día,horas,minutos,segundos,msg)
+	_________________________________________________
+	Acepta los mismos parámetros que la forma más larga del constructor, y
+	devuelve el número de milisegundos en un objeto Date desde el 1 de enero de
+	1970, hora universal 00:00:00.
+	console.log(Date.UTC(2021,9,4,19,20,55,12));
+	//resultado: 1633375255012
+
+
+ARRAYS:
+_______
+
+Los arrays son un tipo de objeto especial que nos permite agrupar elementos.
+
+Declaración de un array vacío:
+const arrayA=[];
+
+Se puede declarar arrays de números, string o mixto: const arrayE=[1,false,"CA"];
+
+const numeros=[1,2,3,4];
+
+let num1=numeros[0]; //Se asignan los valores por la posición
+
+Se puede recorrer el array con for o for of:
+
+FOR:
+____
+
+for(let i=0;i<numeros.length;i++){
+	alert(numeros[i]);
+}
+
+let iterable = new Map([["a", 1], ["b", 2], ["c", 3]]);
+
+
+FOR OF
+______
+
+for (let entry of iterable) {
+  console.log(entry);
+}
+
+
+OBJETOS LITERALES:
+__________________
+
+Son array de objetos, listado de objetos creados por el usuario, ya sea de forma explícita usando objetos literales o instanciándolos con un constructor.
+
+const objeto1={ id:1,producto:"Arroz"};
+const array=[objeto1,{id:2,producto:"Fideo"}];
+
+const productos= [{id:1, producto:"Arroz"},
+		 { id:2, producto:"Fideo"},
+		 { id:3, producto:"Pan"}];
+	
+for(const producto of productos){
+	console.log(productos.id);
+	console.log(productos.producto);
+}
+
+DOM:
+____
+
+SITUARNOS EN UN ID,NAME,ETIQUETA O CLASS
+________________________________________
+
+Se pueden llamar de varias maneras en el DOM:
+
+	Mediante id: document.getElementById("ejemplo1").value;
+	Mediante etiqueta: document.getElementTagByName("input")[0].value;  //En este caso es un array con los input e indicamos la posición
+	Mediante name: document.getElementByName("ejemplo")[0].value;  //También funciona como un array y se indica la posición, se llama al name del input
+	Mediante class: document.getElementsByClassName("ejemplo2_").value;
+
+ESCRIBIR EN EL DOM
+__________________
+
+DOCUMENT.WRITE()
+_________________
+Cuando queremos que afecte a todo el documento sería document.body
+
+Para escribir una cadena de texto a través del dom sería a través de document.write(variable);
+
+DOCUMENT.CREATEELEMENT
+______________________
+Con createElement se crea una etiqueta de html a través del dom.
+
+ELEMENT.INNERTEXT O ELEMENT.INNERHTML
+______________________________________
+Con innerText o innerHTML se puede escribir html a través del dom.
+
+APPENDCHILD
+___________
+
+Siempre se confirman los cambios con appenChild.
+
+let seccionSuperior=document.getElementById("superior");
+                    let menu_Elegido=document.createElement("h1");
+                    menu_Elegido.innerText=("Usted ha elegido el siguiente menú: ");
+                    seccionSuperior.appendChild(menu_Elegido);
+
+MODIFICAR ATRIBUTOS:
+_____________________
+
+Con setAtribute se puede modificar un atributo o manipular a través del atributo style el css de un elemento.
+Element.setAttribute(name, value);
+	
+	ejemplo1:
+	var b = document.querySelector("button");
+
+	b.setAttribute("name", "helloButton");
+	b.setAttribute("disabled", "");
+
+	ejemplo2:
+        document.body.setAttribute('style','background-color:rgb('+r+','+g+','+b+')');
+
+QUERYSELECTOR:
+______________
+
+El método querySelector() de la interfaz Document devuelve el primer descendiente del documento.
+El método querySelector() de la intrefaz  Element devuelve el primer descendiente del elemento sobre el cual es invocado 
+que coincida con el o los selectores especificados.
+
+	ejemplo:
+
+	var baseElement = document.querySelector("p");
+	document.getElementById("output").innerHTML =
+         (baseElement.querySelector("div span").innerHTML);
+
+DEVOLVER VALOR DE ATRIBUTOS:
+____________________________
+
+var atributo = element.getAttribute(nombreAtributo);
+
+atributo es una cadena que contiene el valor del atributo nombreAtributo.
+nombreAtributo es el nombre del atributo del cual se quiere obtener el valor.
+	
+	ejemplo:
+	var div1 = document.getElementById("div1");
+	var align = div1.getAttribute("align");
+
+	alert(align); // Muestra el valor de la alineación(align) del elemento con id="div1"
+
+MANIPULAR E INSERTAR IMÁGENES A TRAVÉS DEL DOM
+______________________________________________
+
+	function tirodado(){
+	//create a random integer between 1 and 6
+		var randomdice=Math.round(Math.random()*6)
+		document.images["midado"].src="dado-"+ randomdice + ".png"
+	}
+Con document.images se puede insertar imágenes en html a través del DOM.
+
+
+MANIPULAR CSS CON EL DOM:
+_________________________
+
+Se puede manipular a través de setAttribute
+	document.body.setAttribute('style','background-color:rgb('+r+','+g+','+b+')');
+
+Se puede manipular directamente con style.backgroundColor
+  	document.body.style.backgroundColor='rgb('+r+','+g+','+b+')';
+
+
+EVENTOS:
+________
+
+HAY TRES FORMAS DE LLAMAR A EVENTOS:
+
+	1. A través del html
+		La primera opción es determinar el evento a escuchar especificando el manejador del evento en el atributo de una etiqueta HTML. 
+		La denominación del atributo es idéntica al de la propiedad on-event:
+
+		onclick="nombreFuncion();"
+		
+		Ejemplo:
+		<input type="button" value="CLICK2" onclick="alert('Respuesta 3');" />
+		
+	
+	
+	2: método addEventListener
+	__________________________
+	
+	El método addEventListener  permite definir qué evento escuchar sobre cualquier elemento del DOM. 
+	El primer parámetro corresponde al nombre del evento, y el segundo a la función de respuesta.  
+	El manejador de eventos puede ser una función con nombre,  anónima o función flecha. 
+	
+	<!DOCTYPE html>
+	<html>
+  	<head>
+    		<title>Mi primer App</title>
+  	</head>
+  	<body>
+    		<h2>Coder House</h2>
+    		<button id="btnPrincipal">CLICK</button>
+    	<script>
+      		let boton = document.getElementById("btnPrincipal")
+      		boton.addEventListener("click", respuestaClick)
+      		function respuestaClick(){
+        		console.log("Respuesta evento");
+      		}
+    	</script>
+  	</body>
+	</html>
+
+	3.Propiedades on event:
+	
+	Podemos emplear una propiedad on-event para asignar el manejador de evento, definiendo la respuesta al evento escogido.  
+	Para reconocer  el identificador de la propiedad,  utilizamos el nombre  del evento y el prefijo on, siendo en el caso del evento clic la propiedad onclick.
+	Veamos el ejemplo correspondiente: 
+
+
+	<!DOCTYPE html>
+	<html>
+  	<head>
+    		<title>Mi primer App</title>
+  	</head>
+  	<body>
+    		<h2>Coder House</h2>
+    		<button id="btnPrincipal">CLICK</button>
+    	<script>
+      		let boton = document.getElementById("btnPrincipal")
+      		boton.onclick = () =>{console.log("Respuesta 2")}
+    	</script>
+  	</body>
+	</html>
