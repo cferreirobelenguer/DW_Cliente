@@ -1,0 +1,39 @@
+
+
+<!--Desarrollar una página web que permita determinar el factorial de un número-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+</head>
+<body>
+    <form  id="form">
+        <p>
+            <label for="numero" >Introduce número: </label>
+            <input type="number" name="factorial">
+        </p>
+        <p>
+            <textarea id="respuesta" rows="10" cols="50"></textarea>
+        </p>
+        <button id="boton" onclick="calcularFactorial();" >Ver factorial</button>
+        <button type="reset">Reset</button>
+    </form>
+    <script>
+        
+        function calcularFactorial(){
+            let numero=document.getElementsByName("factorial")[0].value;
+            let factorial=1;
+            for(let i=1;i<=numero;i++){
+                
+                factorial=factorial*i;
+            }
+            let texto=("El factorial de "+numero+" es "+factorial);
+            document.getElementById("respuesta").value=texto;
+        }
+        
+    </script>
+</body>
+</html>
