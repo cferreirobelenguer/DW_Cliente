@@ -1,4 +1,6 @@
 
+
+
 <!-- Decir si una persona es mayor de edad-->
 
 <!DOCTYPE html>
@@ -46,13 +48,14 @@
     <script>
         function datosPersona(){
             let nombre=document.getElementsByName("dato")[0].value;
+            //Escribir nombre
             console.log ("Nombre: "+nombre);
             let escribirDatos=document.getElementById("imprimirDatos");
             let escribirNombre=document.createElement("h1");
             escribirNombre.innerText=("Nombre: "+nombre);
             escribirDatos.appendChild(escribirNombre);
 
-        
+            //Escribir apellido
             let apellido=document.getElementsByName("dato")[1].value;
             console.log("Apellido: "+apellido);
             let escribirApellido=document.createElement("h1");
@@ -66,34 +69,30 @@
             escribirFecha.innerText=("Fecha de nacimiento: "+fechaNacimiento);
             escribirDatos.appendChild(escribirFecha);
             
-            let fechas=fechaNacimiento.split("-");
-            let diaNacimiento=fechas[2];
-            let mesNacimiento=fechas[1];
-            let añoNacimiento=fechas[0];
-            console.log("Fecha de nacimiento: ");
-            console.log("Día: "+diaNacimiento);
-            console.log("Mes: "+mesNacimiento);
-            console.log("Año: "+añoNacimiento);
+            //Conversión a milisegundos de los 18 años
+            milisegundos18=567648000000;
 
-            //Fecha actual
+            //fecha de nacimiento a milisegundos
+            nacimientoMilisegundos=Date.parse(fechaNacimiento);
 
+            //Fecha actual a milisegundos
             let fechaActual=new Date();
-            let diaActual=fechaActual.getDay();
-            let mesActual=fechaActual.getMonth()+1;
-            let añoActual=fechaActual.getFullYear();
+            actualMilisegundos=Date.parse(fechaActual);
 
             console.log("Fecha actual: "+fechaActual);
 
-            let resta=añoActual-añoNacimiento;
-            if(resta<18){
-                console.log(nombre+" "+apellido+" es menor de edad, tiene "+resta+" años");
+            //Calcular edad en milisegundos y comparar con milisegundos de 18
+            let resta=actualMilisegundos-nacimientoMilisegundos;
+
+            if(resta<milisegundos18){
+                console.log(nombre+" "+apellido+" es menor de edad");
                 let escribirAños=document.createElement("h1");
-                escribirAños.innerText=(nombre+" "+apellido+" es menor de edad, tiene "+resta+" años");
+                escribirAños.innerText=(nombre+" "+apellido+" es menor de edad");
                 escribirDatos.appendChild(escribirAños);
             }else{
-                console.log(nombre+" "+apellido+" es mayor de edad, tiene "+resta+" años");
+                console.log(nombre+" "+apellido+" es mayor de edad");
                 let escribirAños2=document.createElement("h1");
-                escribirAños2.innerText=(nombre+" "+apellido+" es mayor de edad, tiene "+resta+" años");
+                escribirAños2.innerText=(nombre+" "+apellido+" es mayor de edad");
                 escribirDatos.appendChild(escribirAños2);
             }
 
