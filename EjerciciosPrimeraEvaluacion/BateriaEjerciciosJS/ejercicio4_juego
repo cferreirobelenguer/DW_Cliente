@@ -2,6 +2,8 @@
 
 
 
+
+
 <!-- 4.- Crear una página web que permita implementar el juego de “Adivinar el número que ha
 generado la página entre el 1 y el 1000”. El programa permitirá un número de intentos
 indefinido, irá contabilizando el número de intentos, hasta acertar, o bien, el usuario podrá
@@ -30,30 +32,35 @@ guiando al usuario en el intento de adivinar, es mayor, es menor, etc.-->
     <script>
     var numero=parseInt(Math.random()*(1000-1)+1);
     var acierto;
-
+    var contador=0;
     function enviarDatos(){
         
         alert(numero);
 
         acierto=document.getElementsByName("number")[0].value;
         acierto=parseInt(acierto); 
+        
+        if(acierto!=numero){
+            contador++;
+            if(acierto>numero){
+                let texto="El número que ha introducido es mayor";
+                document.getElementById("textarea").value=texto;
+            }else if(acierto<numero){
+                let texto="El número que ha introducido es menor";
+                document.getElementById("textarea").value=texto;
+            }
+
+        }
         if(acierto==numero){
-            let texto="Usted ha adivinado el número";
-            document.getElementById("textarea").value=texto;
-        }else if(acierto>numero){
-            let texto="El número que ha introducido es mayor";
-            document.getElementById("textarea").value=texto;
-        }else if(acierto<numero){
-            let texto="El número que ha introducido es menor";
+            let texto="Usted ha adivinado el número con un total de "+contador+" intentos";
             document.getElementById("textarea").value=texto;
         }
-
     }
 
     let boton = document.getElementById("boton");
     boton.addEventListener("click", respuestaClick);
             function respuestaClick(){
-                let texto="Usted ha salido de la partida";
+                let texto="Usted ha salido de la partida con un total de "+contador+" intentos";
                 document.getElementById("textarea").value=texto;
                 return;
             }
