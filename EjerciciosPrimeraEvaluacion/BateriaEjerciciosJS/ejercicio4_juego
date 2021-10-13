@@ -1,0 +1,65 @@
+
+
+
+
+<!-- 4.- Crear una página web que permita implementar el juego de “Adivinar el número que ha
+generado la página entre el 1 y el 1000”. El programa permitirá un número de intentos
+indefinido, irá contabilizando el número de intentos, hasta acertar, o bien, el usuario podrá
+salir voluntariamente de la partida pulsando “Salir”. Al mismo tiempo el programa irá
+guiando al usuario en el intento de adivinar, es mayor, es menor, etc.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio4</title>
+</head>
+<body>
+    <p>
+        <input type="text" name="number">
+    </p>
+    <p>
+        <textarea id="textarea" rows="20" cols="30"></textarea>
+    </p>
+    
+    <button id="enviar" onclick="enviarDatos();">ENVIAR</button>
+    <button id="boton" >SALIR</button>
+    
+    <script>
+    var numero=parseInt(Math.random()*(1000-1)+1);
+    var acierto;
+
+    function enviarDatos(){
+        
+        alert(numero);
+
+        acierto=document.getElementsByName("number")[0].value;
+        acierto=parseInt(acierto); 
+        if(acierto==numero){
+            let texto="Usted ha adivinado el número";
+            document.getElementById("textarea").value=texto;
+        }else if(acierto>numero){
+            let texto="El número que ha introducido es mayor";
+            document.getElementById("textarea").value=texto;
+        }else if(acierto<numero){
+            let texto="El número que ha introducido es menor";
+            document.getElementById("textarea").value=texto;
+        }
+
+    }
+
+    let boton = document.getElementById("boton");
+    boton.addEventListener("click", respuestaClick);
+            function respuestaClick(){
+                let texto="Usted ha salido de la partida";
+                document.getElementById("textarea").value=texto;
+                return;
+            }
+            
+        //}
+    
+    </script>
+</body>
+</html>
