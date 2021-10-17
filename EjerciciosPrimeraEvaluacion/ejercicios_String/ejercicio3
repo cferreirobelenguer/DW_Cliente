@@ -1,0 +1,64 @@
+
+
+
+
+<!-- Ejercicio 3.- Uso indexOf
+Desarrollar una página web en cuyo script se permita definir las siguientes variables:
+miCadena="cabrales, torta del casar, idiazabal"
+miCadenaMayusculas="Cabrales, Torta del Casar, Idiazabal"
+Se le pedirá al cliente que escriba en un prompt la variedad de queso que prefiere.
+Se mostrará un mensaje informando de la posición que ocupa en la cadena miCadena o
+miCadenaMayusculas, en función de cómo lo haya escrito el cliente.
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+</head>
+<body>
+    
+    <script>
+        function posicionCadenas(){
+            var miCadena="cabrales,torta del casar,idiazabal";
+            var miCadenaMayusculas="Cabrales,Torta del Casar,Idiazabal";
+
+            //Se pide al usuario el queso
+            let queso=prompt("Introduce un queso");
+            var inicio1;
+            var final1;
+            var inicio2;
+            var final2;
+
+            //Si queso está dentro de cadena se busca el índice y se calcula la longitud
+            //El final de la posición será la longitud-1
+            if(miCadena.includes(queso)){
+                inicio1=miCadena.indexOf(queso);
+                if(inicio1!=-1){
+                    let longitud=queso.length;
+                    final1=inicio1+longitud-1;
+                }else{
+                    console("La cadena introducida no se encuentra en los registros");
+                    document.write("La cadena introducida no se encuentra en los registros");
+                }
+                document.write("El inicio de la cadena es "+inicio1+" y el final es "+final1);
+                console.log("El inicio de la cadena es "+inicio1+" y el final es "+final1);
+            }else if(miCadenaMayusculas.includes(queso)){
+                inicio2=miCadenaMayusculas.indexOf(queso);
+                if(inicio2!=-1){
+                    let longitud2=queso.length;
+                    final2=inicio2+longitud2-1;
+                }else{
+                    console("La cadena introducida no se encuentra en los registros");
+                    document.write("La cadena introducida no se encuentra en los registros");
+                }
+                document.write("El inicio de la cadena es "+inicio2+" y el final es "+final2);
+                console.log("El inicio de la cadena es "+inicio2+" y el final es "+final2);
+            }
+        }
+        posicionCadenas();
+    </script>
+</body>
+</html>
