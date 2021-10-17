@@ -1,0 +1,54 @@
+
+
+<!-- Ejercicio 4.- Cifrado estilo César.
+El cifrado césar consiste en tomar cada letra de un mensaje y desplazarla en el alfabeto el
+número que diga una clave. Por ejemplo, la letra A desplazada con clave 2, se convertirá en
+C.
+Aunque el cifrado César funciona con un alfabeto completo y por desplazamiento (en el
+ejemplo anterior la letra Z sería la letra B) crea una página que pida al usuario un texto y una
+clave y escriba el mismo texto pero desplazando los caracteres Unicode el número que
+indique la clave-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+</head>
+<body>
+    
+</body>
+    <script>
+        var textoFinal="";
+        function cifradoCesar(){
+            var texto=prompt("Introduce un mensaje");
+            var clave=parseInt(prompt("Introduce una clave"));
+            
+            //Declaración de una cadena de alfabeto
+            var alfabeto="abcdefghijklmnñopkrstuvwyz";
+            var arrayPosiciones=[];
+
+            for(let i=0;i<=texto.length-1;i++){
+                let caracter=texto.charAt(i);
+                let posicion=parseInt(alfabeto.indexOf(caracter));
+                if(posicion!=1){
+                    //Array con las posiciones de cada letra que forma el texto introducido por usuario
+                    arrayPosiciones.push(posicion+(clave));
+                }
+            }
+            //Se buscan las nuevas letras del alfabeto con las posiciones del array
+            console.log(arrayPosiciones);
+            for(let j=0;j<=arrayPosiciones.length-1;j++){
+                textoFinal=textoFinal+alfabeto.charAt(arrayPosiciones[j]);
+                
+            }
+            document.write("El texto introducido es "+texto+", la clave es "+clave+" y el texto final es "+textoFinal);
+            
+        }
+        cifradoCesar();
+        
+
+    </script>
+</html>
