@@ -1,4 +1,5 @@
 
+
 <!--Ejercicio 2.- Uso CharAt y random
 Desarrollar una página web que pida al cliente una frase a través de una caja de texto. Y,
 cada vez que el cliente haga clic sobre el botón “Ver”, deberá mostrar un carácter aleatorio
@@ -43,8 +44,11 @@ aleatoria a través de “Ver”-->
 
             for(let i=0;i<longitud;i++){
                 caracter=frase.charAt(i);
-                console.log(caracter);
-                array.push(caracter);
+                if(caracter!=' '){
+                    console.log(caracter);
+                    array.push(caracter);
+                }
+                
             }
 
             //Caracteres aleatorios con random
