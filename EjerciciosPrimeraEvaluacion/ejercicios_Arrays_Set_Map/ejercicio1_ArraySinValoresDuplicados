@@ -18,18 +18,29 @@ Desarrollar el código script que permita obtener un array sin elementos repetid
     <p>
     <textarea id="texto" cols=20 rows=30></textarea>
     </p>
-    <button id="boton" onclick="generarArray()">Ver Array aleatorio</button>
+    <button id="boton" onclick="generarSet()">Ver Array aleatorio</button>
     <script>
+        //UNA FORMA DE HACERLO ES A TRAVÉS DE ARRAYS CON LA FUNCIÓN FILTER
         function generarArray(){
             var Array=[4,0,3,4,7,3,5,8,1,8,8,0,2,3,1,2,5,7,3,2,5,1];
-            //Generamos los números aleatorios y los introducimos en el Array
-
-            var Array=Array.filter((valor,indice)=>{
-                return Array.indexOf(valor)===indice;
+            
+            var Array=Array.filter((valor,elemento)=>{
+                return Array.indexOf(valor)===elemento;
             })
-            let texto= "El array generado aleatoriamente es \n"+Array;
+            let texto= "El array generado sin números duplicados es \n"+Array;
             document.getElementById("texto").value=texto;
             }
+            //OTRA FORMA DE HACERLO: También se puede hacer con un Set
+        function generarSet(){
+            var Array=[4,0,3,4,7,3,5,8,1,8,8,0,2,3,1,2,5,7,3,2,5,1];
+            var numerosSinDuplicar=new Set();
+            for(let i in Array){
+                numerosSinDuplicar.add(Array[i]);
+            }
+            var ArrayNuevo=[...numerosSinDuplicar];
+            let texto= "El array generada es \n"+ArrayNuevo;
+            document.getElementById("texto").value=texto;
+        }
 
     </script>
 </body>
