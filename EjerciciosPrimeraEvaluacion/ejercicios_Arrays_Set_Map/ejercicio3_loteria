@@ -1,0 +1,52 @@
+
+
+<!--3.- Crear una aplicación web que muestre cincuenta combinaciones para jugar a la lotería
+primitiva.
+Las combinaciones son seis números del 1 al 49, pero hay que tener en cuenta que no se
+pueden repetir los números-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOTERIA</title>
+</head>
+<body>
+    <p>
+        <textarea id="texto" cols=20 rows=30></textarea>
+        </p>
+        <button id="boton" onclick="generarSet()">Generar combinación</button>
+        
+    <script>
+        var combinacionTotal=[];
+        var contador=0;
+        function generarSet(){
+            var combinacion=new Set();
+
+            for(let i=0;i<6;i++){
+                
+                var numero=Math.floor(Math.random()*(49-1)+1);   
+                combinacion.add(numero);
+            
+            }
+            console.log(combinacion);
+            var combinacion_=[...combinacion];
+            combinacionTotal.push(combinacion_);
+            
+            contador++;
+            if(contador==50){
+                var texto="La combinación total de la primitiva es: \n"+combinacionTotal;
+                document.getElementById("texto").value=texto;
+            }
+        }
+    
+            
+        
+    
+        
+            
+        
+    </script>
+</body>
+</html>
