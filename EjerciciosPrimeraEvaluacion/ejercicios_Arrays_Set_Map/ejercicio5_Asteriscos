@@ -1,0 +1,32 @@
+
+
+<!--5.- Mostrar asteriscos para un array.
+Genera un array con 20 números aleatorios del 1 al 50.
+Recorre el array mostrando tantos asteriscos como se indique en el número de cada
+elemento.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJERCICIO 5</title>
+</head>
+<body>
+        <button id="boton" onclick="generarAsteriscos()">Generar combinación</button>
+<script>
+    function generarAsteriscos(){
+        
+        var longitud=20;
+        for(let i=0;i<longitud;i++){
+            var numero=Math.floor(Math.random()*(50-1)+1);  
+            for(let j=0;j<=numero;j++){
+                document.write("*");
+                
+            }
+            document.write("<br>");
+        }
+    }
+</script>
+</body>
+</html>
