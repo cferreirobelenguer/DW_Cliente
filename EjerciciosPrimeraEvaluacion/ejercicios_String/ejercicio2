@@ -1,5 +1,6 @@
 
 
+
 <!--Ejercicio 2.- Uso CharAt y random
 Desarrollar una página web que pida al cliente una frase a través de una caja de texto. Y,
 cada vez que el cliente haga clic sobre el botón “Ver”, deberá mostrar un carácter aleatorio
@@ -25,6 +26,9 @@ aleatoria a través de “Ver”-->
         <p>
             <textarea id="texto" col="30" rol="30"></textarea>
         </p>
+        <p>
+            <textarea id="texto2" col="30" rol="30"></textarea>
+        </p>
         <buttom id="aleatorio1" onclick="caracterAleatorio();">Ver caracter</buttom>
         <buttom id="aleatorio2" onclick="caracterAleatorio2();">Terminar</buttom>
 
@@ -32,6 +36,7 @@ aleatoria a través de “Ver”-->
     <script>
         var totalCaracteres;
         var aleatorio_2;
+        var aleatorio_;
         function caracterAleatorio(){
             var caracter;
             var array=[];
@@ -53,16 +58,11 @@ aleatoria a través de “Ver”-->
 
             //Caracteres aleatorios con random
             var aleatorios=Math.floor(Math.random()*array.length);
-            let aleatorio_=(aleatorios,array[aleatorios]);
+            aleatorio_=(aleatorios,array[aleatorios]);
             console.log(array);
             let texto1="El texto elegido es: "+frase+", y el caracter aleatorio es "+aleatorio_;
             document.getElementById("texto").value=texto1;
 
-            //En caso de que se active la casilla terminar y se genere un aleatorio se ponen las casillas vacías
-            if(aleatorio_2){
-                document.getElementsByName("frase")[0].value=" ";
-                document.getElementById("texto").value=" ";
-            }
         }
         function caracterAleatorio2(){
             //Se genera el segundo número aleatorio del botón terminar
@@ -74,12 +74,23 @@ aleatoria a través de “Ver”-->
 
             for(let i=0;i<longitud2;i++){
                 caracter2=frase2.charAt(i);
-                console.log(caracter2);
-                array2.push(caracter2);
+                if(caracter2!=' '){
+                    console.log(caracter2);
+                    array2.push(caracter2);
+                }
+                
             }
             var aleatorios2=Math.floor(Math.random()*array2.length);
             aleatorio_2=(aleatorios2,array2[aleatorios2]);
-            console.log(array2);
+            let texto2="El segundo caracter aleatorio es: "+aleatorio_2;
+            document.getElementById("texto2").value=texto2;
+            
+             //En caso de que se active la casilla terminar y se genere un aleatorio igual al otro se ponen las casillas vacías
+            if(aleatorio_2==aleatorio_){
+                document.getElementsByName("frase")[0].value=" ";
+                document.getElementById("texto").value=" ";
+                document.getElementById("texto2").value=" ";
+            }
         }
 
     </script>
