@@ -1,12 +1,12 @@
 
 
-
-
 JS PRIMERA EVLUACIÓN
 ____________________
 
 NOTAS
 _____
+
+_________________________________________________________________________________________________________
 
 DECLARACIÓN DE VARIABLES:
 _________________________
@@ -39,6 +39,8 @@ ______
 	typeof miFunction //devuelve function
 	typeof true //devuelve boolean
 	typeof 62 //devuelve number
+
+_________________________________________________________________________________________________________
 
 
 PASAR DE CADENA DE CARACTERES A INT O FLOAT:
@@ -95,6 +97,7 @@ document.getElementByName("textarea")[0].value=texto;
 Con esto le damos el valor Hola Mundo al text area.
 
 
+_________________________________________________________________________________________________________
 
 ESTRUCTURAS DE CONTROL:
 _______________________
@@ -216,6 +219,9 @@ CONTINUE: puede usarse para reinicar una sentencia while, do-while, for o label
 	n+=i;
 	}
 
+_________________________________________________________________________________________________________
+
+EXPRESIONES MATEMÁTICAS MATH
 MATH
 ____
 
@@ -250,6 +256,8 @@ var z = Math.min(x, y);
 
 Math.abs() retorna el valor absoluto de un número
 
+
+_________________________________________________________________________________________________________
 
 FECHAS:
 _______
@@ -481,6 +489,46 @@ Luego de ahí ya se asignan los valores en variables a través de la posición d
 	o Muestra la fecha en formato JSON. Obtiene lo mismo que la anterior
 
 
+	DATE.PARSE()
+	____________
+	método para pasar una fecha entero con año mes y día a milisegundos: ejemplo de ejercicio de saber si alguien es mayor o menor de edad:
+
+	//Fecha de nacimiento que el usuario escribe
+            let fechaNacimiento=document.getElementById("fechaNaci").value;
+            console.log(fechaNacimiento);
+            let escribirFecha=document.createElement("h1");
+            escribirFecha.innerText=("Fecha de nacimiento: "+fechaNacimiento);
+            escribirDatos.appendChild(escribirFecha);
+            
+            //Conversión a milisegundos de los 18 años
+            milisegundos18=567648000000;
+
+            //fecha de nacimiento a milisegundos
+            nacimientoMilisegundos=Date.parse(fechaNacimiento);
+
+            //Fecha actual a milisegundos
+            let fechaActual=new Date();
+            actualMilisegundos=Date.parse(fechaActual);
+
+            console.log("Fecha actual: "+fechaActual);
+
+            //Calcular edad en milisegundos y comparar con milisegundos de 18
+            let resta=actualMilisegundos-nacimientoMilisegundos;
+
+            if(resta<milisegundos18){
+                console.log(nombre+" "+apellido+" es menor de edad");
+                let escribirAños=document.createElement("h1");
+                escribirAños.innerText=(nombre+" "+apellido+" es menor de edad");
+                escribirDatos.appendChild(escribirAños);
+            }else{
+                console.log(nombre+" "+apellido+" es mayor de edad");
+                let escribirAños2=document.createElement("h1");
+                escribirAños2.innerText=(nombre+" "+apellido+" es mayor de edad");
+                escribirDatos.appendChild(escribirAños2);
+            }
+
+
+
 	Métodos Estáticos de Date:
 	__________________________
 	
@@ -510,6 +558,7 @@ Luego de ahí ya se asignan los valores en variables a través de la posición d
 	console.log(Date.UTC(2021,9,4,19,20,55,12));
 	//resultado: 1633375255012
 
+_________________________________________________________________________________________________________
 
 ARRAYS:
 _______
@@ -562,6 +611,250 @@ for(const producto of productos){
 	console.log(productos.producto);
 }
 
+
+
+Array
+______
+
+El objeto Array de JavaScript es un objeto global que es usado en la construcción de arrays, que son objetos tipo lista de alto nivel.
+Descripción
+Los arrays son objetos similares a una lista cuyo prototipo proporciona métodos para efectuar operaciones de recorrido y de mutación. 
+Tanto la longitud como el tipo de los elementos de un array son variables. Dado que la longitud de un array puede cambiar en cualquier momento, 
+y los datos se pueden almacenar en ubicaciones no contiguas, no hay garantía de que los arrays de JavaScript sean densos; esto depende de cómo 
+el programador elija usarlos. En general estas características son cómodas, pero si, en su caso particular, no resultan deseables, 
+puede considerar el uso de arrays con tipo.
+
+
+Operaciones habituales
+______________________
+
+Crear un Array
+_______________
+
+let frutas = ["Manzana", "Banana"]
+
+console.log(frutas.length)
+// 2
+
+
+Acceder a un elemento de Array mediante su índice
+__________________________________________________
+
+let primero = frutas[0]
+// Manzana
+
+let ultimo = frutas[frutas.length - 1]
+// Banana
+
+
+Recorrer un Array
+__________________
+
+frutas.forEach(function(elemento, indice, array) {
+    console.log(elemento, indice);
+})
+
+// Manzana 0
+// Banana 1
+
+
+
+Añadir un elemento al final de un Array
+________________________________________
+
+let nuevaLongitud = frutas.push('Naranja') // Añade "Naranja" al final
+// ["Manzana", "Banana", "Naranja"]
+
+
+
+Eliminar el último elemento de un Array
+________________________________________
+
+let ultimo = frutas.pop() // Elimina "Naranja" del final
+// ["Manzana", "Banana"]
+
+
+
+Añadir un elemento al principio de un Array
+____________________________________________
+
+let nuevaLongitud = frutas.unshift('Fresa') // Añade "Fresa" al inicio
+// ["Fresa" ,"Manzana", "Banana"]
+
+
+
+Eliminar el primer elemento de un Array
+________________________________________
+
+let primero = frutas.shift() // Elimina "Fresa" del inicio
+// ["Manzana", "Banana"]
+
+
+
+Encontrar el índice de un elemento del Array
+____________________________________________
+
+frutas.push('Fresa')
+// ["Manzana", "Banana", "Fresa"]
+
+let pos = frutas.indexOf('Banana') // (pos) es la posición para abreviar
+// 1
+
+
+
+Eliminar un único elemento mediante su posición
+_______________________________________________
+
+  Ejemplo:
+
+Eliminamos "Banana" del array pasándole dos parámetros: la posición del primer elemento que se elimina 
+y el número de elementos que queremos eliminar. De esta forma, .splice(pos, 1) empieza en la posición 
+que nos indica el valor de la variable pos y elimina 1 elemento. En este caso, como pos vale 1, 
+elimina un elemento comenzando en la posición 1 del array, es decir "Banana".
+
+let elementoEliminado = frutas.splice(pos, 1)
+// ["Manzana", "Fresa"]
+
+
+
+Eliminar varios elementos a partir de una posición
+___________________________________________________
+
+  Nota:
+
+Con .splice() no solo se puede eliminar elementos del array, si no que también podemos extraerlos guardándolo en un nuevo array. 
+¡Ojo! que al hacer esto estaríamos modificando el array de origen.
+
+let vegetales = ['Repollo', 'Nabo', 'Rábano', 'Zanahoria']
+console.log(vegetales)
+// ["Repollo", "Nabo", "Rábano", "Zanahoria"]
+
+let pos = 1, numElementos = 2
+
+let elementosEliminados = vegetales.splice(pos, numElementos)
+// ["Nabo", "Rábano"] ==> Lo que se ha guardado en "elementosEliminados"
+
+console.log(vegetales)
+// ["Repollo", "Zanahoria"] ==> Lo que actualmente tiene "vegetales" 
+
+
+Copiar un Array
+_______________
+
+let copiaArray = vegetales.slice();
+// ["Repollo", "Zanahoria"]; ==> Copiado en "copiaArray"
+
+
+
+Acceso a elementos de un array
+_______________________________
+Los índices de los arrays de JavaScript comienzan en cero, es decir, el índice del primer elemento de un array es 0, 
+y el del último elemento es igual al valor de la propiedad length del array restándole 1.
+
+
+Si se utiliza un número de índice no válido, se obtendrá undefined.
+
+let arr = ['este es el primer elemento', 'este es el segundo elemento', 'este es el último elemento']
+console.log(arr[0])              // escribe en consola 'este es el primer elemento'
+console.log(arr[1])              // escribe en consola 'este es el segundo elemento'
+console.log(arr[arr.length - 1]) // escribe en consola 'este es el último elemento'
+
+
+Los elementos de un array pueden considerarse propiedades del objeto tanto como toString 
+(sin embargo, para ser precisos, toString() es un método). Sin embargo, se obtendrá un error de sintaxis 
+si se intenta acceder a un elemento de un array de la forma siguiente, ya que el nombre de la propiedad no sería válido:
+
+
+console.log(arr.0) // error de sintaxis
+
+
+No hay nada especial ni en los arrays de JavaScript ni en sus propiedades que ocasione esto. 
+En JavaScript, las propiedades cuyo nombre comienza con un dígito no pueden referenciarse con la notación punto
+ y debe accederse a ellas mediante la notación corchete.
+
+Por ejemplo, dado un objeto con una propiedad de nombre '3d', sólo podría accederse a dicha propiedad con la notación corchete.
+
+let decadas = [1950, 1960, 1970, 1980, 1990, 2000, 2010]
+console.log(decadas.0)  // error de sintaxis
+console.log(decadas[0]) // funciona correctamente
+
+
+
+renderizador.3d.usarTextura(modelo, 'personaje.png')
+renderizador['3d'].usarTextura(modelo, 'personaje.png')
+
+
+Obsérvese que, en el último ejemplo, ha sido necesario poner '3d' entre comillas. 
+Es posible usar también comillas con los índices del los arrays de JavaScript (p. ej., decadas['2'] en vez de decadas[2]), aunque no es necesario.
+
+El motor de JavaScript transforma en un string el 2 de decadas[2] a través de una conversión implícita mediante toString. 
+Por tanto, '2' y '02' harían referencia a dos posiciones diferentes en el objeto decadas, y el siguiente ejemplo podría dar true como resultado:
+
+console.log(decadas['2'] != decadas['02'])
+
+
+
+Relación entre length y las propiedades numéricas
+__________________________________________________
+
+La propiedad length de un array de JavaScript está conectada con algunas otras de sus propiedades numéricas.
+
+Varios de los métodos propios de un array (p. ej., join(), slice(), indexOf(), etc.) 
+tienen en cuenta el valor de la propiedad length de un array cuando se les llama.
+
+Otros métodos (p. ej., push(), splice(), etc.) modifican la propiedad length de un array.
+
+const frutas = []
+frutas.push('banana', 'manzana', 'pera')
+
+console.log(frutas.length) // 3
+
+
+Cuando se le da a una propiedad de un array JavaScript un valor que corresponda a un 
+índice válido para el array pero que se encuentre fuera de sus límites, el motor actualizará el valor de la propiedad length como corresponda:
+
+frutas[5] = 'fresa'
+console.log(frutas[5])           // 'fresa'
+console.log(Object.keys(frutas)) // ['0', '1', '2', '5']
+console.log(frutas.length)       // 6
+
+
+
+Si se aumenta el valor de length:
+
+frutas.length = 10
+console.log(frutas)              // ['banana', 'manzana', 'pera', <2 empty items>, 'fresa', <4 empty items>]
+console.log(Object.keys(frutas)) // ['0', '1', '2', '5']
+console.log(frutas.length)       // 10
+console.log(frutas[8])           // undefined
+
+
+
+Si se disminuye el valor de la propiedad length pueden eliminarse elementos:
+
+frutas.length = 2
+console.log(Object.keys(frutas)) // ['0', '1']
+console.log(frutas.length)       // 2
+Copy to Clipboard
+Hay más información sobre este tema en la página sobre Array.length.
+
+
+
+Creación de un array a partir de una expresión regular
+_______________________________________________________
+
+El resultado de una búsqueda con una RegExp en un string puede crear un array de JavaScript. Este array tendrá propiedades y elementos que proporcionan información sobre la correspondencia encontrada. Para obtener un array de esta forma puede utilizarse RegExp.exec(), String.match() o String.replace().
+
+El siguiente ejemplo, y la tabla que le sigue, pueden ayudar a comprender mejor las propiedades y elementos a los que nos referimos:
+
+// Buscar una d seguida de una o más b y, al final, de otra d
+// Recordar las b y la d final
+// No distinguir mayúsculas y minúsculas
+
+const miRe = /d(b+)(d)/i
+const miArray = miRe.exec('cdbBdbsbz')
+_________________________________________________________________________________________________________
+
 DOM:
 ____
 
@@ -574,6 +867,8 @@ Se pueden llamar de varias maneras en el DOM:
 	Mediante etiqueta: document.getElementTagByName("input")[0].value;  //En este caso es un array con los input e indicamos la posición
 	Mediante name: document.getElementByName("ejemplo")[0].value;  //También funciona como un array y se indica la posición, se llama al name del input
 	Mediante class: document.getElementsByClassName("ejemplo2_").value;
+
+
 
 ESCRIBIR EN EL DOM
 __________________
@@ -664,6 +959,7 @@ Se puede manipular a través de setAttribute
 Se puede manipular directamente con style.backgroundColor
   	document.body.style.backgroundColor='rgb('+r+','+g+','+b+')';
 
+_________________________________________________________________________________________________________
 
 EVENTOS:
 ________
@@ -727,3 +1023,633 @@ HAY TRES FORMAS DE LLAMAR A EVENTOS:
     	</script>
   	</body>
 	</html>
+_________________________________________________________________________________________________________
+
+   STRING
+  ________
+	
+	String — Cadena de caracteres
+	El objeto String se utiliza para representar y manipular una secuencia de caracteres.
+
+	Descripción
+	Las cadenas son útiles para almacenar datos que se pueden representar en forma de texto. 
+	Algunas de las operaciones más utilizadas en cadenas son verificar su length, para construirlas 
+	y concatenarlas usando operadores de cadena + y +=, verificando la existencia o ubicación de subcadenas con indexOf() 
+	o extraer subcadenas con el método substring().
+
+	Creación de String:
+	___________________
+
+	let cadena=new String("hola Mundo"); //Con esto se crea un objeto String
+	let cadena="Hola Mundo"; //Con esto se crea una cadena primitiva
+
+	
+	Las cadenas se pueden crear como primitivas, a partir de cadena literales o como objetos, usando el constructor String():
+
+	const string1 = "Una cadena primitiva";
+	const string2 = 'También una cadena primitiva';
+	const string3 = `Otra cadena primitiva más`;
+	const string4 = new String("Un objeto String");
+	Las strings primitivas y los objetos string se pueden usar indistintamente en la mayoría de las situaciones. 
+	Consulta "Primitivas String y objetos String" a continuación.
+
+	Los cadena literales se pueden especificar usando comillas simples o dobles, que se tratan de manera idéntica,
+	 o usando el carácter de comilla invertida `. Esta última forma especifica una Plantilla literal: con esta forma puedes interpolar expresiones.
+	
+	Acceder a un caracter
+	_____________________
+	Hay dos formas de acceder a un caracter individual en una cadena. La primera es con el método charAt():
+
+		return 'cat'.charAt(1) // devuelve "a"
+
+	La otra forma (introducida en ECMAScript 5) es tratar a la cadena como un objeto similar a un arreglo, donde los caracteres individuales corresponden a un índice numérico:
+
+	return 'cat'[1] // devuelve "a"
+
+	Cuando se usa la notación entre corchetes para acceder a los caracteres, no se puede intentar eliminar o asignar un valor a estas propiedades. Las propiedades involucradas no se pueden escribir ni configurar. (Ve Object.defineProperty() para más información).
+
+
+	Comparar cadenas
+	_________________
+
+	En C, se usa la función strcmp() para comparar cadenas. En JavaScript, solo usas los operadores menor que y mayor que (en-US):
+
+	let a = 'a'
+	let b = 'b'
+	if (a < b) { // true
+  		console.log(a + ' es menor que ' + b)
+	} else if (a > b) {
+  		console.log(a + ' es mayor que ' + b)
+	} else {
+  		console.log(a + ' y ' + b + ' son iguales.')
+	}
+
+
+	Puedes lograr un resultado similar usando el método localeCompare() heredado por las instancias de String.
+
+	Ten en cuenta que a == b compara las cadenas en a y b por ser igual en la forma habitual que
+	 distingue entre mayúsculas y minúsculas. Si deseas comparar sin tener en cuenta los caracteres en mayúsculas o minúsculas, usa una función similar a esta:
+
+	function isEqual(str1, str2)
+	{
+    		return str1.toUpperCase() === str2.toUpperCase()
+	} // isEqual
+
+	En esta función se utilizan mayúsculas en lugar de minúsculas, debido a problemas con ciertas conversiones de caracteres UTF-8.
+
+	
+	Primitivas String y objetos String
+	___________________________________
+	Ten en cuenta que JavaScript distingue entre objetos String y valores de primitivas string. (Lo mismo ocurre con Booleanos y Números).
+
+	Las cadenas literales (denotadas por comillas simples o dobles) y cadenas devueltas de llamadas a String en un contexto que no es de constructor 
+	(es decir, llamado sin usar la palabra clave new) son cadenas primitivas. JavaScript automáticamente convierte las primitivas en objetos String, 
+	por lo que es posible utilizar métodos del objeto String en cadenas primitivas. En contextos donde se va a invocar a un método en una cadena primitiva o se produce una búsqueda de propiedad, JavaScript ajustará automáticamente la cadena primitiva y llamará al método o realizará la búsqueda de la propiedad.
+
+	let s_prim = 'foo'
+	let s_obj = new String(s_prim)
+
+	console.log(typeof s_prim) // Registra "string"
+	console.log(typeof s_obj)  // Registra "object"
+
+	Las primitivas de String y los objetos String también dan diferente resultado cuando se usa eval(). 
+	Las primitivas pasadas a eval se tratan como código fuente; Los objetos String se tratan como todos los demás objetos, devuelven el objeto. Por ejemplo:
+
+	let s1 = '2 + 2'              // crea una string primitiva
+	let s2 = new String('2 + 2')  // crea un objeto String
+		console.log(eval(s1))         // devuelve el número 4
+		console.log(eval(s2))         // devuelve la cadena "2 + 2"
+
+	Por estas razones, el código se puede romper cuando encuentra objetos String y espera una string primitiva en su lugar,
+ 	aunque generalmente los autores no necesitan preocuparse por la distinción.
+
+	Un objeto String siempre se puede convertir a su contraparte primitiva con el método valueOf().
+
+	console.log(eval(s2.valueOf()))  // devuelve el número 4
+
+
+	STRING.LENGTH()
+	_______________
+	Para saber la longitud de un String:
+	cadena.length  //En este caso sería 10
+
+	STRING.VALUE.OF()
+	_________________
+	Convierte un  objeto String en cadena primitiva.
+	Elmétodo valueOf() devuelve el valor primitivo de un objeto String.
+	
+	cadena2_new String("2+2");
+	eval(cadena2.valueOf());  //Devuelve el número 4 
+	Si no se usara valueOf() seguiría siendo un objeto y su valor sería 2+2
+	
+	En un objeto String no reconoce los valores numéricos , pero en una cadena primitiva si.
+	Con lo cual si usamos valueOf en un objeto String si nos va a reconocer los datos numéricos y hará la operación.
+
+	STRING.CHARAT()
+	________________
+	Se puede acceder a caracteres individuales de una cadena con charAt();
+	for(let i=0;i<cadena.length;i++){
+		console.log(cadena.charAt(i));  //Va devolviendo los char que forman la cadena
+	}
+	
+	CHARCODEAT()
+	____________
+	Devuelve el valor Unicode  de un índice.
+
+	Ejemplo: Usando charCodeAt
+	El siguiente ejemplo devuelve 65, el valor Unicode para A.
+	"ABC".charCodeAt(0) // returns 65
+
+	COMPARAR CADENAS
+	_________________
+
+	CON OPERADORES <>=
+	
+	var a = "a";
+	var b = "b";
+	if (a < b) // true
+ 	document.write(a + " es menor que " + b);
+	else if (a > b)
+ 	document.write(a + " es mayor que " + b);
+	else
+ 	document.write(a + " y " + b + " son iguales.");
+
+	CON STRING.LOCALECOMPARE():
+	___________________________
+
+	Devuelve un número que indica si la cadena de caracteres actual es 
+	anterior, posterior o igual a la cadena pasada como parámetro.
+	Valor devuelto: Un número negativo si la cadena de referencia ocurre antes de la cadena de 
+	comparación; positivo si la cadena de referencia ocurre después de la cadena de comparación; 
+	0 si son equivalentes o -1 si no encuentra nada (si no existe la comparación).
+	
+	let texto1="Oso";
+	let texto2="Ñu";
+	console.log(texto1.localeCompare(texto2));
+	1 //ñ más pequeña en orden que la “o”.
+	console.log(texto1.localeCompare(texto2,"es"));
+	1
+	let texto1="Ñu";
+	let texto2="Oso";
+	console.log(texto1.localeCompare(texto2,"es"));
+	-1
+	
+	CONVERTIR EN MAYÚSCULA O MINÚSCULA
+	___________________________________
+
+	String.toLowerCase(): para convertir en minúsculas
+		console.log('ALPHABET'.toLowerCase()); // 'alphabet'
+
+	String.toUpperCase(): para convertir en mayúsculas
+		console.log('ALPHABET'.toUpperCase()); // 'alphabet'
+
+	INDEXOF()
+	_________
+	
+	Busca el índice de un String, en caso de que no se encuentre retorna un -1.
+	
+	"Blue Whale".indexOf("Blue") // returns 0
+	"Blue Whale".indexOf("Blute") // returns -1
+	"Blue Whale".indexOf("Whale",0) // returns 5
+	"Blue Whale".indexOf("Whale",5) // returns 5
+	"Blue Whale".indexOf("",9) // returns 9
+	"Blue Whale".indexOf("",10) // returns 10
+	"Blue Whale".indexOf("",11) // returns 10
+
+	El método indexOf es sensible a mayúsculas. Por ejemplo, la siguiente 
+	expresión devuelve -1:
+	
+	"Ballena Azul".indexOf("azul")
+
+
+	Métodos estáticos
+	___________________
+
+	String.fromCharCode(num1 [, ...[, numN]])
+	Devuelve una cadena creada utilizando la secuencia de valores Unicode especificada.
+
+
+	String.fromCodePoint(num1 [, ...[, numN]])
+	Devuelve una cadena creada utilizando la secuencia de puntos de código especificada.
+
+	String.raw()
+	Devuelve una cadena creada a partir de una plantilla literal sin formato.
+	
+
+	String.prototype.length
+	Refleja la length de la cadena. Solo lectura.
+
+
+	Métodos de instancia
+	_____________________
+
+	String.prototype.charAt(index)
+	Devuelve el caracter (exactamente una unidad de código UTF-16) en el index especificado.
+
+	String.prototype.charCodeAt(index)
+	Devuelve un número que es el valor de la unidad de código UTF-16 en el index dado.
+
+
+	String.prototype.codePointAt(pos)
+	Devuelve un número entero no negativo que es el valor del punto de código del punto de código codificado en UTF-16 que comienza en la pos especificada.
+
+
+	String.prototype.concat(str[, ...strN])
+	Combina el texto de dos (o más) cadenas y devuelve una nueva cadena.
+
+
+	String.prototype.includes(searchString [, position])
+	Determina si la cadena de la llamada contiene searchString.
+
+
+	String.prototype.endsWith(searchString[, length])
+	Determina si una cadena termina con los caracteres de la cadena searchString.
+
+
+	String.prototype.indexOf(searchValue[, fromIndex])
+	Devuelve el índice dentro del objeto String llamador de la primera aparición de searchValue, o -1 si no lo encontró.
+
+
+	String.prototype.lastIndexOf(searchValue[, fromIndex])
+	Devuelve el índice dentro del objeto String llamador de la última aparición de searchValue, o -1 si no lo encontró.
+
+
+	String.prototype.localeCompare(compareString[, locales[, options]])
+	Devuelve un número que indica si la cadena de referencia compareString viene antes, después o es equivalente a la cadena dada en el orden de clasificación.
+
+
+	String.prototype.match(regexp)
+	Se utiliza para hacer coincidir la expresión regular regexp con una cadena.
+
+
+	String.prototype.matchAll(regexp)
+	Devuelve un iterador de todas las coincidencias de regexp.
+
+
+	String.prototype.normalize([form])
+	Devuelve la forma de normalización Unicode del valor de la cadena llamada.
+
+
+	String.prototype.padEnd(targetLength[, padString]) (en-US)
+	Rellena la cadena actual desde el final con una cadena dada y devuelve una nueva cadena de longitud targetLength.
+
+
+	String.prototype.padStart(targetLength[, padString])
+	Rellena la cadena actual desde el principio con una determinada cadena y devuelve una nueva cadena de longitud targetLength.
+
+
+	String.prototype.repeat(count)
+	Devuelve una cadena que consta de los elementos del objeto repetidos count veces.
+
+
+	String.prototype.replace(searchFor, replaceWith)
+	Se usa para reemplazar ocurrencias de searchFor usando replaceWith. searchFor puede ser una cadena o expresión regular, 
+	y replaceWith puede ser una cadena o función.
+
+
+	String.prototype.replaceAll(searchFor, replaceWith) (en-US)
+	Se utiliza para reemplazar todas las apariciones de searchFor usando replaceWith. searchFor puede ser una cadena o expresión regular, 
+	y replaceWith puede ser una cadena o función.
+
+
+	String.prototype.search(regexp)
+	Busca una coincidencia entre una expresión regular regexp y la cadena llamadora.
+
+
+	String.prototype.slice(beginIndex[, endIndex])
+	Extrae una sección de una cadena y devuelve una nueva cadena.
+
+
+	String.prototype.split([sep[, limit] ])
+	Devuelve un arreglo de cadenas pobladas al dividir la cadena llamadora en las ocurrencias de la subcadena sep.
+
+
+	String.prototype.startsWith(searchString[, length])
+	Determina si la cadena llamadora comienza con los caracteres de la cadena searchString.
+
+
+	String.prototype.substr()
+	Devuelve los caracteres en una cadena que comienza en la ubicación especificada hasta el número especificado de caracteres.
+
+
+	String.prototype.substring(indexStart[, indexEnd])
+	Devuelve una nueva cadena que contiene caracteres de la cadena llamadora de (o entre) el índice (o indeces) especificados.
+
+
+	String.prototype.toLocaleLowerCase( [locale, ...locales])
+	Los caracteres dentro de una cadena se convierten a minúsculas respetando la configuración regional actual.
+
+
+	Para la mayoría de los idiomas, devolverá lo mismo que toLowerCase().
+
+	String.prototype.toLocaleUpperCase( [locale, ...locales])
+	Los caracteres dentro de una cadena se convierten a mayúsculas respetando la configuración regional actual.
+
+	Para la mayoría de los idiomas, devolverá lo mismo que toUpperCase().
+
+	String.prototype.toLowerCase()
+	Devuelve el valor de la cadena llamadora convertido a minúsculas.
+
+
+	String.prototype.toString()
+	Devuelve una cadena que representa el objeto especificado. Redefine el método Object.prototype.toString().
+
+
+	String.prototype.toUpperCase()
+	Devuelve el valor de la cadena llamadora convertido a mayúsculas.
+
+
+	String.prototype.trim()
+	Recorta los espacios en blanco desde el principio y el final de la cadena. Parte del estándar ECMAScript 5.
+
+
+	String.prototype.trimStart() (en-US)
+	Recorta los espacios en blanco desde el principio de la cadena.
+
+
+	String.prototype.trimEnd()
+	Recorta los espacios en blanco del final de la cadena.
+
+
+	String.prototype.valueOf()
+	Devuelve el valor primitivo del objeto especificado. Redefine el método Object.prototype.valueOf().
+
+
+	String.prototype.@@iterator() (en-US)
+	Devuelve un nuevo objeto Iterator que itera sobre los puntos de código de un valor de cadena, devolviendo cada punto de código como un valor de cadena.
+
+
+
+_____________________________________________________________________________________
+
+	SET Y MAP
+	_________
+
+	Permiten almacenar datos.
+
+	SET:
+	____
+	Es una lista donde se almacenan datos que no se repiten. Si se añaden valores
+	duplicados estos no se guardan.
+
+	Una lista vacía se declara así:  var lista=new Set();
+
+	Una lista con valores se declara así:
+	var listanueva=new Set([8,6,7,7,5,8,9]);
+
+	
+	MÉTODO ADD: Añadir valores
+	___________
+	lista.add(8);
+	lista.add(6);
+
+	MÉTODO SIZE()
+	_____________
+
+	Permite saber el tamaño de un conjunto
+	console.log(lista.size);
+
+	MÉTODO DELETE()
+	________________
+	
+	Permite eliminar el valor indicado de una lista
+
+	lista.delete
+	
+	MÉTODO CLEAR()
+	______________
+	
+	Limpia toda la lista
+	
+	lista.clear();
+
+	MÉTODO HAS()
+	____________
+
+	Es como un indexOf pero en Set, permite buscar un valor en una lista,
+	en vez de devolverte la posición te devuelve un boolean true si lo encuentra
+	y false si no.
+
+	
+	CONVERTIR SET EN ARRAY
+	______________________
+
+	var base10comoarray=[...base10];
+	Lo convierte en un array
+
+	RECORRER SET
+	____________
+
+	Se puede recorrer con for of
+	
+	for(let elemento of base10){
+		console.log(elemento);
+	}
+	
+	
+	MAPAS
+	_____
+
+	Es una lista que almacena claves y valores.
+	No se pueden repetir valores. Si añadimos un elemento con la misma clave,
+	este sustituye al anterior ya que no puede haber claves repetidas.
+	
+	Declaración de mapas:  var provincias=new Map();
+	
+	ASIGNAR VALORES A MAPAS
+	_______________________
+	Permite asignar nuevos elementos. Este método requiere la clave del nuevo elemento y 
+	después el valor con el que asociamos dicha clave.
+	
+	provincias.set("34","Palencia");
+	
+	Estamos agregando al map la clave 34 y el valor Palencia.
+
+	CONCATENAR ASIGNACIONES DE VALORES EN MAP:
+	___________________________________________
+	Se pueden añadir valores a la vez.
+	
+	provincias.set("34,"Palencia").set("28","Madrid").set("41","Sevilla");
+	
+	Se añaden al map estos tres pares de valores.
+
+	
+	USO DE ARRAYS PARA CREAR MAPAS:
+	_______________________________
+	
+	Son arrays dentro del map para declarar la clave y el valor.
+	Ejemplo:
+
+	var plantas=new Map([["0","servicios"],["1","AyF"],["2","Informática"],["A","Turismo"]]);
+	console.log(plantas);
+
+	MÉTODO GET:
+	___________
+
+	Obtiene el valor de una clave de un mapa.
+	
+	var plantas=new Map([["0","servicios"],["1","AyF"],["2","Informática"],["A","Turismo"]]);
+	console.log(plantas.get(2));
+	//Da el valor de la clave con valor 2 que es Informática
+
+
+	MÉTODO HAS:
+	___________
+
+	Realiza la búsqueda de una clave en un mapa, si la encuentra devuelve true y si no false.
+
+	var wm = new WeakMap();
+	wm.set(window, 'foo');
+
+	wm.has(window); // Devuelve true
+	wm.has('baz');  // Devuelve false
+	
+
+
+	MÉTODO DELETE():
+	________________
+	
+	El método delete() elimina un elemento específico del objeto Map .
+	
+		var wm = new WeakMap();
+		wm.set(window, "foo");
+
+		wm.delete(window); // Devuelve true. Eliminado correctamente.
+
+		wm.has(window);    // Devuelve false. El elemento window ya no es parte de WeakMap.
+	
+	
+	OBJETO ITERABLE
+	_______________
+	
+	Un objeto iterable es un tipo de objeto semejante a un array, ya que es
+	una colección de valores que se pueden recorrer mediante bucles del tipo
+	for . . . of. 
+
+	Sin embargo, los objetos iterables no son realmente arrays y,
+	por lo tanto, se manipulan de forma distinta.
+
+	Los mapas permiten crear:
+		 objetos iterables que contienen solo las claves y
+		 objetos iterables que contienen solo valores.
+
+	El método keys se usa para recorrer el objeto iterable clave y el método
+	values para recorrer el objeto valores. 
+
+	Ejemplo para recorrer un producto de una tienda online:
+	
+	var productos=new Map([["producto","camiseta"],["precio","9.99"],["descripción","camiseta de lino blanca"]]);
+
+	let clave=productos.keys();
+	for(let i of clave){
+    		console.log(i);
+	}
+
+	
+	CONVERTIR MAPAS EN ARRAYS:
+	__________________________
+	
+	var productos=new Map([["producto","camiseta"],["precio","9.99"],["descripción","camiseta de lino blanca"]]);
+	
+	console.log(...plantas);
+
+	RECORRER MAPAS
+	____________
+
+	Se recorre con for of
+	
+	for(let elemento of productos){
+		console.log(elemento);
+	}
+
+	O también se puede recorrer el for of así, para separar la clave del valor:
+
+	for([clave,valor] of productos){
+		console.log(('Clave: '+clave+' ,'+' Valor: '+valor));
+	}
+	
+	Y esto nos va a devolver la clave y valor de todo el Map.
+
+	
+	GENERAR UN ARRAY SIN DUPLICADOS O UN SET SIN DUPLICADOS DE UN ARRAY ORIGINAL
+	____________________________________________________________________________
+
+	 //UNA FORMA DE HACERLO ES A TRAVÉS DE ARRAYS CON LA FUNCIÓN FILTER
+        function generarArray(){
+            var Array=[4,0,3,4,7,3,5,8,1,8,8,0,2,3,1,2,5,7,3,2,5,1];
+            
+            var Array=Array.filter((valor,elemento)=>{
+                return Array.indexOf(valor)===elemento;
+            })
+            let texto= "El array generado sin números duplicados es \n"+Array;
+            document.getElementById("texto").value=texto;
+            }
+            //OTRA FORMA DE HACERLO: También se puede hacer con un Set
+        function generarSet(){
+            var Array=[4,0,3,4,7,3,5,8,1,8,8,0,2,3,1,2,5,7,3,2,5,1];
+            var numerosSinDuplicar=new Set();
+            for(let i in Array){
+                numerosSinDuplicar.add(Array[i]);
+            }
+            var ArrayNuevo=[...numerosSinDuplicar];
+            let texto= "El array generada es \n"+ArrayNuevo;
+            document.getElementById("texto").value=texto;
+        }
+
+
+	EJEMPLO DE SET DE COMBINACIONES DE NÚMEROS SIN REPETIR:
+	_______________________________________________________
+
+	<!--3.- Crear una aplicación web que muestre cincuenta combinaciones para jugar a la lotería
+primitiva.
+Las combinaciones son seis números del 1 al 49, pero hay que tener en cuenta que no se
+pueden repetir los números-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOTERIA</title>
+</head>
+<body>
+    <p>
+        <textarea id="texto" cols=20 rows=30></textarea>
+        </p>
+        <button id="boton" onclick="generarSet()">Generar combinación</button>
+        
+    <script>
+        var combinacionTotal=[];
+        var contador=0;
+        function generarSet(){
+            var combinacion=new Set();
+
+            for(let i=0;i<6;i++){
+                
+                var numero=Math.floor(Math.random()*(49-1)+1);   
+                combinacion.add(numero);
+            
+            }
+            console.log(combinacion);
+            var combinacion_=[...combinacion];
+            combinacionTotal.push(combinacion_);
+            
+            contador++;
+            if(contador==50){
+                var texto="La combinación total de la primitiva es: \n"+combinacionTotal;
+                document.getElementById("texto").value=texto;
+            }
+        }
+    
+            
+        
+    
+        
+            
+        
+    </script>
+</body>
+</html>
+
+	
