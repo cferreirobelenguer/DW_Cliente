@@ -25,28 +25,19 @@ indique la clave-->
         function cifradoCesar(){
             var texto=prompt("Introduce un mensaje");
             var clave=parseInt(prompt("Introduce una clave"));
-            
-            //Declaración de una cadena de alfabeto
-            var alfabeto="abcdefghijklmnñopkrstuvwyz";
-            var arrayPosiciones=[];
+            var resultado="";
+            var resultadoTotal="";
 
             for(let i=0;i<=texto.length-1;i++){
-                let caracter=texto.charAt(i);
-                let posicion=parseInt(alfabeto.indexOf(caracter));
-                if(posicion!=1){
-                    //Array con las posiciones de cada letra que forma el texto introducido por usuario
-                    arrayPosiciones.push(posicion+(clave));
-                }
+                var caracter=texto.charAt(i);
+                var unicode=texto.charCodeAt(i)+clave;
+                resultado=String.fromCharCode(unicode);
+                resultadoTotal+=resultado;
             }
-            //Se buscan las nuevas letras del alfabeto con las posiciones del array
-            console.log(arrayPosiciones);
-            for(let j=0;j<=arrayPosiciones.length-1;j++){
-                textoFinal=textoFinal+alfabeto.charAt(arrayPosiciones[j]);
-                
-            }
-            document.write("El texto introducido es "+texto+", la clave es "+clave+" y el texto final es "+textoFinal);
             
-        }
+            document.write("El texto introducido es "+texto+", la clave es "+clave+" y el texto final es "+resultadoTotal);
+            }
+        
         cifradoCesar();
         
 
