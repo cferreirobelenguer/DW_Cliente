@@ -1,6 +1,6 @@
 
 
-JS PRIMERA EVALUACIÓN
+JS PRIMERA EVLUACIÓN
 ____________________
 
 NOTAS
@@ -1378,7 +1378,43 @@ ________________________________________________________________________________
 	String.prototype.@@iterator() (en-US)
 	Devuelve un nuevo objeto Iterator que itera sobre los puntos de código de un valor de cadena, devolviendo cada punto de código como un valor de cadena.
 
+	
+	VALORES EN CÓDIGO ASCII CON CHARCODEAT Y FROMCHARCODE
+	_____________________________________________________
 
+	unicode=nombre_cadena.charCodeAt(indice) -> te da el indice unicode para posteriormente calcular el caracter del codigo ASCII correspondiente.
+	variable=String.fromCharCode(unicode)-> te da el caracter del codigo ASCII a través del indice calculado con charCodeAt
+
+
+	function cifradoCesar(){
+            var cadena=document.getElementsByName("texto")[0].value;
+            var clave=document.getElementsByName("numero")[0].value;
+            var resultadoTotal="";
+            //Se pregunta si es un número
+            if(!isNaN(clave)){
+                console.log("Clave válida");
+                var contador=0;
+                for(let i=0;i<cadena.length;i++){
+                        //Si el contador de clave llega a su final se restablece para seguir recorriéndose
+                        if(contador==clave.length){
+                            contador=0;
+                        }
+                            //Indice unicode, posición en el código AScii+ la clave
+                            var indice=cadena.charCodeAt(i)+parseInt(clave.charAt(contador));
+                            //Resultado correspondiente en Ascii
+                            var resultado=String.fromCharCode(indice);
+                            resultadoTotal+=resultado;
+                    
+                    contador++;
+                }
+                
+
+            }else{
+                console.log("Clave no válida");
+            }
+            document.write(resultadoTotal);
+
+        }
 
 _____________________________________________________________________________________
 
