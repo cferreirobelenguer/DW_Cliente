@@ -1,0 +1,94 @@
+
+<!-- 5.- Palíndromos.
+Crea una aplicación web que lea un texto e indique si el mismo es un palíndromo.
+Se entiende por palíndromo a aquel texto que se puede leer igual de derecha a izquierda que
+de izquierda a derecha.
+Ejemplos:
+Dábale arroz a la zorra el abab
+Logré ver gol
+Luz azul
+Lo sé, Dama de Sol.
+Hay que tener en cuenta que, para que se consideren bien los palíndromos, se ignoran los
+signos de puntuación (espacios, interrogaciones, comas, puntos, etc..) también se ignoran
+tildes y diéresis (se considera igual el carácter “á” que el carácter “a”) y no se distingue entre
+mayúsculas y minúsculas. -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5</title>
+</head>
+<body>
+    <p>
+        <input type="text" name="texto">   
+    </p>
+    
+    
+    <button id="boton" onclick="comprobarCadenas();">ENVIAR</button>
+    <script>
+        var direccionNormal=[];
+        var alReves=[];
+        
+        function comprobarCadenas(){
+            
+            //var cadena='Dábale arroz? a la zorra el abab';
+
+            var cadena=document.getElementsByName("texto")[0].value;
+            
+            //La cadena es insensible a caracteres especiales,tildes y mayúsculas y minúsculas
+            cadena=cadena.replace("á","a");
+            cadena=cadena.replace("é","e");
+            cadena=cadena.replace("ó","o");
+            cadena=cadena.replace("í","i");
+            cadena=cadena.replace("ú","u");
+            cadena=cadena.replace(/[&\/\\#,+()$~%.'":;*?<>{}]/g, '');
+            cadena = cadena.toLowerCase();
+            console.log(cadena);
+            document.write("La cadena que ha introducido es "+cadena);
+            document.write("<br>");
+
+            for(let i=0;i<=cadena.length;i++){
+                if(cadena[i]!=" "){
+                    direccionNormal.push(cadena.charAt(i));
+                }
+                
+            }
+            for(let k=cadena.length;k>=0;k--){
+                if(cadena[k]!=" "){
+                   alReves.push(cadena.charAt(k));
+                console.log(cadena.charAt(k)); 
+                }
+                
+            }
+            var string1="";
+            var string2="";
+            for(let valor of direccionNormal){
+                string1=string1+valor;
+            }
+            for(let valor2 of alReves){
+                console.log(valor2);
+                string2=string2+valor2;
+            }
+            var texto="";
+            document.write("La palabra recorrida en dirección normal es "+string1);
+            document.write("<br>");
+            document.write("La palabra recorrida al revés es "+string2);
+            document.write("<br>");
+            if(string1==string2){
+                var texto="Son palíndromos ya que "+string1+" es igual a "+string2;
+                document.write("Son palíndromos");
+                document.write("<br>");
+            }else{
+                texto="No son palíndromos, ya que "+string1+" es diferente a "+string2;
+                document.write("No son palíndromos");
+                document.write("<br>");
+            }
+            
+        }
+        
+        
+    </script>
+</body>
+</html>
