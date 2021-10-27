@@ -10,43 +10,32 @@ pueden repetir los números-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOTERIA</title>
+    <title>Document</title>
 </head>
 <body>
-    <p>
-        <textarea id="texto" cols=20 rows=30></textarea>
-        </p>
-        <button id="boton" onclick="generarSet()">Generar combinación</button>
-        
-    <script>
-        var combinacionTotal=[];
-        var contador=0;
-        function generarSet(){
-            var combinacion=new Set();
+    <textarea id="caja" cols="30" rows="60"></textarea>
+    <input type="button" value="calcular" onclick=calcular()>
 
-            for(let i=0;i<6;i++){
+    <script>
+	document.getElementById("caja").value ="";
+        function calcular(){
+		document.getElementById("caja").value ="";
+            for(let i = 0; i<50; i++){
+                let combinacion = "";
+                var set1 = new Set();
+
+                do {
+                    let rand = Math.floor(Math.random() * (50 - 1)) + 1;
+                    set1.add(rand);
+                } while (set1.size < 6);
                 
-                var numero=Math.floor(Math.random()*(49-1)+1);   
-                combinacion.add(numero);
-            
-            }
-            console.log(combinacion);
-            var combinacion_=[...combinacion];
-            combinacionTotal.push(combinacion_);
-            
-            contador++;
-            if(contador==50){
-                var texto="La combinación total de la primitiva es: \n"+combinacionTotal;
-                document.getElementById("texto").value=texto;
+                for(let valor of set1){
+                    combinacion += valor + ", ";
+                }
+                document.getElementById("caja").value += combinacion + "\n";
             }
         }
-    
-            
-        
-    
-        
-            
-        
     </script>
+    
 </body>
 </html>
