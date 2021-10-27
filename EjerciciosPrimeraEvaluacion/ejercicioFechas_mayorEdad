@@ -9,102 +9,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio fecha mayor de edad</title>
-    <style>
-        #formulario{
-            background-color: cornflowerblue;
-            color:aliceblue;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            padding:20px;
-            margin:20px;
-            text-align: center;
-        }
-    </style>
+    <title>Mayor o menor de 18</title>
 </head>
 <body>
-    <div id="formulario">
-        <h1>Formulario de datos</h1>
-    </div>
-    <center>
-        <p>
-            <label for="nombre_">Nombre</label>
-            <input type="text" name="dato" required>
-        </p>
-        <p>
-            <label for="apellido_">Apellido</label>
-            <input type="text" name="dato" required>
-        </p>
-        <p>
-            <label for="fechaNaci_">Fecha de nacimiento</label>
-            <input type='Date' value='' id="fechaNaci" required>
-        </p>
-        <button id="boton" onclick="datosPersona();">Enviar datos</button>
-        
-    <section id="imprimirDatos">
-        <br>
-    </section>
-    <button id="borrar" onclick="borrarDatosPersona();">Borrar datos</button>
-</center>
-    <script>
-        function datosPersona(){
-            let nombre=document.getElementsByName("dato")[0].value;
-            //Escribir nombre
-            console.log ("Nombre: "+nombre);
-            let escribirDatos=document.getElementById("imprimirDatos");
-            let escribirNombre=document.createElement("h1");
-            escribirNombre.innerText=("Nombre: "+nombre);
-            escribirDatos.appendChild(escribirNombre);
+    <p>Fecha de nacimiento: </p>
+    <p>Día: <input type="text" id="dia"></p>
+    <p>Mes: <input type="text" id="mes"></p>
+    <p>Año: <input type="text" id="anyo"></p>
 
-            //Escribir apellido
-            let apellido=document.getElementsByName("dato")[1].value;
-            console.log("Apellido: "+apellido);
-            let escribirApellido=document.createElement("h1");
-            escribirApellido.innerText=("Apellido: "+apellido);
-            escribirDatos.appendChild(escribirApellido);
-            
-            //Fecha de nacimiento que el usuario escribe
-            let fechaNacimiento=document.getElementById("fechaNaci").value;
-            console.log(fechaNacimiento);
-            let escribirFecha=document.createElement("h1");
-            escribirFecha.innerText=("Fecha de nacimiento: "+fechaNacimiento);
-            escribirDatos.appendChild(escribirFecha);
-            
-            //Conversión a milisegundos de los 18 años
-            milisegundos18=567648000000;
+    <input type="button" id="calcular" value="Calcular" onclick="mayorMenor()">
 
-            //fecha de nacimiento a milisegundos
-            nacimientoMilisegundos=Date.parse(fechaNacimiento);
+    <br><br>
 
-            //Fecha actual a milisegundos
-            let fechaActual=new Date();
-            actualMilisegundos=Date.parse(fechaActual);
+    <textarea id="mensaje" cols="25" rows="5"></textarea>
 
-            console.log("Fecha actual: "+fechaActual);
+    <script lang="JavaScript">
 
-            //Calcular edad en milisegundos y comparar con milisegundos de 18
-            let resta=actualMilisegundos-nacimientoMilisegundos;
+        function mayorMenor() {
 
-            if(resta<milisegundos18){
-                console.log(nombre+" "+apellido+" es menor de edad");
-                let escribirAños=document.createElement("h1");
-                escribirAños.innerText=(nombre+" "+apellido+" es menor de edad");
-                escribirDatos.appendChild(escribirAños);
-            }else{
-                console.log(nombre+" "+apellido+" es mayor de edad");
-                let escribirAños2=document.createElement("h1");
-                escribirAños2.innerText=(nombre+" "+apellido+" es mayor de edad");
-                escribirDatos.appendChild(escribirAños2);
+            var dia = parseInt(document.getElementById("dia").value);
+            var mes = parseInt(document.getElementById("mes").value);
+            var anyo = parseInt(document.getElementById("anyo").value);
+
+            var fechanacimiento = new Date(anyo,mes,dia);
+            var dieciocho = 18*365*24*60*60*1000;
+            var hoy = Date.now();
+
+            Date.parse(fechanacimiento);
+
+
+            if ((hoy - fechanacimiento) < dieciocho) {
+                document.getElementById("mensaje").value = "Menor de 18";
+            }
+            if ((hoy - fechanacimiento) >= dieciocho) {
+                document.getElementById("mensaje").value = "Mayor de 18";
             }
 
-
-
-
         }
-        function borrarDatosPersona(){
-            //Botón de borrado de información escrita
-            document.getElementById("imprimirDatos").innerHTML = " ";
-        }
-
     </script>
 </body>
 </html>
