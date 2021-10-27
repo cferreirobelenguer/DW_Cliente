@@ -1,0 +1,45 @@
+
+<!--20  Números aleatorios del 1 al 50, los cuáles son representados por el número y por asteriscos e introducidos en una tabla-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteriscos</title>
+</head>
+<body>
+    <input type="button" value="Ver resultado" onclick="generarRandom();">
+    <script>
+        function generarRandom(){
+            var longitud=20;
+            var array=[];
+        
+            for(let i=0;i<longitud;i++){
+                //Introducimos los elementos aleatorios en el array
+                var numero=parseInt(Math.random()*(50-1)+1);
+                array.push(numero);
+            }
+            console.log(array);
+
+            document.write("<table border='1'>");
+            document.write("<tr>");
+            for(const valor of array){
+                document.write("<td>");
+                document.write(valor);
+                for(let i=0;i<valor;i++){
+                    document.write("*");
+                }
+                document.write("<td>");
+            }
+
+        
+            document.write("</tr>"); 
+            document.write("<table>");
+
+        }
+        
+    </script>
+</body>
+</html>
