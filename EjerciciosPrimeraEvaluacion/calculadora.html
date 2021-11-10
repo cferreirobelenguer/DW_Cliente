@@ -1,0 +1,268 @@
+
+
+<!--CALCULADORA EN UNA SOLA FUNCIÓN-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULADORA</title>
+    <!--bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <style>
+        .encabezado {
+            text-align: center;
+            font-style: normal;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 20px;
+            color: aliceblue;
+            background-color: #36313A;
+            margin: 50px;
+            padding: 50px;
+        }
+
+        .resultado {
+            margin: auto;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .numeros {
+            margin: auto;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .operadores {
+            margin: auto;
+            padding: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <hr>
+    <div class="encabezado">
+        <h1>CALCULADORA</h1>
+    </div>
+    <hr>
+    <div class="formulario">
+        <form action="#" method="">
+            <div class="resultado">
+                <input type="text" id="resultado">
+            </div>
+            <div class="numeros">
+                <input type="button" id="cero" class="btn btn-dark" value="0" onclick="accion(this.value)">
+                <input type="button" id="uno" class="btn btn-dark" value="1" onclick="accion(this.value)">
+                <input type="button" id="dos" class="btn btn-dark" value="2" onclick="accion(this.value)">
+                <input type="button" id="tres" class="btn btn-dark" value="3" onclick="accion(this.value)">
+                <input type="button" id="cuatro" class="btn btn-dark" value="4" onclick="accion(this.value)">
+                <input type="button" id="cinco" class="btn btn-dark" value="5" onclick="accion(this.value)">
+                <input type="button" id="seis" class="btn btn-dark" value="6" onclick="accion(this.value)">
+                <input type="button" id="siete" class="btn btn-dark" value="7" onclick="accion(this.value)">
+                <input type="button" id="ocho" class="btn btn-dark" value="8" onclick="accion(this.value)">
+                <input type="button" id="nueve" class="btn btn-dark" value="9" onclick="accion(this.value)">
+            </div>
+            <div class="operadores">
+                <input type="button" id="mas" class="btn btn-dark" value="+" onclick="accion(this.value)">
+                <input type="button" id="menos" class="btn btn-dark" value="-" onclick="accion(this.value)">
+                <input type="button" id="multi" class="btn btn-dark" value="*" onclick="accion(this.value)">
+                <input type="button" id="divi" class="btn btn-dark" value="/" onclick="accion(this.value)">
+                <input type="button" id="resto" class="btn btn-dark" value="%" onclick="accion(this.value)">
+                <input type="button" id="total" class="btn btn-dark" value="=" onclick="accion(this.value)">
+            </div>
+
+        </form>
+    </div>
+    <hr>
+    <script>
+        var totalNumeros = "";
+        var totalNumeros_ = 0;
+        var totalNumeros2 = "";
+        var totalNumeros2_ = 0;
+        var operador = "";
+
+        function accion(tecla) {
+            switch (tecla) {
+                case "0":
+                    var cero = document.getElementById("cero").value;
+
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += cero;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += cero;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "1":
+                    var uno = document.getElementById("uno").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += uno;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += uno;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "2":
+                    var dos = document.getElementById("dos").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no existe se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += dos;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += dos;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "3":
+                    var tres = document.getElementById("tres").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no existe se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += tres;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += tres;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "4":
+                    var cuatro = document.getElementById("cuatro").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no existe se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += cuatro;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += cuatro;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "5":
+                    var cinco = document.getElementById("cinco").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no existe se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += cinco;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += cinco;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "6":
+                    var seis = document.getElementById("seis").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no existe se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += seis;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += seis;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "7":
+                    var siete = document.getElementById("siete").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no existe se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += siete;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += siete;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "8":
+                    var ocho = document.getElementById("ocho").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no existe se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += ocho;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += ocho;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "9":
+                    var ocho = document.getElementById("nueve").value;
+
+                    //operador es distinto de "" se almacena el número en totalNumeros2 y si no existe se almacena el totalNumeros
+                    if (operador == "") {
+                        totalNumeros += nueve;
+                        console.log(totalNumeros);
+                    } else if (operador != "") {
+                        totalNumeros2 += nueve;
+                        console.log(totalNumeros2);
+                    }
+                    break;
+                case "+":
+                    var mas = document.getElementById("mas").value;
+                    operador = mas;
+                    console.log(operador);
+                    break;
+                case "-":
+                    var menos = document.getElementById("menos").value;
+                    operador = menos;
+                    console.log(operador);
+                    break;
+                case "*":
+                    var multi = document.getElementById("multi").value;
+                    operador = multi;
+                    console.log(operador);
+                    break;
+                case "/":
+                    var divi = document.getElementById("divi").value;
+                    operador = divi;
+                    console.log(operador);
+                    break;
+                case "%":
+                    var resto = document.getElementById("resto").value;
+                    operador = resto;
+                    console.log(operador);
+                    break;
+                case "=":
+                    totalNumeros_ = parseInt(totalNumeros);
+                    totalNumeros2_ = parseInt(totalNumeros2);
+                    switch (operador) {
+                        case "+":
+                            let suma = totalNumeros_ + totalNumeros2_;
+                            document.getElementById("resultado").value = suma;
+                            break;
+                        case "-":
+                            let resta = totalNumeros_ - totalNumeros2_;
+                            document.getElementById("resultado").value = resta;
+                            break;
+                        case "*":
+                            let multi = totalNumeros_ * totalNumeros2_;
+                            document.getElementById("resultado").value = multi;
+                            break;
+                        case "/":
+                            let divi = totalNumeros_ / totalNumeros2_;
+                            document.getElementById("resultado").value = divi;
+                            break;
+                        case "%":
+                            let resto = totalNumeros_ % totalNumeros2_;
+                            document.getElementById("resultado").value = resto;
+                            break;
+                    }
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>
