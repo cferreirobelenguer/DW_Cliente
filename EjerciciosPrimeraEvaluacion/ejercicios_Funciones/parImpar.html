@@ -1,0 +1,52 @@
+
+<!--1. - Desarrollar web que permita determinar si un número es par o impar.
+Para ello se partirá de un documento HTML base (cjtexto, botón, etc..).
+Se introducirá un número en caja de texto y al hacer click sobre el botón se llamará a 
+una función llamada par que tendrá como parámetro el número introducido.
+La función generará el informe par o impar de manera óptima en un textarea-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EEJERCICIO 1 JS</title>
+</head>
+
+<body>
+    <h1>NÚMEROS PARES E IMPARES</h1>
+    <form action="#" method="">
+        <p>
+            <label for="">Introduzca un número: </label>
+            <input type="text" name="numero">
+        </p>
+        <button id="boton">Calcular</button>
+
+    </form>
+    <script>
+
+        function parImpar(numero) {
+            
+            if (numero % 2 == 0) {
+                document.write ("El número elegido es "+numero+"\n");
+                document.write("y es par");
+            } else {
+                document.write ("El número elegido es "+numero+"\n");
+                document.write("y es impar");
+            }
+        }
+        //Para poner crear una función por parámetro hay que crear otra función
+        //sin parámetro para obtener el dato del parámetro y en esa función llamar a la función con parámetro
+        //e invocarla en el onclick
+        var boton=document.getElementById("boton");
+        //Invocamos a la función sin parámetro a través del id de boton con el evento onclick
+        boton.onclick=function mostrarNumero() {
+            var numero = document.getElementsByName("numero")[0].value;
+            parImpar(numero);
+        }
+    </script>
+</body>
+
+</html>
