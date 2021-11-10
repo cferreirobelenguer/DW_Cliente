@@ -1,0 +1,58 @@
+
+<!-- 2. - Desarrollar web que permita visualizar de entre los primeros 500 número 
+decimales, aquellos que sean primos.
+Para ello se partirá de un documento HTML base (cjtexto, botón, etc..).
+Se tratará de crear una función llamada “esprimo” que reciba como parámetro el 
+número a estudiar.
+Si es primo se acumulará en un array o en una variable de texto. Finalizado el proceso 
+de estudio se escribirán los primos encontrados en el textarea.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJERCICIO 2 JS</title>
+</head>
+<body>
+    <h1>NÚMEROS PRIMOS</h1>
+    <form action="#" method="">
+        <p>
+            <label for="">A continuación se muestra el total de números primos del 1 al 500: </label>
+            <textarea id="resultado"></textarea>
+        </p>
+        <button id="boton" onclick="primos(numero)">Calcular primos</button>
+
+    </form>
+    <script>
+        //array donde se van a almacenar los números primos
+        let arrayPrimos=[];
+        //contador que cuenta los divisores
+        let contador=0;
+        var numero=parseFloat(500);
+        var boton=document.getElementById("boton");
+        function primos(numero){
+            for(let i=1;i<=numero;i++){
+                for(let j=1;j<=numero;j++){
+                    if(i%j==0){
+                        contador++;
+                    }
+                }
+                if(contador==2){
+                    arrayPrimos.push(i);
+                }else{
+                    contador=0;
+                }
+            }
+            var primosTotal="";
+            for(let i in arrayPrimos){
+                let primos=arrayPrimos[i];
+                let primos2=primos.toString();
+                primosTotal+=primos+" ";
+            }
+            document.getElementById("resultado").value=primosTotal;
+        }
+        
+    </script>
+</body>
+</html>
