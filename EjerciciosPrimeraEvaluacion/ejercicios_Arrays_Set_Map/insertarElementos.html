@@ -1,0 +1,43 @@
+<!--Mostrar valores aleatorios de una lista al pulsar botón-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AÑADIR ELEMENTOS ALEATORIOS</title>
+</head>
+<body>
+    <ul >
+        <li class="lista_" >hola</li>
+        <li class="lista_">mundo</li>
+        <li class="lista_">hege</li>
+        <li class="lista_">sshgdksd</li>
+        
+    </ul>
+    <form action="#" method="">
+        <input type="button" id="boton" value="AÑADIR ELEMENTO" onclick="valoresAleatorios();">
+        <p>
+        <textarea id="texto"></textarea>
+        </p>
+    </form>
+    <script>
+        
+        function valoresAleatorios(){
+            var lista=[];
+            //Nos situamos en las clases de las listas y las recorremos
+            var valores=document.getElementsByClassName("lista_");
+            for(let i=0;i<valores.length;i++){
+                //con innerHTML se muestra el contenido de cada uno de los li
+            var contenido=valores[i].innerHTML;
+                lista.push(contenido);
+            }
+        
+            console.log(lista);
+            var valoresAleatorios=lista[Math.floor(Math.random()*lista.length)];
+            var texto_=document.querySelector("textarea");
+            texto.value=valoresAleatorios;
+        }
+    </script>
+</body>
+</html>
