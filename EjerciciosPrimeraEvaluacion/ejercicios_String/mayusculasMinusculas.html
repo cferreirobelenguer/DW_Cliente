@@ -1,0 +1,67 @@
+
+
+<!-- Definir una función que muestre información sobre una cadena de texto que se le pasa como argumento. 
+    A partir de la cadena que se le pasa,
+    la función determina si esa cadena está formada sólo por mayúsculas, 
+    sólo por minúsculas o por una mezcla de ambas.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayúsculas|Minúsculas</title>
+</head>
+<body>
+    <forma action="#" method="">
+        <p>
+            <label for="">Introduce texto: </label>
+            <input type="text" name="texto">
+            <textarea id="resultado"></textarea>
+        </p>
+            <input type="button" id="boton" value="COMPROBAR" onclick="action(this.value)">
+            <input type="button" id="boton" value="MOSTRAR" onclick="action(this.value)">
+
+            <section class="mostrarResultado1">
+                <br>
+            </section>
+            <section class="mostrarResultado2">
+                <br>
+            </section>
+            
+
+    </forma>
+    <script>
+        function action(boton){
+            
+            var mensaje=document.getElementsByName("texto")[0].value;
+            switch(boton){
+                case "COMPROBAR":
+            
+                    var minusculas=mensaje.toLowerCase();
+                    var mayusculas=mensaje.toUpperCase();
+                    
+                    for(let i=0;i<minusculas.length;i++){
+                        
+                        if(mensaje.charAt(i).includes(minusculas.charAt(i))){
+                            var seccion=document.getElementsByClassName("mostrarResultado1")[0];
+                            seccion.innerHTML=("Contiene minúsculas");
+                            console.log("Contiene minusculas");
+                        }
+                    }
+                    for(let j=0;j<mayusculas.length;j++){
+                        if(mensaje.charAt(j).includes(mayusculas.charAt(j))){
+                            var seccion2=document.getElementsByClassName("mostrarResultado2")[0];
+                            seccion2.innerHTML=("Contiene mayúsculas");
+                            console.log("Contiene mayúsculas");
+                        }
+                    }
+                break;
+                case "MOSTRAR":
+                    document.getElementById("resultado").value=mensaje;
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
