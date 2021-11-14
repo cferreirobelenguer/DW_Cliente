@@ -1,0 +1,61 @@
+
+
+<!--El método filter de los arrays visto en este tema, permite indicar una función callback,
+para aplicar un filtro a los elementos de un array.
+Es buena práctica para aprender a implementar funciones callback tratar de crear nuestras propias funciones.
+Crea una función llamada filtrandoNumeros con un parámetro que recibe números
+La función callback tiene un parámetro x que indica los números mayores de 3, se filtran y se almacenan
+en un nuevo array. Cuando usuario no introduzca datos en input y pulse botón se limpian los datos del input
+y se muestra el resultado de la filtración en el textarea.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUNCION FILTER</title>
+</head>
+<body>
+    <form action="#" method="">
+        <p>
+            <label for="">Introduzca números</label>
+            <input type="text" class="texto">
+        </p>
+        <input type="button" value="FILTRAR NÚMEROS MAYORES DE 3" onclick="filtrandoNumeros(document.getElementsByClassName('texto')[0].value);">
+
+    </form>
+    <section id="seccion">
+        <br>
+    </section>
+    <script>
+        const setNumeros=new Set();
+        //Array que contiene la lista set con números sin repetir
+        var resultado_=[];
+        //Declaramos array que filtra los mayores de 3
+        var resultado2=[];
+        
+        function filtrandoNumeros(numero){
+            if((numero!="")&&(numero!=undefined)){
+            //Si es número se agrega a la lista set, aplicamos set para que no se repitan los números
+            if(!isNaN(numero)){
+                setNumeros.add(numero);
+            }
+            console.log(setNumeros); 
+            //Pasamos set a array para aplicar filtro de números mayores a 3
+            resultado_=Array.from(setNumeros);
+            resultado2=resultado_.filter(x=>x>=3);
+        }else{
+            document.getElementsByClassName("texto")[0].value="";
+            var msg="";
+            for(let valor of resultado2){
+                msg+=valor+",";
+                }
+            }
+            if(numero==""){
+                var seccion=document.getElementById("seccion");
+                seccion.innerHTML="Se ha terminado de introducir datos...\n Los datos introducidos son: \n"+msg;
+            }
+        }
+    </script>
+</body>
+</html>
