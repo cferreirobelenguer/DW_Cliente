@@ -1,0 +1,55 @@
+
+
+<!--Crea una función a la que se le pasen una serue de textos(mínimo dos)
+y detecte si los mismos son anagramas o no.
+Un anagrama es una palabra que resulta de trasponer las letras de otra: por ejemplo ESTANCO
+y ACENTOS
+La función devuelve verdadero si todas las palabras son anagramas de las mismas letras-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anagramas</title>
+</head>
+<body>
+    <form action="#" method="">
+        <p>
+            <label for="">Introduce una palabra</label>
+            <input type="text" name="palabra">
+        </p>
+        <p>
+            <label for="">Introduce otra palabra</label>
+            <input type="text" name="palabra">
+        </p>
+        <p>
+        <textarea id="resultado"></textarea>
+        </p>
+        <input type="button" id="boton" onclick="anagramas(document.getElementsByName('palabra')[0].value,document.getElementsByName('palabra')[1].value)";>
+    </form>
+    <script>
+        function anagramas(palabra1,palabra2){
+            var anagrama=false;
+            if(palabra1.length==palabra2.length){
+                console.log(palabra1);
+                console.log(palabra2);
+                for(let i=0;i<palabra1.length;i++){
+                    if(palabra2.includes(palabra1.charAt(i))){
+                        anagrama=true;
+                    }else{
+                        anagrama=false;
+                        break;
+                    }
+                }
+                
+            }
+            if(anagrama===false){
+                    document.getElementById("resultado").value="No son anagramas";
+                }else{
+                    document.getElementById("resultado").value="Sí son anagramas";
+                }
+        }
+    </script>
+</body>
+</html>
