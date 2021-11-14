@@ -1,0 +1,53 @@
+
+<!--Se recogen valores a través de una caja de texto
+y siempre que sean números, si son positivos se muestran como negativos
+y si son negativos se muestran como positivos. Se usa la función generarNumeros
+con el parámetro del número del input y los números no pueden repetirse.
+Al pulsar convertir se muestra el resultado de la lista de números 
+en el textarea.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJERCICIOS POSITIVOS NEGATIVOS</title>
+</head>
+<body>
+    <form action="" method="">
+        <p>
+        <label for="">Introduce números</label>
+        <input type="text" name="numero">
+        </p>
+        <p>
+        <label for="">Conversión de números</label>
+        <textarea name="conversion"></textarea>
+        </p>
+        <input type="button" value="CONVERTIR" onclick="generarNumeros(document.getElementsByName('numero')[0].value)";>
+    </form>
+    <script>
+        //Lista Set para que los números no se repitan
+        var arrayNumeros=new Set();
+        var arrayTotal=[];
+        function generarNumeros(numero){
+            //Si es número se produce la conversión
+            if(!isNaN(numero)){
+                    if(numero>0){
+                        arrayNumeros.add(-(numero));
+                    }else{
+                        arrayNumeros.add(-(numero));
+                    }
+                
+                }
+            //Se pasa la lista de Set a Array
+            arrayTotal=Array.from(arrayNumeros);
+            var msg="";
+            //Se concatena el resultado del array y se muestra en el textarea
+            for(let valor of arrayTotal){
+                msg+=valor+",";
+            }
+            document.getElementsByName("conversion")[0].value=msg;
+        }
+    </script>
+</body>
+</html>
