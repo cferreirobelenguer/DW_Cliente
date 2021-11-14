@@ -1,0 +1,53 @@
+
+
+<!-- Crea una aplicación que pida al usuario palabras continuamente hasta que se acepte el cuadro sin texto
+o se cancele.
+Se eliminarán las palabras repetidas y además se ordenará en español, pero en orden inverso de la Z a la A-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORDEN PALABRAS</title>
+</head>
+<body>
+    <form action="" method="">
+        <textarea id="texto"></textarea>
+    </form>
+    <script>
+        var tabla=[];
+        var palabra="";
+        do{
+            palabra=prompt("introduzca palabra");
+            if(isNaN(palabra)){
+                //Con includes se evita que sean palabras repetidas
+                    if(!tabla.includes(palabra)){
+                        tabla.push(palabra);
+                }
+                
+            }else{
+                palabra=prompt("introduzca palabra");
+            }
+            //Cuando se rellena el prompt vacío es "" y se rompe el programa
+            //Si no es un número palabra se añade al arreglo
+        }while((palabra!="")&&(palabra!=undefined));
+        console.log(tabla);
+
+        //Función con los parámetros de parámetro y el arreglo
+        function ordenar(palabra,tabla){
+            var cadena="";
+            //Primero se ordena y luego se ordena a la inversa
+            tabla.sort();
+            tabla.reverse();
+            console.log(tabla);
+            //Se concatenan los valores en una cadena para mostrarlos en el textarea por id
+            for(let valor of tabla){
+                cadena+=valor+" ";
+            }
+            document.getElementById("texto").value="Las cadenas en orden alfabético inverso son: "+cadena;
+        }
+        ordenar(palabra,tabla);
+    </script>
+</body>
+</html>
