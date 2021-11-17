@@ -1,0 +1,111 @@
+
+<!--Existen gestores que administran las cuentas bancarias y ateinden a sus propietarios.
+Programa que añade gestores a la bbdd a través de cajas de texto. Crear objeto gestor 
+en el que interesa guardar su nombre, teléfono e importe máximo autorizado con el que
+pueden operar. 
+Si Teléfono e importe no es número sale undefined.
+Añadir datos de gestores en botón añadir.
+Realizar consulta con boton consulta de gestor a través de su nombre y mostrar resultado
+en textarea.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GESTOR</title>
+</head>
+<body>
+    <h1>DATOS DE GESTOR</h1>
+    <form action="" method="">
+        <p>
+            <label for="">Nombre: </label>
+            <input type="text">
+        </p>
+            <label for="">  Teléfono: </label>
+            <input type="text">
+        <p>
+            <label for="">  Importe máximo: </label>
+            <input type="text">
+        </p>
+        <p>
+            <textarea type="text" name="texto"></textarea>
+        </p>
+        <!--Botones-->
+        <input type="button" name="boton" value="AÑADIR GESTORES" onclick="anadirDatos()">
+        <input type="button" name="boton" value="CONSULTAR TELÉFONO DE GESTOR" onclick="consultarTelefono()">
+    </form>
+    <script>
+        //Declaración de variables
+        var datos=[];
+        
+        var indice=0;
+        
+    
+
+        function anadirDatos(){
+            var msg="";
+            var msg1="";
+            document.getElementsByName("texto")[0].value="";
+             //Variables con datos
+        
+            var nombre=document.getElementsByTagName("input")[0].value;
+            var telefono=document.getElementsByTagName("input")[1].value;
+            var importeMax= document.getElementsByTagName("input")[2].value;
+        
+        //Constructor de datos de gestor
+        function gestor_(nombre,telefono,importeMax){
+            
+            if(isNaN(nombre)){
+            this.nombre=nombre;
+            }
+            if(!isNaN(telefono)){
+                this.telefono=telefono;
+                
+            }
+            if(!isNaN(importeMax)){ 
+                this.importeMax=importeMax;
+                } 
+            }
+        
+        //Declaración de objeto gestor
+        var gestor= new gestor_(nombre,telefono,importeMax);
+        
+            datos.push(gestor);
+            msg1="Los datos introducidos son los siguientes: ";
+            for(let valor in datos){
+                console.log(datos[valor]);
+                msg+=datos[valor]["nombre"]+","+datos[valor]["telefono"]+","+datos[valor]["importeMax"]+"\n";
+            }
+            console.log(datos);
+            msg1=msg1+msg;
+            document.getElementsByName("texto")[0].value=msg;
+            document.getElementsByTagName("input")[0].value="";
+            document.getElementsByTagName("input")[1].value="";
+            document.getElementsByTagName("input")[2].value="";
+
+        }
+
+        function consultarTelefono(){
+            document.getElementsByTagName("input")[0].value="";
+            document.getElementsByTagName("input")[1].value="";
+            document.getElementsByTagName("input")[2].value="";
+            var telefonoGestor_="";
+            var msg2="El teléfono solicitado es: ";
+            
+            //Se consulta el teléfono por nombre de gestor
+            var nombreGestor=prompt("Indica el gestor a consultar");
+            for(let i=0;i<datos.length;i++){
+                if(datos[i]["nombre"]==nombreGestor){
+                    indice=i;
+                }
+            }
+            var msg3=datos[indice]["telefono"];
+            var msg4=msg2+msg3;
+            document.getElementsByName("texto")[0].value=msg4;
+        }
+        
+    </script>
+
+</body>
+</html>
