@@ -1,0 +1,50 @@
+<!-- cuestionario que se acciona de manera aleatoria y muestra las respuestas sin repetir
+en los input-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUESTIONARIO ALEATORIO</title>
+</head>
+<body>
+    <h1>Respuestas del cuestionario sin repetir:</h1>
+    <form action="" method="">
+            <textarea name="respuesta"></textarea>
+      
+    </form>
+    <script>
+        var preguntas=[];
+        var respuestass=new Set();
+        var respuestas_=[];
+        var palabra="";
+        var msg="";
+        function cuestionario(){
+            
+            
+            preguntas.push("Introduce nombre");
+            preguntas.push("Introduce edad");
+            preguntas.push("Introduce centro de estudios");
+            preguntas.push("Introduce año de estudios");
+            var contador=0;
+            console.log(preguntas);
+            
+            
+            do{
+                let aleatorio=Math.floor(Math.random()*(4-0)+0);
+                palabra=prompt(preguntas[aleatorio]);
+                respuestass.add(palabra);
+                contador++;
+            }while(contador!=4);
+            respuestas_=Array.from(respuestass);
+            
+            for(let valor in respuestas_){
+                msg+=respuestas_[valor]+",";
+            }
+            document.getElementsByName("respuesta")[0].value=msg;
+        }
+        cuestionario();
+    </script>
+</body>
+</html>
