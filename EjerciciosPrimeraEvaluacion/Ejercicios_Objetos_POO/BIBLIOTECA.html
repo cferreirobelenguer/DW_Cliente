@@ -1,0 +1,113 @@
+<!--EJERCICIO BIBLIOTECA, USUARIO INTRODUCE DATOS DE LIBROS Y AL AÑADIR SE ALMACENAN EN BBDD
+CUANDO SE PULSA CONSULTAR AL INTRODUCIR UN TÍTULO, SE BUSCA POR TÍTULO EL CONJUNTO DE DATOS DE ESE LIBRO 
+Y SE MUESTRA EN LOS INPUT TEXT. SIGNATURA ES UN INDICE NUMÉRICO QUE SE INCREMENTA EN FUNCIÓN DEL ORDEN
+DE ENTRADA DE LOS LIBROS A LA BBDD-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#" method="">
+        
+        <p>
+            <label for="">Consola</label>
+            <textarea id="datosLibro"></textarea>
+        </p>
+        <p>
+            <label for="">Título</label>
+            <input type="text" name="titulo">
+        </p>
+        <p>
+            <label for="">Autor</label>
+            <input type="text" name="autor">
+        </p>
+        <p>
+            <label for="">Editorial</label>
+            <input type="text" name="editorial">
+        </p>
+        <p>
+            <label for="">Año de publicación</label>
+            <input type="text" name="anio">
+        </p>
+        
+    
+        <input type="button" name="boton" value="AÑADIR" onclick="accion(this.value)">
+        
+        <input type="button" name="boton" value="CONSULTAR" onclick="accion(this.value)">
+    </form>
+    <script>
+        var biblioteca=[];
+        var signatura=0;
+        //En función de la tecla se producen dos acciones dentro de la función accion (añadir y consultar)
+        function accion(tecla){
+            switch(tecla){
+                //SE AÑADEN LOS DATOS A LA BBDD
+                case"AÑADIR":
+                //Se declaran las variables y se cogen los datos de los input
+                var titulo=document.getElementsByName("titulo")[0].value;
+                var autor=document.getElementsByName("autor")[0].value;
+                var editorial=document.getElementsByName("editorial")[0].value;
+                var anio=document.getElementsByName("anio")[0].value;
+
+                //Se crea el constructor asignando a los atributos variables con datos de los input
+                function libro(){
+                    this.titulo=titulo;
+                    this.autor=autor;
+                    this.editorial=editorial;
+                    this.anio=anio;
+                    this.signatura=signatura++;
+            }
+        
+            //  La función mostrar muestra el mensaje del contenido de los datos introducidos en la consola del programa que es el textarea
+            function mostrar(){
+                var msg="Los datos del libro introducidos son los siguientes: Titulo: "+titulo+"\nAutor: "+autor+"\nEditorial: "+editorial+"\n Año de publicación: "+anio;
+                document.getElementById("datosLibro").value=msg;
+            }
+                //Se crea el objeto libro con los atributos que son los input que introduce usuario
+                var libro_=new libro(titulo,autor,editorial,anio,signatura);
+                    biblioteca.push(libro_);
+                    
+                    mostrar();
+                //Una vez que finaliza el proceso de añadir datos se vacían los campos de los input
+                document.getElementsByName("titulo")[0].value="";
+                document.getElementsByName("autor")[0].value="";
+                document.getElementsByName("editorial")[0].value="";
+                document.getElementsByName("anio")[0].value="";
+                break;
+                //SE CONSULTA POR TITULO QUE INTRODUCE USUARIO
+                case "CONSULTAR":
+                
+                    var resultadoClave="";
+                    var indice=0;
+                    //Se recoge el dato de titulo introducido por usuario
+                    titulo=document.getElementsByName("titulo")[0].value;
+                    //Se muestra mensaje en consola de textarea con el titulo introducido por usuario
+                    msg="La consulta del "+titulo+" es: ";
+                    document.getElementById("datosLibro").value=msg;
+                    
+                    //Se recorren los datos de biblioteca para saber el indice
+                    for(let i=0;i<biblioteca.length;i++){
+                        //Si titulo es igual al titulo que introduce usuario sabemos el indice al que nos vamos a dirigir
+                        if(biblioteca[i]["titulo"]==titulo){
+                           //posición donde está el elemento que buscamos
+                            indice=i;
+                        }
+                        
+                    }
+                    //Se muestran los datos obtenidos en los inputs correspondientes
+                    document.getElementsByName("titulo")[0].value=biblioteca[indice]["titulo"];
+                    document.getElementsByName("autor")[0].value=biblioteca[indice]["autor"];
+                    document.getElementsByName("editorial")[0].value=biblioteca[indice]["editorial"];
+                    document.getElementsByName("anio")[0].value=biblioteca[indice]["anio"];
+                break;
+            
+            }
+        }
+        
+    </script>
+</body>
+</html>
