@@ -1,0 +1,142 @@
+
+<!--Formulario con datos de alumnos(nombre, apellidos,convocatoria, notas), en el cual hay tres opciones
+añadir datos de alumnos a los datos, consultar números de alumnos que sacan óptimo, mejorable, notable o excelente;
+y consulta de datos de alumno y nota por alumno a través de prompt.
+Las notas tienen que ser óptima, mejorable, notable o excelente; y la convocatoria ordinaria o extraordinaria-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODIFICAR OBJETOS MAP</title>
+</head>
+<body>
+    <h1> REGISTRO DE NOTAS DE ALUMNOS</h1>
+    <form action="" method="" name="formulario">
+        <p>
+            <label for="">Introduzca nombre de alumno</label>
+            <input type="text" name="nombre">
+        </p>
+        <p>
+            <label for="">Introduzca apellidos de alumno</label>
+            <input type="text" name="apellidos">
+        </p>
+        <p>
+            <label for="">Introduzca año de matriculación</label>
+            <input type="text" name="anio">
+        </p>
+        <p>
+            <label for="">Introduzca convocatoria</label><br>
+            Ordinaria: <input type="radio" name="convocatoria" value="Ordinaria">
+            Extraordinaria: <input type="radio" name="convocatoria" value="Extraordinaria">
+            <p>
+                <input type="text" name="convocatoria_" disabled>
+            </p>
+        </p>
+        <p>
+            <label for="">Introduzca notas</label><br>
+            Óptimo: <input type="radio" name="notas" value="Óptimo">
+            Mejorable: <input type="radio" name="notas" value="Mejorable">
+            Notable:  <input type="radio" name="notas" value="Notable">
+            Excelente: <input type="radio" name="notas" value="Excelente">
+            <p>
+                <input type="text" name="notas_" disabled>
+            </p>
+        </p>
+        <p>
+            <textarea name="texto">Total de notas y número de alumnos de cada una:</textarea>
+        </p>
+        <!--Botones-->
+        <input type="button" name="boton" value="AÑADIR" onclick="accion(this.value);">
+        <input type="text" name="boton" value="CONSULTAR NOTAS" onclick="accion(this.value);">
+        <input type="text" name="boton" value="CONSULTAR NOTA DE ALUMNO" onclick="accion(this.value);">
+    </form>
+    <script>
+        var datos=[];
+        var datosTotales=new Map();
+        
+         //Contadores de notas
+        var contadorOptimo=0;
+                    var contadorMejorable=0;
+                    var contadorNotable=0;
+                    var contadorExcelente=0;
+        //Función de botones pasa el valor por parámetro
+        function accion(tecla){
+            var nombre="";
+            var apellidos="";
+            var anio="";
+            var convocatoria="";
+            var notas="";
+            
+            switch(tecla){
+                case "AÑADIR":
+                    //Constructor con datos de alumno
+                    function alumno_(nombre,apellidos,anio,convocatoria,notas){
+                        this.nombre=nombre;
+                        this.apellidos=apellidos;
+                        this.anio=anio;
+                        this.convocatoria=convocatoria;
+                        this.notas=notas;
+                    }
+                    nombre=document.getElementsByName("nombre")[0].value;
+                    apellidos=document.getElementsByName("apellidos")[0].value;
+                    anio=document.getElementsByName("anio")[0].value;
+                    convocatoria=document.formulario.convocatoria.value;
+                    notas=document.formulario.notas.value;
+                    
+                    //Creación de alumno
+                    var alumno=new alumno_(nombre,apellidos,anio,convocatoria,notas);
+                    datos.push(alumno);
+                break;
+                case "CONSULTAR NOTAS":
+                    var msg="";
+                    //Limpiamos los campos
+                    document.getElementsByName("nombre")[0].value="";
+                    document.getElementsByName("apellidos")[0].value="";
+                    document.getElementsByName("anio")[0].value="";
+                    
+                
+                    //Se va rellenando el map en función de las notas anotadas
+                    for(let i=0;i<datos.length;i++){
+                        if(datos[i]["notas"]=="Óptimo"){
+                            contadorOptimo++;
+                            datosTotales.set("Óptimo",contadorOptimo);
+                        }else if(datos[i]["notas"]=="Mejorable"){
+                            contadorMejorable++;
+                            datosTotales.set("Mejorable",contadorMejorable);
+                        }else if(datos[i]["notas"]=="Notable"){
+                            contadorNotable++;
+                            datosTotales.set("Notable",contadorNotable);
+                        }else if(datos[i]["notas"]=="Excelente"){
+                            contadorExcelente++;
+                            datosTotales.set("Excelente",contadorExcelente);
+                        }
+                        
+                    }
+                    console.log(datosTotales);
+                    console.log(datos);
+                    for([clave,valor] of datosTotales){
+                        msg+="\nNota: "+clave+"\nTotal de alumnos: "+valor+"\n";
+                    }
+                    document.getElementsByName("texto")[0].value=msg;
+                break;
+                case "CONSULTAR NOTA DE ALUMNO":
+                    var nombreAlumno=prompt("Introduce alumno para saber su nota");
+                    var indice=0;
+                    for(let valor in datos){
+                        if(datos[valor]["nombre"]==nombreAlumno){
+                            indice=valor;
+                        }
+                    }
+                    document.getElementsByName("nombre")[0].value=datos[indice]["nombre"];
+                    document.getElementsByName("apellidos")[0].value=datos[indice]["apellidos"];
+                    document.getElementsByName("anio")[0].value=datos[indice]["anio"];
+                    document.getElementsByName("convocatoria_")[0].value=datos[indice]["convocatoria"];
+                    document.getElementsByName("notas_")[0].value=datos[indice]["notas"];
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
