@@ -1,5 +1,4 @@
 
-
 <!--CALCULADORA EN UNA SOLA FUNCIÓN-->
 <!DOCTYPE html>
 <html lang="es">
@@ -53,6 +52,13 @@
     <div class="formulario">
         <form action="#" method="">
             <div class="resultado">
+                <p>
+                    <input type="text" name="numero1" disabled>
+                    <input type="text" name="numero2" disabled>
+                </p>
+                <p>
+                    <input type="text" name="operando" disabled>
+                </p>
                 <input type="text" id="resultado">
             </div>
             <div class="numeros">
@@ -72,7 +78,6 @@
                 <input type="button" id="menos" class="btn btn-dark" value="-" onclick="accion(this.value)">
                 <input type="button" id="multi" class="btn btn-dark" value="*" onclick="accion(this.value)">
                 <input type="button" id="divi" class="btn btn-dark" value="/" onclick="accion(this.value)">
-                <input type="button" id="resto" class="btn btn-dark" value="%" onclick="accion(this.value)">
                 <input type="button" id="total" class="btn btn-dark" value="=" onclick="accion(this.value)">
             </div>
 
@@ -87,6 +92,7 @@
         var operador = "";
 
         function accion(tecla) {
+            
             switch (tecla) {
                 case "0":
                     var cero = document.getElementById("cero").value;
@@ -229,12 +235,11 @@
                     operador = divi;
                     console.log(operador);
                     break;
-                case "%":
-                    var resto = document.getElementById("resto").value;
-                    operador = resto;
-                    console.log(operador);
-                    break;
+                
                 case "=":
+                    document.getElementsByName("numero1")[0].value=totalNumeros;
+                    document.getElementsByName("numero2")[0].value=totalNumeros2;
+                    document.getElementsByName("operando")[0].value=operador;
                     totalNumeros_ = parseInt(totalNumeros);
                     totalNumeros2_ = parseInt(totalNumeros2);
                     switch (operador) {
@@ -254,13 +259,11 @@
                             let divi = totalNumeros_ / totalNumeros2_;
                             document.getElementById("resultado").value = divi;
                             break;
-                        case "%":
-                            let resto = totalNumeros_ % totalNumeros2_;
-                            document.getElementById("resultado").value = resto;
-                            break;
+                        
                     }
                     break;
             }
+            
         }
     </script>
 </body>
