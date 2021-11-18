@@ -33,6 +33,10 @@ DE ENTRADA DE LOS LIBROS A LA BBDD-->
             <label for="">Año de publicación</label>
             <input type="text" name="anio">
         </p>
+         <p>
+            <label for="">Signatura</label>
+            <input type="text" name="signatura" disabled>
+        </p>
         
     
         <input type="button" name="boton" value="AÑADIR" onclick="accion(this.value)">
@@ -103,6 +107,7 @@ DE ENTRADA DE LOS LIBROS A LA BBDD-->
                     document.getElementsByName("autor")[0].value=biblioteca[indice]["autor"];
                     document.getElementsByName("editorial")[0].value=biblioteca[indice]["editorial"];
                     document.getElementsByName("anio")[0].value=biblioteca[indice]["anio"];
+                    document.getElementsByName("signatura")[0].value=biblioteca[indice]["signatura"];
                 break;
             
             }
