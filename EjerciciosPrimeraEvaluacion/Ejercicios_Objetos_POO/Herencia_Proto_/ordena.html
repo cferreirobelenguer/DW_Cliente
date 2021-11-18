@@ -1,0 +1,80 @@
+
+<!-- Crea un tipo de objeto que sirva para representar figuras:
+Sus propiedades son:
+
+Marca, un texto
+Modelo, un texto
+Memoria RAM, un número que indica GB de capacidad
+Capacidad Disco Duro, un número que indica GB de capacidad
+Pulgadas de pantalla, un número que indica Pulgadas
+Métodos de los ordenadores: toString() sirve para obtener en forma de texto los detalles del ordenador
+Al crear un ordenador se pueden indicar todos los valores.
+Crear otro tipo de objeto que represente ordenadores portátiles, los cuales heredan todo lo de los ordenadores
+pero añaden una propiedad llamada autonomía, que es un número que expresa horas. Se construye este objeto igual
+que los ordenadores y pudiendo añadir la autonomía al crear al objeto.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ordenas</title>
+</head>
+<body>
+    <form action="" method="" name="contenido">
+        <p>
+            <textarea name="texto"></textarea>
+        </p>
+        <input type="button" id="boton" value="DATOS ORDENA" onclick="verDatos(this.value)">
+        <input type="button" id="boton" value="DATOS PORTÁTIL" onclick="verDatos(this.value)">
+    
+    </form>
+    <script>
+        function verDatos(tecla){
+            var marca_="";
+            var modelo_="";
+            var memoriaRam_="";
+            var discoDuro_="";
+            var pulgadas_="";
+            var autonomia_="";
+            switch(tecla){
+                case "DATOS ORDENA":
+                document.getElementsByName("texto")[0].value="";
+                //Constructor
+                function ordenador_(marca_,modelo_,memoriaRam_,discoDuro_,pulgadas_){
+                    this.marca=marca_;
+                    this.modelo=modelo_;
+                    this.memoriaRam=memoriaRam_;
+                    this.discoDuro=discoDuro_;
+                    this.pulgadas=pulgadas_;
+                    this.toString=function toString(){
+                    return "Los datos del ordenador son: \n Marca: "+this.marca+"\nModelo: "+this.modelo+"\nMemoria RAM: "+this.memoriaRam+"GB\nDisco duro: "+this.discoDuro+"GB\nPulgadas: "+this.pulgadas+" pulgadas";
+                    }
+                }
+                //Creación de objeto
+                var ordena=new ordenador_("Apple","Imac","16","256","24");
+                
+                document.getElementsByName("texto")[0].value=ordena.toString();
+
+                break;
+                case "DATOS PORTÁTIL":
+                document.getElementsByName("texto")[0].value="";
+                //Constructor con atributos de superclase + subclase (autonomia)
+                function portatil_(marca_,modelo_,memoriaRam_,discoDuro_,pulgadas_,autonomia_){
+                    //Se heredan los atributos de la superclase
+                    this._proto_=new ordenador_(marca_,modelo_,memoriaRam_,discoDuro_,pulgadas_);
+                    this.autonomia=autonomia_;
+                    this.toString=function toString(){
+                        //Llamamos a los atributos heredados + el nuevo atributo en la función toString()
+                    return this._proto_.toString()+"\nAutonomia: "+this.autonomia+" horas";
+                    }
+                }
+                //Creación de objeto
+                var portatil=new portatil_("Apple","Macbook Air","8","256","12","13");
+                
+                document.getElementsByName("texto")[0].value=portatil.toString();
+            }
+        }
+    </script>
+</body>
+</html>
