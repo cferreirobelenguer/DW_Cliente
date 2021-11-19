@@ -1,5 +1,5 @@
 
-<!--Para realizar una aplicación bancaria tenemos que realizar
+<!--Para realizar una aplicación bancaria tenemos que realizar dos
 un formulario que solicita el ingreso, reintegro o ver el saldo de una
 cuenta bancaria cuyos datos son  llamados por name en los botones ingreso,
 reintegro y ver saldo. La primera vez que se conecta se inicializa el saldo 0.
@@ -37,7 +37,7 @@ distinto.-->
         </p>
         <p>
             <label for="">Importe: </label><br>
-            <input type="number" name="numero">
+            <input type="text" name="numero">
         </p>
         <input type="button" name="ingreso" value="INGRESO" onclick="accion(this.value)">
         <input type="button" name="reintegro" value="REINTEGRO" onclick="accion(this.value)">
@@ -65,7 +65,10 @@ distinto.-->
                     //Se coge el valor de importe en input
                     var cantidad=document.getElementsByName("numero")[0].value;
                     //Si el dinero es positivo se realiza la operación, en caso contrario se muestra mensaje de no poder realizar operación
+                     //Comprobamos si es un número
+                if(!isNaN(cantidad)){
                     if(cantidad>0){
+                        
                         var saldoIngreso=parseInt(cantidad);
                         this.saldo=this.saldo+saldoIngreso;
                         msg="RESULTADO: Operación realizada";
@@ -74,11 +77,17 @@ distinto.-->
                         msg="RESULTADO: Importe Erróneo o importe menor de 0";
                         document.getElementById("operacion").value=msg;
                     }
+                }else{
+                    msg="RESULTADO: Importe Erróneo debe introducir un número";
+                        document.getElementById("operacion").value=msg;
+                }
                     
                 break;
                 case "REINTEGRO":
                      //Se coge el valor de importe en input
                     var cantidad_=document.getElementsByName("numero")[0].value;
+                    //Comprobamos si es un número
+                if(!isNaN(cantidad_)){
                     if(cantidad_<this.saldo){
                         var saldoReintegro=parseInt(cantidad_);
                         this.saldo=this.saldo-saldoReintegro;
@@ -88,7 +97,10 @@ distinto.-->
                         msg="RESULTADO: Importe Erróneo o importe superior al saldo";
                         document.getElementById("operacion").value=msg;
                     }
-                    
+                }else{
+                    msg="RESULTADO: Importe Erróneo debe introducir un número";
+                        document.getElementById("operacion").value=msg;
+                }  
                 break;
                 case "VER SALDO":
                     //Muestra el saldo total
