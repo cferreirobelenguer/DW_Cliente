@@ -1,0 +1,106 @@
+
+<!--Para realizar una aplicación bancaria tenemos que realizar dos
+un formulario que solicita el ingreso, reintegro o ver el saldo de una
+cuenta bancaria cuyos datos son  llamados por name en los botones ingreso,
+reintegro y ver saldo. La primera vez que se conecta se inicializa el saldo 0.
+Las siguientes operaciones pueden alterar este valor. 
+
+1. Si el usuario solicita Igreso, el valor del importe tiene que ser un número positivo.
+En caso contrario se enviará el mensaje "Importe Erróneo o importe menor de 0".
+Si el usuario solicita Reintegro, el valor del importe tiene que ser un número entero
+positivo inferior o igual al saldo actual. En caso contrario se enviará el mensaje 
+"Importe Erróneo o importe superior al saldo."
+
+2. Si el Ingreso o el Reintegro han sido posibles se enviará el mensaje "Operación realizada
+y se actualizará el valor.
+Si el usuario solicita Ver saldo, se enviará el mensaje "Su saldo es de 12.100 Euros" con el 
+valor del saldo actual.
+
+3. Si el usuario solicita Terminar, se cerrará la sesión para que permita la conexión a un usuario
+distinto.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minibanco 1.0</title>
+</head>
+<body>
+    <center>
+    <h1>Minibanco 1.0</h1>
+    <form action="" method="">
+        
+        <p>
+            <textarea id="operacion" disabled></textarea>
+        </p>
+        <p>
+            <label for="">Importe: </label><br>
+            <input type="number" name="numero">
+        </p>
+        <input type="button" name="ingreso" value="INGRESO" onclick="accion(this.value)">
+        <input type="button" name="reintegro" value="REINTEGRO" onclick="accion(this.value)">
+        <input type="button" name="versaldo" value="VER SALDO" onclick="accion(this.value)">
+        <input type="button" name="terminar" value="TERMINAR" onclick="accion(this.value)">
+        
+    </form>
+</center>
+    <script>
+        //Variable global saldo 
+        var saldo=0;
+        var msg="";
+        function accion(boton){
+            //Constructor de banco 
+            function banco(saldo){
+                this.saldo=saldo;
+                this.info=function toString(){
+                    return "Su saldo actual es "+this.saldo+" €";
+                }
+            }
+            //Creación de objeto cuentaBancaria
+            var cuentaBancaria=new banco(saldo);
+            switch(boton){
+                case "INGRESO":
+                    //Se coge el valor de importe en input
+                    var cantidad=document.getElementsByName("numero")[0].value;
+                    //Si el dinero es positivo se realiza la operación, en caso contrario se muestra mensaje de no poder realizar operación
+                    if(cantidad>0){
+                        var saldoIngreso=parseInt(cantidad);
+                        this.saldo=this.saldo+saldoIngreso;
+                        msg="RESULTADO: Operación realizada";
+                        document.getElementById("operacion").value=msg;
+                    }else{
+                        msg="RESULTADO: Importe Erróneo o importe menor de 0";
+                        document.getElementById("operacion").value=msg;
+                    }
+                    
+                break;
+                case "REINTEGRO":
+                     //Se coge el valor de importe en input
+                    var cantidad_=document.getElementsByName("numero")[0].value;
+                    if(cantidad_<this.saldo){
+                        var saldoReintegro=parseInt(cantidad_);
+                        this.saldo=this.saldo-saldoReintegro;
+                        msg="RESULTADO: Operación realizada";
+                        document.getElementById("operacion").value=msg;
+                    }else{
+                        msg="RESULTADO: Importe Erróneo o importe superior al saldo";
+                        document.getElementById("operacion").value=msg;
+                    }
+                    
+                break;
+                case "VER SALDO":
+                    //Muestra el saldo total
+                    document.getElementById("operacion").value=cuentaBancaria.info();
+                break;
+                case "TERMINAR":
+                    //Se limpian las cajas
+                document.getElementById("operacion").value="Gracias por su visita";
+                document.getElementsByName("numero")[0].value="";
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
