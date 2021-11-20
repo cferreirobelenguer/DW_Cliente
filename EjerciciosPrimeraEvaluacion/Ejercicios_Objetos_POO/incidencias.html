@@ -1,0 +1,96 @@
+
+<!-- Para realizar la gestión del mantenimiento de los sistemas informáticos
+de una empresa se ha diseñado una aplicación que permite añadir incidencias a los
+usuarios de la empresa desde una aplicación web. La incidencia recogida se añade 
+a un array de objetos llamado fichero para su posterior procesamiento en un textarea.
+Se realiza un archivo que contiene el formulario que tiene que rellenar el usuario y el programa js
+que añade en el array fichero las incidencias de la información recogida por el formulario,
+añadiendo además la fehca, hora, dirección IP del ordenador desde donde se envió la incidencia.
+
+El fichero incidencias tendrá una incidencia por línea separando los valores por una coma.
+El programa js mostrará dos posibles mensajes. 
+
+Muchas gracias Fernando, se ha anotado su incidencia. Si todo ha salido bien
+o
+Error no se ha podido anotar su incidencia. Si no se ha podido añadir la incidencia en el archivo-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUARDAR INCIDENCIAS</title>
+</head>
+<body>
+    <h1>Gestión de Incidencias</h1>
+    <center>
+    <form action="" method="" name="formulario">
+        <p>
+            <label for="">Nombre: </label><br>
+            <input type="text" name="nombre">
+        </p>
+        <p>
+            <label for="">Resumen: </label><br>
+            <textarea ></textarea>
+        </p>
+        <p>
+            <label for="">Total datos fichero: </label><br>
+            <textarea disabled></textarea>
+        </p>
+        <p>
+            <label for="">Prioridad: </label><br>
+            Baja <input type="radio" name="prioridad" value="4">
+            Normal <input type="radio" name="prioridad" value="3">
+            Alta <input type="radio" name="prioridad" value="2">
+            urgente <input type="radio" name="prioridad" value="1">
+        </p>
+        <input type="button" name="boton" value="Enviar" onclick="enviar();">
+    </form>
+    </center>
+    <script>
+        var fichero=[];
+    
+        function enviar(){
+            
+            const hoy = new Date();
+            const hora_=new Date();
+            var msg="";
+            var fecha=hoy.getDate();
+            fecha=hoy.toDateString();
+            var hora=hora_.getHours();
+            var nombre="";
+            var mensaje="";
+            var direccionIp="";
+            function incidencias(fecha,hora,nombre,mensaje,prioridad,direccionIp){
+                this.fecha=fecha;
+                this.hora=hora;
+                this.nombre=nombre;
+                this.mensaje=mensaje;
+                this.prioridad=prioridad;
+                this.direccionIp=direccionIp;
+            }
+            nombre=document.getElementsByName("nombre")[0].value;
+            mensaje=document.getElementsByTagName("textarea")[0].value;
+        
+            var prioridad=document.formulario.prioridad.value;
+            document.getElementsByTagName("textarea")[0].value="";
+            var incidencia1=new incidencias(fecha, hora, nombre,mensaje, prioridad, "192.168.12.2");
+            if(mensaje==''){
+                document.getElementsByTagName("textarea")[0].value="Error, no se ha podido anotar su incidencia";
+            }else{
+                document.getElementsByTagName("textarea")[0].value="Muchas gracias Fernando, se ha anotado su incidencia";
+                fichero.push(incidencia1);
+                document.getElementsByName("nombre")[0].value="";
+                console.log(fichero);
+                for(let valor in fichero){
+                
+                    msg+="\n\nFecha: "+fichero[valor]["fecha"]+"\nHora: "+fichero[valor]["hora"]+"\nNombre: "+fichero[valor]["nombre"]+"\nMensaje: "+fichero[valor]["mensaje"]+"\nPrioridad: "+fichero[valor]["prioridad"]+"\n Dirección Ip: "+fichero[valor]["direccionIp"]+"\n\n";
+                }
+                document.getElementsByTagName("textarea")[1].value=msg;
+            }
+           
+        }
+    </script>
+</body>
+</html>
