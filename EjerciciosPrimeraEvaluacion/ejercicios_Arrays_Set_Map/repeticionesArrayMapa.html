@@ -1,0 +1,70 @@
+
+
+<!-- Crear un mapa que contenga las palabras repetidas y el número de veces que se repiten.
+La página web deberá permitir:
+EN primer lugar, deberá leer las palabras que el cliente introduce a través de un prompt y las
+almacenará en un array. Este proceso se repetirá hasta que el cliente presione el botón cancelar o deje el cuadro vacío.
+
+El array se deberá ordenar atendiendo al orden local español.
+
+En segundo lugar:
+Se invocará a una función llamada mapaderepeticiones, a la que se le pasrá por parámetro el array obtenido. Esta función
+creará un mapa cuyas claves será las palabras repetidas y valor, el número de veces que se repite.
+-->
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palabras repes</title>
+</head>
+<body>
+    <form action="" method="" name="formulario">
+        <p>
+            <label for="">Resultado de palabras repes</label>
+            <textarea name="texto"></textarea>
+        </p>
+    </form>
+    <script>
+        //array con el conjunto de palabras introducidas
+        var array_=[];
+        //Mapa de palabras y repeticiones
+        var mapa_Palabras=new Map();
+        function accion(){
+            var palabra="";
+            var msg="";
+            do{
+                palabra=prompt("Introduce una palabra");
+                if(isNaN(palabra)){
+                    array_.push(palabra);
+                }
+                //Si usuario rellena vacío o pulsa cancelar finaliza el almacenamiento de datos
+            }while((palabra!="")&&(palabra!=undefined));
+
+            //Recorremos array
+            for(let i=0;i<array_.length;i++){
+                //Si la clave del mapa está definida, que es el valor del array se modifica en mapa y se incrementa su valor a 1
+                    if(mapa_Palabras.get(array_[i])!=undefined){
+                        
+                        console.log(mapa_Palabras.get(array_[i]));
+                        mapa_Palabras.set(array_[i],mapa_Palabras.get(array_[i])+1);
+                    }else{
+                //Si no está definida se añade a mapa y se pone su valor a 1
+                        mapa_Palabras.set(array_[i],1);
+                    }
+            }
+            //Se recorre mapa y se concatenan los resultados de palabra y repeticiones
+            for([clave,valor] of mapa_Palabras){
+                msg+="Palabra: "+clave+" Repeticiones: "+valor+"\n";
+            }
+            //Se muestran resultados en caja de texto
+            document.getElementsByName("texto")[0].value=msg;
+
+        }
+        accion();
+    </script>
+</body>
+</html>
