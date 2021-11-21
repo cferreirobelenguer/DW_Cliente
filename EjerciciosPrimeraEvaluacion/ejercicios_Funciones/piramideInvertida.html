@@ -1,0 +1,46 @@
+
+
+<!--Utilizando el lenguaje JavaScript, dibuja sobre una caja de texto la siguiente imagen:-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="" name="formulario">
+        <p>
+            <label for="">Tamaño: </label>
+            <input type="text" name="tamano">
+        </p>
+
+        <p>
+            <label for="">Dibujo de triángulo: </label>
+            <textarea name="texto"></textarea> 
+        </p>
+        <input type="button" name="boton" onclick="triangulo(document.formulario.tamano.value);" value="DIBUJAR">
+    </form>
+    <script>
+        function triangulo(tamano_){
+            
+            var blanco=tamano_-1;
+            for(let i=0;i<tamano_;i++){
+                
+                for(let j=0;j<tamano_;j++){
+                    if(blanco>j){
+                        document.getElementsByName('texto')[0].value+=" ";
+                    }else{
+                        document.getElementsByName('texto')[0].value+="*"; 
+                    }
+                    
+                }
+                blanco--;
+                
+                document.getElementsByName('texto')[0].value+="\n";
+            }
+        }
+    </script>
+</body>
+</html>
