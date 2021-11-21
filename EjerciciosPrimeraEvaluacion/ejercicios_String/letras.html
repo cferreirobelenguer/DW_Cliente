@@ -1,0 +1,69 @@
+
+
+
+<!--Diseñar un algoritmo que lea por caja de texto una frase, al pulsar BUSCAR
+se dirige a un prompt que pide introducir una letra y se calcula el número de veces que se repite en la frase.
+Escribir el número de repeticiones de la letra en un textarea.
+Verificar si frase y letra no son números y son caracteres, en caso de que sean números
+parar el programa y poner un mensaje de error.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducir palabras</title>
+</head>
+<body>
+    <form action="" method="">
+        <p>
+            <label for="">Introduce frase</label>
+            <input type="text" name="frase_">
+        </p>
+        <p>
+            <label for="">Resultado</label>
+            <textarea name="resultado" disabled></textarea>
+        </p>
+        <input type="button" name="busqueda" value="BUSCAR" onclick="buscarLetras();">
+    </form>
+    <script>
+        var letras=[];
+
+        function buscarLetras(){
+            var contador=0;
+            var calculo=false;
+            var frase=document.forms[0].frase_.value;
+            console.log(frase);
+            frase=frase.toLowerCase();
+            
+            //Si frase es cadena de caracteres introducimos sus caracteres en un arreglo
+            if(isNaN(frase)){
+                var letra=prompt("Introduce una letra");
+                //Al ser jss case sensitive hay que pasar la letra a minúscula
+                letra=letra.toLowerCase();
+                for(let i=0;i<frase.length;i++){
+                    if(isNaN(letra)){
+                    letras.push(frase.charAt(i));
+                    }else{
+                        calculo=true;
+                        break;
+                    }
+                }
+                for(let valor of letras){
+                if(letra==valor){
+                    contador++;
+                }
+            }
+            document.forms[0].elements.resultado.value="El total de repeticiones de la letra "+letra+" es:\n"+contador;
+
+            }else if(!isNaN(frase)){
+                document.forms[0].elements.resultado.value="No se puede realizar la operación, ha introducido un número";
+            }
+            if(!calculo==false){
+                document.forms[0].elements.resultado.value="No se puede realizar la operación, ha introducido un número";
+            }
+           
+        }
+    </script> 
+</body>
+</html>
