@@ -1,0 +1,139 @@
+
+
+
+<!--3.- Crea una interfaz gráfica que permita introducir datos relativos a ordenadores y que
+pueda visualizarlos, después, ante una consulta.
+Propiedades:
+Marca(texto), Modelo(texto), Memoria RAM(número que indica GB de capacidad), SD
+(número que indica capacidad), Microprocesador(texto de Código modelo), Gráfica(texto de
+código de modelo).
+Por cada propiedad una caja de texto.
+Además, en la interfaz se añadirán dos imágenes, una para la gráfica y otra para el
+micropropcesador.
+Método:
+Se deberá crear un método que permita mostrar en modo string las propiedades del objeto
+ordenador. -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenadores</title>
+</head>
+
+<body>
+    <form action="" method="">
+        <p>
+            <label for="">Marca: </label>
+            <input type="text" name="marca">
+        </p>
+        <p>
+            <label for="">Modelo: </label>
+            <input type="text" name="modelo">
+        </p>
+        <p>
+            <label for="">Memoria Ram: </label>
+            <input type="text" name="memoria">
+        </p>
+        <p>
+            <label for="">Gráfica: </label>
+            <input type="text" name="grafica">
+        </p>
+        <section>
+            <h1>IMAGEN TARJETA GRÁFICA</h1>
+            <img src="" id="imagen">
+        </section>
+        <p>
+            <label for="">SD: </label>
+            <input type="text" name="sd">
+        </p>
+        <p>
+            <label for="">Microprocesador: </label>
+            <input type="text" name="micro">
+        </p>
+        <section>
+            <h1>IMAGEN MICROPROCESADOR</h1>
+            <img src="" id="imagen2">
+        </section>
+        <p>
+
+            <textarea name="consola" disabled></textarea>
+
+        </p>
+        <input type="button" name="boton" value="AÑADIR" onclick="accion(this.value);">
+        <input type="button" name="boton" value="CONSULTAR" onclick="accion(this.value);">
+    </form>
+
+    <script>
+        var elementosOrdena = [];
+
+        function accion(boton) {
+            var marca = document.forms[0].marca.value;
+            var modelo = document.forms[0].modelo.value;
+            var memoria = document.forms[0].memoria.value;
+            var grafica = document.forms[0].grafica.value;
+            var imagen = "grafica.jpg";
+            var sd = document.forms[0].sd.value;
+            var microprocesador = document.forms[0].micro.value;
+            var imagen2 = "micro.jpg";
+
+            function ordena(marca, modelo, memoria, grafica, imagen, sd, microprocesador, imagen2) {
+                this.marca = marca;
+                this.modelo = modelo;
+                this.memoria = memoria;
+                this.grafica = grafica;
+                this.imagen = imagen;
+                this.sd = sd;
+                this.microprocesador = microprocesador;
+                this.imagen2 = imagen2;
+                this.toString = function toString() {
+                    return "Se han guardado los siguientes datos de forma satisfactoria:\nMarca: " + this.marca +
+                        "\nModelo: " + this.modelo + "\nMemoria: " + this.memoria + "\nGráfica: " + this.grafica +
+                        "\nSd: " + this.sd + "\nMicroprocesador: " + this.microprocesador;
+                }
+            }
+
+            var portatil = new ordena(marca, modelo, memoria, grafica, imagen, sd, microprocesador, imagen2);
+
+            switch (boton) {
+                case "AÑADIR":
+
+                    elementosOrdena.push(portatil);
+                    document.forms[0].consola.value = portatil.toString();
+                    document.forms[0].marca.value = "";
+                    document.forms[0].modelo.value = "";
+                    document.forms[0].memoria.value = "";
+                    document.forms[0].grafica.value = "";
+                    document.forms[0].sd.value = "";
+                    document.forms[0].micro.value = "";
+                    break;
+                case "CONSULTAR":
+                    var indice = 0;
+                    var msg = "";
+                    var modelo_ = document.forms[0].modelo.value;
+                    for (let valor in elementosOrdena) {
+                        if (modelo_ == elementosOrdena[valor]["modelo"]) {
+                            console.log = elementosOrdena[valor]["modelo"];
+                            indice = valor;
+                        }
+                    }
+                    console.log(indice);
+
+                    document.forms[0].marca.value = elementosOrdena[indice]["marca"];
+                    document.forms[0].modelo.value = elementosOrdena[indice]["modelo"];
+                    document.forms[0].memoria.value = elementosOrdena[indice]["memoria"];
+                    document.forms[0].grafica.value = elementosOrdena[indice]["grafica"];
+                    document.getElementById("imagen").src = portatil.imagen;
+                    document.forms[0].sd.value = elementosOrdena[indice]["sd"];
+                    document.forms[0].micro.value = elementosOrdena[indice]["microprocesador"];
+                    document.getElementById("imagen2").src = portatil.imagen2;
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>
