@@ -1,0 +1,144 @@
+<!-- Ejercicio de crear un objeto empleado con atributos de nombre, apellidos, profesion, departamento;
+crear un objeto que hereda de empleado con los mismos atributos heredados más rama. 
+En caso de que se añada a los datos un empleado se muestra una imagen, y si se añade un operario se muestra otra.
+Hay dos botones: uno ver datos que va mostrando los resultados en el textarea y almacena los datos; y otro consultar 
+que realiza la consulta de los datos por el nombre del empleado u operario.
+Crear objeto toString que muestra los datos en un textarea al pulsar ver datos.
+Almacenar todos los datos y al pulsar consultar mostrar en las cajas de texto los datos consultados por  nombre
+de empleado u operario.-->
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ficha empleados</title>
+</head>
+
+<body>
+    <h1>FICHA EMPLEADOS</h1>
+    <form action="" method="" name="formulario">
+        <p>
+            <label for="">Nombre : </label>
+            <input type="text" name="nombre">
+        </p>
+        <p>
+            <label for="">Apellido : </label>
+            <input type="text" name="apellido">
+        </p>
+        <p>
+            <label for="">Profesión: </label>
+            <input type="text" name="profesion">
+        </p>
+        <p>
+            <label for="">Departamento: </label>
+            <input type="text" name="departamento">
+        </p>
+        <p>
+            <label for="">Rama: </label>
+            <input type="text" name="rama">
+        </p>
+        <p>
+            <label for="">Datos: </label>
+            <textarea name="texto"></textarea>
+        </p>
+        <input type="button" name="datos" value="VER DATOS" onclick="verDatos(this.value);">
+        <input type="button" name="datos" value="CONSULTAR" onclick="verDatos(this.value);">
+    </form>
+    <section id="seccion">
+        <br>
+        <img id="imagen" src="empleados.jpg" width="400" height="300">
+    </section>
+    <script>
+        var datos_ = [];
+
+        function verDatos(boton) {
+            var msg = "";
+            var msg2 = "";
+            var nombre = "";
+            var apellido = "";
+            var profesion = "";
+            var departamento = "";
+            var rama="";
+            switch (boton) {
+                case "VER DATOS":
+                    function empleado(nombre, apellido, profesion, departamento) {
+                        this.nombre = nombre;
+                        this.apellido = apellido;
+                        this.profesion = profesion;
+                        this.departamento = departamento;
+                        
+                        this.toString = function toString() {
+                            return "Los datos del empleado son : \nNombre: " + this.nombre + "\nApellido :" + this
+                                .apellido + "\nProfesión :" + this.profesion + "\nDepartamento :" + this
+                                .departamento + "\n";
+                        }
+                    }
+                
+                    var nombre = document.formulario.nombre.value;
+                    var apellido = document.formulario.apellido.value;
+                    var profesion = document.formulario.profesion.value;
+                    var departamento = document.formulario.departamento.value;
+                    
+
+                    var empleado1 = new empleado(nombre, apellido, profesion, departamento);
+
+                    function operario_(nombre, apellido, profesion, departamento, rama) {
+                        this._proto_ = new empleado(nombre, apellido, profesion, departamento);
+                        this.rama = rama;
+                        this.toString= function toString() {
+                            return "\n" + this._proto_.toString() + "Rama: " +this
+                                .rama + "\n";
+                        }
+                        
+                    }
+                    
+                    var rama = document.formulario.rama.value;
+
+                    var operario1 = new operario_(nombre, apellido, profesion, departamento, rama);
+                    if (rama == "") {
+                        msg=empleado1.toString()
+                        document.getElementsByName("texto")[0].value=msg;
+                        document.getElementById("imagen").src = "empleados.jpg";
+                        datos_.push(empleado1);
+                        
+                    } else {
+                        msg2=operario1.toString();
+                        document.getElementsByName("texto")[0].value=msg2;
+                        document.getElementById("imagen").src = "operarios.jpg";
+                        datos_.push(operario1);
+                    }
+                    document.formulario.nombre.value="";
+                    document.formulario.apellido.value="";
+                    document.formulario.profesion.value="";
+                    document.formulario.departamento.value="";
+                    document.formulario.rama.value="";
+                    break;
+                case "CONSULTAR":
+                    var indice=0;
+                    var nombre_=prompt("Introduzca nombre");
+                for(let valor in datos_){
+                    
+                    if(datos_[valor]["nombre"]==nombre_){
+                        indice=valor;
+                    }
+                    document.formulario.nombre.value=datos_[indice]["nombre"];
+                    document.formulario.apellido.value=datos_[indice]["apellido"];
+                    document.formulario.profesion.value=datos_[indice]["profesion"];
+                    document.formulario.departamento.value=datos_[indice]["departamento"];
+                    if(!rama==""){
+                        document.formulario.rama.value=datos[indice]["rama"];
+                    }
+                    
+                }
+                    break;
+
+            }
+        }
+    </script>
+</body>
+
+</html>
