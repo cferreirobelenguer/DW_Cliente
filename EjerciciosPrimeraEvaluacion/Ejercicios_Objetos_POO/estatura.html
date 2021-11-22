@@ -1,0 +1,79 @@
+
+<!--Recoger datos de alumnos (nombre y estatura), al pulsar añadir 
+se introducen los datos y se van mostrando los datos añadidos en el
+textarea, al pulsar filtrar mayores de 170 se limpian los datos de las cajas,
+se filtran los mayores de 170 y se muestra el resultado en un textarea.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>estaturas</title>
+</head>
+<body>
+    <form action="" method="" name="formulario">
+        <p>
+            <label for="">Introduce nombre de alumno: </label>
+            <input type="text" name="alumno">
+        </p>
+        <p>
+            <label for="">Introduce estatura: </label>
+            <input type="text" name="estatura">
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado" disabled cols="30" rows="20"></textarea>
+
+        </p>
+        <input type="button" name="boton" value="AÑADIR" onclick="accion(this.value);">
+        <input type="button" name="boton" value="FILTRAR MAYORES DE 170" onclick="accion(this.value)">
+    </form>
+    <script>
+        
+        var datosAlumnos=[];
+        function accion(boton){
+            var nombre=document.formulario.alumno.value;
+            var estatura=document.formulario.estatura.value;
+            function alumnos(nombre,estatura){
+                
+                this.nombre=nombre;
+                this.estatura=estatura;
+                this.toString=function toString(){
+                    return "\nNombre: "+this.nombre+"\nEstatura: "+this.estatura;
+                }
+            }
+            var alumno_=new alumnos(nombre,estatura);
+
+            switch(boton){
+                case "AÑADIR":
+                    if((isNaN(nombre))&&(!isNaN(estatura))){
+                        datosAlumnos.push(alumno_);
+                        document.formulario.resultado.value+="Los datos se han guardado correctamente";
+                        document.formulario.resultado.value+=alumno_.toString()+"\n";
+                    }else{
+                        document.formulario.resultado.value="Los datos son erróneos";
+                    }
+                    document.formulario.alumno.value="";
+                    document.formulario.estatura.value="";
+                break;
+                case "FILTRAR MAYORES DE 170":
+                
+                    var msg1="Los mayores de 170 son: ";
+                    var msg="";
+                    var msgTotal="";
+                    var filtrado=datosAlumnos.filter(function(elemento){
+                        return elemento.estatura>170;
+                    })
+                    filtrado.forEach(function(elemento){
+                        msg+=elemento+"\n";
+                    })
+                    msgTotal=msg1+msg;
+                    document.formulario.resultado.value=msgTotal;
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
