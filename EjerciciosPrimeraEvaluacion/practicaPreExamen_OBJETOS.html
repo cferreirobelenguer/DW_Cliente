@@ -1,0 +1,110 @@
+
+<!--EJERCICIO PRE EXAMEN CON OBJETOS-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>alumnos pre examen</title>
+</head>
+<body>
+    <form action="" method="" name=formulario>
+        <p>
+            <label for="">Introduzca nombre de alumno</label>
+            <input type="text" name="nombre">
+        </p>
+        <p>
+            <label for="">Introduzca apellidos de alumno</label>
+            <input type="text" name="apellido">
+        </p>
+        <p>
+            <label for="">Introduzca instituto de alumno</label>
+            <input type="text" name="instituto">
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="texto" disabled cols="20" rows="20"></textarea>
+        </p>
+        <input type="button" value="AÑADIR" name="boton" onclick="accion(this.value)">
+        <input type="button" value="BUSCAR" name="boton" onclick="accion(this.value)">
+        <input type="button" value="VISUALIZAR" name="boton" onclick="accion(this.value)">
+        <input type="button" value="ELIMINAR" name="boton" onclick="accion(this.value)">
+        <input type="button" value="LIMPIAR" name="boton" onclick="accion(this.value)">
+        
+    </form>
+    <script>
+        var datosTotales=[];
+        var posicion_=0;
+
+        function accion(boton){
+            var nombre=document.formulario.nombre.value;
+            var apellido=document.formulario.apellido.value;
+            var instituto=document.formulario.instituto.value;
+
+            function alumnos(nombre,apellido,instituto){
+                this.nombre=nombre;
+                this.apellido=apellido;
+                this.instituto=instituto;
+
+            }
+            var alumno=new alumnos(nombre,apellido,instituto);
+            switch(boton){
+                case "AÑADIR":
+                    datosTotales.push(alumno);
+                    document.formulario.texto.value="Se han añadido los datos";
+                    if(datosTotales.length>=2){
+                        var posicion=prompt("Indique en qué posición quiere poner el dato [INICIO,FINAL,NUMERO]");
+                        switch(posicion){
+                            case "INICIO":
+                                datosTotales.pop(alumno);
+                                datosTotales.unshift(alumno);
+                                console.log(datosTotales);
+                                posicion_=datosTotales.indexOf(alumno);
+                                alert("Usted está en la "+posicion_+" posición, que es la primera posición");
+                            break;
+                            case "FINAL":
+                                posicion_=datosTotales.indexOf(alumno);
+                                console.log(datosTotales);
+                                alert("Usted está en la "+posicion_+" posición, que es la última posición");
+                            break;
+                            case "NUMERO":
+                                posicion_=datosTotales.indexOf(alumno);
+                                console.log(datosTotales);
+                                alert("Usted está en la "+posicion_+" posición, que es la última posición");
+                            break;
+                        }
+                    }
+
+                break;
+                case "BUSCAR":
+                    var msg="";
+                    msg="Nombre: "+datosTotales[posicion_]["nombre"]+"\nApellidos: "+datosTotales[posicion_]["apellido"]+"\nInstituto: "+datosTotales[posicion_]["instituto"];
+                    document.formulario.texto.value=msg;
+                    break;
+                case "VISUALIZAR":
+                var msg2="";
+                    for(let i=0;i<datosTotales.length;i++){
+                        
+                            msg2+=datosTotales[i]["nombre"]+"\n";
+                        
+                    }
+                    document.formulario.texto.value=msg2;
+                break;
+                case "ELIMINAR":
+
+                    document.formulario.texto.value="Se ha eliminado la posición "+posicion_;
+                    datosTotales.splice(posicion_);
+                    
+                break;
+                case "LIMPIAR":
+                    document.formulario.nombre.value="";
+                    document.formulario.apellido.value="";
+                    document.formulario.instituto.value="";
+                    document.formulario.texto.value="";
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
