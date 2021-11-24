@@ -1,0 +1,50 @@
+
+<!--Introducir un número y recorrerlo a través de la serie fibocacci.
+Mostrar el resultado en el textarea al pulsar añadir-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="formulario">
+        <p>
+            <input type="text" name="numero">
+        </p>
+        <p>
+            <textarea name="text"></textarea>
+        </p>
+        <input type="button" name="boton" value="MOSTRAR RESULTADO" onclick="serieNumeros(document.forms[0].elements[0].value);">
+
+    </form>
+    <script>
+        var array=[];
+        
+        function serieNumeros(numero){
+            numero=parseInt(numero);
+            for(let i=0;i<numero;i++){
+                if(i==0){
+                    array.push(i);
+                }
+                else if(i==1){
+                    array.push(i);
+                }
+                else if(i>1){
+                    var numero2=i-1+i;
+                    array.push(numero2);
+                }
+            }
+            console.log(array);
+            var msg="";
+            array.forEach(function(elemento){
+                msg+=elemento+",";
+            })
+            document.forms[0].text.value=msg;
+        }
+        
+    </script>
+</body>
+</html>
