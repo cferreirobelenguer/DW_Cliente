@@ -1,0 +1,309 @@
+
+<!--Programa para hacer registro de usuario: se registra nombre,apellidos,correo,edad,contraseña y contraseña repetida.
+Hay dos botones uno que valida llamo REGISTRAR y otro que limpia las cajas y muestra mensaje de despedida que es TERMINAR.
+Nombre debe de tener el primer caracter en mayúscula y el resto en minúscula.
+Apellido debe de tener el primer caracter en mayúscula y el resto en minúscula.
+Correo debe de contener @, en caso cotrario no será válido.
+Edad debe ser numérico.
+DNI se genera número aleatoriamente y se calcula la correspondiente letra del DNI en función del número.
+Contraseña debe ser mayor que 5 caracteres de longitud, debe contener al menos una mayúscula, una minúscula, un número y un caracter especial.
+Contraseña repetida debe ser igual que contraseña.
+Cuando se pulse registrar si todos los datos son correctos se limpian las cajas menos el textarea y se muestra resultados en textarea.
+Al pulsar terminar se limpian todas las cajas.
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        .encabezado {
+            margin: auto;
+            padding: 20px;
+            color: aliceblue;
+            background-color: blue;
+            text-align: center;
+        }
+
+        .formulario {
+            margin: auto;
+            padding: 20px;
+            color: blue;
+            background-color: aliceblue;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="encabezado">
+        <h1>Registro de datos</h1>
+    </div>
+    <div class="formulario">
+        <form action="">
+            <p>
+                <label for="">Nombre: </label>
+                <input type="text">
+            </p>
+            <p>
+                <label for="">Apellidos: </label>
+                <input type="" class="apellido">
+            </p>
+            <p>
+                <label for="">Correo: </label>
+                <input type="text" name="correo">
+            </p>
+            <p>
+                <label for="">Edad: </label>
+                <input type="text">
+            </p>
+            <p>
+                <label for="">Dni: </label>
+                <input type="text" class="dni" disabled>
+            </p>
+            <p>
+                <label for="">Contraseña: </label>
+                <input type="text" id="contra">
+            </p>
+            <p>
+                <label for="">Repita contraseña: </label>
+                <input type="text" name="repecontra">
+            </p>
+            <p>
+                <textarea id="resultado" cols=20 rows=10></textarea>
+            </p>
+            <input type="button" id="boton" value="REGISTRAR" onclick="validar()">
+            <input type="button" id="boton2" value="TERMINAR" onclick="terminar()">
+
+    </div>
+    </form>
+    <script>
+        //Variables globales
+        var numeros = "0123456789";
+        var caracteresEspeciales = ",.-;:_´ç¨Ç{}[]`+^*ºª@$%&/()=?¿";
+        //Boleeanos
+        nombreRegistrado=false;
+        apellidoRegistrado=false;
+        correoRegistrado_=false;
+        edadRegistrada=false;
+        contraRegistrada=false;
+        contraRepeRegistrada=false;
+        //Variables globales que van a contener los datos escritos en las cajas
+        var nombre="";
+        var apellido="";
+        var edad;
+        var correo="";
+        var dniTotal="";
+        var contra="";
+        var repe="";
+
+        //Función en la que se validan todas las cajas
+        function validar() {
+            validarNombreApellidos();
+            generarDni();
+            validarCorreo();
+            validarEdad();
+            validarContra();
+            //Si todos los datos son correctos se registra correctamente se muestra dato de confirmación de registro y se vacían las cajas
+            if((nombreRegistrado==true)&&(apellidoRegistrado==true)&&(correoRegistrado_==true)&&(edadRegistrada==true)&&(contraRegistrada==true)&&(contraRepeRegistrada==true)){
+                alert("Registrado correctamente");
+                document.getElementById("resultado").value = "Los datos registrados son los siguientes:\nNombre: "+nombre+"\nApellidos: "+apellido+"\nCorreo: "+correo+"\nEdad: "+edad+"\nDNI: "+dniTotal;
+                limpiar();
+
+
+            }
+
+        }
+        //Función para validar nombre y apellidos
+        //Se verifica que son caracteres,que no contienen caracteres numéricos, ni tienen caracteres especiales
+        function validarNombreApellidos() {
+
+            var caracteresEspe = false;
+            var caracteresEspe2 = false;
+            var numeros_ = false;
+            var numeros_2 = false;
+            var mayusculaNombre = false;
+            var mayusculaApellido = false;
+          //Se valida nombre
+            var nombre2 = document.getElementsByTagName("input")[0].value;
+            if (isNaN(nombre2)) {
+                for (let i = 0; i < nombre2.length; i++) {
+                    var caracter = nombre2.charAt(i);
+                    if (caracteresEspeciales.includes(caracter) != true) {
+                        if (numeros.includes(caracter) != true) {
+                            if (nombre2.charAt(0) == nombre2.charAt(0).toUpperCase()) {
+                                nombre = nombre2;
+                            } else {
+                                mayusculaNombre = true;
+                            }
+                        } else {
+                            numeros_ = true;
+                        }
+                    } else {
+                        caracteresEspe = true;
+                    }
+                }
+                //Se generan todos los alert de error de nombre
+                if (caracteresEspe == true) {
+                    alert("Nombre no debe tener caracteres especiales");
+                } else if (numeros_ == true) {
+                    alert("Nombre no debe contener caracteres numéricos");
+                } else if (mayusculaNombre == true) {
+                    alert("Nombre debe tener el primer caracter en mayúsculas");
+                }else{
+                    nombreRegistrado=true;
+                }
+
+            } else {
+                alert("Nombre no debe tener caracteres numéricos");
+            }
+          //Se valida apellido
+            var apellido2 = document.getElementsByClassName("apellido")[0].value;
+            if (isNaN(apellido2)) {
+                for (let i = 0; i < apellido2.length; i++) {
+                    var caracter = apellido2.charAt(i);
+                    if (caracteresEspeciales.includes(caracter) != true) {
+                        if (numeros.includes(caracter) != true) {
+                            if (apellido2.charAt(0) == apellido2.charAt(0).toUpperCase()) {
+                                apellido = apellido2;
+                            } else {
+                                mayusculaApellido = true;
+                            }
+
+                        } else {
+                            numeros_2 = true;
+                        }
+                    } else {
+                        caracteresEspe2 = true;
+                    }
+                }
+                //Se generan todos los alert de error de apellidos
+                if (caracteresEspe2 == true) {
+                    alert("Apellidos no deben tener caracteres especiales");
+                } else if (numeros_2 == true) {
+                    alert("Apellidos no deben contener caracteres numéricos");
+                } else if (mayusculaApellido == true) {
+                    alert("Apellido debe tener el primer caracter en mayúsculas");
+                }else{
+                    apellidoRegistrado=true;
+                }
+            }
+        }
+        //Función que genera dni aleatorio, letra se obtiene de dividir el número de dni entre 23, el resto es la posición de la letra que se genera con el dni
+        function generarDni() {
+
+            var dni = Math.floor(Math.random() * (8000000 - 1000000)) + 1000000;
+            var posicionesDni = "TRWAGMYFPDXBNJZSQVHLCKE";
+            var posicion = dni % 23;
+            dniTotal = dni + posicionesDni.charAt(posicion);
+            document.getElementsByClassName("dni")[0].value = dniTotal;
+        }
+        //Función que valida si correo tiene @
+        function validarCorreo() {
+            var arroba = "@";
+            var correoRegistrado = false;
+            var correo2 = document.getElementsByName("correo")[0].value;
+            for (let i = 0; i < correo2.length; i++) {
+                if (correo2.charAt(i) == arroba) {
+                    correoRegistrado = true;
+
+                }
+            }
+            if (correoRegistrado == true) {
+                correo = correo2;
+                correoRegistrado_=true;
+            } else {
+                alert("Correo debe contener @");
+            }
+
+        }
+        //Función que valida si edad es número o no
+        function validarEdad() {
+            var edad2 = document.getElementsByTagName("input")[3].value;
+            if (!isNaN(edad2)) {
+                edad = edad2;
+                edadRegistrada=true;
+            } else {
+                alert("Edad debe tener caracteres numéricos");
+            }
+        }
+        //Función que valida contraseña y la contraseña repe
+        function validarContra() {
+            var contieneNumeros = false;
+            var contieneMayus = false;
+            var contieneMin = false;
+            var contieneEspecial = false;
+            var repeIgual = false;
+            var contra2 = document.getElementById("contra").value;
+            //Se valida si la contraseña es mayor de 5 en longitud
+            if (contra2.length > 5) {
+                for (let i = 0; i < contra2.length; i++) {
+                    var caracter_ = contra2.charAt(i);
+                    //Se valida si contraseña contiene números
+                    if (numeros.includes(caracter_) == true) {
+                        contieneNumeros = true;
+                    }
+                    //Se valida si contraseña contiene caracteres especiales
+                    if (caracteresEspeciales.includes(caracter_)) {
+                        contieneEspecial = true;
+                    }
+                    //Se valida si contraseña contiene mayúsculas
+                    if (caracter_ == caracter_.toUpperCase()) {
+                        contieneMayus = true;
+                    }
+                    //Se valida si contraseña contiene minúsculas
+                    if (caracter_ == caracter_.toLowerCase()) {
+                        contieneMin = true;
+                    }
+                }
+            } else {
+                alert("Contraseña debe tener más de 5 caracteres");
+            }
+            if ((contieneNumeros == true) && (contieneEspecial == true) && (contieneMayus == true) && (contieneMin ==
+                    true)) {
+                contra = contra2;
+                contraRegistrada=true;
+            } else {
+                alert("Contraseña debe contener al menos un número, mayúscula, minúscula y caracter especial");
+            }
+            //Se valida si contraseña repetida es igual que contraseña original
+            var contrarepe = document.forms[0].repecontra.value;
+            if (contra == contrarepe) {
+                repe = contrarepe;
+                contraRepeRegistrada=true;
+            } else {
+                alert("ambas contraseñas deben de ser iguales");
+
+            }
+        }
+        //Se limpian todas las cajas y se termina el programa
+        function terminar() {
+            alert("Ha interrumpido el registro de datos");
+            document.getElementsByTagName("input")[0].value = "";
+            document.getElementsByClassName("apellido")[0].value = "";
+            document.getElementsByName("correo")[0].value = "";
+            document.getElementsByTagName("input")[3].value = "";
+            document.getElementsByClassName("dni")[0].value = "";
+            document.getElementById("contra").value = "";
+            document.forms[0].repecontra.value = "";
+            document.getElementById("resultado").value = "";
+
+        }
+        //Limpia las cajas menos el textarea
+        function limpiar() {
+            document.getElementsByTagName("input")[0].value = "";
+            document.getElementsByClassName("apellido")[0].value = "";
+            document.getElementsByName("correo")[0].value = "";
+            document.getElementsByTagName("input")[3].value = "";
+            document.getElementsByClassName("dni")[0].value = "";
+            document.getElementById("contra").value = "";
+            document.forms[0].repecontra.value = "";
+            
+        }
+    </script>
+</body>
+
+</html>
