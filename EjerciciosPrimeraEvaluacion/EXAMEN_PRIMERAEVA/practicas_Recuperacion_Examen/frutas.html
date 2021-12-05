@@ -1,0 +1,206 @@
+<!--Registro de frutas,aparece la imagen si el dato introducido en el alert
+coincide con el introducido en la caja de frutas cuando las frutas si son fresa, plátano,uvas o piña; 
+sino se muestra una imagen por defecto en los casos en los que el alert no coincida con la caja de frutas
+ni sea fresa,piña,uvas o plátano. Cuando se pulsa añadir se añaden los datos en un objeto literal y se limpian las cajas;
+se muestra en el textarea la información de los datos almacenados con un toString.
+Al pulsar consultar, cuando el usuario introduce el nombre de una de las frutas que registró, se realiza la búsqueda de los
+datos y aparecen los datos en las cajas, y se muestra en el textarea el nombre que se ha buscado.
+(Hay que validar que fruta y descripción no puede ser número y precio tiene que ser numérico)
+(referencia no lo introduce el usuario, se genera cogiendo el primer caracter de la fruta introducida más los caracteres de la 1 a la cuarta posición
+más un número aleatorio del 1 al 1000)
+Limpiar cajas (IMPORTANTE)
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>frutas</title>
+    <style>
+        .encabezado{
+            background-color:#ffd5d5;
+            text-align:center;
+            margin:auto;
+            padding:10px;
+        }
+        .portada{
+            text-align: center;
+            margin:auto;
+            background-color: #bdeee1;
+        }
+        .fruta_elegida{
+            margin:auto;
+            padding: 10px;
+            text-align: center;
+        }
+        .formulario{
+            background-color: #bdeee1;
+            margin:auto;
+            color:rgb(16, 17, 17);
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        .fruta_elegida{
+            margin:auto;
+            text-align: center;
+            padding: 10px;
+        }
+        .pie_pagina{
+            background-color:#ffd5d5;
+            text-align:center;
+            margin:auto;
+            padding:10px;
+            padding-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+    <div class="encabezado">
+        <br>
+    </div> 
+    </header>
+    <main>
+        <div class="portada">
+            <img src="portada_web.jpg" width=1227 height="950" alt="portada">
+        </div>
+        <div class="fruta_elegida">
+            <img src="pera.png" id="fruta_imagen" width=300 height="400" >
+        </div>
+        <div class="formulario">
+        <form action="">
+            <p>
+                <label for="">Fruta: </label>
+                <input type="text" name="fruta_">
+            </p>
+            <p>
+                <label for="">Precio: </label>
+                <input type="text" name="precio">
+            </p>
+            <p>
+                <label for="">Referencia</label>
+                <input type="text" name="referencia" disabled>
+            </p>
+            <p>
+                <label for="">Descripción de producto: </label>
+                <input type="text" name="descripcion">
+            </p>
+            <p>
+                <label for="">Descripción de datos totales: </label>
+                <textarea name="descripcion2" cols=20 rows="10"></textarea>
+            </p>
+            <input type="button" name="boton" value="AÑADIR" onclick="anadirDatos()">
+            <input type="button" name="boton2" value="CONSULTAR" onclick="consultarDatos()">
+            <input type="button" name="boton2" value="TERMINAR" onclick="terminar()">
+        </form>
+    </div>
+    </main>
+    <footer>
+        <div class="pie_pagina">
+            <br>
+        </div> 
+    </footer>
+    <script>
+        var datos=[];
+        function frutas(fruta, precio,referencia,descripcion, imagen){
+            //Se crea un constructor con los parámetros que va a introducir el usuario en las cajas
+            this.fruta=fruta;
+            this.precio=precio;
+            this.referencia=referencia;
+            this.descripcion=descripcion;
+            this.imagen=imagen;
+            //Función que muestra los datos de las cajas en el textarea
+            this.toString=function toString(){
+                return "Los datos son los siguientes: \nFruta: "+this.fruta+"\nPrecio: "+this.precio+"\nDescripción: "+this.descripcion+"\nReferencia: "+this.referencia;
+            }
+        }
+        function anadirDatos(){
+            var fruta=document.getElementsByName("fruta_")[0].value;
+            var precio=document.getElementsByName("precio")[0].value;
+            var referencia=document.getElementsByName("referencia")[0].value;
+            var descripcion=document.getElementsByName("descripcion")[0].value;
+            var referencia=fruta.charAt(0).toUpperCase()+fruta.substring(1,4)+Math.floor(Math.random()*(1000-0)+0);
+            //Se pide introducir un dato para mostrar la imagen correspondiente
+            var eleccion=prompt("Introduce el nombre de la fruta que deseas");
+            var imagen=eleccion+".jpg"
+            //La elección del prompt va enlazado con la elección de la caja, si la elección es igual a la fruta escogida y corresponde a alguna de las imagenes se imprime la imagen
+            //sino se muestra una imagen genérica que muestra mensaje de no disponible
+            //Pasamos los datos de fruta a minúsculas para poder compararlo con el prompt posteriormente
+            fruta=fruta.toLowerCase();
+            if((fruta==eleccion)&&((imagen=="fresa.jpg")||(imagen=="platano.jpg")||(imagen=="uvas.jpg")||(imagen=="piña.jpg"))){
+                document.getElementById("fruta_imagen").src=imagen;
+            }else{
+                document.getElementById("fruta_imagen").src="losentimos.png";
+            }
+            //Se crea el objeto 
+            var frutas_totales=new frutas(fruta,precio,referencia,descripcion,imagen);
+            if((!isNaN(precio))&&(isNaN(fruta))&&(isNaN(descripcion))){
+                //Se introducen los datos en el objeto literal
+                datos.push(frutas_totales);
+                //Debug para comprobar que funciona correctamente el objeto literal
+                console.log(datos);
+                document.getElementsByName("descripcion2")[0].value=frutas_totales.toString();
+            }else{
+                document.getElementsByName("descripcion2")[0].value="Datos inválidos.\nPor favor, introduzca los datos correctamente";
+            }
+            
+            
+            limpiar();
+        }
+        function consultarDatos(){
+            
+            var indice=0;
+            //Boleano que indica si el dato ha sido encontrado
+            var encontrado=false;
+            var nombre2=document.getElementsByName("fruta_")[0].value;
+            //Se coge el valor del indice cuando la fruta corresponde a alguno de los datos del objeto literal
+            for(let valor in datos){
+                if(nombre2==datos[valor]["fruta"]){
+                    indice=valor;
+                    encontrado=true;
+                    //Debug de la variable indice
+                    console.log(indice);
+                }
+            }
+            //Si se encuentra el dato se muestran los datos en las cajas
+            if(encontrado==true){
+                document.getElementsByName("fruta_")[0].value=datos[indice]["fruta"];
+                document.getElementsByName("precio")[0].value=datos[indice]["precio"];
+                document.getElementsByName("referencia")[0].value=datos[indice]["referencia"];
+                document.getElementsByName("descripcion")[0].value=datos[indice]["descripcion"];
+                document.getElementsByName("descripcion2")[0].value="Su elección es "+datos[indice]["fruta"];
+            //Si no se encuentra el dato se muestra en textarea mensaje de que la fruta no se encuentra en los datos
+            }else if(encontrado==false){
+                limpiar();
+                document.getElementsByName("descripcion2")[0].value="La fruta solicitada no se encuentra en nuestros datos";
+            }
+            
+            
+        }
+        //Función que limpia los datos introducidos en las cajas cuando se añaden los datos
+        function limpiar(){
+            document.getElementsByName("fruta_")[0].value="";
+            document.getElementsByName("precio")[0].value="";
+            document.getElementsByName("referencia")[0].value="";
+            document.getElementsByName("descripcion")[0].value="";
+            
+            
+        }
+        //Función de terminar
+        function terminar(){
+            //Se muestra imagen de despedida, se limpian cajas y se muestra mensaje en textarea de despedida
+            document.getElementById("fruta_imagen").src="gracias.png";
+            limpiar();
+            document.getElementsByName("descripcion2")[0].value="Muchas gracias por tu visita";
+        }
+
+
+    </script>
+    
+    
+
+</body>
+</html>
