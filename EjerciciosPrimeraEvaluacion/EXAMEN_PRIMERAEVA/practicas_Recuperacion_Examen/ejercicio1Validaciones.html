@@ -1,0 +1,174 @@
+
+<!-- Formulario con usuario y contraseña:
+Hay que validar ambos, usuario no debe contener mayúsculas y sólo debe tener caracteres string;
+y contraseña debe contener al menos 1 número, una mayúscula, minúscula y caracteres especiales.
+En caso de no tenerlos mostrar mensaje con alert.
+Si se pulsa cancelar se limpian las cajas y se termina el programa-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRO</title>
+    <style>
+        .registro{
+            margin:auto;
+            color:aliceblue;
+            background-color: blue;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+        .formulario{
+            margin:auto;
+            color:blue;
+            background-color:aliceblue;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="registro">
+        <h1>Introduzca datos: </h1>
+    </div>
+    <div class="formulario">
+        <form action="">
+            <p>
+                <label fr="">Usuario: </label>
+                <input type="text" name="usuario" >
+            </p>
+            <p>
+                <label fr="">Contraseña: </label>
+                <input type="text" name="contra" >
+            </p>
+            <p>
+                <textarea id="mensaje" cols=20 rows=10></textarea>
+            </p>
+            <input type="button" id="boton" value="REGISTRAR" onclick="validarDatos()">
+            <input type="button" id="boton2" value="CANCELAR" onclick="cancelar()">
+        </form>
+    </div>
+    <script>
+        //Función para validar datos
+        function validarDatos(){
+            //Declaración de variables globales de usuario
+            var mayuscula=false;
+            var minuscula=false;
+            //Se recogen los datos de usuario y contraseña
+            var usuario=document.getElementsByName("usuario")[0].value;
+
+            //VALIDACIÓN USUARIO
+            //Si no es número se recorre el caracter, si no se muestra alert indicando que no se admiten números en el usuario
+            if((usuario=="") || (usuario==undefined)|| (usuario==null)){
+                        document.getElementsByName('usuario')[0].value="";
+                        alert("Vuelva a introducir el usuario con el formato adecuado");
+                        
+            }else
+            if(isNaN(usuario)){
+        
+            for(let i=0;i<usuario.length;i++){
+                //Si contiene mayúsculas se indica con un booleano de mayuscula
+                if(usuario.charAt(i)==usuario.charAt(i).toUpperCase()){
+                    mayuscula=true;
+                }
+                //Si contiene minúscula se indica con un booleano de minúscula
+                else if(usuario.charAt(i)==usuario.charAt(i).toLowerCase()){
+                    minuscula=true;
+                    }
+                }
+                //Se imprimen los mensajes en alert y textarea en función del resultado de la validación
+                if(!(mayuscula==false)){
+                    alert("Usuario no debe contener mayúsculas");
+                }else{
+                //En caso de validación correcta se imprime en textarea y se muestra mensaje en alert de confirmación
+                    alert("Usuario registrado correctamente");
+                    document.getElementById("mensaje").value+="Usuario: "+usuario+"\n";
+            }
+            }else{
+                //Se indica que usuario no debe contener números y se limpia el textarea
+                alert("Usuario no debe tener números");
+                document.getElementById("mensaje").value="";
+            }
+            validarContra();
+        }
+        function validarContra(){
+            //Declaración de variables globales de contraseña
+            var mayusculaContra=false;
+            var minusculaContra=false;
+            var numeros="0123456789";
+            var numeroContra=false;
+            var caracterContra=false;
+            var caracteresEspeciales=",.-;:_¨´Ç{}^*`+[]$%&/()=?¿|@#¬'¡ºª<>";
+            var especiales=false;
+            var contra=document.getElementsByName("contra")[0].value;
+
+            //VALIDACIÓN CONTRASEÑA
+            if((contra=="") || (contra==undefined)|| (contra==null)){
+                    document.getElementsByName('contra')[0].value="";
+                    alert("Vuelva a introducir la contraseña con el formato adecuado");
+                    
+            }else
+            if(contra.length>8){
+                
+            for(let j=0;j<contra.length;j++){
+                let caracter=contra.charAt(j);
+                //Si contiene caracteres especiales se indica con un booleano de caracteres especiales
+                if(caracteresEspeciales.includes(caracter)==true){
+                    console.log(caracteresEspeciales.includes(caracter));
+                    especiales=true;
+                    console.log(especiales);
+                }
+                //Si contiene números se indica con un booleano de numeros
+                if(numeros.includes(caracter)==true){
+                    console.log(numeros.includes(caracter));
+                    numeroContra=true;
+                }
+                //Si contiene mayúsculas se indica con un booleano de mayuscula
+                if(caracter==caracter.toUpperCase()){
+                    mayusculaContra=true;
+                }
+                //Si contiene minúscula se indica con un booleano de minúscula
+                else if(caracter==caracter.toLowerCase()){
+                    minusculaContra=true;
+                }
+            }
+                
+                //Se imprimen los mensajes en alert y textarea en función del resultado de la validación
+                if(mayusculaContra==false){
+                    alert("Contraseña debe contener mayúsculas");
+                    document.getElementById("mensaje").value="";
+                }else if(minusculaContra==false){
+                    alert("Contraseña debe contener minúsculas");
+                    document.getElementById("mensaje").value="";
+                }else if(numeroContra==false){
+                    alert("Contraseña debe contener números");
+                    document.getElementById("mensaje").value="";
+                }else if(especiales==false){
+                    alert("Contraseña debe contener caracteres especiales");
+                    document.getElementById("mensaje").value="";
+                }else{
+                    //En caso de validación correcta se imprime en textarea y se muestra mensaje en alert de confirmación
+                    alert("Contraseña registrada correctamente");
+                    document.getElementById("mensaje").value+="Contraseña: "+contra+"\n";
+                }
+            
+            }else{
+                alert("La contraseña debe tener una longitud mayor de 8 caracteres");
+                document.getElementById("mensaje").value="";
+            }
+        }
+        //Función para el botón cancelar que limpia las ventanas y finaliza el programa
+        function cancelar(){
+            alert("Ha interrumpido el registro de datos");
+            document.getElementsByName("usuario")[0].value="";
+            document.getElementsByName("contra")[0].value="";
+            end;
+        }
+    
+    </script>
+</body>
+</html>
