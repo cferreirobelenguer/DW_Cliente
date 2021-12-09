@@ -1,0 +1,202 @@
+
+
+<!--Formulario de datos de un hospital, se almacenan los datos al pulsar añadir,
+se muestra la imágen correspondiente al seguro médico y se genera un número de póliza
+formado con el primer caracter del nombre + los dos caracteres primeros del seguro + número aleatorio
+de 0 a 1000;
+Cuando se pulsa buscar se búsca en el array por nombre introducido en la caja y se muestran los resultados.
+Limpiar cajas.
+Al pulsar terminar se limpian las cajas y se muestra mensaje de despedida-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hospital</title>
+    <style>
+        .encabezado{
+            
+            padding: 10px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color:#effaff;
+            color:#037682;
+        }
+        .formulario_{
+            margin:auto;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            color:#037682;
+        }
+        .pie{
+            padding: 20px;
+            background-color:#037682;
+        }
+    </style>
+</head>
+<body>
+    <div class="encabezado">
+        <img src="hospital.jpg" width="400" height="400">
+    </div>
+    
+    <div class="formulario_">
+        <h1> Registro de pacientes</h1>
+        <br>
+        <img src="paciente.jpg" id="seguroMedico" width="300" height="200">
+        <br>
+        <br>
+    <form name="formulario">
+        <p>
+            <label for="">Nombre /Apellidos : </label>
+            <input type="text" name="paciente">
+        </p>
+        <p>
+            <label for="">Seguro médico: </label>
+            <input type="text" name="seguro">
+        </p>
+        <p>
+            <label for="">Número de póliza: </label>
+            <input type="text" name="numeroPoliza" disabled>
+        </p>
+        <p>
+            <label for="">Correo: </label>
+            <input type="text" name="correo">
+        </p>
+        <p>
+            <textarea id="resultado" cols="20" rows="15"></textarea>
+        </p>
+        <input type="button" style="background-color: #037682;color:white" value="AÑADIR" id="boton" onclick="añadir()">
+        <input type="button" style="background-color: #037682;color:white" value="BUSCAR PACIENTE" id="boton2" onclick="buscar()">
+        <input type="button" style="background-color: #037682;color:white" value="TERMINAR" id="boton3" onclick="terminar()">
+        <br>
+        <br>
+        <h3> Nos pondremos en contacto con usted lo antes posible</h3>
+        <br>
+        <br>
+    </div>
+    <div class="pie">
+        <br>
+    </div>
+    <script>
+        //Variables globales aplicables a todas las funciones
+        var pacientesDatos=[];
+        var paciente="";
+        var seguro="";
+        var numeroPoliza="";
+        var correo="";
+        var correo2="";
+
+
+        function hospital(paciente,seguro,numeroPoliza,correo,imagen){
+
+            //Función constructora
+            this.paciente=paciente;
+            this.seguro=seguro;
+            this.numeroPoliza=numeroPoliza;
+            this.correo=correo;
+            this.imagen=imagen;
+            this.toString=function toString(){
+                //Se muestran los datos con toString
+                return "Los datos registrados son: \nNombre y Apellidos: "+this.paciente+"\nSeguro médico: "+this.seguro+"\nNúmero de póliza de seguro: "+this.numeroPoliza+"\nCorreo: "+this.correo;
+            }
+        }
+
+        function añadir(){
+            
+            paciente=document.formulario.paciente.value;
+            var mayusculaA="A";
+            var mayusculaZ="Z";
+            var indiceA=mayusculaA.charCodeAt(0);
+            var indiceZ=mayusculaZ.charCodeAt(0);
+            var caracter=paciente.charAt(0);
+            seguro=document.formulario.seguro.value;
+            generarNumeroPoliza();
+            correo=document.formulario.correo.value;
+            var pacienteHospi=new hospital(paciente,seguro,numeroPoliza,correo,imagen);
+            var imagen="";
+            if((seguro=="vivaz")||(seguro=="asisa")||(seguro=="sanitas")||(seguro=="dkv")||(seguro=="adeslas")){
+                    imagen=seguro+".jpg";
+                    document.getElementById("seguroMedico").src=imagen;
+                }else{
+                    imagen="paciente.jpg";
+                    
+                }
+            //No se ejecuta programa si las cajas están vacías
+            if((paciente="")||(paciente=undefined)||(seguro="")||(seguro=undefined)||(correo=="")||(correo==undefined)){
+                alert("Por favor debe introducir datos");
+            }else{
+                //Se valida que correo tenga @ y el primer caracter de nombre de paciente sea mayúscula
+            if((correo.includes("@")==true)&&((caracter.charCodeAt(0)>=indiceA)&&(caracter.charCodeAt(0)<=indiceZ))){
+                
+            //Si correo y nombre están validados se generan los datos, en caso de que no se muestra mensaje de error en textarea
+                document.getElementById("seguroMedico").src=imagen;
+                pacientesDatos.push(pacienteHospi);
+                console.log(pacientesDatos);
+                document.getElementById("resultado").value=pacienteHospi.toString();
+                limpiar();
+            }else{
+                alert("Correo debe llevar @ y el Nombre de paciente debe comenzar con una mayúscula");
+                limpiar();
+                document.getElementById("resultado").value="No se procesar su solicitud,\nintroduzca correctamente los datos";
+            }
+        }
+            
+        }
+        function generarNumeroPoliza(){
+            //Se genera un número de poliza aleatorio con la primera letra del nombre del paciente, los dos primeros caracteres del seguro y un
+            //número aleatorio de 0 a 1000
+            numeroPoliza=paciente.charAt(0)+seguro.substring(0,2)+Math.floor(Math.random()*(1000-0)+0);
+        }
+        
+        function terminar(){
+            //se limpian todas las cajas, se pone imagen por defecto y muestra mensaje de despedida
+            alert("Ha interrumpido el registro de datos");
+            imagen="paciente.jpg";
+            document.getElementById("seguroMedico").src=imagen;
+            document.formulario.paciente.value="";
+            document.formulario.seguro.value="";
+            document.formulario.correo.value="";
+            document.formulario.numeroPoliza.value="";
+            document.getElementById("resultado").value="";
+        }
+        function limpiar(){
+            //limpia ventanas excepto textarea y muestra imágen por defecto
+            document.formulario.paciente.value="";
+            document.formulario.seguro.value="";
+            document.formulario.correo.value="";
+            document.formulario.numeroPoliza.value="";
+            imagen="paciente.jpg";
+            document.getElementById("seguroMedico").src=imagen;
+
+        }
+        function buscar(){
+            //Busca datos de paciente por nombre
+            var indice=0;
+            var existe=false;
+            var nombre_=document.getElementsByName("paciente")[0].value;
+            console.log(nombre_);
+            for(let i in pacientesDatos){
+                if (nombre_==pacientesDatos[i]["paciente"]){
+                    indice=i;
+                    existe=true;
+                }
+            }
+            console.log(indice);
+            if(existe==true){
+                document.formulario.paciente.value=pacientesDatos[indice]["paciente"];
+                document.formulario.seguro.value=pacientesDatos[indice]["seguro"];
+                document.formulario.correo.value=pacientesDatos[indice]["correo"];
+                document.formulario.numeroPoliza.value=pacientesDatos[indice]["numeroPoliza"];
+                document.getElementById("resultado").value="Búsqueda finalizada";
+            }else{
+                limpiar();
+                document.getElementById("resultado").value="No se encuentran los datos";
+            }
+            
+        }
+    </script>
+</body>
+</html>
