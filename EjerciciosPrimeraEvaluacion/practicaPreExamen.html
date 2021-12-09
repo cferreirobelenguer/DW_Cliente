@@ -41,7 +41,7 @@ AL PULSAR LIMPIAR SE LIMPIAN LAS CAJAS -->
                     var alumno=document.forms[0].cjnombre.value;
                     //Cuando se almacena la posición 2 se muestra mensaje para elegir cambiar posición INICIO,FINAL, NUMERO
                     if(datosAlumnos.length>=2){
-                        var posicion=prompt("Introduzca la posición en la que quiere introducir el alumno [INICIO, FINAL, NUMERO]");
+                        var posicion=prompt("Introduzca la posición en la que quiere introducir el alumno [INICIO, FINAL, o introducir un número en concreto]");
                         
                         switch(posicion){
                             case "INICIO":
@@ -58,12 +58,19 @@ AL PULSAR LIMPIAR SE LIMPIAN LAS CAJAS -->
                                 alert("El alumno pasa a la "+indice+" posición");
                                 console.log(datosAlumnos);
                             break;
-                            case "NUMERO":
-                                //Se añade alumno en el orden correspondiente
-                                datosAlumnos.push(alumno);
-                                indice=datosAlumnos.indexOf(alumno);
-                                alert("El alumno pasa a la "+indice+" posición");
-                                console.log(datosAlumnos);
+                            default:
+                                //Se comprueba si el dato introducido es un número, en cuyo caso se introduce el alumno en la posición indicada
+                                if(!isNaN(posicion)){
+                                    datosAlumnos.splice(posicion,0,alumno);
+                                    indice=datosAlumnos.indexOf(alumno);
+                                    alert("El alumno pasa a la "+indice+" posición");
+                                    console.log(datosAlumnos);
+
+                                }else{
+                                    alert("El dato que ha introducido no es un número");
+                                }
+                            
+                                
                             break;
                         }
                     }else{
