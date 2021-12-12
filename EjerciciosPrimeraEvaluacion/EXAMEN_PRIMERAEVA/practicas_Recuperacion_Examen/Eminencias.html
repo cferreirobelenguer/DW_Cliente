@@ -56,7 +56,7 @@ incluido la imagen en caso de que tuviera. En caso de que el dato introducido no
         nacimiento=document.getElementById("born").value;
         muerte=document.getElementById("dead").value;
         aportacion=document.getElementsByTagName("textarea")[0].value;
-        //dni es primer caracter de nombre y 
+        //dni es primer caracter de nombre ,tres últimos caracteres de apellidos, número aleatorio de 0 a 1000
         dni=nombre.charAt(0)+apellidos.substring(apellidos.length-3,apellidos.length)+Math.floor(Math.random()*(1000-0)+0);
         imagen=prompt("Introduzca la inicial y el apellido de la eminencia")+".jpg";
         //Creamos el objeto inventor
@@ -71,6 +71,7 @@ incluido la imagen en caso de que tuviera. En caso de que el dato introducido no
         var nombre2=document.getElementsByTagName("input")[0].value;
         var indice;
         var existe=false;
+        //Se calcula el indice del array en el que está el nombre introducido
         for(let valor in datosEminencias){
             if(datosEminencias[valor]["nombre"]==nombre2){
                 indice=valor;
@@ -88,7 +89,7 @@ incluido la imagen en caso de que tuviera. En caso de que el dato introducido no
             document.getElementsByTagName("img")[0].src=datosEminencias[indice]["imagen"];
         }else{
             limpiar();
-            //En caso de que no muestra mensaje en textarea
+            //En caso de que el dato introducido no esté dentro de los datos almacenados, se limpian las cajas y se muestra mensaje en textarea
             document.getElementsByTagName("textarea")[0].value="El dato introducido no existe";
         }
     }
