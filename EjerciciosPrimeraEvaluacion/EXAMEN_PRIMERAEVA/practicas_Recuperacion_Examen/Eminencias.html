@@ -1,0 +1,107 @@
+
+<!--EJERCICIO DE EXAMEN NOVIEMBRE 2021 DE EMINENCIAS
+Se introducen datos en las cajas y con el botón de añadir se almacenan en un objeto literal y se limpian las cajas
+Se genera un dni con el primer caracter del nombre, los últimos tres dígitos del apellido y un número aleatorio de 0 a 1000.
+Al añadir los datos se pregunta con prompt la primera inicial del nombre y el apellido entero, esto va a servir para mostrar la imagen posteriormente en buscar.
+Cuando le damos al botón de buscar al introducir en la caja un nombre, se buscan los datos y se muestran todos los datos en las cajas
+incluido la imagen en caso de que tuviera. En caso de que el dato introducido no esté se limpian las cajas y se muestra mensaje.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha Eminencias</title>
+</head>
+<body>
+    <table>
+        <tr><td>    
+    <table>
+        <tr><td><label for="">Nombre: </label></td><td><input type="text" name="ficha"></td></tr>     
+        <tr><td><label for="">Apellidos</label></td><td><input type="text" name="ficha"></td></tr>
+        <tr><td><label for="">DNI: </label></td><td><input type="text" name="ficha" disabled></td></tr>
+        <tr><td><label for="">Fecha Nacimiento: </label></td><td><input type="text"  id="born"></td></tr>
+        <tr><td><label for="">Fecha Muerte: </label></td><td><input type="text" id="dead"></td></tr>
+    </table></td><td><img src="ordenador.jpg" width="143" height="144" alt=""></td></tr>
+    <tr><td><input type="button" value="AÑADIR" style="width:40mm;height: 7mm;" onclick="anadir();"></td><td><input type="button" value="BUSCAR" style="width: 40mm;height: 7mm;" onclick="buscar();"></td></tr>
+</table>
+<h3>Principal aportación al mundo</h3>
+<textarea cols="30" rows="5" style="width: 116mm;"></textarea>
+
+<script>
+
+    //Declaración de variables globales
+    var nombre="";
+    var apellidos="";
+    var dni="";
+    var nacimiento="";
+    var muerte="";
+    var datosEminencias=[];
+
+    function eminencias(nombre, apellidos, dni, nacimiento, muerte, aportacion, imagen){
+        //Función constructora
+        this.nombre=nombre;
+        this.apellidos=apellidos;
+        this.dni=dni;
+        this.nacimiento=nacimiento;
+        this.muerte=muerte;
+        this.aportacion=aportacion;
+        this.imagen=imagen;
+    }
+    function anadir(){
+        //Declaración de variables
+        nombre=document.getElementsByTagName("input")[0].value;
+        apellidos=document.getElementsByName("ficha")[1].value;
+        nacimiento=document.getElementById("born").value;
+        muerte=document.getElementById("dead").value;
+        aportacion=document.getElementsByTagName("textarea")[0].value;
+        //dni es primer caracter de nombre y 
+        dni=nombre.charAt(0)+apellidos.substring(apellidos.length-3,apellidos.length)+Math.floor(Math.random()*(1000-0)+0);
+        imagen=prompt("Introduzca la inicial y el apellido de la eminencia")+".jpg";
+        //Creamos el objeto inventor
+        var inventor=new eminencias(nombre,apellidos,dni,nacimiento,muerte,aportacion,imagen);
+        //Introducimos los datos de las cajas en un objeto literal
+        datosEminencias.push(inventor);
+        console.log(datosEminencias);
+        //Una vez introducidos los datos limpiamos las cajas
+        limpiar();
+    }
+    function buscar(){
+        var nombre2=document.getElementsByTagName("input")[0].value;
+        var indice;
+        var existe=false;
+        for(let valor in datosEminencias){
+            if(datosEminencias[valor]["nombre"]==nombre2){
+                indice=valor;
+                existe=true;
+            }
+        }
+        if(existe==true){
+            //Si el dato introducido existe se muestran los datos en las cajas y su imágen correspondiente en caso de que tenga
+            document.getElementsByTagName("input")[0].value=datosEminencias[indice]["nombre"];
+            document.getElementsByName("ficha")[1].value=datosEminencias[indice]["apellidos"];
+            document.getElementsByName("ficha")[2].value=datosEminencias[indice]["dni"];
+            document.getElementById("born").value=datosEminencias[indice]["nacimiento"];
+            document.getElementById("dead").value=datosEminencias[indice]["muerte"];
+            document.getElementsByTagName("textarea")[0].value=datosEminencias[indice]["aportacion"];
+            document.getElementsByTagName("img")[0].src=datosEminencias[indice]["imagen"];
+        }else{
+            limpiar();
+            //En caso de que no muestra mensaje en textarea
+            document.getElementsByTagName("textarea")[0].value="El dato introducido no existe";
+        }
+    }
+    function limpiar(){
+        //Función que limpia las cajas de texto
+        document.getElementsByTagName("input")[0].value="";
+        document.getElementsByName("ficha")[1].value="";
+        document.getElementsByName("ficha")[2].value="";
+        document.getElementById("born").value="";
+        document.getElementById("dead").value="";
+        document.getElementsByTagName("textarea")[0].value="";
+
+    }
+</script>
+</body>
+</html>
