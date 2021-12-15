@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="encabezado">
+        <h1>Formulario de personas</h1>
+        <img src="personas.jpg" id="foto" width="300" height="200">  
+    </div>
+    <div class="formulario">
+        <form>
+            <p>
+                <label for="">Nombre: </label>
+                <input type="text">
+            </p>
+            <p>
+                <label for="">Apellidos: </label>
+                <input type="text" id="apellidos">
+            </p>
+            <p>
+                <label for="">Altura: </label>
+                <input type="text" id="altura">
+            </p>
+            <p>
+                <label for="">Identificador: </label>
+                <input type="text" name="identificador" disabled>
+            </p>
+            <p>
+                <label for="">Profesión: </label>
+                <textarea cols=20 rows=15></textarea>
+            </p>
+            <input type="button" value="AÑADIR" onclick="anadir();">
+            <input type="button" value="BUSCAR" onclick="buscar();">
+            <input type="button" value="TERMINAR" onclick="terminar();">
+        </form>
+    </div>
+    <script>
+        //Set de los datos de las personas
+        var datos=new Set();
+        //variables globales
+        var nombre="";
+        var apellidos="";
+        var identificador="";
+        var otrosdatos="";
+        
+        
+        //Función constructora con datos de las personas
+        function personas(nombre,apellidos,altura,identificador, otrosdatos,imagen){
+            this.nombre=nombre;
+            this.apellidos=apellidos;
+            this.altura=altura;
+            this.identificador=identificador;
+            this.otrosdatos=otrosdatos;
+            this.imagen=imagen;
+
+        }
+        function anadir(){
+            nombre=document.getElementsByTagName("input")[0].value;
+            apellidos=document.getElementById("apellidos").value;
+            altura=document.getElementById("altura").value;
+            //Identificador se forma del primer caracter de nombre en mayúscula, los caracteres de apellido desde al inicio
+            //hasta los tres últimos caracteres en mayúscula +altura
+            identificador=nombre.charAt(0).toUpperCase()+apellidos.substring(0,3).toUpperCase()+altura;
+            otrosdatos=document.getElementsByTagName("textarea")[0].value;
+            //La variable imagen se crea a través de los datos introducidos en nombre
+            var imagen=nombre+".jpg";
+            //Creación de objeto personas
+            var persona=new personas(nombre,apellidos,altura,identificador,otrosdatos,imagen);
+            //Se añaden los datos de las personas y no se admiten datos repetidos
+            datos.add(persona);
+            //debug datos
+            console.log(datos);
+            //Una vez que se añaden los datos se limpian las cajas
+            limpiar();
+        }
+        function buscar(){
+            
+            
+            var nombre2=document.getElementsByTagName("input")[0].value;
+            //Convertimos el set a array para buscar los datos
+            var datos2=[...datos];
+            var existe=false;
+            //Si existen los datos se busca el indice del array para obtener los datos
+            if((nombre2!=undefined)||(nombre2!="")||nombre2!=null){
+            var indice; 
+            
+            for(let valor in datos2){
+                
+                if(nombre2==datos2[valor]["nombre"]){
+                    indice=valor;
+                    existe=true;
+                    break;
+                    }
+
+                }
+            }
+            if(existe==true){
+                    document.getElementsByTagName("input")[0].value=datos2[indice]["nombre"];
+                    document.getElementById("apellidos").value=datos2[indice]["apellidos"];
+                    document.getElementsByName("identificador")[0].value=datos2[indice]["identificador"];
+                    document.getElementById("altura").value=datos2[indice]["altura"];
+                    document.getElementsByTagName("textarea")[0].value=datos2[indice]["otrosdatos"];
+                    document.getElementById("foto").src=datos2[indice]["imagen"];
+                }else{
+                    alert("No se han encontrado los datos");
+                    limpiar();
+                }
+
+        }
+        function limpiar(){
+            //Función para limpiar las cajas
+            document.getElementsByTagName("input")[0].value="";
+            document.getElementById("apellidos").value="";
+            document.getElementsByName("identificador")[0].value="";
+            document.getElementById("altura").value="";
+            document.getElementsByTagName("textarea")[0].value="";
+
+        }
+        function terminar(){
+            alert("Se ha interrumpido el proceso de añadir datos");
+            limpiar();
+            
+        }
+
+    </script>
+</body>
+</html>
