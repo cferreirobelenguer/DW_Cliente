@@ -1,0 +1,150 @@
+<!-- INSTRUCCIONES DEL EJERCICIO ↓
+Utiliza un map almacenar información sobre módulos impartidos en este IES ("DWECL", “Desarrollo Web en Entorno Cliente).
+Añade la información con posterioridad a la creación de la estructura :
+    a.Muestra cuántos módulos hay almacenados
+    b.Muestra el contenido de la estructura
+    c.Devuelve las abreviaturas de todos los módulos guardados
+    d.Devuelve el nombre completo de todos los módulos
+    e.Consulta si está el módulo "DAW"
+    f.Si está, elimínalo.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODULOS IES</title>
+    <style>
+        .formulario{
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color:rgb(26, 26, 39);
+            background-color: rgb(255, 250, 249);
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario">
+    <h1>MODULOS DE DESARROLLO DE APLICACIONES WEB</h1>
+    <img src="desarrolloaplicaciones.jpg" id="foto" width="500" height="300">
+    <form>
+        <p>
+            <input type="button" value="AÑADIR MÓDULO" onclick="anadir();">
+        </p>
+        <p>
+            <input type="button" value="NÚMERO DE MÓDULOS ALMACENADOS" onclick="contarModulos();">
+        </p>
+        <p>
+            <input type="button" value="MOSTRAR MODULOS ALMACENADOS" onclick="mostrar();">
+        </p>
+        <p>
+            <input type="button" value="MOSTRAR ABREVIATURAS DE MÓDULOS" onclick="mostrarAbreviaturas();">
+        </p>    
+        <p>
+            <input type="button" value="MOSTRAR NOMBRE DE MÓDULOS" onclick="mostrarModulos();">
+        </p>
+        <p>
+            <input type="button" value="BUSCAR" onclick="buscar();">
+        </p>
+        <p>
+            <input type="button" value="BORRAR DATOS POR INICIAL" onclick="borrar();">
+        </p>
+        <p>
+            <textarea id="resultado" cols=20 rows=15 disabled></textarea>
+        </p>
+    </form>
+</div>
+    <script>
+        //Mapa con los datos de los módulos
+        var datos=new Map();
+        
+        function anadir(){
+            
+            var inicial=prompt("Introduce inicial del modulo");
+            //En caso de que se escriba en minúsculas lo pasamos a mayúscula porque son iniciales
+            inicial=inicial.toUpperCase();
+            var modulo=prompt("Introduce módulo");
+            //Introducimos los datos de iniciales y modulo en mapa
+            datos.set(inicial,modulo);
+            console.log(datos);
+            limpiar();
+            
+        }
+        function contarModulos(){
+            //Función que cuenta el número de módulos
+            var datos2=[...datos];
+            let N_modulos=0;
+            for(let valor in datos2){
+                N_modulos++;
+            }
+            document.getElementById("resultado").value="El número de módulos es "+N_modulos;
+
+        }
+        function mostrar(){
+            //Función que muestra los módulos totales registrados junto con sus iniciales
+            let msg="";
+            msg+="TOTAL DE DATOS REGISTRADOS: \n";
+            for(var[clave,valor]of datos){
+                msg+=clave+","+valor+"\n";
+            }
+            document.getElementById("resultado").value=msg;
+        }
+        function mostrarAbreviaturas(){
+            //Función que muestra las abreviaturas en su conjunto
+            //Se introducen las abreviaturas en el textarea
+            let msg2="";
+            msg2+="TOTAL DE ABREVIATURAS: \n";
+            
+            for(var[clave,valor]of datos){
+                msg2+=clave+"\n";
+            }
+            document.getElementById("resultado").value=msg2;
+        }
+        function mostrarModulos(){
+            
+            //Se introducen los nombres de los módulos en el textarea
+            let msg3="";
+            msg3+="TOTAL DE MÓDULOS: \n";
+            for(var[clave,valor]of datos){
+                msg3+=valor+"\n";
+            }
+            document.getElementById("resultado").value=msg3;
+        }
+        function buscar(){
+            
+            //Buscamos por inicial un módulo
+            let clave_="";
+            let valor_="";
+            let inicial2=prompt("Introduzca la inicial a buscar");
+            for(var[clave,valor]of datos){
+                if(inicial2==clave){
+                    clave_=clave;
+                    valor_=valor;
+                }
+            }
+            if(datos.has(inicial2)){
+                document.getElementById("foto").src=inicial2+".jpg";
+                document.getElementById("resultado").value="RESULTADO DE LA BÚSQUEDA: \n"+clave_+","+valor_;
+            }else{
+                document.getElementById("foto").src="desarrolloaplicaciones.jpg";
+                document.getElementById("resultado").value="LA INICIAL SOLICITADA NO SE ENCUENTRA EN LOS DATOS";
+                limpiar();
+            }
+            
+        }
+        function borrar(){
+            let inicial3=prompt("Introduzca inicial para eliminar datos");
+            if(datos.has(inicial3)){
+                datos.delete(inicial3);
+                document.getElementById("resultado").value="DATOS BORRADOS CORRECTAMENTE";
+            }else{
+                document.getElementById("resultado").value="LA INICIAL SOLICITADA NO SE ENCUENTRA EN LOS DATOS";
+            }
+        }
+        function limpiar(){
+            document.getElementById("resultado").value="";
+        }
+
+    </script>
+</body>
+</html>
