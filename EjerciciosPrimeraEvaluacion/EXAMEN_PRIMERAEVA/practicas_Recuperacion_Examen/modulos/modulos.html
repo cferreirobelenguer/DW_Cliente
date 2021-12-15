@@ -57,18 +57,36 @@ Añade la información con posterioridad a la creación de la estructura :
     <script>
         //Mapa con los datos de los módulos
         var datos=new Map();
-        
+        var inicial="";
         function anadir(){
-            
-            var inicial=prompt("Introduce inicial del modulo");
-            //En caso de que se escriba en minúsculas lo pasamos a mayúscula porque son iniciales
-            inicial=inicial.toUpperCase();
+        
             var modulo=prompt("Introduce módulo");
+            //Paso módulo a mayúscula porque quiero todos los datos de módulos en mayúsculas
+            modulo=modulo.toUpperCase();
+            //Se obtiene la inicial a través del modulo mediante una función
+            adivinarInicial(modulo);
             //Introducimos los datos de iniciales y modulo en mapa
             datos.set(inicial,modulo);
             console.log(datos);
             limpiar();
             
+        }
+        function adivinarInicial(modulo){
+            //Cogemos el valor de inicial a través de módulo
+            let inicialPrimera=modulo.charAt(0);
+            let inicialesSiguientes="";
+            for(let i=0;i<modulo.length;i++){
+                //Si el caracter está vacío cogemos la siguiente posición, la pasamos a mayúscula y la concatenamos
+                if(modulo.charAt(i)==" "){
+                    let ini=modulo.charAt(i+1);
+                    ini=ini.toUpperCase();
+                    console.log(ini);
+                    inicialesSiguientes+=ini;
+                }
+            }
+            //Concatenamos la primera inicial y las siguientes obtenidas del for
+            inicial=inicialPrimera+inicialesSiguientes;
+            console.log(inicial);
         }
         function contarModulos(){
             //Función que cuenta el número de módulos
@@ -123,9 +141,11 @@ Añade la información con posterioridad a la creación de la estructura :
                 }
             }
             if(datos.has(inicial2)){
+                //Si la inicial existe se muestran los datos
                 document.getElementById("foto").src=inicial2+".jpg";
                 document.getElementById("resultado").value="RESULTADO DE LA BÚSQUEDA: \n"+clave_+","+valor_;
             }else{
+                //Si no existe se muestra mensaje de error
                 document.getElementById("foto").src="desarrolloaplicaciones.jpg";
                 document.getElementById("resultado").value="LA INICIAL SOLICITADA NO SE ENCUENTRA EN LOS DATOS";
                 limpiar();
@@ -133,6 +153,7 @@ Añade la información con posterioridad a la creación de la estructura :
             
         }
         function borrar(){
+            //Función para eliminar la inicial introducida
             let inicial3=prompt("Introduzca inicial para eliminar datos");
             if(datos.has(inicial3)){
                 datos.delete(inicial3);
@@ -142,6 +163,7 @@ Añade la información con posterioridad a la creación de la estructura :
             }
         }
         function limpiar(){
+            //Función para limpiar textarea
             document.getElementById("resultado").value="";
         }
 
