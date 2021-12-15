@@ -1,0 +1,45 @@
+<!-Haz que el ordenador te salude adecuadamente dándote los buenos días
+buenas tardes o buenas noches dependiendo de la hora que sea-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buenos días, tardes o noches</title>
+</head>
+<body>
+    <h1>SALUDO</h1>
+    <img src="saludo.jpg"  id="foto" width="300" height="200">
+    <form>
+        <p>
+            <textarea id="resultado" cols=20 rows=15></textarea>
+        </p>
+        <input type="button" value="VER HORA" onclick="horaActual();">
+        <input type="button" value="GENERAR SALUDO" onclick="generarSaludo();">
+    </form>
+    <script>
+        var horaActual;
+        function horaActual(){
+            //Calculamos la hora actual
+            horaActual=new Date().getHours();
+            document.getElementById("resultado").value="La hora actual es: "+horaActual+" horas";
+        }
+        function generarSaludo(){
+            //Generamos el saludo en función de la hora
+            if((horaActual>=6)&&(horaActual<=13)){
+                document.getElementById("resultado").value="¡Buenos días!";
+                document.getElementById("foto").src="dia.jpg";
+            }else if((horaActual>=14)&&(horaActual<=20)){
+                document.getElementById("resultado").value="¡Buenas tardes!";
+                document.getElementById("foto").src="tarde.jpg";
+            }else if((horaActual>=21)&&(horaActual<=5)){
+                document.getElementById("resultado").value="¡Buenas noches!";
+                document.getElementById("foto").src="noche.jpg";
+            }
+            
+        }
+
+    </script>
+</body>
+</html>
