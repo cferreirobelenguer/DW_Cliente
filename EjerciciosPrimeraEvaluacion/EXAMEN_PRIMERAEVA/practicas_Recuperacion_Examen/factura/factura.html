@@ -1,0 +1,245 @@
+
+<!--
+↓ INSTRUCCIONES DEL EJERCICIO ↓
+Crear una pseudoclase llamada Factura que permita instanciar objetos de ese tipo de la siguiente forma:
+
+Factura(cliente,elementos)Cliente es un objeto que guarda los datos del cliente ( nombre, dirección, teléfono ,
+nif descripción, cantidad y precio, base imponible,iva, total y forma de pago. 
+Iva y pago si están vacías tendrán por defecto 21,"contado" respectivamente.
+NIF con primera letra de nombre en mayúculas, random y dirección.
+Añade con posterioridad a la pseudoclase Factura:
+• Propiedad empresa que guardará información sobre la empresa que emite la factura ( nombre, dirección, teléfono y nif ).
+• Método que calcule el total de la factura (con el IVA aplicado);
+• Método que muestre el total.
+
+Realiza una instanciación de Factura y muestra su total.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>factura</title>
+</head>
+<body>
+    <h1>Registro de datos de clientes para elaboración de factura:</h1>
+    <img src="personas.jpg" width="500" height="400" id="foto">
+    <form name="formulario">
+        <p>
+            <label for="">Nombre: </label>
+            <input type="text" name="nombre">
+        </p>
+        <p>
+            <label for="">Apellidos: </label>
+            <input type="text" name="apellidos">
+        </p>
+        <p>
+            <label for="">Dirección: </label>
+            <input type="text" name="direccion">
+        </p>
+        <p>
+            <label for="">Teléfono: </label>
+            <input type="text" name="telefono">
+        </p>
+        <p>
+            <label for="">NIF: </label>
+            <input type="text" name="nif" disabled>
+        </p>
+        <p>
+            <label for="">Descripción: </label>
+            <input type="text" name="descripcion">
+        </p>
+        <p>
+            <label for="">Cantidad: </label>
+            <input type="text" name="cantidad">
+        </p>
+        <p>
+            <label for="">Precio: </label>
+            <input type="text" name="precio">
+        </p>
+        <p>
+            <label for="">Base imponible: </label>
+            <input type="text" name="base" disabled>
+        </p>
+        <p>
+            <label for="">Iva: </label>
+            <input type="text" name="iva">
+        </p>
+        <p>
+            <label for="">Forma de pago: </label>
+            <input type="text" name="pago">
+        </p>
+        <p>
+            <textarea cols="20" rows="15" disabled></textarea>
+        </p>
+        
+        <input type="button" id="boton" value="AÑADIR" onclick="anadir();">
+        <input type="button" id="boton2" value="BUSCAR" onclick="buscar();">
+        <input type="button" id="boton3" value="TERMINAR" onclick="terminar();">
+
+    </form>
+    <script>
+        //Array con datos del cliente para elaborar la factura
+        var datosFactura=[];
+        var ventana="";
+        var ivaTotal;
+        var ivaCalcula;
+        var precioTotal;
+        var correcto=false;
+        //variables globales
+        var nombre="";
+        var apellidos="";
+        var direccion="";
+        var telefono="";
+        var nif="";
+        var descripcion="";
+        var cantidad;
+        var precio;
+        var base;
+        var pago="";
+        var iva;
+        
+        function crearVentana(){
+            //Función para crear ventana donde se va a visualizar la factura del cliente
+            ventana=window.open("","",'width=340,height=600');
+        }
+        function cliente(nombre,apellidos,direccion,telefono,nif,descripcion,cantidad,precio,base,iva,pago,imagen){
+            //Función constructora con datos de cliente
+            this.nombre=nombre;
+            this.apellidos=apellidos;
+            this.direccion=direccion;
+            this.telefono=telefono;
+            this.nif=nif;
+            this.descripcion=descripcion;
+            this.cantidad=cantidad;
+            this.precio=precio;
+            this.base=base;
+            this.iva=iva;
+            this.pago=pago;
+            this.imagen=imagen;
+            this.toString=function toString(){
+                //Función que muestra los datos de facturación de cliente
+                return "Datos de facturación:\nNombre: "+nombre+"\nApellidos: "+apellidos+"\nDirección: "+direccion+"\nTeléfono: "+telefono+"\nNIF: "+nif;
+            }
+            this.calcularBase=function calcularBase(){
+                //Función que calcula el iva
+                ivaCalcula=this.iva/100+1;
+                //Se calcula la base imponible
+                this.base=Math.round(this.precio/ivaCalcula);
+                //Almacena el iva total que es el total de precio - la base imponible
+                ivaTotal=this.precio-this.base;
+            }
+            this.calcularPrecioCantidad=function calcularPrecioCantidad(){
+                precioTotal=this.precio*this.cantidad;
+                return precioTotal;
+            }
+
+        }
+
+
+        function anadir(){
+
+            //Asignamos los datos a las variables
+            nombre=document.formulario.nombre.value;
+            apellidos=document.formulario.apellidos.value;
+            direccion=document.formulario.direccion.value;
+            telefono=document.formulario.telefono.value;
+            descripcion=document.formulario.descripcion.value;
+            cantidad=document.formulario.cantidad.value;
+            precio=document.formulario.precio.value;
+            iva=document.formulario.iva.value;
+            pago=document.formulario.pago.value;
+            
+            //En caso de las variables IVA y pago estén vacías se ponen por defecto 21 y "contado"
+            if(iva==""){
+                iva=21;
+            }
+            if(pago==""){
+                pago="contado";
+            }
+            imagen=nombre+".jpg";
+            //Se asignan los datos de nif: primer caracter de nombre, tres primeros caracteres de apellidos, número aleatorio de 0 a 1000
+            nif=nombre.charAt(0).toUpperCase()+apellidos.substring(0,3).toLowerCase()+Math.floor(Math.random() * (1000 - 0) + 0);
+            
+            //Creación de objeto
+            var persona=new cliente(nombre,apellidos,direccion,telefono,nif,descripcion,cantidad,precio,base,iva,pago,imagen);
+            base=persona.calcularBase();
+            precioTotal=persona.calcularPrecioCantidad();
+            //Función que añade los datos a un array
+            datosFactura.push(persona);
+            console.log(datosFactura);
+            //Mostramos los datos de facturación en el textarea
+            document.getElementsByTagName("textarea")[0].value=persona.toString();
+            limpiar();
+        }
+
+        function buscar(){
+            var indice;
+            var existe=false;
+            var nombre2=document.getElementsByName("nombre")[0].value;
+            //Función que busca cliente por nombre y elabora factura en otra ventana
+            for(let valor of datosFactura){
+                if(nombre2==valor.nombre){
+                    indice=valor;
+                    existe=true;
+                    break;
+                }
+            }
+            if(existe==true){
+                document.getElementsByTagName("textarea")[0].value="Datos encontrados";
+                document.formulario.nombre.value=indice.nombre;
+                document.formulario.apellidos.value=indice.apellidos;
+                document.formulario.direccion.value=indice.direccion;
+                document.formulario.telefono.value=indice.telefono;
+                document.formulario.nif.value=indice.nif;
+                document.formulario.descripcion.value=indice.descripcion;
+                document.formulario.cantidad.value=indice.cantidad;
+                document.formulario.precio.value=indice.precio;
+                document.formulario.base.value=indice.base;
+                document.formulario.iva.value=indice.iva;
+                document.formulario.pago.value=indice.pago;
+                document.getElementById("foto").src=indice.imagen;
+
+                //Creamos la factura
+                crearVentana();
+                ventana.document.write("<h1>FACTURA<h1><hr><br>");
+                ventana.document.write("<p>Datos de facturación: </p><hr><br>");
+                ventana.document.write("<ul><li>"+indice.nombre+"</li><li>"+indice.apellidos+"</li><li>"+indice.direccion+"</li><li>"+indice.nif+"</li></ul><hr><br>");
+                ventana.document.write("<br><center><table border='1'>"+
+                                        "<th>Producto</th><th>Cantidad</th><th>Iva</th><th>Base imponible</th><th>Total IVA</th><th>Precio unitario con Iva</th>"+
+                                        "<tr><td>"+indice.descripcion+"</td><td>"+indice.cantidad+"unidades</td><td>"+indice.iva+"%</td><td>"+indice.base+"€</td><td>"+ivaTotal+"€</td><td>"+indice.precio+"€</td></tr>"+
+                                        "</table></center><hr><br>");
+                ventana.document.write("<center><table border='1'><th>Precio total con Iva</th>"+
+                                        "<tr><td>"+precioTotal+"€</td></tr></table></center><br><hr>");
+                //Cerramos la escritura de la ventana
+                ventana.document.close();
+                
+            }else{
+                //En caso de que no existan los datos se muestra mensaje de que no existen
+                limpiar();
+                document.getElementsByTagName("textarea")[0].value="No se encuentra los datos";
+            }
+        }
+        function terminar(){
+            document.getElementsByTagName("textarea")[0].value="Ha finalizado el proceso de recogida de datos";
+            limpiar();
+        }
+        function limpiar(){
+            //Función que limpia los datos de las cajas
+            document.formulario.nombre.value="";
+            document.formulario.apellidos.value="";
+            document.formulario.direccion.value="";
+            document.formulario.telefono.value="";
+            document.formulario.nif.value="";
+            document.formulario.descripcion.value="";
+            document.formulario.cantidad.value="";
+            document.formulario.precio.value="";
+            document.formulario.base.value="";
+            document.formulario.iva.value="";
+            document.formulario.pago.value="";
+            document.getElementById("foto").src="personas.jpg";
+        }
+
+    </script>
+</body>
+</html>
