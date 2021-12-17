@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+ @author Raúl Caro Pastorino
+ @copyright Copyright © 2017 Raúl Caro Pastorino
+ @license https://wwww.gnu.org/licenses/gpl.txt
+-->
+
+<!--
+↓ INSTRUCCIONES DEL EJERCICIO ↓
+Añade una función que permita devolver el menor de los valores de una la lista.
+-->
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Mínimo valor de un array</title>
+        <meta name="author" content="Raúl Caro Pastorino" />
+    </head>
+    <body>
+        <h1 id="titulo1">Mínimo valor de un array</h1>
+        <form>
+            <p>
+                <label for="">Introduce número: </label>
+                <input type="text" name="numero">
+            </p>
+            <p>
+                <label for="">Resultado: </label>
+                <textarea name="resultado"></textarea>
+            </p>
+            <input type="button"  value="Añadir" onclick="anadir()">
+            <input type="button"  value="Eliminar" onclick="eliminar()">
+            <input type="button"  value="Calcular menor" onclick="calcularMenor()">
+            <input type="button"  value="Calcular mayor" onclick="calcularMayor()">
+            <input type="button"  value="Terminar" onclick="terminar()">
+        </form>
+        <script>
+        
+            var mi_array = [];
+            var numero;
+            var menor=0;
+            var mayor=0;
+            function anadir(){
+                
+                var numero_=document.getElementsByName("numero")[0].value;
+                if(!isNaN(numero_)){
+                    numero=numero_;
+                }else{
+                    alert("No es número");
+                }
+                //Se añaden los datos al array
+                mi_array.push(numero);
+                console.log(mi_array);
+                limpiar();
+            }
+            function eliminar(){
+                var numero2=prompt("Introduce número a eliminar");
+                let posicion=mi_array.indexOf(numero2);
+                console.log(posicion);
+                if(posicion!=-1){
+                mi_array.splice(posicion,1);
+                console.log(mi_array);
+                }else{
+                    alert("El número solicitado no se encuentra en las bases de datos");
+                }
+            }
+            function calcularMenor(){
+                
+                //Se calcula el menor valor
+                for(let valor in mi_array){
+                    if(mi_array[valor]<menor){
+                        menor=mi_array[valor];
+                    }
+                }
+                document.getElementsByTagName("textarea")[0].value="El menor número es "+menor;
+            }
+            function calcularMayor(){
+                
+                //Se calcula el mayor valor
+                for(let valor_ in mi_array){
+                    if(mi_array[valor_]>mayor){
+                        mayor=mi_array[valor_];
+                    }
+                }
+                document.getElementsByTagName("textarea")[0].value="El mayor número es "+mayor;
+            }
+
+            function terminar(){
+                //Se limpian las ventanas y muestra mensaje de finalizar programa;
+                limpiar();
+                alert("Se ha interrumpido el proceso de añadir números");
+            }
+            function limpiar(){
+                //Limpiamos las cajas
+                document.getElementsByTagName("textarea")[0].value="";
+                document.forms[0].numero.value="";
+            }
+
+        </script>
+    </body>
+</html>
