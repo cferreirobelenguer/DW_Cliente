@@ -73,11 +73,15 @@ Añade una función que permita devolver el menor de los valores de una la lista
             function cambiar(){
                 //Se cambia de posición el número seleccionado por prompt
                 let numero2=prompt("Indique el número que quiere cambiar");
+                //Posición actual del número;
                 let posicionActual=mi_array.indexOf(numero2);
                 if(posicionActual!=-1){
+                //Nueva posición
                 let posicion=prompt("Indique la posición en la que quiere cambiar el número");
                 if(!isNaN(posicion)){
+                    //Eliminamos antigua posición
                     let eliminado=mi_array.splice(posicionActual,1);
+                    //Insertamos nueva posición
                     mi_array.splice(posicion,0,numero2);
                     console.log(mi_array);
                 }else{
