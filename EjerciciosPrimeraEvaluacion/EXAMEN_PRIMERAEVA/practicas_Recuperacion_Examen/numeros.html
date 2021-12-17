@@ -28,19 +28,20 @@ Añade una función que permita devolver el menor de los valores de una la lista
             </p>
             <input type="button"  value="Añadir" onclick="anadir()">
             <input type="button"  value="Eliminar" onclick="eliminar()">
+            <input type="button"  value="Cambiar de posición" onclick="cambiar()">
             <input type="button"  value="Calcular menor" onclick="calcularMenor()">
             <input type="button"  value="Calcular mayor" onclick="calcularMayor()">
+            <input type="button"  value="Mostrar resultados" onclick="mostrarResultados()">
             <input type="button"  value="Terminar" onclick="terminar()">
         </form>
         <script>
         
             var mi_array = [];
             var numero;
-            var menor=0;
-            var mayor=0;
+            
             function anadir(){
                 
-                var numero_=document.getElementsByName("numero")[0].value;
+                let numero_=document.getElementsByName("numero")[0].value;
                 if(!isNaN(numero_)){
                     numero=numero_;
                 }else{
@@ -52,7 +53,8 @@ Añade una función que permita devolver el menor de los valores de una la lista
                 limpiar();
             }
             function eliminar(){
-                var numero2=prompt("Introduce número a eliminar");
+                //Se elimina el número escrito por prompt
+                let numero2=prompt("Introduce número a eliminar");
                 let posicion=mi_array.indexOf(numero2);
                 console.log(posicion);
                 if(posicion!=-1){
@@ -65,21 +67,29 @@ Añade una función que permita devolver el menor de los valores de una la lista
             function calcularMenor(){
                 
                 //Se calcula el menor valor
-                for(let valor in mi_array){
-                    if(mi_array[valor]<menor){
-                        menor=mi_array[valor];
-                    }
-                }
+                let menor=Math.min(...mi_array);
                 document.getElementsByTagName("textarea")[0].value="El menor número es "+menor;
             }
-            function calcularMayor(){
-                
-                //Se calcula el mayor valor
-                for(let valor_ in mi_array){
-                    if(mi_array[valor_]>mayor){
-                        mayor=mi_array[valor_];
-                    }
+            function cambiar(){
+                //Se cambia de posición el número seleccionado por prompt
+                let numero2=prompt("Indique el número que quiere cambiar");
+                let posicionActual=mi_array.indexOf(numero2);
+                if(posicionActual!=-1){
+                let posicion=prompt("Indique la posición en la que quiere cambiar el número");
+                if(!isNaN(posicion)){
+                    let eliminado=mi_array.splice(posicionActual,1);
+                    mi_array.splice(posicion,0,numero2);
+                    console.log(mi_array);
+                }else{
+                    alert("Debe introducir un número");
                 }
+                }else{
+                    document.getElementsByTagName("textarea")[0].value="El número que ha introducido no existe";
+                }
+            }
+            function calcularMayor(){
+                //Se calcula el mayor valor
+                let mayor=Math.max(...mi_array);
                 document.getElementsByTagName("textarea")[0].value="El mayor número es "+mayor;
             }
 
@@ -92,6 +102,14 @@ Añade una función que permita devolver el menor de los valores de una la lista
                 //Limpiamos las cajas
                 document.getElementsByTagName("textarea")[0].value="";
                 document.forms[0].numero.value="";
+            }
+            function mostrarResultados(){
+                //Se muestran resultados
+                let msg="";
+                for(let valor in mi_array){
+                    msg+=mi_array[valor]+"\n";
+                }
+                document.getElementsByTagName("textarea")[0].value="El total de números es: \n"+msg;
             }
 
         </script>
