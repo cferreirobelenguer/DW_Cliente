@@ -17,6 +17,7 @@
     <form>
         <input type="button" value="AÑADIR" onclick="accion(this.value);">
         <input type="button" value="ORDENAR" onclick="accion(this.value);">
+        <input type="button" value="INVERTIR ORDEN" onclick="accion(this.value);">
         <input type="button" value="MOSTRAR" onclick="accion(this.value);">
         <input type="button" value="MOSTRAR NÚMERO DE ELEMENTOS DEL ARRAY" onclick="accion(this.value);">
         <input type="button" value="BUSCAR" onclick="accion(this.value);">
@@ -24,6 +25,7 @@
     <script>
         var datos=[];
         var numero=0;
+        
         function accion(boton){
             switch(boton){
                 case "AÑADIR":
@@ -37,7 +39,15 @@
                     }
                 break;
                 case "ORDENAR":
+                    //Ordenamos array y mostramos
                     let ordenado=datos.sort();
+                    for(let i in datos){
+                        document.write(datos[i]+"\n");
+                    }
+                break;
+                case "INVERTIR ORDEN":
+                    //Invertimos el orden del array y mostramos
+                    let invertido=datos.reverse();
                     for(let i in datos){
                         document.write(datos[i]+"\n");
                     }
@@ -50,6 +60,7 @@
                     /*for(let valor in datos){
                         document.write(datos[valor]+"\n");
                     }*/
+                    
                 break;
                 case "MOSTRAR NÚMERO DE ELEMENTOS DEL ARRAY":
                         document.write("El número de elementos almacenados es "+datos.length);
@@ -66,8 +77,6 @@
                     }else{
                         document.write("Los resultados encontrados son: "+busqueda);
                     }
-                
-
                 break;
             }
         }
