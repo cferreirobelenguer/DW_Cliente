@@ -1,0 +1,219 @@
+
+<!--STOCK DE PRODUCTOS DE ROPA:
+    ALMACENAR PRODUCTOS CON NOMBRE, PRECIO Y DESCRIPCIÓN AL PULSAR AÑADIR.
+    CONSULTAR POR NOMBRE DE PRODUCTO SI EL PRODUCTO ESTÁ EN STOCK Y MOSTRAR IMAGEN 
+    EN CASO QUE LA HAYA.
+    LIMPIAR LAS CAJAS CUANDO SEA NECESARIO
+    BOTÓN DE ELIMINAR PRODUCTO EN CASO DE QUE SE QUIERA ELIMINAR
+    BOTÓN DE BUSCAR PRODUCTO A TRAVES DEL NOMBRE DEL PRODUCTO
+    BOTÓN DE MODIFICAR TODOS LOS DATOS DEL PRODUCTO
+    BOTÓN DE MOSTRAR TODOS LOS DATOS GUARDADOS
+    
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Gestión de stock de productos: </h1>
+    <img src="tienda.jpg" width="300" height="200">
+    <form >
+        <p>
+            <label for="">Producto: </label>
+            <input type="text" id="producto">
+        </p>
+        <p>
+            <label for="">Precio: </label>
+            <input type="text" name="precio">
+        </p>
+        <p>
+            <label for="">Total de productos registrados: </label>
+            <textarea cols="20" rows="15" disabled></textarea>
+        </p>
+        <p>
+            <label for="">Descripción: </label>
+            <input type="text" class="descripcion">
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();">
+        <input type="button" value="BUSCAR" onclick="buscar();">
+        <input type="button" value="ELIMINAR" onclick="eliminar();">
+        <input type="button" value="MODIFICAR" onclick="modificar();">
+        <input type="button" value="MOSTRAR DATOS" onclick="mostrar();">
+        <input type="button" value="TERMINAR" onclick="terminar();">
+        <input type="button" value="LIMPIAR" onclick="limpiar();">
+
+    </form>
+    <script>
+        var productos=[];
+        //Variables globales
+        var producto="";
+        var precio="";
+        var descripcion="";
+        var correcto=false;
+        var correctoProducto=false;
+        var correctoPrecio=false;
+        var correctoDescripcion=false;
+
+        function tienda(producto,precio,descripcion,imagen){
+            //Función constructora
+            this.producto=producto;
+            this.precio=precio;
+            this.descripcion=descripcion;
+            this.imagen=imagen;
+        }
+        function anadir(){
+            validacionProducto();
+            validacionPrecio();
+            validacionDescripcion();
+            //Función que añade los datos en array
+            console.log("producto: "+correctoProducto);
+            console.log("Precio: "+correctoPrecio);
+            console.log("Descripcion: "+correctoDescripcion);
+
+            if((correctoProducto==true)&&(correctoPrecio==true)&&(correctoDescripcion==true)){
+                var producto_=new tienda(producto,precio,descripcion,imagen);
+                productos.push(producto_);
+                console.log(productos);
+                limpiar();
+            }
+        }
+        //Funciones de validaciones de datos del formulario
+        function validacionProducto(){
+            producto=document.getElementById("producto").value;
+            if(!isNaN(producto)){
+                alert("Producto tiene que ser cadena de caracteres");
+                correctoProducto=false;
+                correctoPrecio=false;
+                correctoDescripcion=false;
+                limpiar();
+                
+            }else{
+                correctoProducto=true;
+                imagen=producto+".jpg";
+            }
+        }
+        function validacionPrecio(){
+            precio=document.getElementsByName("precio")[0].value;
+            if(isNaN(precio)==true){
+                alert("Precio tiene que ser número");
+                limpiar();
+                correctoProducto=false;
+                correctoPrecio=false;
+                correctoDescripcion=false;
+                
+            }else{
+                correctoPrecio=true;
+            }
+        }
+        function validacionDescripcion(){
+            descripcion=document.getElementsByClassName("descripcion")[0].value;
+            if(!isNaN(descripcion)){
+                alert("Descripción tiene que ser cadena de caracteres");
+                limpiar();
+                correctoProducto=false;
+                correctoPrecio=false;
+                correctoDescripcion=false;
+                
+            }else{
+                correctoDescripcion=true;                                       
+            }
+        }
+        function buscar(){
+            //Función que busca los datos y los muestra en las cajas por producto
+            let productoBusqueda=document.getElementById("producto").value;
+            let indiceBusqueda;
+            let existeBusqueda=false;
+            for(let i of productos){
+                if(productoBusqueda==i.producto){
+                    indiceBusqueda=i;
+                    existeBusqueda=true;
+                }
+            }
+            if(existeBusqueda==true){
+                alert("Búsqueda realizada satisfactoriamente");
+                document.getElementsByTagName("img")[0].src=indiceBusqueda.imagen;
+                document.getElementById("producto").src=indiceBusqueda.producto;
+                document.getElementsByName("precio")[0].value=indiceBusqueda.precio;
+                document.getElementsByClassName("descripcion")[0].value=indiceBusqueda.descripcion;
+            }else{
+                alert("El dato introducido no se encuentra");
+                limpiar();
+            }
+        
+        }
+        function eliminar(){
+            //Se elimina todos los datos de un producto seleccionado
+            let producto2=document.getElementById("producto").value;
+            let indice=0;
+            let existe=false;
+            for(let valor in productos){
+                if(producto2==productos[valor]["producto"]){
+                    //Obtenemos el indice para poder eliminar los productos que se seleccionan
+                    indice=valor;
+                    existe=true;
+                }
+            }
+            //Si existe el producto se eliminan los datos por el índice del array de productos
+            if(existe==true){
+                alert("Se han eliminado los datos del producto de la base de datos");
+                console.log(indice);
+                productos.splice(indice,1);
+                console.log(productos);
+                limpiar();
+            }else{
+                alert("Los datos introducidos no se encuentran");
+                limpiar();
+            }
+            
+        }
+        function modificar(){
+            //Función que permite modificar producto y todos sus datos
+            let productoModifica=document.getElementById("producto").value;
+            let existeProducto=false;
+            let productoCambio=prompt("Introduce producto nuevo");
+            let precioCambio=prompt("Introduce precio nuevo");
+            let descripcionCambio=prompt("Introduce descripción");
+            //Verificamos que existen los valores y modificamos el array con los datos
+            for(let valor1 in productos){
+                if(productoModifica==productos[valor1]["producto"]){
+                    productos[valor1]["producto"]=productoCambio;
+                    productos[valor1]["precio"]=precioCambio;
+                    productos[valor1]["descripcion"]=descripcionCambio;
+                    productos[valor1]["imagen"]=productoCambio+".jpg";
+                    existeProducto=true;
+                }
+            }
+            //Si existen los datos se modifica y se muestra mensaje de confirmación
+            if(existeProducto==true){
+                alert("Datos modificados correctamente");
+                limpiar();
+                console.log(productos);
+            }
+        }
+        function mostrar(){
+            //Se muestran todos los datos en el textarea
+            let msg="";
+            msg+="Total de productos: \n";
+            for(let valor in productos){
+                msg+="Producto: "+productos[valor]["producto"]+"\nPrecio: "+productos[valor]["precio"]+"\nDescripción: "+productos[valor]["descripcion"]+"\nImágen: "+productos[valor]["imagen"]+"\n";
+            }
+            document.getElementsByTagName("textarea")[0].value=msg;
+        }
+        function terminar(){
+            limpiar();
+            alert("Ha interrumpido el registro de datos");
+        }
+        function limpiar(){
+            document.getElementById("producto").value="";
+            document.getElementsByName("precio")[0].value="";
+            document.getElementsByClassName("descripcion")[0].value="";
+        }
+
+    </script>
+</body>
+</html>
