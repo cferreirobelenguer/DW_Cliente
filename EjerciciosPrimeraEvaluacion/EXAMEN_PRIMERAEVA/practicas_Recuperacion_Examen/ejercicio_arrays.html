@@ -1,0 +1,77 @@
+
+<!-- 1. Pida 6 números por pantalla y los meta en un array
+2. Mostrar el array entero (todos sus elementos) en el cuerpo de la página y en la consola
+3. Ordenarlo y mostrarlo
+4. Invertir su orden y mostrarlo
+5. Mostrar cuántos elementos tiene el array
+6. Búsqueda de un valor introducido por el usuario, que nos diga si lo encuentra y su índice-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <input type="button" value="AÑADIR" onclick="accion(this.value);">
+        <input type="button" value="ORDENAR" onclick="accion(this.value);">
+        <input type="button" value="MOSTRAR" onclick="accion(this.value);">
+        <input type="button" value="MOSTRAR NÚMERO DE ELEMENTOS DEL ARRAY" onclick="accion(this.value);">
+        <input type="button" value="BUSCAR" onclick="accion(this.value);">
+    </form>
+    <script>
+        var datos=[];
+        var numero=0;
+        function accion(boton){
+            switch(boton){
+                case "AÑADIR":
+                    numero=prompt("Introduce un número");
+                    //Se valida si es número se pasa a parseInt y se añade al array
+                    if(!isNaN(numero)){
+                        numero=parseInt(numero);
+                        datos.push(numero);
+                    }else{
+                        alert("Debe introducir un número");
+                    }
+                break;
+                case "ORDENAR":
+                    let ordenado=datos.sort();
+                    for(let i in datos){
+                        document.write(datos[i]+"\n");
+                    }
+                break;
+                case "MOSTRAR":
+                    //Se muestran los resultados del arreglo con callback forEach
+                    datos.forEach(function(elemento){
+                        return document.write(elemento);
+                    })
+                    /*for(let valor in datos){
+                        document.write(datos[valor]+"\n");
+                    }*/
+                break;
+                case "MOSTRAR NÚMERO DE ELEMENTOS DEL ARRAY":
+                        document.write("El número de elementos almacenados es "+datos.length);
+                break;
+                case "BUSCAR":
+                    let numeroBuscar=prompt("Introduce número a buscar");
+                    let existe=false;
+                    //Se busca el número con callback find
+                    let busqueda=datos.find(function(elemento){
+                        return elemento==numeroBuscar;
+                    });
+                    if(busqueda=="undefined"){
+                        document.write("No se han encontrado resultados");
+                    }else{
+                        document.write("Los resultados encontrados son: "+busqueda);
+                    }
+                
+
+                break;
+            }
+        }
+        
+    </script>
+</body>
+</html>
