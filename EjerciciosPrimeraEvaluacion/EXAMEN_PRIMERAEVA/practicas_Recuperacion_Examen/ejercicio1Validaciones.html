@@ -1,174 +1,166 @@
-
-<!-- Formulario con usuario y contraseña:
-Hay que validar ambos, usuario no debe contener mayúsculas y sólo debe tener caracteres string;
-y contraseña debe contener al menos 1 número, una mayúscula, minúscula y caracteres especiales.
-En caso de no tenerlos mostrar mensaje con alert.
-Si se pulsa cancelar se limpian las cajas y se termina el programa-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTRO</title>
-    <style>
-        .registro{
-            margin:auto;
-            color:aliceblue;
-            background-color: blue;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-        }
-        .formulario{
-            margin:auto;
-            color:blue;
-            background-color:aliceblue;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-        }
-
-    </style>
+    <title>Inicio se sesión</title>
 </head>
 <body>
-    <div class="registro">
-        <h1>Introduzca datos: </h1>
-    </div>
-    <div class="formulario">
-        <form action="">
-            <p>
-                <label fr="">Usuario: </label>
-                <input type="text" name="usuario" >
-            </p>
-            <p>
-                <label fr="">Contraseña: </label>
-                <input type="text" name="contra" >
-            </p>
-            <p>
-                <textarea id="mensaje" cols=20 rows=10></textarea>
-            </p>
-            <input type="button" id="boton" value="REGISTRAR" onclick="validarDatos()">
-            <input type="button" id="boton2" value="CANCELAR" onclick="cancelar()">
-        </form>
-    </div>
+    <img src="personas.jpg" width="400" height="300" id="foto">
+    <form>
+        <p>
+            <label for="">Usuario: </label>
+            <input type="text" name="nombre">
+        </p>
+        <p>
+            <label for="">Contraseña</label>
+            <input type="text" name="contra">
+        </p>
+        <p>
+            <label for="">Volver a introducir contraseña</label>
+            <input type="text" name="contraRepe">
+        </p>
+        <input type="button" id="registro" value="Registrarse" onclick="registrar();">
+        <input type="button" id="borrar" value="Cancelar" onclick="cancelar();">
+    </form>
     <script>
-        //Función para validar datos
-        function validarDatos(){
-            //Declaración de variables globales de usuario
-            var mayuscula=false;
-            var minuscula=false;
-            //Se recogen los datos de usuario y contraseña
-            var usuario=document.getElementsByName("usuario")[0].value;
+        //Variables globales de nombre
+        var min=false;
+        var registroNombre=false;
+        var registroContra=false;
+        var usuario="";
+        //Variables globales de contraseña
+        var numeros="0123456789";
+        var caracterEspe=",.-;:_´ç¨Ç{}`+^*[]ªª!·$%&/()=?¿¡'";
+        var mayusculas="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+        var minusculas="abcdefghyjklmnñopqrstuvwxyz";
+        var min=false;
+        var mayus=false;
+        var caracter=false;
+        var numero=false;
+        var contra="";
+        //Variables globales de contraseña repetida
+        var registroRepe=false;
+        var contraRepe="";
 
-            //VALIDACIÓN USUARIO
-            //Si no es número se recorre el caracter, si no se muestra alert indicando que no se admiten números en el usuario
-            if((usuario=="") || (usuario==undefined)|| (usuario==null)){
-                        document.getElementsByName('usuario')[0].value="";
-                        alert("Vuelva a introducir el usuario con el formato adecuado");
-                        
-            }else
-            if(isNaN(usuario)){
+        function validarNombre(){
+            //Función para validar nombre
         
+            usuario=document.getElementsByName("nombre")[0].value;
+            
             for(let i=0;i<usuario.length;i++){
-                //Si contiene mayúsculas se indica con un booleano de mayuscula
-                if(usuario.charAt(i)==usuario.charAt(i).toUpperCase()){
-                    mayuscula=true;
+                let caracter=usuario.charAt(i);
+                if(caracter==caracter.toLowerCase()){
+                    min=true;
+                    registroNombre=true;
                 }
-                //Si contiene minúscula se indica con un booleano de minúscula
-                else if(usuario.charAt(i)==usuario.charAt(i).toLowerCase()){
-                    minuscula=true;
-                    }
-                }
-                //Se imprimen los mensajes en alert y textarea en función del resultado de la validación
-                if(!(mayuscula==false)){
-                    alert("Usuario no debe contener mayúsculas");
-                }else{
-                //En caso de validación correcta se imprime en textarea y se muestra mensaje en alert de confirmación
-                    alert("Usuario registrado correctamente");
-                    document.getElementById("mensaje").value+="Usuario: "+usuario+"\n";
             }
-            }else{
-                //Se indica que usuario no debe contener números y se limpia el textarea
-                alert("Usuario no debe tener números");
-                document.getElementById("mensaje").value="";
+    
+            
+            if((usuario!="")&&(min==false)){
+                limpiar();
+                alert("Nombre dede ser minúscula");
+                return false;
             }
-            validarContra();
         }
         function validarContra(){
-            //Declaración de variables globales de contraseña
-            var mayusculaContra=false;
-            var minusculaContra=false;
-            var numeros="0123456789";
-            var numeroContra=false;
-            var caracterContra=false;
-            var caracteresEspeciales=",.-;:_¨´Ç{}^*`+[]$%&/()=?¿|@#¬'¡ºª<>";
-            var especiales=false;
-            var contra=document.getElementsByName("contra")[0].value;
+            
 
-            //VALIDACIÓN CONTRASEÑA
-            if((contra=="") || (contra==undefined)|| (contra==null)){
-                    document.getElementsByName('contra')[0].value="";
-                    alert("Vuelva a introducir la contraseña con el formato adecuado");
+            //Función para validar contraseña
+            contra=document.getElementsByName("contra")[0].value;
+            
+            if(contra.length<5){
+                alert("La contraseña debe tener 5 o más caracteres");
+                limpiar();
+                return false;
+            }else{
+                for(let i=0;i<contra.length;i++){
+                    if(numeros.includes(contra.charAt(i))==true){
+                        numero=true;
+                    }
+                    if(caracterEspe.includes(contra.charAt(i))==true){
+                        caracter=true;
+                    }
+                    if(mayusculas.includes(contra.charAt(i))==true){
+                        mayus=true;
+                    }
+                    if(minusculas.includes(contra.charAt(i))==true){
+                        min=true;
+                    }
                     
-            }else
-            if(contra.length>8){
-                
-            for(let j=0;j<contra.length;j++){
-                let caracter=contra.charAt(j);
-                //Si contiene caracteres especiales se indica con un booleano de caracteres especiales
-                if(caracteresEspeciales.includes(caracter)==true){
-                    console.log(caracteresEspeciales.includes(caracter));
-                    especiales=true;
-                    console.log(especiales);
-                }
-                //Si contiene números se indica con un booleano de numeros
-                if(numeros.includes(caracter)==true){
-                    console.log(numeros.includes(caracter));
-                    numeroContra=true;
-                }
-                //Si contiene mayúsculas se indica con un booleano de mayuscula
-                if(caracter==caracter.toUpperCase()){
-                    mayusculaContra=true;
-                }
-                //Si contiene minúscula se indica con un booleano de minúscula
-                else if(caracter==caracter.toLowerCase()){
-                    minusculaContra=true;
-                }
-            }
-                
-                //Se imprimen los mensajes en alert y textarea en función del resultado de la validación
-                if(mayusculaContra==false){
-                    alert("Contraseña debe contener mayúsculas");
-                    document.getElementById("mensaje").value="";
-                }else if(minusculaContra==false){
-                    alert("Contraseña debe contener minúsculas");
-                    document.getElementById("mensaje").value="";
-                }else if(numeroContra==false){
-                    alert("Contraseña debe contener números");
-                    document.getElementById("mensaje").value="";
-                }else if(especiales==false){
-                    alert("Contraseña debe contener caracteres especiales");
-                    document.getElementById("mensaje").value="";
-                }else{
-                    //En caso de validación correcta se imprime en textarea y se muestra mensaje en alert de confirmación
-                    alert("Contraseña registrada correctamente");
-                    document.getElementById("mensaje").value+="Contraseña: "+contra+"\n";
                 }
             
+                if(numero!=true){
+                    alert("La contraseña debe tener al menos un número");
+                    limpiar();
+                    registroNumero=false;
+                    return false;
+                }else{
+                    registroNumero=true;
+                }
+                if(caracter!=true){
+                    alert("La contraseña debe tener al menos un caracter especial");
+                    limpiar();
+                    registroCaracter=false;
+                    return false;
+                }else{
+                    registroCaracter=true;
+                }
+                if(min==false){
+                    alert("La contraseña debe tener al menos una minúscula");
+                    limpiar();
+                    registroMin=false;
+                    return false;
+                }else{
+                    registroMin=true;
+                }
+                if(mayus==false){
+                    alert("La contraseña debe tener al menos una mayúscula");
+                    limpiar();
+                    registroMayus=false;
+                    return false;
+                }else{
+                    registroMayus=true;
+                }
+            }
+            contraRepe=document.getElementsByName("contraRepe")[0].value;
+            if(contra==contraRepe){
+                registroRepe=true;
+                console.log("Registro repe " +registroRepe)
             }else{
-                alert("La contraseña debe tener una longitud mayor de 8 caracteres");
-                document.getElementById("mensaje").value="";
+                registroRepe==false;
+                alert("Ambas contraseñas deben ser iguales");
+                limpiar();
+                return false;
+            }
+
+            if((registroCaracter==true)&&(registroNumero==true)&&(registroMin==true)&&(registroMayus==true)&&(registroRepe==true)){
+                registroContra=true;
             }
         }
-        //Función para el botón cancelar que limpia las ventanas y finaliza el programa
-        function cancelar(){
-            alert("Ha interrumpido el registro de datos");
-            document.getElementsByName("usuario")[0].value="";
-            document.getElementsByName("contra")[0].value="";
-            end;
+        function registrar(){
+            validarNombre();
+            validarContra();
+            console.log(registroNombre);
+            console.log(registroContra);
+            if((registroNombre==true)&&(registroContra==true)){
+                alert("Datos registrados correctamente");
+            }
         }
-    
+        function limpiar(){
+            //  Se limpian las cajas
+            document.getElementsByName("nombre")[0].value="";
+            document.getElementsByName("contra")[0].value="";
+            document.getElementsByName("contraRepe")[0].value="";
+        }
+        function cancelar(){
+            //Se cancela el registro de datos, limpiando ventanas y mostrando mensaje
+            limpiar();
+            alert("Se ha interrumpido el proceso de registro de datos");
+            
+        }
+
     </script>
 </body>
 </html>
