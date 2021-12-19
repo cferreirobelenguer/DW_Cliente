@@ -1,0 +1,94 @@
+<!-- EJERCICIO DE RECOGIDA DE DATOS DE PERROS
+
+Se introducen los datos del nombre del perro, raza y pienso.
+Al pulsar añadir se almacenan los datos en un mapa
+Al pulsar buscar, se buscan los datos por el nombre del perro,
+se muestran los datos en las cajas y se muestra la foto en función de la raza
+del perro que se busca.
+Al pulsar terminar se limpian las cajas y se muestra mensaje de despedida.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <img src="perros.jpg" id="foto" width="300" height="200">
+        <p>
+            <label for="">Perro:</label>
+            <input type="text" name="perro">
+        </p>
+        <p>
+            <label for="">Raza:</label>
+            <input type="text" name="raza">
+        </p>
+        <p>
+            <label for="">Marca de pienso:</label>
+            <input type="text" name="pienso">
+        </p>
+        <input type="text" value="AÑADIR" onclick="anadir();">
+        <input type="text" value="BUSCAR" onclick="buscar();">
+        <input type="text" value="TERMINAR" onclick="terminar();">
+    </form>
+    <script>
+        //Creación de mapa y variables globales
+        var perros=new Map();
+        var nombre="";
+        var raza="";
+        var pienso="";
+        function perrera(nombre,raza,pienso,imagen){
+            //Función constructora
+            this.nombre=nombre;
+            this.raza=raza;
+            this.pienso=pienso;
+            this.imagen=imagen;
+        }
+        function anadir(){
+            //Función de añadir datos al mapa
+            nombre=document.getElementsByName("perro")[0].value;
+            raza=document.getElementsByName("raza")[0].value;
+            pienso=document.getElementsByName("pienso")[0].value;
+            //Las imágenes se muestra por la raza del perro
+            let imagen=raza+".jpg";
+            //Creación del objeto
+            var mascota=new perrera(nombre,raza,pienso,imagen);
+            //Se introducen los datos en el mapa
+            perros.set(nombre,mascota);
+            console.log(perros);
+            limpiar();
+
+
+        }
+        function buscar(){
+            //Función que busca los datos por nombre de perro y lo muestra en las cajas
+            let nombre=document.getElementsByTagName("input")[0].value;
+            if(perros.has(nombre)){
+                let valor=perros.get(nombre);
+                        document.getElementsByTagName("input")[0].value=valor.nombre;
+                        document.getElementsByTagName("input")[1].value=valor.raza;
+                        document.getElementsByTagName("input")[2].value=valor.pienso;
+                        document.getElementsByTagName("img")[0].src=valor.imagen;
+                    
+                
+            }else{
+                alert("El dato que ha introducido no se encuentra");
+            }
+            
+        }
+        function limpiar(){
+            //Función que limpia las cajas
+            for(let i=0;i<3;i++){
+                document.getElementsByTagName("input")[i].value="";
+            }
+        }
+        function terminar(){
+            limpiar();
+            alert("Se ha interrumpido el registro de datos");
+        }
+
+    </script>
+</body>
+</html>
