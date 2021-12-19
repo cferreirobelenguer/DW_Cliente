@@ -1,0 +1,177 @@
+<!-- EJERCICIO DE VALIDACIÓN DE REGISTRO DE USUARIO Y CONTRASEÑA:
+CON EL BOTÓN REGISTRAR SE VALIDAN LOS CAMPOS DE USUARIO Y CONTRASEÑA Y SE PROCEDE AL REGISTRO
+USUARIO TIENE QUE TENER EL PRIMER CARACTER EL MAYÚSCULAS Y NO SER NUMÉRICO,
+CONTRASEÑA DEBE TENER AL MENOS UNA MINÚSCULA, AL MENOS UNA MAYÚSCULA, AL MENOS UN NÚMERO, AL MENOS
+UN CARACTER ESPECIAL Y MAYOR O IGUAL A 8 CARACTERES DE LONGITUD
+CON EL BOTÓN CONTAR SE PREGUNTA AL USUARIO QUÉ LETRA QUIERE CONTAR Y SE CUENTA EL NÚMERO DE VECES QUE SE REPITE ESA LETRA EN USUARIO
+CON EL BOTÓN PONER ESPACIO SE PONEN ESPACIOS EN CADA CARACTER DE USUARIO
+CON EL BOTÓN TERMINAR SE INTERRUMPE EL PROCESO DE REGISTRO Y SE LIMPIAN LAS CAJAS-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba string</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Nombre: </label>
+            <input type="text">
+        </p>
+        <p>
+            <label for="">Contraseña: </label>
+            <input type="text">
+        </p>
+        <input type="text" value="REGISTRARSE" onclick="registrar();">
+        <input type="text" value="CONTAR LETRAS DE USUARIO" onclick="contar();">
+        <input type="text" value="PONER ESPACIO EN CADA LETRA DE USUARIO" onclick="ponerEspacio();">
+        <input type="text" value="TERMINAR" onclick="terminar();">
+    </form>
+    <script>
+        //Variables globales
+        var usuario="";
+        var contra="";
+        var registroUsuario=false;
+        var registroContra=false;
+        function contar(){
+            //Función que cuenta las veces que se repite una letra,que selecciona usuario por prompt ,en usuario
+            usuario=document.getElementsByTagName("input")[0].value;
+            usuario=usuario.toLowerCase();
+            let letra=prompt("Introduzca la letra");
+            letra=letra.toLowerCase();
+            let posicion=usuario.indexOf(letra);
+            let contador=0;
+            if(posicion!=-1){
+                for(let i=0;i<usuario.length;i++){
+                    if(usuario.charAt(i)==letra){
+                        contador++;
+                    }
+                }
+                alert("La letra se repite "+contador+" veces");
+            }else{
+                alert("La letra seleccionada no se encuentra en usuario");
+            }
+            
+        }
+        function registrar(){
+            //Función de registro de datos
+            validarUsuario();
+            validarContra();
+            if((registroUsuario==true)&&(registroContra==true)){
+                alert("Datos registrados correctamente");
+            }
+        }
+        function validarUsuario(){
+            //Validación de usuario
+            usuario=document.getElementsByTagName("input")[0].value;
+            //Se valida que el campo de usuario esté relleno
+            if(usuario==""){
+                alert("Los campos deben estar rellenos");
+            }else
+            //Se valida que usuario no sea número y su primera letra sea mayúscula
+            if(isNaN(usuario)){
+                if(usuario.charAt(0)==usuario.charAt(0).toUpperCase()){
+                    registroUsuario=true;
+                    console.log("RegistroUsuario: "+registroUsuario);
+                }else{
+                    alert("El primer caracter debe ser en mayúsculas");
+                }
+            }else{
+                alert("Usuario no debe ser numérico.");
+            }
+        }
+        function validarContra(){
+            //Variables de contraseña
+            let mayus="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            let minus="abcdefghijklmnñopqrstuvwxyz";
+            let num="1234567890";
+            let especial=",.-;:_´ç¨Ç{`+}^*[]ºª!·$%&/()=?¿@#€";
+            let mayusOK=false;
+            let minusOK=false;
+            let numOK=false;
+            let especialOK=false;
+
+            //Validación de contraseña
+            contra=document.getElementsByTagName("input")[1].value;
+             //Se valida que el campo de usuario esté relleno
+            if(contra==""){
+                alert("Los campos deben estar rellenos");
+            }else
+            //Se valida que la contraseña sea mayor a 8 caracteres
+            if(contra.length<=8){
+                alert("La contraseña debe ser mayor o igual a 8 caracteres");
+            }
+            //Se valida que la contraseña tenga mayúsculas
+            for(let i=0;i<contra.length;i++){
+                if(mayus.indexOf(contra.charAt(i),0)!=-1){
+                    mayusOK=true;
+                    break;
+                }
+            }
+            //Se valida que la contraseña tenga minúsculas
+            for(let j=0;j<contra.length;j++){
+                if(minus.indexOf(contra.charAt(j),0)!=-1){
+                    minusOK=true;
+                    break;
+                }
+            }
+            //Se valida que la contraseña tenga números
+            for(let k=0;k<contra.length;k++){
+                if(num.indexOf(contra.charAt(k),0)!=-1){
+                    numOK=true;
+                    break;
+                }
+            }
+             //Se valida que la contraseña tenga caracteres especiales
+            for(let f=0;f<contra.length;f++){
+                if(especial.indexOf(contra.charAt(f),0)!=-1){
+                    especialOK=true;
+                    break;
+                }
+            }
+            if(contra!=""){
+            if(mayusOK==false){
+                alert("La contraseña debe contener al menos una mayúscula");
+            }
+            if(minusOK==false){
+                alert("La contraseña debe contener al menos una minúscula");
+            }
+            if(numOK==false){
+                alert("La contraseña debe contener al menos un caracter numérico");
+            }
+            if(especialOK==false){
+                alert("La contraseña debe contener al menos un caracter especial");
+            }
+            if((mayusOK==true)&&(minusOK==true)&&(numOK==true)&&(especialOK==true)){
+                registroContra=true;
+                console.log("Registro contraseña: "+registroContra);
+            }
+        }
+
+        }
+        function ponerEspacio(){
+            //Función que pone espacios en cada una de las letras de usuario
+            usuario=document.getElementsByTagName("input")[0].value;
+            let usuario_="";
+            for(let i=0;i<usuario.length;i++){
+                usuario_+=usuario.charAt(i).concat(" ");
+            }
+            alert("El resultado es: "+usuario_);
+        }
+        function terminar(){
+            //Se muestra mensaje de finalización y se limpian las cajas
+            limpiar();
+            alert("Ha interrumpido el proceso de registro");
+        }
+        function limpiar(){
+            //Se limpian las cajas
+            for(let i=0;i<2;i++){
+                document.getElementsByTagName("input")[i].value="";
+            }
+        }
+
+    </script>
+</body>
+</html>
