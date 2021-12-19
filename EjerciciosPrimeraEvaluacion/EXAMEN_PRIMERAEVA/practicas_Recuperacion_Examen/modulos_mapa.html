@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Módulo: </label>
+            <input type="text" name="modulo">
+        </p>
+        <p>
+            <label for="">Iniciales: </label>
+            <input type="text" name="iniciales" disabled>
+        </p>
+        <p>
+            <label for="">Duración: </label>
+            <input type="text" name="duracion">
+        </p>
+        <p>
+            <label for="">Número de alumnos matriculados: </label>
+            <input type="text" name="num">
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();">
+        <input type="button" value="BUSCAR" onclick="buscar();">
+        <input type="button" value="TERMINAR" onclick="terminar();">
+    </form>
+    <script>
+        //Declaración de mapa
+        var datos=new Map();
+        //Variables globales
+        var modulo="";
+        var inicial="";
+        var duracion="";
+        var num="";
+        var duracionOK=false;
+        var numOK=false;
+
+        function instituto(modulo,inicial,duracion,num){
+            //Función constructora
+            this.modulo=modulo;
+            this.inicial=inicial;
+            this.duracion=duracion;
+            this.num=num;
+        }
+        function anadir(){
+            //Función que añade los datos al mapa
+            modulo=document.getElementsByTagName("input")[0].value;
+            modulo=modulo.toUpperCase();
+            generarInicial();
+            validarDuracion();
+            validarNum();
+            if((duracionOK==true)&&(numOK==true)){
+                var enseñanza=new instituto(modulo,inicial,duracion,num);
+                datos.set(modulo,enseñanza);
+                console.log(datos);
+                limpiar();
+            }
+
+            
+        }
+        function validarDuracion(){
+            //Función que valida duración
+            let duracion2=document.getElementsByName("duracion")[0].value;
+            if(!isNaN(duracion2)){
+                duracion=duracion2;
+                duracionOK=true;
+            }else{
+                alert("Debe introducir un número");
+                duracionOK=false;
+            }
+            console.log("Boolean Duración: "+duracionOK);
+        }
+        function validarNum(){
+            //Función que valida número de alumnos
+            num2=document.getElementsByName("num")[0].value;
+            if(!isNaN(num2)){
+                num=num2;
+                numOK=true;
+                
+            }else{
+                alert("Debe introducir un número");
+                numOK=false;
+            }
+            console.log("Boolean Numero: "+numOK);
+
+        }
+        function generarInicial(){
+
+            //Función para crear inicial a través de modulo
+            let inicial1=modulo.charAt(0).toUpperCase();
+            let inicial2="";
+            
+            for(let i=0;i<modulo.length;i++){
+                if(modulo.charAt(i)==" "){
+                    let ini=modulo.charAt(i+1).toUpperCase();
+                    inicial2+=ini;
+                }
+            }
+            inicial=inicial1+inicial2;
+            console.log("Inicial: "+inicial);
+        }
+        function buscar(){
+            //Función para buscar por inicial
+            let modulo=document.getElementsByTagName("input")[0].value;
+            if(datos.has(modulo)){
+                let clave=datos.get(modulo);
+                document.getElementsByTagName("input")[0].value=clave.modulo;
+                document.getElementsByTagName("input")[1].value=clave.inicial;
+                document.getElementsByTagName("input")[2].value=clave.duracion;
+                document.getElementsByTagName("input")[3].value=clave.num;
+
+            }else{
+                alert("El dato introducido no se encuentra");
+            }
+
+        }
+        function limpiar(){
+            //Función para limpiar cajas
+            for(let i=0;i<4;i++){
+                document.getElementsByTagName("input")[i].value="";
+            }
+        }
+        function terminar(){
+            limpiar();
+            alert("Se ha interrumpido el registro de datos");
+        }
+
+    </script>
+</body>
+</html>
