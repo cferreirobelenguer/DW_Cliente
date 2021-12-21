@@ -1,0 +1,32 @@
+
+<!--Hacer cuenta atrás desde el 20 y que se 
+vaya contando hasta que llegue a 0
+cuando llegue a 0 que se haga un clear-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+            //Se crea el intervalo a 5 segundos
+            var intervalID = window.setInterval(retroceso, 500);
+            var numero=20;
+            function retroceso() {
+                //Va retrocediendo hasta 0 y cuando llega a 0 se interrumpe el intervalo
+                numero-=1;
+                console.log(numero);
+                if(numero==0){
+                    window.clearInterval(intervalID);
+                }
+                
+            }
+            
+
+    </script>
+</body>
+</html>
