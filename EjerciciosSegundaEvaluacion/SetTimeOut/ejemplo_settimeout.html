@@ -1,0 +1,37 @@
+
+<!--Crear web que muestre mensaje del tipo
+ha habido cambios en nuestra empresa, te vamos a redireccionar a la página
+del ies tetuán.
+
+Hay que usar la herramienta del temporizador setTimeOut y el objeto location 
+para reorientar la url del cliente.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>Ha habido cambios en nuestra empresa, te vamos a redireccionar a la página del ies tetuán.</p>
+    <button onclick="clearAlert();">Cancela la alerta antes de que ocurra</button>
+    
+    <script>
+    function delayedAlert() {
+        //Disparador que ejecuta la redirección a los 5 segundos
+        var disparador= window.setTimeout(accion, 5000);
+    }
+    delayedAlert();
+    function accion() {
+        //Se redirecciona a la web de ies tetuán
+        window.location=("https://www.iestetuan.es/cmsj/");
+    }
+
+    function clearAlert() {
+        window.clearTimeout(IDdisparador);
+    }
+    </script>
+</body>
+</html>
