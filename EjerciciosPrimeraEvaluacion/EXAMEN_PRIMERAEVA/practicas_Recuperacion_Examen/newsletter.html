@@ -45,8 +45,7 @@ Un saludo."
                 var descuentoOK=false;
                 var usuarioOK=false;
                 var juegoOK=false;
-                var mensaje="Hola USUARIO: \nComo regalo de bienvenida al club de gamers, queremos ofrecer un descuento del DESCUENTO % en el próximo lanzamiento de tu interés JUEGO.\nEsperamos que lo disfrutes!\nUn saludo."
-
+                
                 //Función constructora
                 function usuarioweb(usuario,juego,descuento){
                     this.usuario=usuario;
@@ -61,12 +60,13 @@ Un saludo."
                     validarDescuento();
                     validarJuego();
                     validarUsu();
+                    
                     if((usuarioOK==true)&&(juegoOK==true)&&(descuentoOK==true)){
                         //Creamos objeto persona con datos de usuario, juego y descuento
                         var persona=new usuarioweb(usuario,juego,descuento);
                         //Introducimos los datos en un array
                         datos.push(persona);
-                        console.log(persona);
+                        console.log(datos);
                         //Limpiamos cajas
                         limpiar();
                     }
@@ -75,7 +75,8 @@ Un saludo."
                     //Se valida que descuento sea número
                     if(descuento==""){
                         alert("Los campos deben estar rellenos");
-                    }
+                        descuentoOK=false;
+                    }else
                     if(!isNaN(descuento)){
                         descuentoOK=true;
                     }else{
@@ -83,10 +84,12 @@ Un saludo."
                         descuentoOK=false;
                         limpiar();
                     }
+                    console.log("Descuento: "+descuentoOK);
                 }
                 function validarUsu(){
                     if(usuario==""){
                         alert("Los campos deben estar rellenos");
+                        usuarioOK=false;
 
                     }else
                     //Se valida que usuario sea cadena de caracteres
@@ -94,14 +97,16 @@ Un saludo."
                         usuarioOK=true;
                     }else{
                         alert("Usuario debe ser una cadena de caracteres");
-                        usuarioOK=false;
+                        descuentoOK=false;
                         limpiar();
                     }
+                    console.log("Usuario: "+usuarioOK);
                 }
                 function validarJuego(){
                     //Se valida que juego sea cadena de caracteres
                     if(juego==""){
                         alert("Los campos deben estar rellenos");
+                        juegoOK=false;
                     }else
                     if(isNaN(juego)){
                         juegoOK=true;
@@ -110,23 +115,51 @@ Un saludo."
                         juegoOK=false;
                         limpiar();
                     }
+                    console.log("Juego: "+juegoOK);
                 }
                 function generar(){
                     //Función que genera una newsletter con los datos del usuario
                     //La newsletter se va a mostrar en un textarea
-                    let msg="";
-                    for(let i=1;i<usuario.length;i++){
-                        msg+=usuario.charAt(i).toLowerCase();
+                    let mensaje="Hola USUARIO: \nComo regalo de bienvenida al club de gamers, queremos ofrecer un descuento del DESCUENTO % en el próximo lanzamiento de tu interés JUEGO.\nEsperamos que lo disfrutes!\nUn saludo.";
+                    let usuario2=document.getElementsByTagName("input")[0].value;
+                    console.log(usuario2);
+                    let usuario_="";
+                    let juego="";
+                    let indice=0;
+                    let existe=false;
+                    for(let valor in datos){
+                        if(usuario2==datos[valor]["usuario"]){
+                            console.log(datos[valor]["usuario"]);
+                            existe=true;
+                            indice=valor;
+                            console.log(valor);
+                            console.log(existe);
+                            
+                            break;
+                        }else{
+                            existe=false;
+                        }
                     }
-                    usuario=usuario.charAt(0).toUpperCase()+msg;
-                    juego=juego.toLowerCase();
+                    if(existe==true){
+                        let msg="";
+                            for(let i=1;i<datos[indice]["usuario"].length;i++){
+                                msg+=datos[indice]["usuario"].charAt(i).toLowerCase();
+                            }
+                            usuario_=datos[indice]["usuario"].charAt(0).toUpperCase()+msg;
+                            juego_=datos[indice]["juego"].toLowerCase();
 
-                    mensaje=mensaje.replace("USUARIO",usuario);
-                    mensaje=mensaje.replace("JUEGO",juego);
-                    mensaje=mensaje.replace("DESCUENTO",descuento);
-                    document.getElementsByTagName("textarea")[0].value=mensaje;
-
-
+                            mensaje=mensaje.replace("USUARIO",usuario_);
+                            mensaje=mensaje.replace("JUEGO",juego);
+                            mensaje=mensaje.replace("DESCUENTO",datos[indice]["descuento"]);
+                            document.getElementsByTagName("textarea")[0].value=mensaje;
+                            mensaje="Hola USUARIO: \nComo regalo de bienvenida al club de gamers, queremos ofrecer un descuento del DESCUENTO % en el próximo lanzamiento de tu interés JUEGO.\nEsperamos que lo disfrutes!\nUn saludo."
+                    }else{
+                    
+                        alert("El nombre escrito no se encuentra en los datos");
+                        console.log(existe);
+                        limpiar();
+                    }
+                    
                 }
                 function limpiar(){
                     //Función para limpiar las cajas
