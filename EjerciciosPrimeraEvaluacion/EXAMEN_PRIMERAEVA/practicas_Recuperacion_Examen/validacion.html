@@ -1,0 +1,175 @@
+
+<!--Validación de usuario, contraseña, repite contraseña
+Usuario: Debe tener caracteres numéricos y cadena de caracteres
+Contraseña: Debe de tener mayúsculas, minúsculas, números, caracteres especiales
+Repetir contraseña: contraseña y la repetición deben de ser iguales
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="formulario">
+        <p>
+            <label for="usuario">Usuario: </label>
+            <input type="text"/>
+        </p>
+        <p>
+            <label for="contraseña">Contraseña: </label>
+            <input type="text"/>
+        </p>
+        <p>
+            <label for="repite">Repite contraseña: </label>
+            <input type="text"/>
+        </p>
+        <p>
+            <textarea id="resultado" cols="15" rows="20"></textarea>
+        </p>
+        <input type="button" value="ENVIAR" onclick="validar();"/>
+    </form>
+</body>
+<script>
+    //Variables globales
+    var usuario="";
+    var contra="";
+    var repe="";
+    var usuariook=false;
+    var contraok=false;
+    var repeok=false;
+
+    function validar(){
+        validarUsuario();
+        validarContra();
+        validarRepe();
+        console.log("Usuario: "+usuariook);
+        console.log("Contraseña: "+contraok);
+        console.log("Contraseña Repetida: "+repeok);
+
+        if((usuariook==true)&&(contraok==true)&&(repeok==true)){
+            alert("Datos registrados correctamente");
+            let msg="";
+            for(let i=0;i<contra.length;i++){
+                msg+="*";
+            }
+            document.getElementById("resultado").value="Usuario: "+usuario+"\nContraseña: "+msg;
+            setTimeout(limpiar,5000);
+        }
+
+    }
+    function validarUsuario(){
+        
+        //Usuario no debe tener sólo caracteres numéricos,debe tener también caracteres
+        
+        usuario=document.getElementsByTagName("input")[0].value;
+        if(usuario==""){
+            alert("Los campos deben estar rellenos");
+            usuariook=false;
+        }else
+        if(!isNaN(usuario)){
+            usuariook=false;
+            alert("Usuario debe contener caracteres y caracteres numéricos");
+        }else{
+            usuariook=true;
+        }
+        console.log(usuariook);
+    }
+    function validarContra(){
+        //Contraseña debe tener mayúsculas, minúsculas y caracteres especiales
+        let mayus="ABCDEFGHIJKLMNÑOPQRSTUWXYZ";
+        let minus="abcdefghijklmnñopqrstuwxyz";
+        let num="0123456789";
+        let especial=",.-;:_´ç¨Ç{}`+^*[]ºª!·$%&/()=?¿|@#€";
+        let mayusok=false;
+        let minusok=false;
+        let numok=false;
+        let especialok=false;
+
+        contra=document.getElementsByTagName("input")[1].value;
+        console.log("Contraseña: "+contra);
+        if(contra==""){
+            alert("Los campos deben estar rellenos");
+            contraok=false;
+        }else
+        if(contra.length>=5){
+        //Validación de la longitud    
+        for(let j=0;j<contra.length;j++){
+            //Validación de minúsculas 
+            if(minus.indexOf(contra.charAt(j),0)!=-1){
+                console.log(contra.charAt(j));
+                minusok=true;
+                break;
+            }
+        }
+         //Validación de mayúsculas
+        for(let i=0;i<contra.length;i++){
+            if(mayus.indexOf(contra.charAt(i),0)!=-1){
+                mayusok=true;
+                break;
+            }
+        }
+        //Validación de números
+        for(let k=0;k<contra.length;k++){
+            if(num.indexOf(contra.charAt(k),0)!=-1){
+                numok=true;
+                break;
+            }
+        }
+        //Validación de especiales
+        for(let f=0;f<contra.length;f++){
+            if(especial.indexOf(contra.charAt(f),0)!=-1){
+                especialok=true;
+                break;
+            }
+        }
+        //Mensajes de aviso de que hay errores en la validación
+    if(minusok==false){
+        alert("Contraseña debe contener minúsculas");
+    }else if(mayusok==false){
+        alert("Contraseña debe contener mayúsculas");
+    }else if(numok==false){
+        alert("Contraseña debe contener números");
+    }else if(especialok==false){
+        alert("Contraseña debe contener caracteres especiales");
+    }
+    }else{
+        contraok=false;
+        alert("Contraseña debe de tener 5 o más caracteres");
+    }
+    
+
+        //Si se cumple todo se pone el booleano de contraseña en true
+        if((mayusok==true)&&(minusok==true)&&(numok==true)&&(especialok==true)){
+            contraok=true;
+            console.log("Registro contraseña: "+contraok);
+        }
+        //Debug de variables booleanas
+        console.log("Mayuscula: "+mayusok);
+        console.log("Minuscula: "+minusok);
+        console.log("Numeros: "+numok);
+        console.log("Especiales: "+especialok);
+        console.log("Contraseña: "+contraok);
+    }
+    function validarRepe(){
+        //Contraseña repetida debe ser igual que la contraseña
+        repe=document.getElementsByTagName("input")[2].value;
+        if(contra==repe){
+            repeok=true;
+        }else{
+            alert("Ambas contraseñas deben ser iguales");
+            repeok=false;
+        }
+    }
+    function limpiar(){
+        //Limpia todos los campos
+        document.getElementsByTagName("input")[0].value="";
+        document.getElementsByTagName("input")[1].value="";
+        document.getElementsByTagName("input")[2].value="";
+        document.getElementsByTagName("textarea")[0].value="";
+    }
+
+</script>
+</html>
