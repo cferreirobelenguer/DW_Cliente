@@ -1,0 +1,100 @@
+<!--Dado un número, mostrar los números de 1 hasta el número.
+Pero para múltiplos de tres imprimir "buzz" en lugar del números
+y para los múltiplos de cinco imprimir "lightyear".
+Para múltiplos de tres y cinco imprimir "Buzzlightyear"
+Una caja de texto que pide un número.
+Dos botones:
+Mostrar: primero valida que número es un número, y luego muestra los resultados
+Terminar: que limpia los campos, y muestra mensaje de terminar ejecución-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="formulario">
+        <p>
+            <label for="numero">Número</label>
+            <input type="text" name="numero"/>
+        </p>
+        <p>
+            <textarea cols="15" rows="15" >Consulta: </textarea>
+        </p>
+        <input type="button" value="Mostrar" onclick="validarNumero();"/>
+        <input type="button" value="Terminar" onclick="terminar();"/>
+    </form>
+    <script>
+        var numero="";
+        
+        function validarNumero(){
+            var numerook=false;
+            //Se verifica si es un número
+            var numero_="0123456789";
+            numero=document.formulario.numero.value;
+            console.log(typeof(numero));
+            //Si el campo está vacío se muestra mensaje
+            if(numero==""){
+                numerook=false;
+                document.getElementsByTagName("textarea")[0].value="Debe rellenar el campo";
+                setTimeout(limpiar,5000);
+            }else{
+            for(let i=0;i<=numero.length;i++){
+                if(numero_.indexOf(numero.charAt(i),0)!=-1){
+                    numerook=true;
+                }else{
+                    numerook=false;
+                    break;
+                }
+            }
+        }
+        //Si es número se ejecuta el programa sino se muestra mensaje y se limpian ventanas
+        if(numerook==true){
+            mostrar();
+            console.log(numerook);
+        }else{
+            document.getElementsByTagName("textarea")[0].value="Debe introducir un campo numérico";
+            setTimeout(limpiar,5000);
+        }
+        
+        
+        }
+        function mostrar(){
+        
+            let msg="";
+            msg+="Total de datos\n";
+            numero=parseInt(numero);
+            for(let i=0;i<=numero;i++){
+                if((i%3==0)&&(i%5==0)){
+                    msg+="Buzzlightyear\n";
+                }else{
+                if(i%3==0){
+                    msg+="Buzz\n";
+                }else if(i%5==0){
+                    msg+="lightyear\n";
+                }else{
+                    msg+=String(i)+"\n";
+                    }
+                }
+            }
+            document.getElementsByTagName("textarea")[0].value=msg;
+            //Se muestra el mensaje durante 7 segundos y luego se limpian las cajas
+            setTimeout(limpiar,7000);
+            
+            
+        }
+        function limpiar(){
+            //Se limpian las cajas
+            document.formulario.numero.value="";
+            document.getElementsByTagName("textarea")[0].value="";
+        }
+        function terminar(){
+            document.getElementsByTagName("textarea")[0].value="Se ha seleccionado finalizar el programa";
+            //Se limpian las cajas a los 2 segundos de mostrar mensaje de finalización en textarea
+            setTimeout(limpiar,2000);
+        }
+    </script>
+</body>
+</html>
