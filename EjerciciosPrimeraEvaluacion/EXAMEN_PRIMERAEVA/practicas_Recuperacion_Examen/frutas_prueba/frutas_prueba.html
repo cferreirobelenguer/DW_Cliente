@@ -1,0 +1,126 @@
+<!--Se introducen datos de frutas en las cajas (fruta,precio,descripción;
+    Si se pulsa añadir se almacenan los datos en un mapa
+    Si se pulsa buscar, se busca por nombre de la fruta y se muestra los resultados en las cajas
+    Si se pulsa eliminar, se elimina por nombre los datos del mapa
+    Si se pulsa terminar se muestra mensaje de despedida y se limpian las cajas-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Frutería</h1>
+    <img src="fruteria.jpeg" id="frutita" width=300 heigth=300>
+    <form>
+        <p>
+            <label for="fruta">Fruta: </label>
+            <input type="text" name="fruta">
+        </p>
+    
+        <p>
+            <label for="precio">Precio: </label>
+            <input type="number" name="precio">
+        </p>
+        <p>
+            <label for="descripcion">Descripción: </label>
+            <input type="text" name="descripcion">
+        </p>
+        <p>
+            <label for="codigo">Código: </label>
+            <input type="text" name="codigo" disabled>
+        </p>
+        <input type="button"  value="AÑADIR" onclick="anadir();">
+        <input type="button"  value="BUSCAR"  onclick="buscar();">
+        <input type="button"  value="ELIMINAR"  onclick="eliminar();">
+        <input type="button"  value="TERMINAR"  onclick="terminar();">
+    </form>
+    <script>
+        //Mapa donde se van a almacenar los datos
+        var datos=new Map();
+        var fruta="";
+        var precio=0;
+        var descripcion="";
+        var imagen="";
+        var codigo="";
+
+        function fruteria(fruta,precio,descripcion,imagen,codigo){
+            //Función constructora
+            this.fruta=fruta;
+            this.precio=precio;
+            this.descripcion=descripcion;
+            this.imagen=imagen;
+            this.codigo=codigo;
+        }
+
+        function anadir(){
+            //Se cogen los valores del formulario
+            fruta=document.getElementsByName("fruta")[0].value;
+            precio=document.getElementsByName("precio")[0].value;
+            descripcion=document.getElementsByName("descripcion")[0].value;
+            imagen=fruta+".jpg";
+            crearCodigo();
+            //Se crea el objeto
+            var fruta_elegida=new fruteria(fruta,precio,descripcion,imagen,codigo);
+            datos.set(fruta,fruta_elegida);
+            console.log(datos);
+            limpiar();
+
+        }
+        function crearCodigo(){
+            let fruit=document.getElementsByTagName("input")[0].value;
+            let digitos=fruta.substring(0,2).toUpperCase();
+            let numeros=Math.floor(Math.random()*(100-1)+1);
+            codigo=digitos+numeros;
+
+        }
+        function limpiar(){
+            //Se limpian las cajas
+            document.getElementsByName("fruta")[0].value="";
+            document.getElementsByName("precio")[0].value="";
+            document.getElementsByName("descripcion")[0].value="";
+            document.getElementsByName("codigo")[0].value="";
+        }
+        function buscar(){
+            //Busca datos de fruta y los muestra en las cajas
+            let fruta_=document.getElementsByName("fruta")[0].value;
+            if(datos.has(fruta_)){
+                let indice=datos.get(fruta_);
+                //Muestra los datos en las cajas
+                document.getElementsByName("fruta")[0].value=indice.fruta;
+                document.getElementsByName("precio")[0].value=indice.precio;
+                document.getElementsByName("descripcion")[0].value=indice.descripcion;
+                document.getElementsByName("codigo")[0].value=indice.codigo;
+                document.getElementById("frutita").src=indice.imagen;
+                //Borra las cajas a los 5 segundos 
+                setTimeout(limpiar,5000);
+            }else{
+                alert("El dato introducido no se encuentra");
+                limpiar();
+            }
+        }
+        
+        function eliminar(){
+            //Función de borrado de datos de fruta seleccionados
+            let fruta__=document.getElementsByName("fruta")[0].value;
+            if(datos.has(fruta__)){
+                let indice=datos.get(fruta__);
+                datos.delete(fruta__);
+                alert("Datos borrados correctamente");
+                //Debug
+                console.log(datos);
+                limpiar();
+            }
+        }
+    
+        function terminar(){
+            alert("Ha interrumpido la ejecución");
+            limpiar();
+        }
+
+
+    </script>
+</body>
+</html>
