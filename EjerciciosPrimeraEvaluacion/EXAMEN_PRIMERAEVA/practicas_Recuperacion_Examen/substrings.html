@@ -1,0 +1,88 @@
+
+<!--Introducir datos en la caja y añadirlo a un arreglo.
+Si se pulsa el botón añadir se valida que no tenga números y se añade el dato al arreglo
+Si se pulsa buscar palabra y mostrar substring, se busca por palabra el dato introducido,
+en caso que no esté se muestra mensaje, y si está se muestran todos los posibles
+substring en un textarea.
+Hacer función de limpiar.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posibles substring</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduce palabra: </label>
+            <input type="text" name="palabra"/>
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado" cols="15" rows="15" disabled></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();"/>
+        <input type="button" value="BUSCAR PALABRA Y MOSTRAR SUBSTRING" onclick="mostrar();"/>
+    </form>
+    <script>
+        var datos=[];
+        
+        function anadir(){
+            //Se valida que los datos que se introduzcan no sean datos numéricos
+            let palabra=document.forms[0].palabra.value;
+            let numero="0123456789";
+            let contiene=false;
+            for(let i=0;i<palabra.length;i++){
+                if(numero.indexOf(palabra.charAt(i),0)!=-1){
+                    contiene=true;
+                    break;
+                }
+            }
+            if(contiene==true){
+                alert("No debe introducir datos numéricos");
+                limpiar();
+            }else{
+                //Si no son datos numéricos se introducen en un array
+                datos.push(palabra);
+                console.log(datos);
+                limpiar();
+            }
+        }
+        function mostrar(){
+            let palabra_=document.forms[0].palabra.value;
+            let contiene=false;
+            let indice;
+            let msg="";
+            //Se busca si existe la palabra introducida
+            for(let i in datos){
+                if(palabra_==datos[i]){
+                    contiene=true;
+                    indice=i;
+                }
+            }
+            if(contiene==false){
+                document.forms[0].resultado.value="El dato introducido no se encuentra";
+            }else{
+                //Se recorren todas las posibles opciones de substring
+                for(let j=0;j<=palabra_.length;j++){
+                    for(let k=0;k<=j;k++){
+                        msg+=palabra_.substring(j,k)+" ";
+                    }
+                }
+                document.getElementsByTagName("textarea")[0].value=msg;
+                //Se limpian las cajas en 8 segundos
+                setTimeout(limpiar,8000);
+            }
+
+        }
+        function limpiar(){
+            //Función que limpia las cajas
+            document.forms[0].palabra.value="";
+            document.forms[0].resultado.value="";
+        }
+        
+    </script>
+</body>
+</html>
