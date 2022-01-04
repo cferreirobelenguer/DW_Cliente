@@ -1,0 +1,80 @@
+
+<!--Dado un array de números devolver los datos sin duplicados.
+Primero hay que validar que los datos que entran en la caja son números
+y no cadena de caracteres.
+Si se pulsa añadir se valida y se introducen los datos en arreglo
+Si se pulsa crear se muestran los datos sin repetidos.
+Hacer función de limpiar cajas.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palabras repes</title>
+</head>
+<body>
+    <form name="formulario">
+        <p>
+            <input type="text" id="numero"/> 
+        </p>
+        <p>
+            <textarea id="resultado" disabled cols="15" rows="15"></textarea>
+    </form>
+    <input type="button" value="AÑADIR" onclick="anadir();"/>
+    <input type="button" value="CREAR SIN REPES" onclick="crear();"/>
+</body>
+    <script>
+        //Contiene todos los datos
+        var datos=[];
+        //Contiene los datos sin repetir
+        var datos2=new Set();
+        function anadir(){
+            let numero=document.getElementById("numero").value;
+            let numeros="0123456789";
+            let numerok=false;
+            //Validamos que sea número lo que se introduce
+            for(let i=0;i<numero.length;i++){
+                if(numeros.indexOf(numero.charAt(i),0)!=-1){
+                    numerook=true;
+                    
+                }else{
+                    numerook=false;
+                    break;
+                }
+            }
+            //Si no es número se muestra mensaje y si es número se almacena en arreglo datos
+            if(numerook==false){
+                alert("Debe introducir un dato numérico");
+                limpiar();
+            }else{
+                datos.push(numero);
+                console.log(datos);
+                limpiar();
+            }
+        }
+        function crear(){
+            let msg="";
+            msg+="Total de datos sin repetir: ";
+            //Introducimos datos sin repetir en set
+            for(let i=0;i<datos.length;i++){
+                datos2.add(datos[i]);
+            }
+            console.log(datos2);
+            
+            for(let j of datos2){
+                msg+=j+" ";
+            }
+            //Mostramos datos en textarea
+            document.getElementsByTagName("textarea")[0].value=msg;
+            //A los 5 segundos se limpian las cajas
+            setTimeout(limpiar,5000);
+                
+        }
+        function limpiar(){
+            //Función que limpia las cajas
+            document.forms[0].numero.value="";
+            document.getElementsByTagName("textarea")[0].value="";
+        }
+    </script>
+</html>
