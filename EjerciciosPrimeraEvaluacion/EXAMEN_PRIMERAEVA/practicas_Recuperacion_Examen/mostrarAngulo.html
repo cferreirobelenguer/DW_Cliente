@@ -1,0 +1,121 @@
+
+<!-- Al introducir un número decir qué angulo le corresponde:
+Si es menor que 90 es ángulo agudo.
+Si es igual a 90 es recto.
+Si es mayor que 90 es obtuso.
+Si es igual a 180 es llano.
+Si es mayor de 180 es mayor de 180.
+Si es igual a 360 es completo.
+Cuando se pulsa añadir se añaden los datos en un arreglo.
+Al pulsar buscar y mostrar angulo se busca por número introducido 
+y se muestra mensaje con el número y el ángulo asignado.
+Crear función de limpiar ventanas.-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form name="formulario">
+        <p>
+            <label for="numero">Número: </label>
+            <input type="text" name="numero" required />
+        </p>
+        <input type="button" value="AÑADIR" onclick="validar();" />
+        <input type="button" value="BUSCAR Y MOSTRAR ÁNGULO" onclick="buscar();" />
+    </form>
+    <script>
+        var datos = [];
+
+        //Función constructora
+        function numeros(numero, angulo) {
+            this.numero = numero;
+            this.angulo = angulo;
+            this.toString = function toString() {
+                return "Total de datos:\nNúmero: " + this.numero + "\nÁngulo: " + this.angulo;
+            }
+        }
+
+        function validar() {
+            //Función que valida si es un número y añade los elementos a un arreglo datos
+            var numero = "";
+            var angulo = "";
+            numero = document.forms[0].numero.value;
+            let numeros_ = "0123456789";
+            let numerosok = false;
+            for (let i = 0; i < numero.length; i++) {
+                if (numeros_.indexOf(numero[i]) != -1) {
+                    numerosok = true;
+                } else {
+                    numerosok = false;
+                    break;
+                }
+            }
+            //Si no es número lo que se introduce se muestra mensaje
+            if (numerosok == false) {
+                alert("Debe introducir un caracter numérico");
+            } else {
+            //Si es número se calcula el ángulo en función de la cantidad introducida
+                numero = parseInt(numero);
+                if((numero>360)||(numero<=0)){
+                    alert("Debe introducir un dato entre 1 y 360");
+                }else{
+                if (numero < 90) {
+                    angulo = "Angulo agudo";
+                } else if (numero == 90) {
+                    angulo = "Angulo recto";
+                } else if ((numero > 90) && (numero < 180)) {
+                    angulo = "Angulo obtuso";
+                } else if (numero == 180) {
+                    angulo = "Angulo llano";
+                } else if ((numero > 180)&&(numero<360)) {
+                    angulo = "Angulo mayor de 180";
+                } else if (numero == 360) {
+                    angulo = "Angulo completo";
+                }
+                //Se crea el objeto y se añaden los datos al arreglo
+                var nombreAngulo = new numeros(numero, angulo);
+                datos.push(nombreAngulo);
+                console.log(datos);
+                //Se limpia la caja
+                limpiar();
+            }
+            }
+        }
+
+        function buscar() {
+            let indice;
+            let encontrado=false;
+            let numeroo = document.getElementsByTagName("input")[0].value;
+            for (let i of datos) {
+                if (numeroo == i.numero) {
+                    encontrado=true;
+                    indice=i;
+                    break;
+                }
+            }
+            if(encontrado==true){
+                alert("El ángulo del número "+indice.numero+" es "+indice.angulo);
+                //Se limpia la caja a los 2 segundos
+                setTimeout(limpiar,2000);
+            }else{
+                alert("No se han encontrado los datos");
+                //Se limpia la caja a los 2 segundos
+                setTimeout(limpiar,2000);
+            }
+        }
+
+        function limpiar() {
+            document.getElementsByTagName("input")[0].value = "";
+
+        }
+    </script>
+</body>
+
+</html>
