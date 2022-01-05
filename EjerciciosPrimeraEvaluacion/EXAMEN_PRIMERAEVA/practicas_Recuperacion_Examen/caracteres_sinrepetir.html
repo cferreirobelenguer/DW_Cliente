@@ -1,0 +1,56 @@
+
+<!-- Dado un string mostrar todas las letras sin repetir
+y mostrar el primer digito.
+Limpiar cajas-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=+, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Frase</label>
+            <input type="text" name="frase" >
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado" rows="15" cols="20"></textarea>
+        </p>
+        <input type="button" value="VER DATOS ÚNICOS Y PRIMER CARACTER" onclick="ver();">
+    </form>
+    <script>
+        function ver(){
+            //Se lee la frase y se almacena en set
+            let caracteres=new Set();
+            let msg="";
+            let frase=document.getElementsByName("frase")[0].value;
+            //Debug
+            console.log(frase);
+            //Se almacenan los caracteres de la frase en un Set
+            for(let i=0;i<=frase.length-1;i++){
+                caracteres.add(frase.charAt(i));
+            }
+            //Debug
+            console.log(caracteres);
+            //Se muestra el primer caracter y el resto de caracteres sin repetir
+            msg+="Toal de datos :\nPrimer caracter: "+frase.charAt(0).toUpperCase()+"\nTotal de caracteres sin repetir: \n";
+            for(let i of caracteres){
+                msg+=i.toUpperCase()+" ";
+            }
+            document.getElementsByName("resultado")[0].value=msg;
+            //Se limpian las cajas a los 5 segundos
+            setTimeout(limpiar,5000);
+
+        }
+        function limpiar(){
+            //Se limpian las cajas
+            document.getElementsByTagName("input")[0].value="";
+            document.getElementsByTagName("textarea")[0].value="";
+        }
+    </script>
+</body>
+</html>
