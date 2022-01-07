@@ -1,0 +1,140 @@
+
+
+
+<!--Añadir números en arreglo, antes validar que los datos que se introducen son números
+y no cadenas de caracteres.
+Mostrar pares e impares, separandolos en dos arreglos.
+Eliminar número seleccionado y mostrar cómo se queda el arreglo.
+Cambiar de posición número seleccionado.
+Usar función de limpiar
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <p>
+            <label for="">Introduce número: </label>
+            <input type="text" name="numero">
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado" cols="25" rows="15"></textarea>
+        </p>
+        <input type="button" value="ANADIR" onclick="anadir();" />
+        <input type="button" value="MOSTRAR PARES E IMPARES" onclick="mostrar();" />
+        <input type="button" value="ELIMINAR NÚMERO SELECCIONADO" onclick="eliminar();" />
+        <input type="button" value="CAMBIAR DE POSICIÓN NÚMERO SELECCIONADO" onclick="cambiar();" />
+    </form>
+    <script>
+        var total = [];
+        var pares = [];
+        var impares = [];
+
+        function anadir() {
+            let numero = document.getElementsByTagName("input")[0].value;
+            
+            let numeros_ = "0123456789";
+            let nonumero = false;
+            for (let i = 0; i < numero.length; i++) {
+                if (numeros_.indexOf(numero.charAt(i), 0) == -1) {
+                    nonumero = true;
+                    break;
+                }
+            }
+            if (nonumero == true) {
+                alert("Debe introducir un número");
+            } else {
+                total.push(numero);
+                console.log(total);
+                limpiar();
+            }
+        }
+
+        function mostrar() {
+            //Mostramos pares e impares separados
+            for (let i of total) {
+                if (i % 2 == 0) {
+                    //Si es par va al array pares
+                    pares.push(i);
+                } else {
+                    //Si es impar va al array impares
+                    impares.push(i);
+                }
+            }
+            let msg = "";
+            msg = "Total números pares: \n";
+            for (let j of pares) {
+                msg += j + " ";
+            }
+            msg+="\n";
+            let msg2="";
+            msg2 = "\nTotal números impares: \n";
+            for (let k of impares) {
+                msg2 += k + " ";
+            }
+            document.getElementsByTagName("textarea")[0].value = msg+msg2;
+        }
+
+        function eliminar() {
+            let numerito = prompt("Introduzca un número");
+            let indice = 0;
+            for (let i in total) {
+                if (total[i] == numerito) {
+                    indice = i;
+                }
+            }
+            //Se elimina el número del array
+            total.splice(indice, 1);
+
+            let msg = "";
+            msg += "El total de números tras la eliminación es: \n";
+            for (let j of total) {
+                msg += j + " ";
+            }
+            document.getElementsByTagName("textarea")[0].value = msg;
+        }
+
+        function cambiar() {
+            let numerito2 = prompt("Introduzca el número que quiere cambiar de posición");
+            let posicion = prompt("Introduzca la posición nueva");
+            let indice;
+            for(let i=0;i<total.length;i++){
+                if(total[i]==numerito2){
+                    indice=i;
+                }
+            }
+            if ((posicion < 0) || (posicion > total.length)) {
+                alert("No se puede cambiar el número en la posición indicada");
+            } else {
+                //Se introduce la nueva posición
+                total.splice(posicion, 0, numerito2);
+                //Se borra la anterior posición
+                total.splice(indice,1);
+                let msg = "";
+                msg += "El total de números tras el cambio  es: \n";
+                for (let j of total) {
+                    msg += j + " ";
+                }
+                document.getElementsByTagName("textarea")[0].value  = msg;
+            }
+
+        }
+
+        function limpiar() {
+            //Limpiamos las cajas
+            document.getElementsByTagName("input")[0].value= "";
+            document.getElementsByTagName("textarea")[0].value = "";
+        }
+    </script>
+</body>
+
+</html>
