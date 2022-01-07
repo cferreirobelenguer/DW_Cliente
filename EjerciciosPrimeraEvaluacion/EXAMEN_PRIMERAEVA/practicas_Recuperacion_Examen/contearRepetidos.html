@@ -1,0 +1,129 @@
+
+
+<!--Añadir palabras, validar que no son números y no contienen números.
+Redigir a los 8 segundos cada botón que se ejecuta.
+Mostrar palabras y repeticiones.
+Mostrar no repetidos.
+Buscar una palabra introducida y mostrar la palabra y su repetición.
+Limpiar las cajas al añadir datos.
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>palabras repes</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduce palabra: </label>
+            <input type="text" name="palabra"/>
+        </p>
+        <p>
+            <textarea name="resultado" cols="25" rows="20"></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();">
+        <input type="button" value="MOSTRAR PALABRAS Y REPETICIONES" onclick="mostrar()">
+        <input type="button" value="MOSTRAR NO REPES" onclick="norepess();">
+        <input type="button" value="BUSCAR" onclick="buscar();">
+    </form>
+    <script>
+        var palabrasTotales=[];
+        var repes=new Map();
+        var norepes=new Map();
+
+        function anadir(){
+            //No puede contener números
+            let numeros="0123456789";
+            let contiene=false;
+            let palabra=document.getElementsByTagName("input")[0].value;
+            for(let i=0;i<palabra.length;i++){
+                if(numeros.indexOf(palabra.charAt(i),0)!=-1){
+                    contiene=true;
+                    break;
+                }
+            }
+            if(contiene==true){
+                alert("Palabra no debe contener dígitos numéricos");
+                limpiar();
+            }else{
+                let contador=1;
+                //Se añade la palabra si no contiene números
+                palabrasTotales.push(palabra);
+                //Debug
+                console.log(palabrasTotales);
+                limpiar();
+            }
+
+
+        }
+        function mostrar(){
+            
+            //Si no está en el mapa la palabra se introduce con el valor 1
+            for(let i=0;i<palabrasTotales.length;i++){
+                if(!repes.has(palabrasTotales[i])){
+                    repes.set(palabrasTotales[i],1);
+                }else{
+                    //En caso de que sí esté se busca la clave y se incrementa
+                    repes.set(palabrasTotales[i],repes.get(palabrasTotales[i])+1);
+                }
+            }
+            let msg="";
+            msg+="Total de palabras y sus repeticiones: \n";
+            for([clave,valor] of repes){
+                msg+="Palabra: "+clave+" , Repetición: "+valor+"\n";
+            }
+            document.getElementsByName("resultado")[0].value=msg;
+            contador=1;
+            //Redirige a los 8 segundos
+            setTimeout(redirigir,8000);
+            
+        }
+        function norepess(){
+            //Buscamos los valores que se repiten una vez, los concatenamos y mostramos en textarea
+            for([clave,valor]of repes){
+                if(valor==1){
+                    norepes.set(clave,valor);
+                }
+            }
+            let msg="";
+            msg+="Total de palabras no repetidas:\n";
+            for([clave2,valor2] of norepes){
+                msg+="Palabra: "+clave2+"\n";
+            }
+            document.getElementsByTagName("textarea")[0].value=msg;
+            msg="";
+            //Redirige a los 8 segundos
+            setTimeout(redirigir,8000);
+            
+            
+        }
+        function redirigir(){
+            //Redirigimos para poner nuevos datos
+            window.location.href="repes.html";
+        }
+        function buscar(){
+            //Se introduce un valor y se busca en el Mapa
+            let palabra_=prompt("Introduce una palabra");
+            var valor="";
+            //En caso se que esté se coge su valor y se muestra la clave y el valor en el textarea
+            if(repes.has(palabra_)){
+                valor=repes.get(palabra_);
+                document.getElementsByTagName("textarea")[0].value="Palabra: "+palabra_+", Repetición: "+valor;
+            }else{
+                //En caso de que no muestra mensaje de error
+                alert("No se ha encontrado el valor solicitado");
+            }
+        
+            
+        }
+        function limpiar(){
+            //Limpia las cajas
+            document.getElementsByName("palabra")[0].value="";
+            document.getElementsByName("resultado")[0].value="";
+        }
+    </script>
+</body>
+</html>
