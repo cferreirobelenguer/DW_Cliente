@@ -1,0 +1,42 @@
+<!--EJERCICIO 23
+    Dado una cadna de texto, poner en mayúscula la primera letra
+    de cada palabra en la cadena y luego devolver la cadena.
+    ejemplo:
+    hola soy victor   //Devuelve: HolaSoyVictor -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduzca frase: </label>
+            <input type="text" name="texto"/>
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado" cols="25" rows="15"></textarea>
+        </p>
+    </form>
+    <input type="button" value="MOSTRAR NUEVA FRASE MODIFICADA" onclick="mostrar(document.getElementsByTagName('input')[0].value);">
+</body>
+<script>
+    
+    function mostrar(frase){
+        //Se modifica a mayúscula el primer caracter
+        frase=frase.replace(frase[0],frase[0].toUpperCase());
+        for(let i=0;i<frase.length;i++){
+            if(frase[i-1]==" "){
+                frase=frase.replace(frase[i],frase[i].toUpperCase());
+            }
+        }
+        frase=frase.replace(/ /g,"");
+        //Cambia todas las coincidencias que hay de espacios en blanco
+        console.log(frase);
+    }
+</script>
+</html>
