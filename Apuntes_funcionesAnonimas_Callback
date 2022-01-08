@@ -1,0 +1,55 @@
+
+FUNCIONES ANÓNIMAS
+__________________
+
+Es una función que no tiene nombre
+
+var pelicula=function(nombre){
+  return "La pelicula es: "+nombre;
+}
+
+pelicula("Pretty Woman");
+
+Me devuelve: La pelicula es: Pretty Woman
+
+
+function sumame(numero1,numero2){
+  var sumar=numero1+numero2;
+  return sumar;
+ }
+ 
+ console.log(sumame(4,5));
+ 
+CALLBACK
+_________
+
+Es una función dentro de una función.
+
+ 
+ Es una función anónima que no tiene nombre y que se le pasa como parámetro una función, y esa propia función dentro de ella
+ ejecuta la función anónima que yo le estoy pasando.
+ 
+ 
+function sumame(numero1,numero2,sumaYmuestra,sumaPorDos){
+  var sumar=numero1+numero2;
+  sumaYmuestra(sumar);
+  sumaPorDos(sumar);
+  
+  return sumar;
+ }
+ 
+ suamme(4,5,function(dato){
+    console.log("La suma es: ",dato);
+ },
+ function (dato){
+    console.log("La suma por dos es: ",(dato*2));
+  });
+  
+  Tengo dos funciones anónimas que estoy utilizando como callback.
+  
+  
+ 
+ 
+ 
+ 
+ 
