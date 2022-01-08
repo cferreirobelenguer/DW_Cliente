@@ -1,0 +1,176 @@
+
+BROWSER OBJECT MODEL:
+____________________
+
+Trabajar con los elementos que nos da el navegador web.
+
+Ver qué tamaño tiene la ventana de un navegador, como redirigir de una url a otra, ese tipo de cosas forman parte del navegador.
+
+Es el browser object model: 
+
+Tamaño que tiene la ventana  (altura y anchura) :
+________________________________________________
+
+console.log(window.innerHeight);  //Yo puedo ver qué tamaño tiene la ventana en este momento
+console.log(window.innerWidth);   //Con esto miro con innerHeight la altura y con innerWidth la anchura
+
+function getBom(){
+   console.log(window.innerHeight);
+   console.log(window.innerWidth);
+ }
+getBob();
+
+Sacar el screen width y height, calcula el tamaño de la pantalla del usuario:
+______________________________________________________________________________
+
+function getBob(){
+  console.log(screen.width);
+  console.log(screen.height);
+  }
+
+Document
+________
+
+Cuando un documento HTML se carga en un navegador web, se convierte en objeto de documento.
+El objeto de documento es el nodo raíz del documento HTML
+El objeto de documento es una propiedad del objeto de ventana.
+
+Se accede al document object con:
+window.document o solo document
+
+Ejemplos:
+<p id="demo"></p>
+<script>
+  let url=window.document.URL;
+  document.getElementById("demo").innerHTML=url;
+</script>
+//Se coge la información de la url donde nos encontramos y la imprimimos en el párrado con id demo con innerHTML
+
+Sacar la url donde estamos actualmente:
+________________________________________
+
+window.location
+
+window.location.href //Nos imprime la url que hay
+
+window.location.href="arrays.html";      //me redirige a la url arrays.html
+
+function redirect(url){
+    window.location.href=url;
+}
+
+redirect("http://google.com");  //Redirige a google porque hemos cambiado el href de la url
+
+
+ABRIR UNA VENTANA DEL NAVEGADOR
+________________________________
+
+function abrirVentana(url){
+  window.open(url,"","width=400,height=300");
+}
+
+abrirVentana("https:/google.com");   //Se abre una pestaña nueva del navegador con el tamaño indicado
+
+CREAR UNA VENTANA Y ESCRIBIR EN ELLA
+_____________________________________
+
+var ventana;
+var texto="";
+ventana=window.open("","","height=150,width=300");   //Se abre la ventana
+
+texto+="<HTML><HEAD><TITTLE><PAGINA QUE CABIA DE COLORES</TITTLE></HEAD><BODY>";
+texto+="<p>ESTA ES MI PAGINA WEB</p></BODY></HTML>";    //Se ha creado el contenido de una web dentro de la variable texto
+
+ventana.document.open();   //Se abre la escritura sobre el documento
+ventana.document.write(texto);  //Se escribe el contenido del texto dentro de la ventana
+ventana.focus();  //uestra la ventana pequeña que hemos creado en primer plao
+
+ventana.document.close(); //cierra la escritura del documento
+
+
+setTimeOut()
+___________
+
+Seleccionar un tiempo para que se ejecute una acción
+
+Ejemplo: espere 5 segundos para el saludo
+
+const myTimeout=setTimeout(myGreeting,5000);
+//El tiempo es en milisegundos con lo cual 5000 milisegundos son 5 segundos
+
+clearTimeout lo que hace es evitar que setTimeout se ejecute:
+
+const myTimeout=setTimeout(myGreeting,5000);
+
+function myStopFunction(){
+  clearTimeout(myTimeout);
+}
+
+El setTimeout() método que llama a una función después de varios milisegundos.
+1 segundo=1000 milisegundos.
+
+El setTimeout() se ejecuta solo una vez.
+
+Si necesita ejecuciones repetidas, utilice setInterval() en su lugar.
+Utilice el clearTimeout() método para evitar que se inicie la función.
+
+Sintaxis:
+myTimeout=setTimeout(function,milisegundos);
+
+Sintaxis de clearTimeout:
+clearTimeout(myTimeout);
+
+
+setInternal()
+_____________
+
+Definición y uso:
+El setInterval() es un método que llama a una función a intervales específicos (en milisegundos)
+El setInterval() es un método que continúa llamando a la función hasta que clearInterval() se llama
+o se cierra la ventana.
+
+1 segundo=1000 milisegundos.
+
+Para ejecutar la función solo una vez, use el setTimeout() en su lugar.
+
+Para borrar un intervalom use la identificación devuelta por el setInterval():
+
+myInterval=setInterval(function,milisegundos);
+
+Luego puede detener la ejecución lamando a clearInterval():
+  clearInterval(myInterval);
+  
+ Ejemplos:
+ 
+ Muestra "Hola" cada segundo (1000 milisegundos):
+ 
+ setInterval(function(){
+  element.innerHTML+="Hello"},1000);  //Podría ser introduciendo la función directamente dentro de setInterval
+  
+  //O invocando a una función ya creada
+  
+  function displayHello(){
+    document.getElementById("demostracion").innerHTML+="Hola";
+  }
+  
+  setInterval(displayHello,1000);
+  //Va a imprimir hola cada segundo indefinidamente hasta que se pare el programa
+  
+  
+focus() ENFOQUE DE VENTANA:
+___________________________
+
+El método focus() solicita traer una ventana al frente.
+El blur() es el método que quita el foco de la ventana
+
+Ejemplos:
+
+Abra una nueva ventana y establezca el foco en ella:
+
+const myWindow=window.open("","","width=200,height=100";
+myWindow.focus();
+
+Abre una ventana y difumínala:
+
+const myWindow=window.open("","","width=200,height=100");
+myWindow.blur();
