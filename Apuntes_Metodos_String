@@ -1,0 +1,157 @@
+
+MÉTODOS DE STRING
+_________________
+
+
+LONGITUD DE CADENA DE JAVASCRIPT
+________________________________
+
+La propiedad length devuelve la longitud de la cadena
+
+let txt="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+let length=txt.length;
+
+MÉTODOS DE EXTRACCIÓN DE PARTES DE CADENA DE STRING
+____________________________________________________
+
+Hay tres slice, substring y substr
+
+SLICE
+_____
+slice() extrae una parte de una cadena y devuelve la parte extraída en una nueva cadena.
+El método toma 2 parámetros: la posición inicial y la posición final (final no incluido).
+
+Este ejemplo corta una porción de una cadena desde la posición 7 a la 12 (13-1):
+
+let str="Apple,Banana,Kiwi";
+let part=str.splice(7,13);
+//Devuelve Banana
+
+Javascript cuenta posiciones desde 0
+La primera posición es 0
+La segunda posición es 1
+
+Si un parámetro es negativo, la posición se cuenta desde el final de la cadena.
+
+Este ejemplo corta una parte de una cadena desde la posición -12 a la posición -6:
+
+let str="Apple,Banana,Kiwi";
+let part=str.slice(-12,-6);
+//Nos devuelve Banana
+
+Cuando se ponen números negativos se cuenta desde el final a alante
+
+La diferencia entre slice y substring es que slice acepta números negativos y substring no.
+
+Si se omute el segundo parámetro, el método cortará el resto de la cadena
+
+let part=str.splcie(7);
+//Nos devuelve Banana,Kiwi
+
+Tambien si se cuenta desde el final, corta la cadena desde ese punto si sólo tiene un parámetro
+let part=str.slice(-12);
+//Devuelve Banana,Kiwi
+
+
+
+SUBSTRING()
+___________
+Es similar a slice().
+La diferencia es que substring() no puede aceptar índices negativos
+
+ejemplo:
+
+let str="Apple,Banana,Kiwi";
+let part=str.substring(7,13);
+//Devuelve Banana
+
+
+
+SUBSTR()
+_________
+
+Es similar a slice()
+La diferencia es que el segundo parámetro especifica la longitud de la parte extraida
+
+let str="Apple,Banana,Kiwi";
+let part=str.substr(7,6);
+//Devuelve Banana, cuenta desde la posición 7 y avanza 6 posiciones cortando
+
+Si se omite el segundo parámetro substr() cortará el resto de la cadena
+
+let str="Apple, Banana,Kiwi";
+let part=str.substr(7);
+//Devuelve Banana,Kiwi
+
+Si el primer parámetro es negativo, la posición cuenta desde el final de la cadena
+let str="Apple,Banana,Kiwi";
+let part=str,substr(-4);
+//Devuelve Kiwi
+
+
+
+REPLACE() REEMPLAZO DEL CONTENIDO DE LA CADENA
+_______________________________________________
+
+replace() es el método que reemplaza un valor especificado con otro valor en una cadena
+
+let text="Please visit Microsoft";
+let newText=text.replace("Microsoft","W3Schools");
+//Devuelve ¡Visite W3Schools!
+
+El replace() no cambia la cadena en la que se invoca
+El replace() es el método que devuelve una cadena.
+
+De forma predeterminada, el replace() reemplaza solo la primera coincidencia
+
+let text="Please visit Microsot and Microsoft!";
+let newText=text.replace("Microsoft","W3Schools");
+//Devuelve ¡Visit W3Schools, Microsoft!
+
+El método replace() distingue entre mayúsculas y minúsculas, es case sensitive.
+
+Si lo que se quiere es reemplazar todas las coincidencias, hay que usar la expresión regular con una /g bandera (coincidencia global):
+
+let text="Please visit Microsoft and Microsoft!";
+let newText=text.replace(/Microsoft/g,"W3Schools");
+
+
+
+CONVERSIÓN DE MAYÚSCULAS Y MINÚSCULAS
+_____________________________________
+Una cadena se convierte en mayúsculas con toUpperCase().
+Una cadena se convierte a minúsculas con toLowerCase().
+
+let text1="Hello World";
+let text2=text1.toUpperCase();
+
+let text3=text1.toLowerCase();
+
+
+
+CONCAT() CONCATENAR STRINGS
+___________________________
+
+concat() une dos o más cadenas:
+
+let text1="Hello";
+let text2="World",
+let text3=text1.concat(" ",text2);
+//Devuelve Hello World
+
+También se puede concatenar usando el operador +
+text="Hello"+" "+"World";
+
+TODOS LOS MÉTODOS DE CADENA DEVUELVEN UNA NUEVA CADENA, NO MODIFICAN LA CADENA ORIGINAL.
+LAS CADENAS NO SE PUEDEN CAMBIAR, SOLO REEMPLAZAR.
+
+trim() ELIMINACIÓN DE ESPACIOS ALANTE DE DETRÁS DE LA CADENA
+______________________________________________________________
+
+Limpia los espacios de una cadena alante y detrás, se usa mucho en formularios
+
+let text="      Helllo world         ";
+let text2=text1.trim();
+//Devuelve Hello world sin espacios alante y detrás
+
+
