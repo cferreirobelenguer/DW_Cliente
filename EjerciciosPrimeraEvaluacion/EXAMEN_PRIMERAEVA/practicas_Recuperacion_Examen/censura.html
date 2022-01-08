@@ -1,0 +1,101 @@
+
+<!--Dado un texto y una búsqueda, censurar todas las 
+    coincidencias de la búsqueda en el texto con [CENSURADO]. 
+    Si el texto y la búsqueda están vacíos mostrar
+    "No se puede hacer la lectura y la búsqueda", en el caso de que no
+    esté el texto se muestra "No se puede hacer la lectura",
+    y en el caso de que no esté la búsqueda se pone en alert
+    "No se puede hacer la búsqueda".
+
+    Ejemplo:
+    texto: Yo soy carol hola carol
+    Búsqueda: carol
+
+    Devuelve: Yo soy [CENSURADO] hola [CENSURADO]
+
+    Ejemplo:
+    texto: ""
+    Búsqueda: ""
+
+    Devuelve: No se puede hacer la lectura y la búsqueda
+
+    Ejemplo:
+    texto: ""
+    Búsqueda: carol
+
+    Devuelve: No se puede hacer la lectura
+
+    Ejemplo:
+    texto: hola soy carol hola carol
+    Búsqueda: ""
+
+    Devuelve: No se puede hacer la búsqueda
+    -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>censurar texto</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduce texto</label>
+            <input type="text" name="texto" />
+        </p>
+        <p>
+            <label for="">Introduce búsqueda</label>
+            <input type="text" name="busca" />
+        </p>
+        <p>
+            <label for="">Resultado</label>
+            <textarea name="resultado" cols="20" rows="15"></textarea>
+        </p>
+        <input type="button" value="MOSTRAR CENSURA" onclick="mostrar();"/>
+    </form>
+    <script>
+        function mostrar(){
+            //Recoge los datos de texto y búsqueda
+            let texto=document.getElementsByTagName("input")[0].value;
+            let busca=document.getElementsByTagName("input")[1].value;
+            //En caso de que los datos estén vacíos se mandan por alert los respectivos mensajes de aviso
+            if((texto.length==0)&&(busca.length==0)){
+                alert("No se puede hacer la lectura y la búsqueda");
+                limpiar();
+            }else if((texto.length>0)&&(busca.length>0)){
+                //Si el texto está relleno se recorre la posición de busca y se va reemplazando, para que no se reemplace sólo el primero
+                let posicion=0;
+                posicion=texto.indexOf(busca);
+                
+                while(posicion!=-1){
+                    texto=texto.replace(busca,"[CENSURA]");
+                    posicion=texto.indexOf(busca,posicion+1);
+                }
+                limpiar();
+                document.getElementsByTagName("textarea")[0].value="Texto con censura: \n"+texto;
+                //Se limpia el textarea a los 5 segundos
+                setTimeout(()=>{
+                    document.getElementsByTagName("textarea")[0].value="";
+                },5000);
+            }else{
+                if(texto.length==0){
+                    alert("No se puede hacer la lectura del texto");
+                    limpiar();
+                }else if(busca,length==0){
+                    alert("No se puede hacer la búsqueda");
+                    limpiar();
+                }
+            }
+            
+        }
+        function limpiar(){
+            //Se limpian las cajas de texto y búsqueda
+            document.getElementsByName("texto")[0].value="";
+            document.getElementsByName("busca")[0].value="";
+        }
+    </script>
+</body>
+</html>
