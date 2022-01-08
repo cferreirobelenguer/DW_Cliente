@@ -1,0 +1,87 @@
+FUNCIONES
+__________
+
+Son un grupo de órdenes agrupados con un nombre concreto. Yo voy a tener un conjunto de reglas
+o cosas que se van a ejecutar y yo puedo reutilizar esa función tantas veces como quiera.
+
+Se van a ejecutar estas órdenes cuando se invoque la función.
+Es una agrupación reutilizable de un conjunto de instrucciones.
+
+Con function puedo crear una función junto con el nombre();
+
+function calculadora(){
+  return "Hola soy la calculadora";
+} 
+
+Con return la función me devuelve algo.
+
+console.log(calculadora());   //Así invoco a la función en caso de que tenga return, hace falta console.log o alert
+
+O incluso en vez de hacer return puedo tener el console.log dentro de la función:
+
+function calculadora(){
+  console.log("Hola soy la calculadora");
+  console.log("Si soy yo");
+}
+
+calculadora();   //Así estoy invocando a la función en caso de que tenga console.log dentro
+
+También puedo meter el resultado de la invocación dentro de una variable:
+
+var resultado=calculadora();
+
+console.log(resultado);
+
+
+
+PARAMETROS
+___________
+
+Una función puede recibir parámetros que son variables que van a alterar la lógica del resultado de la función.
+
+Con esto hago mucho más reutilizable una función. Por ejemplo si yo hago una calculadora y quiero que sea reutilizable con
+varios números.
+
+function calculadora(numero1,numero2){
+  console.log("Suma: "+(numero1+numero2));
+  console.log("Resta: "+(numero1-numero2));
+  console.log("Multiplicación: "+(numero1*numero2));
+  
+  return "Hola soy la calculadora";
+ }
+ 
+ calculadora(12,8);  //Invocar llamar a la función
+ 
+ Si quiero poner como parámetros datos de cajas tendría que poner directamente el dom en el parámetro al invocar la función
+ 
+ calculadora(document.getElementById('numero1').value,document.getElementById('numero2').value);  //Con comilla simple ''
+ 
+ 
+ for(let i=0;i<=10;i++){
+  console.log(i);
+  calculadora(i,8);
+ }
+ 
+ 
+ PARAMETROS OPCIONALES
+ ______________________
+ 
+ 
+ Son parámetros que no son obligatorios, sino que vienen a inicializar algo por defecto.
+ 
+ function calculadora(numero1,numero2,mostrar=false){
+ if(mostrar==false){
+    console.log("Suma: "+(numero1+numero2));
+    console.log("Resta: "+(numero1-numero2));
+    console.log("Multiplicación: "+(numero1*numero2));
+ }else{
+    document.write("Suma: "+(numero1+numero2)+"<br/>");
+    document.write("Resta: "+(numero1-numero2)+"<br/>");
+    document.write("Multiplicación: "+(numero1*numero2)+"<br/>");
+ 
+  }
+ }
+ 
+ calculadora(4,5,true);
+ 
+  
