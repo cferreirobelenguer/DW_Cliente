@@ -155,3 +155,29 @@ let text2=text1.trim();
 //Devuelve Hello world sin espacios alante y detrás
 
 
+INDEXOF() BUSCA LA POSICIÓN DE UNA CADENA
+__________________________________________
+
+Con indexOf() podemos buscar la posición de una cadena o caracter dentro de otra cadena.
+Si el resultado sale -1 significa que no se encuentra.
+Se puede usar para validaciones.
+
+ejemplo validar si una cadena tiene números y no caracteres, si tiene números sólo es correcta, si tiene caracteres se muestra mensaje de error
+
+let numero=document.getElementById("numero").value;
+let numeros_="0123456789";
+let contienecadena=false;
+for(let i=0;i<numero.length;i++){
+  if(numeros_.indexOf(numero.charAt(i),0)==-1){
+      contienecadena=true;
+      break;
+  }
+}
+
+if(contienecadena=true){
+  alert("Debe introducir dígitos numéricos");
+ }else{
+ alert("Datos validados correctamente, ha introducido el número: "+numero);
+  }
+  
+  
