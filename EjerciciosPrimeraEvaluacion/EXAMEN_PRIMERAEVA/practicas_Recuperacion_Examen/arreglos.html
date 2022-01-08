@@ -1,0 +1,173 @@
+
+<!--Pida 6 números por pantalla y los meta en un array
+Mostrar el array entero(todos sus elementos) en el cuerpo de la página y en la consola
+Ordenarlo y mostrarlo
+Invertir su orden y mostrarlo
+Mostrar cuántos elementos tiene el array
+Búsqueda de un valor introducido por el usuario, que nos diga si lo
+encuentro, su índice y la longiutud del número.-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejercicio arreglo</title>
+</head>
+
+<body>
+    <form>
+        <p>
+            <label for="">Introduza número: </label>
+            <input type="text" name="numero" />
+        </p>
+        <p>
+            <textarea name="resultado" cols="15" rows="20"></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="principal(this.value);">
+        <input type="button" value="ORDENAR" onclick="principal(this.value);">
+        <input type="button" value="MOSTRAR ARRAY ENTERO" onclick="principal(this.value);">
+        <input type="button" value="INVERTIR" onclick="principal(this.value);">
+        <input type="button" value="MOSTRAR NÚMERO DE ELEMENTOS DE ARRAY" onclick="principal(this.value);">
+        <input type="button" value="BUSCAR VALOR" onclick="principal(this.value);">
+        <input type="button" value="TERMINAR" onclick="principal(this.value);">
+    </form>
+    <script>
+        var datos = [];
+
+        function anadir() {
+            //Se valida que los elementos introducidos son dígitos numéricos
+            let numeros_ = "0123456789";
+            let contieneletra = false;
+            let numero = document.getElementsByName("numero")[0].value;
+            for (let i = 0; i < numero.length; i++) {
+                if (numeros_.indexOf(numero.charAt(i), 0) == -1) {
+                    contieneletra = true;
+                    break;
+                }
+            }
+            if (contieneletra == true) {
+                alert("Debe introducir números, no letras");
+                limpiar();
+            } else {
+                datos.push(numero);
+                console.log(datos);
+                limpiar();
+            }
+            //Se añaden elementos
+
+        }
+
+        function ordenar() {
+            //Ordena el arreglo
+            datos.sort();
+            console.log(datos);
+            let msg = "";
+            msg += "ARRAY ORDENADO: ";
+            for (let i of datos) {
+                msg += i + " ";
+            }
+            document.getElementsByTagName("textarea")[0].value = msg;
+            //Se borran los datos a los 7 segundos
+            setTimeout(limpiar, 7000);
+
+        }
+
+        function mostrar() {
+            //Se muestra el total de datos del arreglo
+            let msg = "";
+            msg += "TOTAL DE DATOS INTRODUCIDOS EN ARREGLO:\n";
+            for (let i of datos) {
+                msg += i + " ";
+            }
+            document.getElementsByTagName("textarea")[0].value = msg;
+        }
+
+        function buscar() {
+            //Se busca valor y se introduce información sobre el índice y la longitud
+            let valor = prompt("Introduce número a buscar");
+            let indice = 0;
+            let encontrado = false;
+            let msg = "";
+            for (let i in datos) {
+                if (datos[i] == valor) {
+                    indice = i;
+                    encontrado = true;
+                    msg = "Valor introducido: " + valor + "\nÍndice: " + indice + "\nLongitud: " + valor.length;
+                }
+            }
+            console.log(encontrado);
+            if (encontrado == true) {
+                document.getElementsByTagName("textarea")[0].value = msg;
+            } else {
+                document.getElementsByTagName("textarea")[0].value =
+                "El dato introducido no se encuentra en el arreglo";
+
+            }
+
+
+        }
+
+        function limpiar() {
+            //Se limpian las cajas
+            document.getElementsByTagName("input")[0].value = "",
+                document.getElementsByTagName("textarea")[0].value = "";
+        }
+
+        function invertir() {
+            //Se invierte el orden del array
+            datos = datos.reverse();
+            let msg2 = "";
+            msg2 += "ARRAY INVERTIDO: \n"
+            for (let i of datos) {
+                msg2 += i + " ";
+            }
+            document.getElementsByTagName("textarea")[0].value = msg2;
+        }
+
+        function principal(boton) {
+            switch (boton) {
+                case "AÑADIR":
+                    anadir();
+                    break;
+                case "ORDENAR":
+                    ordenar();
+                    //Se borran los datos a los 7 segundos
+                    setTimeout(limpiar, 7000);
+                    break;
+                case "MOSTRAR ARRAY ENTERO":
+                    mostrar();
+                    //Se borran los datos a los 7 segundos
+                    setTimeout(limpiar, 7000);
+                    break;
+                case "INVERTIR":
+                    invertir();
+                    //Se borran los datos a los 7 segundos
+                    setTimeout(limpiar, 7000);
+                    break;
+                case "MOSTRAR NÚMERO DE ELEMENTOS DE ARRAY":
+                    let msg = "";
+                    msg = "El número de datos introducidos es: " + datos.length;
+                    document.getElementsByTagName("textarea")[0].value = msg;
+                    //Se borran los datos a los 7 segundos
+                    setTimeout(limpiar, 7000);
+                    break;
+                case "BUSCAR VALOR":
+                    //Busca un valor y muestra su información
+                    buscar();
+
+                    break;
+                case "TERMINAR":
+                    limpiar();
+                    alert("Se ha interrumpido la ejecución del programa");
+                    window.location.href = ("arreglos.html");
+                    break;
+
+            }
+        }
+    </script>
+</body>
+
+</html>
