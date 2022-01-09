@@ -1,0 +1,155 @@
+
+<!--Crear ficha de empleados, usuario puede rellenar nombre, apellidos y fecha de ingreso en la empresa.
+El departamento viene por defecto en el constructor como programador.
+Hay que calcular la antigüedad del empleado en la empresa y su categoría.
+Si la antigüedad es superior a 5 es senior y si es inferior es junior.
+Al pulsar añadir se añaden los datos al arreglo.
+Al pulsar buscar se busca por nombre al empleado y se muestran todos sus datos en las cajas,
+en caso de que no se encuentre se muestra mensaje en textarea.
+Usar función de limpiar cajas.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FICHA DE EMPLEADOS</title>
+</head>
+<body>
+    <h1>FICHA DE EMPLEADOS</h1>
+    <img src="empleados.jpg" id="foto" width="300" height="200"/>
+    <form>
+        <p>
+            <label for="">Nombre:</label>
+            <input type="text" name="nombre"/>
+        </p>
+        <p>
+            <label for="">Apellidos:</label>
+            <input type="text" name="apellidos"/>
+        </p>
+        <p>
+            <label for="">Departamento:</label>
+            <input type="text" name="departamento" disabled/>
+        </p>
+        <p>
+            <label for="">Fecha ingreso en empresa:</label>
+            <input type="date" name="fecha"/>
+        </p>
+        <p>
+            <label for="">Antigüedad:</label>
+            <input type="text" name="antiguedad" disabled/>
+        </p>
+        <p>
+            <label for="">Categoría:</label>
+            <input type="text" name="categoria" disabled/>
+        </p>
+        <p>
+            <label for="">Resultado:</label>
+            <textarea name="resultado" cols="15" rows="20" disabled></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();"/>
+        <input type="button" value="BUSCAR" onclick="buscar();"/>
+    </form>
+    <script>
+        //Arreglo donde se van a almacenar los datos de los empleados
+        var datos=[];
+        var nombre="";
+        var apellidos="";
+        var fecha="";
+        var categoria="";
+        var antiguedad;
+
+        function empresa(nombre,apellidos,fecha,antiguedad,categoria,imagen){
+            this.nombre=nombre;
+            this.apellidos=apellidos;
+            //Dato de departamento ya metido en el constructor
+            this.departamento="Programador";
+            this.fecha=fecha;
+            this.antiguedad=antiguedad;
+            //Dato ya fijado en constructor en función de lo que de la antigüedad
+            this.categoria=categoria;
+            this.imagen=imagen;
+
+        }
+        function anadir(){
+            //Función que añade los datos al array de objetos
+            //Recogida de datos
+            nombre=document.getElementsByTagName("input")[0].value;
+            apellidos=document.getElementsByTagName("input")[1].value;
+            imagen=nombre+".jpg";
+            calcular();
+            //Creación del objeto
+            var trabajador= new empresa(nombre,apellidos,fecha,antiguedad,categoria,imagen);
+            //Se añaden los datos al arreglo
+            datos.push(trabajador);
+            console.log(trabajador);
+            limpiar();
+
+
+        }
+        function buscar(){
+            //Función que busca un empleado por nombre y muestra los resultados y la antigüedad
+            let nombre=document.getElementsByTagName("input")[0].value;
+            let encontrado=false;
+            let indice;
+            //Se busca el nombre
+            for(let i of datos){
+                if(nombre==i.nombre){
+                    encontrado=true;
+                    indice=i;
+                    break;
+                }
+            }
+            if(encontrado==true){
+                //Se ponen los datos en cada una de las cajas, en caso de que sean encontrados
+                document.getElementsByTagName("input")[0].value=indice.nombre;
+                document.getElementsByTagName("input")[1].value=indice.apellidos;
+                document.getElementsByTagName("input")[2].value=indice.departamento;
+                document.getElementsByTagName("input")[3].value=indice.fecha;
+                document.getElementsByTagName("input")[4].value=indice.antiguedad;
+                document.getElementsByTagName("input")[5].value=indice.categoria;
+                document.getElementById("foto").src=indice.imagen;
+                document.getElementsByTagName("textarea")[0].value="Datos mostrados correctamente";
+                //Se limpian los datos a los 5 segundos
+                setTimeout(limpiar,5000);
+            }else{
+                document.getElementsByTagName("textarea")[0].value="No se han encontrado los datos";
+                 //Se limpian los datos a los 5 segundos
+                setTimeout(limpiar,5000);
+            }
+
+        }
+        function calcular(){
+            //Función que calcula la antigüedad del empleado
+            fecha=document.getElementsByTagName("input")[3].value;
+            //Fecha de ingreso en milisegundos
+            let fechaIngreso=Date.parse(fecha);
+            //Fecha actual en milisegundos
+            let fechaActual=Date.now();
+            //antigüedad= fecha actual- fecha de ingreso en milisegundos
+            antiguedad=fechaActual-fechaIngreso;
+            //Se pasa la antiguedad a años y se redondea
+            antiguedad=Math.round(antiguedad/1000/60/60/24/365);
+            //Se calcula la categoría por antigëdad
+            if(antiguedad<5){
+                categoria="Junior";
+            }else if(antiguedad>5){
+                categoria="Senior";
+            }
+
+        }
+        function limpiar(){
+            //Función que limpia las cajas
+            document.getElementsByTagName("input")[0].value="";
+            document.getElementsByTagName("input")[1].value="";
+            document.getElementsByTagName("input")[2].value="";
+            document.getElementsByTagName("input")[3].value="";
+            document.getElementsByTagName("input")[4].value="";
+            document.getElementsByTagName("input")[5].value="";
+            document.getElementById("foto").src="empleados.jpg";
+        }
+
+
+    </script>
+</body>
+</html>
