@@ -1,0 +1,67 @@
+
+<!--Validar número que se introduce en caja, garantizar
+que el dato que se introduce sea numérico,
+y al pulsar mostrar ,escribir en textarea el número inverso.
+Usar función de limpiar cajas.-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invertir número entero
+    </title>
+</head>
+
+<body>
+    <form>
+        <p>
+            <label for="">Introduzca número</label>
+            <input type="text" name="numero">
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <input type="text" name="resultado">
+        </p>
+        <input type="button" value="MOSTRAR INVERSO" onclick="validar();" />
+    </form>
+    <script>
+        var numero;
+
+        function validar() {
+
+            //Se recoge el dato y se valida que sea número
+            let numeros_ = "0123456789";
+            numero = document.getElementsByTagName("input")[0].value;
+            let contienecadena = false;
+            for (let i = 0; i < numero.length; i++) {
+                if (numeros_.indexOf(numero.charAt(i), 0) == -1) {
+                    contienecadena = true;
+                    break;
+                }
+            }
+            if (contienecadena == true) {
+                alert("Debe introducir números");
+                limpiar();
+            } else {
+                //Se muestra el número inverso recorriendo el buycle al revés
+                let numeroInverso = "";
+                for (let i=numero.length-1;i>=0;i--){
+                    numeroInverso += numero.charAt(i);
+                }
+                document.getElementsByName("resultado")[0].value=numeroInverso;
+            }
+
+
+        }
+
+        function limpiar() {
+            //Se limpian las cajas
+            document.getElementsByTagName("input")[0].value = "",
+                document.getElementsByTagName("textarea")[0].value = "";
+        }
+    </script>
+</body>
+
+</html>
