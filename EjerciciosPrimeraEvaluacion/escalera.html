@@ -1,0 +1,121 @@
+
+
+<!--
+Se recogen los datos de la caja de número y al pulsar añadir se almacenan
+en un arreglo.
+Cuando se pulsa buscar y mostrar se busca por número, se dice si ese número está
+o no en el arreglo y se muestra en el textarea una escalera de escalones de [-]
+usando el número para los niveles de escalera.
+Usar función de limpiar y validar que los datos introducidos en la caja de texto sean sólo
+cifras numéricas.
+
+ejemplo:
+
+3
+[-]
+[-][-]
+[-][-][-]
+
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalera</title>
+</head>
+
+<body>
+    <form>
+        <p>
+            <label for="">Introduzca número: </label>
+            <input type="text" name="numero" />
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado" cols="15" rows="20" disabled></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="accion(this.value);" />
+        <input type="button" value="BUSCAR Y MOSTRAR" onclick="accion(this.value);" />
+    </form>
+    <script>
+        var datos = [];
+        var numero = "";
+
+        function validar() {
+            //Se valida que sean sólo números los datos introducidos
+            let numeros_ = "0123456789";
+            numero = document.getElementsByName("numero")[0].value;
+            let contienecaracter = false;
+            for (let i = 0; i < numero.length; i++) {
+                if (numeros_.indexOf(numero.charAt(i), 0) == -1) {
+                    contienecaracter = true;
+                    break;
+                }
+            }
+            if (contienecaracter == true) {
+                alert("Debe introducir caracteres numéricos");
+                limpiar();
+            } else {
+                datos.push(numero);
+                console.log(datos);
+                limpiar();
+            }
+        }
+
+        function buscar() {
+            let cifra = document.getElementsByTagName("input")[0].value;
+            let contiene = false;
+            console.log(cifra);
+            
+            //Se busca si el dato introducido por usuario se encuentra en el arreglo
+            for (let i of datos) {
+                if (cifra == i) {
+                    contiene = true;
+                }
+            }
+            if (contiene == true) {
+                //Se dibuja la pirámide si el número se encuentra en el arreglo
+                let msg="";
+                msg+="Resultado: \n";
+                
+                for (let i = 1; i <= cifra; i++) {
+                    
+                    for (let j = 1; j <= i; j++) {
+                        msg+="[-]";
+                    }
+                    msg+="\n";
+                }
+                console.log(msg);
+                document.getElementsByName("resultado")[0].value = msg;
+                //Se limpian las cajas a los 5 segundos
+                setTimeout(limpiar, 5000);
+            } else {
+                //Si el número no se encuentra en el arreglo de muestra mensaje en alert
+                alert("El dato que ha introducido no se encuentra");
+                limpiar();
+            }
+        }
+
+        function accion(boton) {
+            switch (boton) {
+                case "AÑADIR":
+                    validar();
+                    break;
+                case "BUSCAR Y MOSTRAR":
+                    buscar();
+                    break;
+            }
+        }
+
+        function limpiar() {
+            //Limpiar las cajas
+            document.getElementsByTagName("input")[0].value = "";
+            document.getElementsByTagName("textarea")[0].value = "";
+        }
+    </script>
+</body>
+
+</html>
