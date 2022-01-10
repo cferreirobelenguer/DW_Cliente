@@ -1,0 +1,110 @@
+
+
+<!-- Introducir datos en la caja, almacenarlos en un array. E introducir en la segunda caja qué
+número se quiere para la secuencia. Al pulsar AÑADIR se almacenan los datos en el arreglo.
+Al pulsar adivinar decir si es permutación o no.
+Una permutación es una secuencia de números:
+ejemplo:
+ datos que introduce el usuario: [1,2,3,5] permutación: 5 
+ Devuelve que no hay permutación 
+
+
+ Datos que introduce el usuario: [1,2,3,4,5,6] permutación 6
+ Devuelve que hay permutación porque hay una secuencia de números hasta 6
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>permutacion</title>
+</head>
+
+<body>
+    <form>
+        <p>
+            <label for="">Introduce número: </label>
+            <input type="text" name="numero" />
+        </p>
+        <p>
+            <label for="">Introduce número a iterar: </label>
+            <input type="text" name="numero2" />
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado"></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();" />
+        <input type="button" value="PERMUTA O NO" onclick="mostrar();" />
+    </form>
+    <script>
+        var datos = [];
+        var datos1="";
+        var datos2="";
+
+        function anadir() {
+            //Se valida que sean números los datos introducidos
+            let numeros_ = "0123456789";
+            let numero = document.getElementsByTagName("input")[0].value;
+            let contienecaracter = false;
+
+            for (let i = 0; i < numero.length; i++) {
+                if (numeros_.indexOf(numero.charAt(i), 0) == -1) {
+                    contienecaracter = true;
+                    break;
+                }
+            }
+            if (contienecaracter == true) {
+                //En caso de que no sean datos se muestra mensaje de alert
+                alert("Debe introducir caracteres numéricos");
+                limpiar();
+            } else {
+                //En caso de que sí se introduce en arreglo
+                datos.push(numero);
+                console.log(datos);
+                
+                limpiar();
+            }
+        }
+
+        function mostrar() {
+            //Se pasa el arreglo del usuario a string
+            for(let i=0;i<datos.length;i++){
+                    datos1+=datos[i];
+                }
+                console.log(datos1);
+            let noiguales = false;
+            let numeroIteracion = document.getElementsByTagName("input")[1].value;
+            //Se crea la iteración y se pasa a string
+            for (let i = 0; i <= numeroIteracion; i++) {
+                datos2+=i;
+            }
+            console.log(datos2);
+            //Se comparan ambas cadenas y si da -1 en alguna ocurrencia no son iguales
+            for(let i=0;i<datos1.length;i++){
+                if(datos2.indexOf(datos1.charAt(i),0)==-1){
+                    noiguales=true;
+                    break;
+                }
+            }
+            //Se muestra si es o no permutación
+            if (noiguales==true) {
+                document.getElementsByTagName("textarea")[0].value = "El array introducido no es una permutación de " +
+                    numeroIteracion;
+            } else {
+                document.getElementsByTagName("textarea")[0].value = "El array introducido sí es una permutación de " +
+                    numeroIteracion;
+            }
+        }
+
+        function limpiar() {
+            //Se limpian las cajas
+            document.getElementsByTagName("input")[0].value = "";
+            document.getElementsByTagName("textarea")[0].value = "";
+        }
+    </script>
+</body>
+
+</html>
