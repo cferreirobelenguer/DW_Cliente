@@ -1,0 +1,94 @@
+
+
+<!-- Al pulsar AÑADIR se añaden datos en sus respectivos arreglos de la caja 1 y 2,
+se verifica que no se pueden introducir datos vacíos en los arreglos.
+Al pulsar mostrar comúnes se muestra en un textarea los datos comúnes a esos dos arreglos.
+Usar función de limpiar cajas.
+
+ejemplo [5,hola,7]-
+        [8,hola,3]
+    
+    Devuelve [hola]-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEMENTOS COMUNES</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduce caracteres para primer arreglo: </label>
+            <input type="text" name="datos1"/>
+        </p>
+        <p>
+            <label for="">Introduce caracteres para segundo arreglo: </label>
+            <input type="text" name="datos2"/>
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado"></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();"/>
+        <input type="button" value="MOSTRAR COMUNES" onclick="mostrar();"/>
+    </form>
+    <script>
+        var datos1=[];
+        var datos2=[];
+        var comunes=[];
+
+        function anadir(){
+            //Se recoge la información de las cajas
+            let dato1=document.getElementsByName("datos1")[0].value;
+            let dato2=document.getElementsByName("datos2")[0].value;
+            if((dato1=="")||(dato2=="")){
+                alert("Debe rellenar los campos")
+                limpiar();
+            }else{
+                //Se introduce en su correspondiente arreglo
+            datos1.push(dato1);
+            datos2.push(dato2);
+
+            console.log(datos1);
+            console.log(datos2);
+            limpiar();
+            }
+            
+        }
+
+        function mostrar(){
+            //Se buscan los valores comúnes
+            for(let i=0;i<datos1.length;i++){
+                for(let j=0;j<datos2.length;j++){
+                    if(datos1[i]==datos2[j]){
+                        comunes.push(datos1[i]);
+                    }
+                }
+            }
+            let msg="";
+            msg+="Valores comúnes: \n[";
+            //Se muestran los valores comúnes en textarea
+            for(let valor of comunes){
+                msg+=valor+" ";
+            }
+            msg+="]";
+
+            document.getElementsByTagName("textarea")[0].value=msg;
+            //Cuando se muestran los comúnes se redirige a la web principal y se resetean los resultados a los 4 segundos
+            setTimeout(function(){
+                window.location.href="elementosComunes.html";
+            },4000);
+        }
+
+        function limpiar(){
+            //Se limpian las cajas
+            document.getElementsByTagName("input")[0].value="";
+            document.getElementsByTagName("input")[1].value="";
+            document.getElementsByTagName("textarea")[0].value="";
+        }
+        
+    </script>
+</body>
+</html>
