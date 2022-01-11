@@ -1,0 +1,75 @@
+
+
+<!--Decir si un número recogido en caja de texto es capicúa o no,
+validar si el dato introducido es un número y no caracter, y que 
+se limpien las cajas a los 5 segundos de mostrar el resultado-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>capicua</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduce número: </label>
+            <input type="text" name="number"/>
+        </p>
+        <p>
+            <textarea cols="20" rows="15" name="resultado"></textarea>
+        </p>
+        <input type="button" value="MOSTRAR SI ES CAPICÚA" onclick="mostrar();"/>
+    </form>
+    <script>
+        var numero;
+        function mostrar(){
+            //Se cogen los datos y se valida que sean números
+            numero=document.getElementsByTagName("input")[0].value;
+            let numeros_="0123456789";
+            let contienecaracter=false;
+            for(let i=0;i<numero.length;i++){
+                if(numeros_.indexOf(numero.charAt(i),0)==-1){
+                    contienecaracter=true;
+                    break;
+                }
+            }
+            if(contienecaracter==true){
+                document.getElementsByTagName("textarea")[0].value="Debe introducir números";
+                setTimeout(limpiar,5000);
+            }else{
+                ejecutar();
+            }
+
+            
+        }
+        function ejecutar(){
+            //Se lee el número en ambas direcciones y se compara
+            let msg="";
+            let msg2="";
+            for(let i=0;i<=numero.length-1;i++){
+                msg+=numero.charAt(i);
+            }
+            console.log(msg);
+            for(let j=numero.length-1;j>=0;j--){
+                msg2+=numero.charAt(j);
+            }
+            console.log(msg2);
+            if(msg==msg2){
+                document.getElementsByTagName("textarea")[0].value="Es capicúa";
+                setTimeout(limpiar,5000);
+            }else{
+                document.getElementsByTagName("textarea")[0].value="No es capicúa";
+                setTimeout(limpiar,5000);
+            }
+
+        }
+        function limpiar(){
+            //Se limpian las cajas
+            document.getElementsByTagName("input")[0].value="",
+            document.getElementsByTagName("textarea")[0].value="";
+        }
+    </script>
+</body>
+</html>
