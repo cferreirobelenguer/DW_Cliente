@@ -1,0 +1,115 @@
+<!--Ejercicio para usar funciones callback.
+Se va a añadir datos de una caja y se va a validar que sean números y no caracteres, al pulsar añadir se añaden.
+Al pulsar mostrar todo el array se usan funciones callback para recorrer todo el arreglo y mostrarlo en el textarea.
+Al pulsar mostrar mayores de 10 se filtra usando funciones callback todo el arreglo para encontrar los mayores de 10.
+Al pulsar ordenar arreglo se ordena el arreglo de mayor a menor y se muestra el resultado en el textarea
+Usar función de limpiar ventana-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduce número: </label>
+            <input type="text" name="numero"/>
+        </p>
+        <p>
+            <textarea cols="20" rows="15" name="resultado"></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();"/>
+        <input type="button" value="MOSTRAR TODO EL ARRAY" onclick="mostrar();"/>
+        <input type="button" value="MOSTRAR PRIMERO Y ÚLTIMO" onclick="primerultimo();"/>
+        <input type="button" value="MOSTRAR MAYORES DE 10" onclick="filtrar();"/>
+        <input type="button" value="ORDENAR ARREGLO" onclick="ordenar();"/>
+    </form>
+    <script>
+        var datos=[];
+        var numero;
+        function anadir(){
+            let numeros_="0123456789";
+            let contienecaracter=false;
+            //Recogida de datos
+            numero=document.getElementsByTagName("input")[0].value;
+            //Validación
+            for(let i=0;i<numero.length;i++){
+                if(numeros_.indexOf(numero.charAt(i),0)==-1){
+                    contienecaracter=true;
+                    break;
+                }
+            }
+            if(contienecaracter==true){
+                document.getElementsByTagName("textarea")[0].value="Debe introducir números";
+                setTimeout(limpiar,5000);
+            }else{
+                ejecutar();
+            }
+        }
+        function ejecutar(){
+            //Se introducen los datos del arreglo
+            numero=document.getElementsByTagName("input")[0].value;
+            datos.push(numero);
+            console.log(datos);
+            limpiar();
+        }
+        function mostrar(){
+            //Mostrar todos los elementos del arreglo
+            let msg="";
+            msg+="Datos del array: ";
+            datos.forEach(function(elemento){
+                msg+=elemento+" ";
+            })
+            document.getElementsByTagName("textarea")[0].value=msg;
+            //Se limpian las cajas a los 5 segundos
+            setTimeout(limpiar,5000);
+        }
+        function primerultimo(){
+            //Se introduce el primer y el último elemento del array en otro arreglo y se muestra
+            let msg="";
+            let datosprimerultimo=[];
+            msg+="Primer y último dato del arreglo: ";
+            datosprimerultimo.push(datos[0]);
+            datosprimerultimo.push(datos[datos.length-1]);
+            for(let i of datosprimerultimo){
+                msg+=i+" ";
+            }
+            document.getElementsByTagName("textarea")[0].value=msg;
+            //Se limpian las cajas a los 5 segundos
+            setTimeout(limpiar,5000);
+        }
+        function filtrar(){
+            //Se filtran los datos mayores a 10
+            let msg="";
+            let msg2="";
+            msg=datos.filter(elemento=>elemento>10);
+            console.log(msg);
+            document.getElementsByTagName("textarea")[0].value=msg;
+            //Se limpian las cajas a los 5 segundos
+            setTimeout(limpiar,5000);
+        }
+        function ordenar(){
+            //Ordenar los elementos
+            datos.sort();
+            let msg="";
+            msg+="Elementos ordenados: ";
+            datos.forEach(function(elemento){
+                msg+=elemento+" ";
+            })
+            document.getElementsByTagName("textarea")[0].value=msg;
+            //Se limpian las cajas a los 5 segundos
+            setTimeout(limpiar,5000);
+        }
+
+        function limpiar(){
+            //Limpia las cajas
+            document.getElementsByTagName("input")[0].value="";
+            document.getElementsByTagName("textarea")[0].value="";
+            
+        }
+    </script>
+</body>
+</html>
