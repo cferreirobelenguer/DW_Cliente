@@ -1,0 +1,73 @@
+
+
+
+
+<!--
+    
+    SESSIONSTORAGE:
+    
+EJERCICIO DE RECOPILACIÓN DE DATOS CON OPTION, Y ALMACENAMIENTO
+DE ESOS DATOS EN UNA SESSIONSTORAGE ALMACENAMIENTO DE SESIÓN.
+AL PULSAR ENVIAR SE REDIRIGE A LA WEB DE RESULTADOS DEL CUESTIONARIO-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario</title>
+</head>
+<body>
+    <h1>Cuestionario de aficiones</h1>
+    <form>
+        <p><b>DEPORTES</b>
+            <select size="1" id="deportes">
+                <option value="" selected>Selecciona deporte </option>
+                <option value="futbol">Fútbol</option>
+                <option value="baloncesto">Baloncesto</option>
+                <option value="gimnasio">Gimnasio</option>
+            </select></p>
+        <p><b>AFICIONES</b>
+            <select size="1" id="aficiones">
+                <option value="" selected>Selecciona afición </option>
+                <option value="pintura">Pintura</option>
+                <option value="viajar">Viajar</option>
+                <option value="musica">Escuchar música</option>
+            </select></p>
+        <p><b>COMIDAS</b>
+            <select size="1" id="comidas">
+                <option value="" selected>Selecciona comida favorita </option>
+                <option value="paella">Paella</option>
+                <option value="cocido">Cocido</option>
+                <option value="lentejas">Lentejas</option>
+            </select></p>
+            <button type="button" onclick="aceptar()">Enviar datos</button>
+            
+    </form>
+    <script>
+        function aceptar(){
+            //Recopilación de datos del formulario option
+            //Se recogen los datos de deporte y se introducen en una sesión
+            var indicedeporte=document.getElementById("deportes").selectedIndex;
+            var deportes_=document.getElementById("deportes").options[indicedeporte].text;
+            sessionStorage.sport=deportes_;
+            console.log(sessionStorage.sport);
+
+            //Se recogen los datos de afición y se introducen en una sesión
+            var indiceaficion=document.getElementById("aficiones").selectedIndex;
+            var aficiones_=document.getElementById("aficiones").options[indiceaficion].text;
+            sessionStorage.hobby=aficiones_;
+            console.log(sessionStorage.hobby);
+
+            //Se reocgen los datos de comidas y se introducen en una sesión
+            var indicecomidas=document.getElementById("comidas").selectedIndex;
+            var comidas_=document.getElementById("comidas").options[indicecomidas].text;
+            sessionStorage.food=comidas_;
+            console.log(sessionStorage.food);
+            //Redirige a la web de resultados del cuestionario
+            window.open("resultados.html");
+        }
+        
+    </script>
+</body>
+</html>
