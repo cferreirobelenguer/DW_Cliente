@@ -1,0 +1,37 @@
+
+
+<!--CONTADOR DE VISITAS DE PÁGINA WEB CON ALMACENAMIENTO LOCAL STORAGE-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador visitas</title>
+    <script language="javascript">
+        function actualizar() {
+            if (!localStorage.cuenta) {
+                localStorage.cuenta = 0;
+            }
+            localStorage.cuenta = parseInt(localStorage.cuenta) + 1;
+            document.getElementById("veces").textContent = localStorage.cuenta;
+            document.getElementById("visitas").value = localStorage.cuenta;
+        }
+
+        document.addEventListener("DOMContentLoaded", actualizar, false)
+    </script>
+</head>
+
+<body>
+    <h1>Usted ha visitado la página <span id="veces">muchas</span> veces</h1>
+    <form>
+        <p>
+            <label for="">Total de visitas: </label>
+            <input type="text" id="visitas" disabled style="width: 20mm;height: 20mm;font-size: 1.5cm;" />
+        </p>
+    </form>
+</body>
+
+</html>
