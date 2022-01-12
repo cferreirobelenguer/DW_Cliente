@@ -8,23 +8,25 @@
     <title>Máquina tragaperras</title>
 </head>
 <body>
+    <center>
     <h1>Bienvenido a la máquina tragaperras</h1>
     <br>
-    <center>
+    
     <img src="" id="foto" width="100" height="100"/><img src="" id="foto1" width="100" height="100"/><img src="" id="foto2" width="100" height="100"/>
-    </center>
+    
     <form>
         <p>
             <label for="">Introduce saldo: </label>
             <input type="number" name="saldo"/>
         </p>
         <p>
-            <textarea cols="20" rows="15" name="resultado"></textarea>
+            <textarea cols="20" rows="15" name="resultado" disabled></textarea>
         </p>
         <input type="button" value="RECARGAR SALDO" onclick="ingresarDinero();"/>
         <input type="button" value="JUGAR" onclick="jugar();"/>
         <input type="button" value="TERMINAR JUGADA" onclick="terminar();"/>
     </form>
+    </center>
     <script>
         //Valores con los que se va a jugar en la máquina tragaperras
         var datos1=['cereza.jpg','corazon.jpg','platano.jpg','traga.jpg','fresa.jpg'];
@@ -32,10 +34,21 @@
         var datos3=['cereza.jpg','corazon.jpg','platano.jpg','traga.jpg','fresa.jpg'];
         var dinerototal=0;
         function ingresarDinero(){
-            let dinero=parseInt(document.getElementsByName("saldo")[0].value);
-            dinerototal=dinerototal+dinero;
-            document.getElementsByTagName("textarea")[0].value="Se ha recargado el saldo "+dinerototal+" €";
-            limpiar();
+            //Se valida el ingreso de dinero, no puede haber campos vacíos ni poner saldo negativo
+            let dinero=document.getElementsByName("saldo")[0].value;
+            let dinero2=parseInt(dinero);
+            if((dinero2<=0)){
+                document.getElementsByTagName("textarea")[0].value="No se puede poner un saldo negativo";
+                limpiar();
+            }else if(dinero==""){
+                document.getElementsByTagName("textarea")[0].value="Debe de rellenar los campos";
+                limpiar();
+            }else{
+                dinerototal=dinerototal+dinero2;
+                document.getElementsByTagName("textarea")[0].value="Se ha recargado el saldo "+dinerototal+" €";
+                limpiar();
+            }
+            
         }
         function jugar(){
             
