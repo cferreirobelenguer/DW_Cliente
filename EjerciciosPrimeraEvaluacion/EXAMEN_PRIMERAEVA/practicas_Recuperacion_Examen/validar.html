@@ -1,0 +1,175 @@
+
+
+
+<!--Hacer un formulario y validar que los campos no estén vacíos,
+validar que edad sea un campo numérico, y que nombre y apellidos no contienen letras.
+Crear un objeto con esos datos y almacenarlo en un arreglo al pulsar añadir.
+Buscar por nombre al pulsar buscar y mostrar los resultados por textarea.
+Hacerlo todo en una sola función.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Nombre: </label>
+            <input type="text" class="nombre"/>
+        </p>
+        <p>
+            <label for="">Apellidos: </label>
+            <input type="text" class="apellidos"/>
+        </p>
+        <p>
+            <label for="">Edad: </label>
+            <input type="text" class="edad"/>
+        </p>
+        <p>
+            <textarea class="resultado" cols="20" rows="20"></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="accion(this.value);"/>
+        <input type="button" value="BUSCAR" onclick="accion(this.value);"/>
+    </form>
+    <script>
+        var datos=[];
+        var nombre="";
+        var apellidos="";
+        var edad="";
+        //Constructor
+        function persona(nombre,apellidos,edad){
+            this.nombre=nombre;
+            this.apellidos=apellidos;
+            this.edad=edad;
+            this.toString=function(){
+                return "Datos: \nNombre: "+this.nombre+"\nApellidos: "+this.apellidos+"\nEdad: "+this.edad;
+            }
+        }
+        
+        function validar(){
+            //Se validan los datos
+            nombre=document.getElementsByClassName("nombre")[0].value;
+            apellidos=document.getElementsByClassName("apellidos")[0].value;
+            edad=document.getElementsByClassName("edad")[0].value;
+            let vacio=false;
+            let siNumero=false;
+            let siNumero2=false;
+            let siNumero3=false;
+            let siCaracter=false;
+            let siCaracter2=false;
+            let numeros_="0123456789";
+            let caracteres=",.-;:_ç¨Ç{}`+^*[]$%&/()=?¿";
+
+            //Se valida que los campos no estén vacíos
+            if((nombre=="")||(nombre==" ")){
+                vacio=true;
+            }else if((apellidos=="")||(apellidos==" ")){
+                vacio=true;
+            }else if((edad=="")||(edad==" ")){
+                vacio=true;
+            }
+            
+            //Se valida que nombre no tenga números ni caracteres especiales
+            for(let i=0;i<nombre.length;i++){
+                if(numeros_.indexOf(nombre.charAt(i),0)!=-1){
+                    siNumero=true;
+                    break;
+                }
+                if(caracteres.indexOf(nombre.charAt(i),0)!=-1){
+                    siCaracter=true;
+                    break;
+                }
+            }
+            //Se valida que apellidos no tenga números ni caracteres especiales
+            for(let j=0;j<apellidos.length;j++){
+                if(numeros_.indexOf(apellidos.charAt(j),0)!=-1){
+                    siNumero2=true;
+                    break;
+                }
+                if(caracteres.indexOf(apellidos.charAt(j),0)!=-1){
+                    siCaracter2=true;
+                    break;
+                }
+            }
+        
+            //Se valida que edad sea número
+
+            if(!isNaN(edad)){
+                siNumero3=true;
+            }
+
+            //debug
+            console.log("numeros nombre:"+siNumero);
+            console.log("numeros apellidos:"+siNumero2);
+            console.log("numeros edad:"+siNumero3);
+            console.log("caracteres nombre:"+siCaracter);
+            console.log("caracteres apellidos:"+siCaracter2);
+            if(vacio==true){
+                alert("Los campos deben estar rellenos");
+                
+            }else
+            if(siNumero==true){
+                alert("Nombre no debe tener números");
+                
+            }else if(siCaracter2==true){
+                alert("Apellidos no debe tener caracteres especiales");
+                
+            }else if(siNumero2==true){
+                alert("Apellidos no debe tener números");
+                
+            }else if(siNumero3==false){
+                alert("Edad debe ser número");
+                
+            }else if(siCaracter==true){
+                alert("Nombre no debe tener caracteres especiales");
+                
+            }else{
+                var chico=new persona(nombre,apellidos,edad);
+                datos.push(chico);
+                console.log(datos);
+                limpiar();
+            }
+
+        }
+        function buscar(){
+            //Se buscan los datos
+            let nombre_=prompt("Introduce nombre a buscar");
+            let sta=false;
+            for(let i of datos){
+                if(nombre_==i.nombre){
+                    sta=true;
+                    document.getElementsByClassName("nombre")[0].value=i.nombre;
+                    document.getElementsByClassName("apellidos")[0].value=i.apellidos;
+                    document.getElementsByClassName("edad")[0].value=i.edad;
+                }
+            }
+            if(sta==false){
+                alert("El dato que solicitaste no se encuentra");
+            }
+        }
+    
+        function limpiar(){
+            //Se limpian las cajas
+            document.getElementsByClassName("nombre")[0].value="";
+            document.getElementsByClassName("apellidos")[0].value="";
+            document.getElementsByClassName("edad")[0].value="";
+        }
+        function accion(boton){
+            switch(boton){
+                case "AÑADIR":
+                    validar();
+                break;
+                case "BUSCAR":
+                    buscar();
+                break;
+            }
+        }
+
+    </script>
+
+</body>
+</html>
