@@ -1,0 +1,89 @@
+<!--JUEGO DE MÁQUINA TRAGAPERRAS-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquina tragaperras</title>
+</head>
+<body>
+    <h1>Bienvenido a la máquina tragaperras</h1>
+    <br>
+    <center>
+    <img src="" id="foto" width="100" height="100"/><img src="" id="foto1" width="100" height="100"/><img src="" id="foto2" width="100" height="100"/>
+    </center>
+    <form>
+        <p>
+            <label for="">Introduce saldo: </label>
+            <input type="number" name="saldo"/>
+        </p>
+        <p>
+            <textarea cols="20" rows="15" name="resultado"></textarea>
+        </p>
+        <input type="button" value="RECARGAR SALDO" onclick="ingresarDinero();"/>
+        <input type="button" value="JUGAR" onclick="jugar();"/>
+        <input type="button" value="TERMINAR JUGADA" onclick="terminar();"/>
+    </form>
+    <script>
+        //Valores con los que se va a jugar en la máquina tragaperras
+        var datos1=['cereza.jpg','corazon.jpg','platano.jpg','traga.jpg','fresa.jpg'];
+        var datos2=['cereza.jpg','corazon.jpg','platano.jpg','traga.jpg','fresa.jpg'];
+        var datos3=['cereza.jpg','corazon.jpg','platano.jpg','traga.jpg','fresa.jpg'];
+        var dinerototal=0;
+        function ingresarDinero(){
+            let dinero=parseInt(document.getElementsByName("saldo")[0].value);
+            dinerototal=dinerototal+dinero;
+            document.getElementsByTagName("textarea")[0].value="Se ha recargado el saldo "+dinerototal+" €";
+            limpiar();
+        }
+        function jugar(){
+            
+            console.log(dinerototal);
+            if(dinerototal>0){
+                document.getElementsByTagName("textarea")[0].value="Usted está apostando "+dinerototal+" €";
+            let longitud=datos1.length;
+            let valor1=datos1[Math.floor(Math.random()*(longitud-0)+0)];
+            console.log(valor1);
+            let valor2=datos2[Math.floor(Math.random()*(longitud-0)+0)];
+            console.log(valor2);
+            let valor3=datos3[Math.floor(Math.random()*(longitud-0)+0)];
+            console.log(valor3);
+            //Valores aleatorios cuando se pulsa jugar
+            document.getElementById("foto").src=valor1;
+            document.getElementById("foto1").src=valor2;
+            document.getElementById("foto2").src=valor3;
+            
+            if((valor1==valor2)&&(valor1==valor3)){
+                dinerototal=dinerototal+1000;
+                //Se muestra el aumento de saldo en el textarea
+                document.getElementsByTagName("textarea")[0].value="¡Ganaste! tienes un saldo de 1000 € más en tu crédito\nSaldo disponible: "+dinerototal;
+            }else{
+                dinerototal=dinerototal-5;
+                if(dinerototal<0){
+                    //En caso de que el jugador se quede sin dinero el saldo se pone a 0 y no en negativo
+                    dinerototal=0;
+                    document.getElementsByTagName("textarea")[0].value="¡Perdiste! tienes un saldo de -5 en tu crédito\nSaldo disponible: "+dinerototal;
+                }
+                //Se muestra el decremento de saldo en el textarea
+                document.getElementsByTagName("textarea")[0].value="¡Perdiste! tienes un saldo de -5 en tu crédito\nSaldo disponible: "+dinerototal;
+                }
+            }else{
+                document.getElementsByTagName("textarea")[0].value="No puede jugar porque no dispone de saldo";
+            }
+            limpiar();
+
+
+        }
+        function limpiar(){
+            //Limpia la caja de saldo cuando se pulsa jugar
+            document.getElementsByTagName("input")[0].value="";
+        }
+        function terminar(){
+            alert('Ha solicitado finalizar la jugada');
+            window.location.href='tragaperras.html';
+
+        }
+    </script>
+</body>
+</html>
