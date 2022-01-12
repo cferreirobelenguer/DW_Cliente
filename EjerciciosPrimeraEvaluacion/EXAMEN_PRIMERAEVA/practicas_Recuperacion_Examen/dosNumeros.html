@@ -1,0 +1,49 @@
+
+<!--Mostrar recorrido entre dos números,
+si el número 1 es superior al 2 se recorre de menor a mayor,
+si el número 2 es mayor al numero 1 se recorre hacia atrás.
+Se muestra el resultado en el textarea.
+Se valida si son números, en caso de que no sean números mostrar
+mensaje de alert.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <textarea cols="20" rows="15"></textarea>
+        </p>
+        
+        <input type="button" value="MOSTRAR RECORRIDO ENTRE LOS DOS NÚMEROS" onclick="mostrar();"/>
+    </form>
+    <script>
+        function mostrar(){
+            let numero1=parseInt(prompt("Introduce un número"));
+            let numero2=parseInt(prompt("Introduce otro número"));
+            if((!isNaN(numero1))&&(!isNaN(numero2))){
+            let msg="";
+            if(numero1<numero2){
+                msg+="ITERACIÓN ENTRE LOS DOS NÚMEROS:\n";
+                for(let i=numero1;i<=numero2;i++){
+                    msg+=i+" ";
+                }
+            }else{
+                msg+="ITERACIÓN ENTRE LOS DOS NÚMEROS:\n";
+                for(let i=numero1;i>=numero2;i--){
+                    msg+=i+" ";
+                }
+            }
+            document.getElementsByTagName("textarea")[0].value=msg;
+            
+        }else{
+            alert("Debe introducir números");
+        }
+    }
+    </script>
+</body>
+</html>
