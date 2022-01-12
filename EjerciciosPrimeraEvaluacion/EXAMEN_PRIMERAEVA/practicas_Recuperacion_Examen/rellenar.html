@@ -1,0 +1,162 @@
+
+
+
+<!--Introducir nombres en cajas, verificar que no tengan ni números ni caracteres especiales,
+al pulsar añadir se añaden los datos al arreglo.
+Al pulsar ordenar se ordenan alfabéticamente.
+Al pulsar mostrar se muestra el resultado en el textarea.
+Usar funciones de limpiar y setTimeOut-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>comprobar si existe</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduce nombres: </label>
+            <input type="text" name="nombre"/>
+        </p>
+        <p>
+            <label for="">Resultado: </label>
+            <textarea name="resultado" cols="20" rows="15"></textarea>
+        </p>
+        <input type="button" value="AÑADIR" onclick="anadir();"/>
+        <input type="button" value="ORDENAR" onclick="ordenar();"/>
+        <input type="button" value="CAMBIAR DE POSICIÓN" onclick="cambiar();"/>
+        <input type="button" value="FILTRAR" onclick="filtrar();"/>
+        <input type="button" value="ELIMINAR" onclick="eliminar();"/>
+        <input type="button" value="MOSTRAR" onclick="mostrar();"/>
+        
+        
+    </form>
+    <script>
+        var datos=[];
+        var nombre;
+        function anadir(){
+            //Se recogen los nombres introducidos en las cajas 
+            nombre=document.getElementsByTagName("input")[0].value;
+            let numeros="0123456789";
+            let numerOK=false;
+            let caracterOK=false;
+            let caracteresEspe=",.-;:_´ç¨Ç{}`+^*[]ºª!·$%&/()=?¿";
+            //Se verifica que no tenga ni números ni caracteres especiales
+            for(let i=0;i<nombre.length;i++){
+                if(numeros.indexOf(nombre.charAt(i),0)!=-1){
+                    numerOK=true;
+                    
+                }
+                if(caracteresEspe.indexOf(nombre.charAt(i),0)!=-1){
+                    caracterOK=true;
+                    
+                }
+            }
+            console.log(numerOK);
+            console.log(caracterOK);
+            if((numerOK==false)&&(caracterOK==false)){
+                //Se verifica que no se introducen valores repetidos
+                if(!datos.includes(nombre)){
+                    datos.push(nombre);
+                }else{
+                    alert("Ha introducido un valor repetido");
+                }
+            console.log(datos);
+                limpiar();
+            }else{
+                alert("No debe introducir caracteres numéricos ni especiales");
+                limpiar();
+            }
+            
+        }
+        
+        function ordenar(){
+            //Se ordena el arreglo alfabéticamente
+            datos.sort(function(a,b){
+                return a.localeCompare(b,"es");
+            })
+            alert("El arreglo se ha ordenado");
+
+        }
+        function mostrar(){
+            let msg="";
+            msg+="Lista : ";
+            for(let i of datos){
+                msg+=i+" ";
+            }
+            document.getElementsByTagName("textarea")[0].value=msg;
+            //limpiar las cajas a los 5 segundos
+            setTimeout(limpiar,5000);
+
+        }
+        function cambiar(){
+            //Se introduce un nombre y se cambia a la posición que decide el usuario
+            let nombre=prompt("Introduce un nombre a buscar");
+            let posicion=prompt("Introduce una posición");
+            let contiene=false;
+            let indice="";
+            if((posicion>=0)&&(posicion<=datos.length)){
+                for(let i in datos){
+                    if(nombre==datos[i]){
+                        contiene=true;
+                        indice=i;
+                    }
+                }
+            }else{
+                alert("Debe introducir una posición correcta");
+            }
+
+            if(contiene==true){
+                datos.splice(posicion,0,nombre);
+                datos.splice(indice,1);
+                alert("Se ha hecho el cambio");
+            }else{
+                alert("El dato introducido no se encuentra");
+            }
+
+            console.log(datos);
+
+        }
+        function eliminar(){
+            //Se introduce un nombre y elimina del arreglo
+            //Se introduce un nombre y se cambia a la posición que decide el usuario
+            let nombre=prompt("Introduce un nombre a buscar");
+            let contiene=false;
+            let indice="";
+            for(let i in datos){
+                if(nombre==datos[i]){
+                    contiene=true;
+                    indice=i;
+                }
+            }
+
+            if(contiene==true){
+                datos.splice(indice,1);
+                alert("Se ha eliminado el elemento");
+
+            }
+
+        }
+        function filtrar(){
+            //Filtrar nombre con filter
+            let nombre=prompt("Introduce un nombre a filtrar");
+            var filtro= datos.filter(function(element){
+                return element==nombre;
+            });
+            if(filtro.length>0){
+                alert("Se ha encontrado el dato y es: "+filtro);
+            }else{
+                alert("No se ha encontrado el dato");
+            }
+
+        }
+        function limpiar(){
+            //Limpia las cajas
+            document.getElementsByTagName("input")[0].value="";
+            document.getElementsByTagName("textarea")[0].value="";
+        }
+    </script>
+</body>
+</html>
