@@ -1,0 +1,28 @@
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Resultados del cuestionario: </h1>
+    <textarea id="resultado" cols="20" rows="15"></textarea>
+    <script>
+        function ejecutar() {
+            alert(sessionStorage.sport);
+            alert(sessionStorage.hobby);
+            alert(sessionStorage.food);
+            
+            document.getElementById("resultado").value =
+                "El resultado de su formulario es el siguiente:\nA usted le encanta practicar " + sessionStorage.sport+ ("\n, entre sus aficiones favoritas está " + sessionStorage.hobby+"\n y le encanta comer " + sessionStorage.food);
+
+        }
+        document.addEventListener("DOMContentLoaded", ejecutar());
+    </script>
+</body>
+
+</html>
