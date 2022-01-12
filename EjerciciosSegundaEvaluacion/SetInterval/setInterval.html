@@ -1,0 +1,55 @@
+
+<!--EJERCICIO DE SETINTERVAL Y CLEARINTERVAL, HACE UNA CUENTA ATRÁS DE 20 SEGUNDOS
+Y MUESTRA IMÁGEN.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setinterval</title>
+</head>
+<body>
+    <center>
+    <h1>En unos 20 segundos tendrás una sorpresa...</h1>
+    <br>
+    <img src="reloj.jpg" id="foto" width="400" height="300"/>
+    <form>
+        <p>
+            <label for="">Cuenta atrás..</label>
+            <input type="text" name="cuenta" disabled style="width: 20mm;height: 20mm;font-size: 1.5cm;"/>
+        </p>
+        <input type="button" value="Cancelar cuenta atrás" onclick="cancelar();"/>
+    </form>
+    </center>
+    <script>
+        var atras;
+        var numero=20;
+            //Se realiza la cuenta atrás de 20 cada segundo
+            atras=setInterval(contar,1000)
+        function contar(){
+            document.getElementsByName("cuenta")[0].value=numero;
+                numero-=1;
+                //Si la cuenta atrás se completa se muestra una imágen y se limpia la caja
+                if(numero==0){
+                    window.clearInterval(atras);
+                    document.getElementById("foto").src="garfield.jpg";
+                    limpiar();
+                }
+                
+            }
+        
+        function cancelar(){
+            //Se cancela la cuenta atrás
+            window.clearInterval(atras);
+            document.getElementById("foto").src="reloj.jpg";
+            alert("Has cancelado la sorpresa");
+            limpiar();
+        }
+        function limpiar(){
+            //Limpia la caja de texto del cronómetro cuando llega a 0
+            document.getElementsByName("cuenta")[0].value="";
+        }
+    </script>
+</body>
+</html>
