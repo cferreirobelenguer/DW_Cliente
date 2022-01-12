@@ -1,0 +1,37 @@
+
+
+
+<!--EJEMPLO DE SETTIMEOUT Y CLEARTIMEOUT PARA EJECUTAR UNA ACCIÓN DE REDIRIGIR
+A OTRA URL EN UN TIEMPO DE 2 SEGUNDOS-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>redirigir</title>
+</head>
+<body>
+    <center>
+        <h1>Página en construcción</h1>
+        <img src="construccion.jpg" width="200" height="200"/>
+        <h2>Se le va a redirigir a una web provisional</h2>
+        <br>
+        <input type="button" value="Pulse para cancelar redirigir" onclick="cancelar();"/>
+    </center>
+    <script>
+        //Se redirige a los 2 segundos
+        var ejecucion;
+        function ejecutar(){
+            ejecucion=setTimeout(function(){
+                location="https://www.google.es/";
+            },2000);
+        }
+        ejecutar();
+        function cancelar(){
+            clearTimeout(ejecucion);
+        }
+
+    </script>
+</body>
+</html>
