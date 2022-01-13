@@ -1,0 +1,135 @@
+
+<!--Cuando comienza el programa se muestran las cajas de introducir usuario y clave hay tres botones agregar, aceptar y visualizar.
+ Cuando rellenamos usuario y clave y le damos a agregar se añaden los datos en un map. 
+También hay otras dos cajas ocultas con hidden en el html que son tipo y fecha que no se van a rellenar.
+    Tipo: El primer usuario registrado es administrador
+    y el resto son estandar.
+    Fecha: se muestra la fecha actual
+Cuando le damos a activar se muestra el último usuario registrado de la siguiente manera:
+  .Si usuario es administrador se muestran todas las cajas que son usuario, clave, tipo y fecha.
+  .Si usuario es estándar se muestra sólo usuario y clave.
+Cuando le damos a visualizar se busca por usuario desde la caja de texto de usuario, se muestran todas las cajas ocultas
+con hidden y se muestran los datos en todas las cajas.
+Hacer función de limpiar cajas.-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de usuarios</title>
+</head>
+<body>
+    <center>
+    <b>INTRODUZCA USUARIO Y CLAVE</b>
+    <table>
+        <tr><td><label for="">Usuario: </label></td><td><input type="text"></td></tr><br><br>
+        <tr><td><label for="">Clave: </label></td><td><input type="text"></td></tr><br><br>
+        <tr><td><label for="" >Tipo usuario: </label></td><td><input type="text" hidden="true"></td></tr><br><br>
+        <tr><td><label for="" >Fecha de alta: </label></td><td><input type="text" hidden="true" ></td></tr><br><br>
+        <tr><td><input type="button" value="AGREGAR" onclick="anadir();"></td><td><input type="button" value="Aceptar" onclick="aceptar();"></td></tr><br><br>
+        <tr><td><input type="button" value="Visualizar" onclick="visualizar();"></td><td></td></tr>
+    </table>
+</center>
+<script>
+    //Se almacenan los datos del mapa de usuarios
+    var datos=new Map();
+    //Declaración de variables globales
+    var usuario="";
+    var clave="";
+    var tipo="";
+    var fecha="";
+    var valor="";
+    var tipoUsu;
+    var contador=1;
+    
+
+    //Función constructora con atributos
+    function registro(usuario,clave,tipo,tipoUsu,fecha){
+        this.usuario=usuario;
+        this.clave=clave;
+        this.tipo=tipo;
+        this.tipoUsu=tipoUsu;
+        this.fecha=fecha;
+    }
+
+    function anadir(){
+        //Se recogen los valores de las cajas
+        usuario=document.getElementsByTagName("input")[0].value;
+        clave=document.getElementsByTagName("input")[1].value;
+        tipoUsu=parseInt(contador++);
+        console.log(contador);
+        if(tipoUsu==1){
+            tipo="administrador";
+        }else{
+            tipo="estandar";
+        }
+        //fecha actual en milisegundos
+        let fecha=new Date();
+        
+
+        //Se crea el objeto persona
+        var persona=new registro(usuario,clave,tipo,tipoUsu,fecha);
+            //Se añaden los datos al Map
+            datos.set(usuario,persona);
+            console.log(datos);
+            
+            let indice=datos.get(usuario);
+            valor=usuario;
+            
+            //Una vez introducidos los datos se limpian las cajas
+            limpiar();
+
+    }
+    function aceptar(){
+        
+        if(datos.has(valor)){
+            indice=datos.get(valor);
+            if(indice.tipo=="administrador"){
+                //Si usuario es administrador se muestran todas las cajas y se muestran los resultados
+                document.getElementsByTagName("input")[0].value=indice.usuario;
+                document.getElementsByTagName("input")[1].value=indice.clave;
+                document.getElementsByTagName("input")[2].hidden = false;
+                document.getElementsByTagName("input")[3].hidden = false;
+                document.getElementsByTagName("input")[2].value=indice.tipo;
+                document.getElementsByTagName("input")[3].value=indice.fecha;
+            }else if(indice.tipo=="estandar"){
+                //Si usuario es estandar se muestran las cajas de usuario y clave y su resultado
+                document.getElementsByTagName("input")[0].value=indice.usuario;
+                document.getElementsByTagName("input")[1].value=indice.clave;
+                document.getElementsByTagName("input")[2].hidden = true;
+                document.getElementsByTagName("input")[3].hidden = true;
+            }
+        }
+    }
+    
+    function visualizar(){
+        
+        let usuario_=document.getElementsByTagName("input")[0].value;
+        let indice;
+        //Se muestran los datos en función del nombre introducido por el usuario
+        if(datos.has(usuario_)){
+            indice=datos.get(usuario_);
+            document.getElementsByTagName("input")[2].hidden = false;
+            document.getElementsByTagName("input")[3].hidden = false;
+            document.getElementsByTagName("input")[0].value=indice.usuario;
+            document.getElementsByTagName("input")[1].value=indice.clave;
+            document.getElementsByTagName("input")[2].value=indice.tipo;
+            document.getElementsByTagName("input")[3].value=indice.fecha;
+        }
+        
+    }
+    function limpiar(){
+        //Se limpian las cajas
+        document.getElementsByTagName("input")[0].value="";
+        document.getElementsByTagName("input")[1].value="";
+        document.getElementsByTagName("input")[2].value="";
+        document.getElementsByTagName("input")[3].value="";
+    }
+
+
+</script>
+</body>
+</html>
