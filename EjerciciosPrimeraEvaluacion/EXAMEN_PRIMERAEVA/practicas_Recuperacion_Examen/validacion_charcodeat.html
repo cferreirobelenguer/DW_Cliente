@@ -1,0 +1,144 @@
+
+
+<!--Validación--con charcodeat e indexof-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validar</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduzca nombre</label>
+            <input type="text" name="nombre"/>
+        </p>
+        <p>
+            <label for="">Introduzca contraseña</label>
+            <input type="text" name="contra"/>
+        </p>
+        <input type="button" value="VALIDAR" onclick="validar()">
+    </form>
+    <script>
+        var nombreOK=false;
+        var contraOK=false;
+        var nombre="";
+        var contra="";
+        function validar(){
+            
+            //Funciones de validaciones
+            validarNombre();
+            validarContra();
+            //Si todo es correcto se valida
+            if((nombreOK==true)&&(contraOK==true)){
+                alert("Datos validados correctamente");
+            }else{
+                alert("Debe volver a introducir los datos");
+            }
+        }
+        function validarNombre(){
+            nombre=document.getElementsByName("nombre")[0].value;
+            //Validación de nombre no puede tener mayúsculas ni caracteres especiales
+
+            let mayusA="A";
+            let mayusZ="Z";
+            let haymayus=false;
+            let hayespecial=false;
+            let vacio=false;
+            let especiales=",.-;:_´ç¨Ç{}`+^*[]ºª·$%&/()=?¿";
+            
+        
+                //Nombre no puede estar vacío
+                if((nombre=="")||(nombre==" ")||(nombre==null)){
+                    vacio=true;
+                    alert("Los campos deben estar rellenos");
+                }
+                //Se validan que no contenga mayúsculas
+                for(let i=0;i<nombre.length;i++){
+                    if((nombre.charAt(i).charCodeAt(0)>=mayusA.charCodeAt(0))&&(nombre.charAt(i).charCodeAt(0)<=mayusZ.charCodeAt(0))){
+                        haymayus=true;
+                        break;
+                        alert("Nombre no debe tener mayúsculas");
+                    }
+                }
+                //Se valida que no contenga caracteres especiales
+                for(let j=0;j<nombre.length;j++){
+                    if(especiales.indexOf(nombre.charAt(j),0)!=-1){
+                        hayespecial=true;
+                        break;
+                        alert("Nombre no debe tener caracteres especiales");
+                    }
+                }
+                if((vacio==true)||(haymayus==true)||(hayespecial==true)){
+                    nombreOK=false;
+                    alert("Nombre no debe contener ni mayúsculas ni caracteres especiales");
+                }else{
+                    nombreOK=true;
+                }
+            
+            console.log("NOMBRE: "+nombreOK);
+        }
+        function validarContra(contra){
+            
+            contra=document.getElementsByName("contra")[0].value;
+            //Validación de contraseña debe tener minúsculas, mayúsculas, números y caracteres especiales
+            let mayussA="A";
+            let mayussZ="Z";
+            let minusA="a";
+            let minusZ="z";
+            let especiales_=",.-;:_´ç¨Ç{}`+^*[]ºª·$%&/()=?¿";
+            let numeros="0123456789";
+            let haymayuss=false;
+            let hayminus=false;
+            let haynum=false;
+            let vacioo=false;
+            let hayespeciall=false;
+
+                 //Contraseña no puede estar vacío
+                if((contra=="")||(contra==" ")||(contra==null)){
+                    vacioo=true;
+                    alert("Los campos deben estar rellenos");
+                }
+                //Se validan las mayúsculas
+                for(let i=0;i<contra.length;i++){
+                    if((contra.charAt(i).charCodeAt(0)>=mayussA.charCodeAt(0))&&(contra.charAt(i).charCodeAt(0)<=mayussZ.charCodeAt(0))){
+                        haymayuss=true;
+                    }
+                }
+                 //Se validan las minúsculas
+                for(let j=0;j<contra.length;j++){
+                    if((contra.charAt(j).charCodeAt(0)>=minusA.charCodeAt(0))&&(contra.charAt(j).charCodeAt(0)<=minusZ.charCodeAt(0))){
+                        hayminus=true;
+                    }
+                }
+
+                    //Se valida que no contenga caracteres especiales
+                    for(let k=0;k<contra.length;k++){
+                    if(especiales_.indexOf(contra.charAt(k),0)!=-1){
+                        hayespeciall=true;
+                    }
+                }
+                  //Se valida que no contenga numeros
+                for(let h=0;h<contra.length;h++){
+                    if(numeros.indexOf(contra.charAt(h),0)!=-1){
+                        haynum=true;
+                    }
+                }
+                if((vacioo==false)&&(hayminus==true)&&(haymayuss==true)&&(hayespeciall==true)&&(haynum==true)){
+                    contraOK=true;
+                }else{
+                    contraOK=false;
+                    alert("Contraseña mal introducida, debe tener mayúsculas, minúsculas, números o caracteres especiales");
+                }
+                console.log(vacioo);
+                console.log(haymayuss);
+                console.log(hayminus);
+                console.log(hayespeciall);
+                
+            console.log("CONTRA: "+contraOK);
+        }
+    </script>
+</body>
+</html>
