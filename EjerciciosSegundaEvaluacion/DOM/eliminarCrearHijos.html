@@ -1,0 +1,53 @@
+
+
+
+<!--Se cambia el contenido de un div por otro en un tiempo de 5 segundos.
+    
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="texto">Esto es un texto que se va a cambiar completamente...
+        <table >
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <tr>
+                <td>Pepe</td>
+
+                <td>Fernandez</td>
+            </tr>
+
+        </table>
+    </div>
+    <script>
+        function cambiar() {
+            var temporizador;
+            var textoHtml;
+            //Nos situamos en el contenedor
+            var contenedor = document.getElementById("texto");
+                //Si el contenedor tiene elementos se eliminan los hijos
+                contenedor.removeChild(contenedor.firstChild);
+                contenedor.removeChild(contenedor.lastChild);
+            
+            textoHtml = "<p>Hola Mundo</p>";
+            contenedor.insertAdjacentHTML("afterbegin",textoHtml);
+        }
+        //Se cambia el texto por completo a los 3 segundos
+        function iniciar() {
+            if (document.readyState = "complete") {
+                temporizador = setTimeout(cambiar, 5000);
+            }
+        }
+        document.addEventListener("readystatechange", iniciar, false)
+    </script>
+</body>
+
+</html>
