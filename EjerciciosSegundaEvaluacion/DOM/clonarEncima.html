@@ -1,0 +1,48 @@
+
+
+<!--Ejercicio que está clonando una tabla con dos botones,
+Hay dos botones, uno de clonar y otro de eliminar.
+Cuando se pulsa clonar se clona la tabla con los dos botones encima del elemento,
+y si se da a eliminar se elimina el último elemento.
+
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<script>
+			function insertar(){
+        //Función insertar que concatena la tabla de botones en la variable codigoFila y lo sitúa en el valor el id texto que es una caja de texto
+				var codigoFila = '<td>' + document.getElementById('texto').value +'</td>';
+        //this hace referencia al botón
+				codigoFila += "<td><button type='button' onclick='clonarEncima(this);'>Clonar encima</button></td>";
+				codigoFila += "<td><button type='button' onclick='eliminar(this);'>Eliminar</button></td>";
+				var fila = document.createElement('tr');
+        //Se inyecta en el html el contenido de la concatenación de la variable codigoFila
+				fila.innerHTML = codigoFila;
+        //Se ejecutan los cambios en la tabla con id tabla
+				document.getElementById('tabla').appendChild(fila);
+			}
+      //Función que elimina el último elemento
+			function eliminar(boton){
+				var fila = boton.parentNode.parentNode;
+				document.getElementById('tabla').removeChild(fila);
+			}
+      //Función que clona el nodo de encima
+			function clonarEncima(boton){
+        //Señala a cada elemento padre en este caso td tr
+        alert(boton.parentNode);
+        alert(boton.parentNode.parentNode);
+				var fila = boton.parentNode.parentNode;
+        //Con insertBefore se inserta un nodo antes del nodo de referencia, con true se indica que también se muestren sus descendientes
+				document.getElementById('tabla').insertBefore(fila.cloneNode(true),fila);
+			}
+		</script>
+	</head>
+	<body>
+		<label for='texto'>Texto:</label>
+		<input id ='texto' type='text'/>
+		<button type='button' onclick='insertar();'>Insertar en tabla</button>
+		<table id='tabla' style='border: 3px solid black;'></table>				
+	</body>
+</html>
