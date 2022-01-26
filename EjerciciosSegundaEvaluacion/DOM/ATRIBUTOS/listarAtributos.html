@@ -1,0 +1,59 @@
+<!--Ejercicio 1: 
+Dado el siguiente código html desarrollar el código script que permita:
+1.	Averiguar si el elemento párrafo tiene atributos.
+2.	Mostrar en la caja de texto el nombre de la propiedad y su valor.
+Se recomienda el uso de los métodos de tipos de datos NamedNodeMap (hasAttributes, Attributes, etc…)
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo uso Attributes</title>
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <p id="paragraph" style="color: green;">Párrafo sencillo</p>
+    <form action="">
+        <p>
+            <input type="button" value="Muestra el nombre y valor del primer attribute"  onclick="comprobar()">
+            <textarea id="result" type="text" cols="50" rows="50" maxlentgth="100" value=""></textarea>
+
+        </p>
+        
+    </form>
+    <script>
+        var msg="";
+        function comprobar(){
+            //Nos situamos en el elemento
+            let elemento=document.getElementsByTagName("input")[0];
+            //Comprueba si el elemento P tiene atributos o no con hasAttribute
+            //Con hasAttribute podemos saber si un elemento tiene atributos
+            if(elemento.hasAttribute){
+                msg+="Pregunta 1: El elemento párrafo tiene atributos\n";
+            }else{
+                msg+="Pregunta 1: El elemento párrafo no tiene atributos\n";
+            }
+            msg+="<br>VALORES DE LOS ATRIBUTOS DEL INPUT:\n";
+            //Nos situamos en ambos elementos
+            let elemento2=document.getElementsByTagName("input")[0];
+            let elemento3=document.getElementsByTagName("textarea")[0];
+            //Listar los atributos
+            msg+="<br>VALORES DE LOS ATRIBUTOS DEL INPUT 1:\n";
+            for (let i of elemento2.attributes) { // listar todos los atributos
+                msg+="Nombre de atributo: "+i.name+"\n";
+                msg+="Valor de atributo: "+i.value+"\n";
+            }
+            msg+="<br>VALORES DE LOS ATRIBUTOS DEL TEXTAREA:\n";
+            for (let i of elemento3.attributes) { // listar todos los atributos
+                msg+="Nombre de atributo: "+i.name+"\n";
+                msg+="Valor de atributo: "+i.value+"\n";
+            }
+            console.log(msg);
+            document.getElementById("result").value=msg;
+        }
+    </script>
+</body>
+
+</html>
