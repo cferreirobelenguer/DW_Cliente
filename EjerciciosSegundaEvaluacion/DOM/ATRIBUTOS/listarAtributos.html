@@ -39,17 +39,27 @@ Se recomienda el uso de los métodos de tipos de datos NamedNodeMap (hasAttribut
             //Nos situamos en ambos elementos
             let elemento2=document.getElementsByTagName("input")[0];
             let elemento3=document.getElementsByTagName("textarea")[0];
+            let msg2="";
+            msg2+="Total de valores de los inputs: <br>";
             //Listar los atributos
             msg+="<br>VALORES DE LOS ATRIBUTOS DEL INPUT 1:\n";
+            //Nos situamos en el párrafo
+            let elemento_=document.getElementsByTagName("p")[0];
             for (let i of elemento2.attributes) { // listar todos los atributos
                 msg+="Nombre de atributo: "+i.name+"\n";
                 msg+="Valor de atributo: "+i.value+"\n";
+                //El valor se muestra dentro del párrafo
+                msg2+="\nValor: "+i.value+"<br>";
             }
+            
             msg+="<br>VALORES DE LOS ATRIBUTOS DEL TEXTAREA:\n";
             for (let i of elemento3.attributes) { // listar todos los atributos
                 msg+="Nombre de atributo: "+i.name+"\n";
                 msg+="Valor de atributo: "+i.value+"\n";
+                //El valor se muestra dentro del párrafo
+                msg2+="\nValor: "+i.value+"<br>";
             }
+            elemento_.innerHTML=(msg2+"<br>");
             console.log(msg);
             document.getElementById("result").value=msg;
         }
