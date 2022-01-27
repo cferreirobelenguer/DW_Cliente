@@ -1,0 +1,53 @@
+<!--Crear un select y sus options correspondientes
+con su contenido a través del dom
+He hecho un setTimeOut extra que no pide el ejercicio
+para que se ejecute el contenido a los 5 segundos-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1>Se va a crear un menú de opciones con DOM: </h1>
+</head>
+<body>
+
+    <script>
+        function crear(){
+            //Nos situamos en el body
+            let body=document.getElementsByTagName("body")[0];
+            //Creamos el elemento select
+            let select=document.createElement("select");
+            //Creramos el elemento option
+            let option=document.createElement("option");
+            //Escribimos texto en una variable
+            let contenido2=document.createTextNode("Bailar");
+            //Asignamos el contenido anterior al elemento option
+            option.appendChild(contenido2);
+            //Asignamos el option al elemento select 
+            select.appendChild(option);
+
+            //Creramos el elemento option2
+            let option2=document.createElement("option");
+            //Escribimos texto en una variable
+            let contenido3=document.createTextNode("Patinar");
+            //Asignamos el contenido anterior al elemento option2
+            option2.appendChild(contenido3);
+            //Asignamos el option al elemento select 
+            select.appendChild(option2);
+
+            let option3=document.createElement("option");
+
+            let contenido4=document.createTextNode("Pintar");
+             //Asignamos el contenido anterior al elemento option3
+            option3.appendChild(contenido4);
+            //Asignamos el option al elemento select 
+            select.appendChild(option3);
+            //Asignamos el select al body
+        body.appendChild(select);
+        }
+        setTimeout(crear,5000);
+    </script>
+    </body>
+</html>
