@@ -51,13 +51,48 @@ valor parrafo:[object HTMLParagraphElement];
     <p id="parrafo">Saludos!</p>
     <script>
         //Primero se accede al elemento de cabecero y con innerHTML se accede al texto del elemento HTML
-        let cabecero=document.getElementById("cabecero").innerHTML;
+        let cabeceroo=document.getElementById("cabecero").innerHTML;
         let saludos=document.getElementById("parrafo").innerHTML;
-        //console.log("Valor cabecero: "+cabecero);
-        console.log(`Valor cabecero: ${cabecero}`);
+        //console.log("Valor cabecero: "+cabeceroo);
+        console.log(`Valor cabecero: ${cabeceroo}`);
         //console.log("Valor saludos: "+saludos);
         console.log(`Valor saludos: ${saludos}`);
 
+    </script>
+</body>
+</html>
+
+MODIFICAR VALOR DE LOS ELEMENTOS CON INNERHTML
+_______________________________________________
+
+Para modificar el elemento sería elemento.innerHTML=("El texto que se quiera poner");
+ cabecero.innerHTML=("cabecero");
+ parrafo.innerHTML=("Nuevo valor del párrafo");
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo DOM con JavaScript</title>
+</head>
+<body>
+    <h1 id="cabecero">Ejemplo DOM con JavaScript</h1>
+    <p id="parrafo">Saludos!</p>
+    <script>
+        //Primero se accede al elemento de cabecero y con innerHTML se accede al texto del elemento HTML
+        let cabeceroo=document.getElementById("cabecero").innerHTML;
+        let saludos=document.getElementById("parrafo").innerHTML;
+        cabecero.innerHTML=("cabecero");
+        parrafo.innerHTML=("Nuevo valor del párrafo");
+        
+        //console.log("Valor cabecero: "+cabecero);
+        console.log(`Valor cabecero: ${cabeceroo}`);
+        //console.log("Valor saludos: "+saludos);
+        console.log(`Valor saludos: ${saludos}`);
+        //Modificamos el valor del párrafo
+        
     </script>
 </body>
 </html>
