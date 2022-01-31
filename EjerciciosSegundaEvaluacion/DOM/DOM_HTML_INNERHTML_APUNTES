@@ -25,6 +25,19 @@ Su estructura es:
 
 elemento.innerHTML;  //Muestra el valor del objeto al que hace referencia
 
+template literals
+_________________
+
+Para usar innerHTML también se puede usar template literals:
+console.log(`Valor cabecero: ${cabecero}`);
+console.log(`Valor saludos: ${saludos}`);
+
+Si quitamos el innerHTML, los valores de cabecero y saludos tendrán el valor del objeto del elemento. 
+valor cabecero:[object HTMLHeadingElement];
+valor parrafo:[object HTMLParagraphElement];
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,15 +53,14 @@ elemento.innerHTML;  //Muestra el valor del objeto al que hace referencia
         //Primero se accede al elemento de cabecero y con innerHTML se accede al texto del elemento HTML
         let cabecero=document.getElementById("cabecero").innerHTML;
         let saludos=document.getElementById("parrafo").innerHTML;
-        console.log("Valor cabecero: "+cabecero);
-        console.log("Valor cabecero: "+saludos);
+        //console.log("Valor cabecero: "+cabecero);
+        console.log(`Valor cabecero: ${cabecero}`);
+        //console.log("Valor saludos: "+saludos);
+        console.log(`Valor saludos: ${saludos}`);
 
     </script>
 </body>
 </html>
 
-Si quitamos el innerHTML, los valores de cabecero y saludos tendrán el valor del objeto del elemento. 
-valor cabecero:[object HTMLHeadingElement];
-valor parrafo:[object HTMLParagraphElement];
 
 
