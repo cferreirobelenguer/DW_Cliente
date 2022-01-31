@@ -1,0 +1,54 @@
+
+DOM HTML
+_________
+
+
+document es el DOM de nuestra página html, es un objeto.
+A través del document podemos interactuar con cada uno de los elementos de document. Como es
+el head (tittle), o el body (elemento, atributo,texto).
+Cada uno de estos elementos es un objeto y contiene atributos, propiedades y métodos. Podemos agregar, modificar o eliminar
+elementos del body.
+
+
+CREACIÓN DE DOCUMENTO HTML
+__________________________
+
+Para acceder a los elementos del dom hace falta ponerles a los elementos del html un identificador (class, id, name) para
+poder acceder a ellos.
+
+Para acceder en este caso a id sería con document.getElementById. En este caso no se accede al valor de ese elemento sino al objeto.
+Para poder acceder al valor del texto tenemos la propiedad de innerHTML.
+
+innerHTML
+_________
+Su estructura es:
+
+elemento.innerHTML;  //Muestra el valor del objeto al que hace referencia
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo DOM con JavaScript</title>
+</head>
+<body>
+    <h1 id="cabecero">Ejemplo DOM con JavaScript</h1>
+    <p id="parrafo">Saludos!</p>
+    <script>
+        //Primero se accede al elemento de cabecero y con innerHTML se accede al texto del elemento HTML
+        let cabecero=document.getElementById("cabecero").innerHTML;
+        let saludos=document.getElementById("parrafo").innerHTML;
+        console.log("Valor cabecero: "+cabecero);
+        console.log("Valor cabecero: "+saludos);
+
+    </script>
+</body>
+</html>
+
+Si quitamos el innerHTML, los valores de cabecero y saludos tendrán el valor del objeto del elemento. 
+valor cabecero:[object HTMLHeadingElement];
+valor parrafo:[object HTMLParagraphElement];
+
+
