@@ -1,0 +1,63 @@
+
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<style>
+			div#padre {
+				background-color: blue;
+				width: 100px;
+				height: 100px;
+				float: left;
+			}
+			div#hijo {
+				background-color: red;
+				width: 50px;
+				height: 50px;
+				margin: 25px;
+				float: left;
+			}
+			div#nieto {
+				background-color: yellow;
+				width: 30px;
+				height: 30px;
+				margin: 10px;
+			}
+		</style>
+		<script>
+      //Se crea una funciín de imprimir con evento como parámetro para calcular luego el tipo de evento
+			function imprimirEvento(evento) {
+				var mensaje = evento.type + ' - ';
+				mensaje += evento.clientY + ' - ' + evento.screenY;
+				mensaje += ' - ' + evento.altKey;
+				console.log(mensaje);
+			}
+      
+      /*Función que coge como parámetro evento y este parámetro calcula el tipo de evento que pasa por parámetro.
+      cuando reasyState está en fase complete se aplica el evento de la función imprimirEvento
+      en función del evento pasado por parámetro*/
+			function asignarEventos(evento) {
+				var i;
+				if (document.readyState == 'complete') {
+					document.getElementById('padre').addEventListener('mouseover', imprimirEvento, true);
+					document.getElementById('padre').addEventListener('mouseout', imprimirEvento, true);
+					document.getElementById('padre').addEventListener('mouseenter', imprimirEvento, true);
+					document.getElementById('padre').addEventListener('mouseleave', imprimirEvento, true);
+					document.getElementById('padre').addEventListener('click', imprimirEvento, true);
+					document.getElementById('padre').addEventListener('mousemove', imprimirEvento, true);
+				}
+			}
+      //Se aplica un evento addEeventListener que engloba a todos, para readystatechange y que llama a la función asignarEventos y que no afecte a los hijos
+			document.addEventListener('readystatechange', asignarEventos, false);
+		</script>
+	</head>
+	<body>
+		<div id='padre'>
+			<div id='hijo'>
+				<div id='nieto'></div>
+			</div>
+		</div>
+	</body>
+</html>
