@@ -9,7 +9,11 @@
 		<script>
       //Se ejecuta un evento de tipo reasystatechange
 			function imprimirEvento(evento) {
+	//Elementos que se imprimen:
         //Se coge como parámetro el evento y en función de eso se imprime un mensaje con el type, target.id y relatedTarget
+	//type es el tipo de evento
+	//target es una referencia al objeto en el cual se lanzo el evento
+	//La propiedad event.relatedTarget devuelve qué elemento se ingresa o se sale con el movimiento del mouse
 				var mensaje = evento.type + ' - ' + evento.target.id + ' - ' + evento.relatedTarget;
         //Se imprime el mensaje por consola
 				console.log(mensaje);
