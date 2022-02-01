@@ -35,7 +35,7 @@
 				console.log(mensaje);
 			}
       
-      /*Función que coge como parámetro evento y este parámetro calcula el tipo de evento que pasa por parámetro.
+      /*Función que coge como parámetro evento y este parámetro calcula el tipo de evento que pasa por parámetro. Es un evento de tipo readystatechange
       cuando reasyState está en fase complete se aplica el evento de la función imprimirEvento
       en función del evento pasado por parámetro*/
 			function asignarEventos(evento) {
@@ -49,7 +49,8 @@
 					document.getElementById('padre').addEventListener('mousemove', imprimirEvento, true);
 				}
 			}
-      //Se aplica un evento addEeventListener que engloba a todos, para readystatechange y que llama a la función asignarEventos y que no afecte a los hijos
+      //Se aplica un evento addEeventListener de tipo readystatechangeque engloba a todos, para readystatechange y que llama a la función asignarEventos 
+      //y que no afecte a los hijos
 			document.addEventListener('readystatechange', asignarEventos, false);
 		</script>
 	</head>
