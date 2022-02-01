@@ -1,0 +1,52 @@
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<style>
+		</style>
+		<script>
+      //Se ejecuta un evento de tipo reasystatechange
+			function imprimirEvento(evento) {
+        //Se coge como parámetro el evento y en función de eso se imprime un mensaje con el type, target.id y relatedTarget
+				var mensaje = evento.type + ' - ' + evento.target.id + ' - ' + evento.relatedTarget;
+        //Se imprime el mensaje por consola
+				console.log(mensaje);
+			}
+
+			function asignarEventos(evento) {
+        //Si el readyState está en fase complete se almacena en campos todos los objetos de los elementos input
+				if (document.readyState == 'complete') {
+					var i;
+          //Se seleccionan todos los input
+					var campos = document.querySelectorAll('input');
+          //Se recorre campos que almacena todos los elementos input
+					for ( i = 0; i < campos.length; i++) {
+            //La función tiene el parámetro evento y en función de eso se aplica focus,focusin,blur o focusout
+            //foco es cuando el elemento está en foco
+            //focusin es cuando un elemento está apunto de recibir el foco
+            //blur es cuando el elemento deja de estar en foco
+            //focusout es cuando un elemento está a punto de perder el foco
+            
+						campos[i].addEventListener('focus', imprimirEvento);
+						campos[i].addEventListener('focusin', imprimirEvento);
+						campos[i].addEventListener('blur', imprimirEvento);
+						campos[i].addEventListener('focusout', imprimirEvento);
+					}
+				}
+			}
+  
+      //Se llama al evento de tipo readystatechange, con la función asignarEventos,false porque no afecta a hijos
+
+			document.addEventListener('readystatechange', asignarEventos, false);
+		</script>
+	</head>
+	<body>
+		<label for='campo1'>Campo 1:</label>
+		<input id='campo1' type='text' />
+		<br />
+		<label for='campo2'>Campo 2:</label>
+		<input id='campo2' type='text' />
+	</body>
+</html>
