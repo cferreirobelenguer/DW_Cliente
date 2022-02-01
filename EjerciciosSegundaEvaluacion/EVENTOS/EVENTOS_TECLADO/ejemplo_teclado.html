@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<style>
+		</style>
+		<script>
+      //el parámetro evento calcula el tipo de evento que hay
+			function imprimirEvento(evento) {
+        //Se llama control al evento
+				control.addEventListener('input', imprimirEvento);
+        //Se imprime un mensaje con el tipo de evento
+				var mensaje = evento.type + ' - ';
+        //Se hace un switch con el tipo de evento que lo coge del parámetro de la función
+				switch (evento.type) {
+            //En función del tipo de evento imprime un mensaje con el 
+					case 'keydown':
+					case 'keyup':
+            //Se calcula el código de evento en función del tipo de evento
+						mensaje += evento.keyCode + '\n';
+						break;
+            //CharCode: En función del tipo de evento imprime el código asociado a la tecla pulsada en el evento keypress
+					case 'keypress':
+						mensaje += evento.charCode + '\n';
+						break;
+            /*Data: Estas propiedades son exclusivas del evento de tipo input, pero actualmente su 
+            implementación es prácticamente nula. data contiene exactamente el carácter 
+            que se ha modificado en el control*/
+					case 'input':
+						mensaje += evento.data + '\n';
+						break;
+				}
+        //El textarea coge el valor del mensaje con los datos del evento
+				eventos.value += mensaje;
+			}
+      //Se crea una función que en función del evento pasado por parámetro hace un evento u otro de tipo de teclado
+			function asignarEventos(evento) {
+        //Se pasa un evento readystatechange, si readyState oasa a fase complete se ejecuta el evento en función del tipo de evento que coge por parámetro
+				if (document.readyState == 'complete') {
+					control = document.getElementById('invitados');
+					control.addEventListener('keydown', imprimirEvento);
+					control.addEventListener('keyup', imprimirEvento);
+					control.addEventListener('keypress', imprimirEvento);
+					control.addEventListener('input', imprimirEvento);
+					eventos = document.getElementById('eventos');
+				}
+			}
+      //Se llama a través del evento addEventListener al evento asignarEventos de tipo readystatechange
+			document.addEventListener('readystatechange', asignarEventos, false);
+		</script>
+	</head>
+	<body>
+		<label for='invitados'>Invitados:</label>
+		<input id='invitados' type='number' min='0' max='10' step='1'/>
+		<br />
+		<textarea id='eventos' cols='100' rows='25'></textarea>
+	</body>
+</html>
