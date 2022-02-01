@@ -1,0 +1,38 @@
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <input type="text" name="texto"/>
+        </p>
+        <input type="button" value="ENVIAR" id="boton"/>
+    </form>
+    <script>
+        //Creamos un evento readystatechange
+        //declaramos un contador y cuando readyState esté complete se aplica el evento de contador
+        function numeroVeces(evento){
+            let contador=0;
+            //Nos situamos en el elemento boton
+            if(document.readyState=="complete"){
+                document.getElementById("boton").addEventListener('click',function(){
+                    //aumenta el contador en el evento y se muestra en caja de texto
+                    contador++;
+                    document.getElementsByName("texto")[0].value=contador;
+                },false);
+
+            }
+        }
+        //Se llama a la función numeroVeces con addEeventListener
+        document.addEventListener('readystatechange', numeroVeces, false);
+    </script>
+</body>
+</html>
