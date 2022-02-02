@@ -1,0 +1,56 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<!--Ejercicio 2:
+A partir de la siguiente imagen:
+Desarrollar el código javascript que permita:
+Definir el oyente de evento para cada caja de texto de manera que permita controlar el teclado.
+Si estando en la caja Nombre, se presiona la tecla “Intro”, código ASCII 13, el foco pasará a contraseña.
+Si estando en la caja Contraseña se presiona “Intro”, se invocará una función llamada “Transmisión” y que 
+lo único que haga se mostrar un mensaje “Iniciando transmisión”.  
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        Nombre: <input type="text" id="nombre"><br>
+        Contraseña: <input type="password" id="clave"><br>
+        Mensajes servidor <br>
+        <textarea id="caja"></textarea>
+    </form>
+    <script>
+        //Nos situamos en los elementos con una constante
+        const control1 = document.getElementById('nombre');
+        const control2 = document.getElementById('clave');
+
+        //Realizamos los eventos de cada elemento nombre y clave, llamando a las funciones correspondientes
+        control1.addEventListener('keydown', imprimirEvento1, true);
+        control2.addEventListener('keydown', imprimirEvento2, true);
+
+        //Ponemos de parámetro de cada una de las funciones el evento que se pasa por parámetro
+        //evento.key nos da el botón que se ha pulsado cuando se produce un evento
+        function imprimirEvento1(evento) {
+            //Si la tecla pulsada es Enter se pasa el foco a la caja de texto de la clave
+            if (evento.key == 'Enter') {
+                control2.focus();
+            }
+
+        }
+        function imprimirEvento2(evento) {
+            //Si la tecla pulsada es Enter se muestra un mensaje en la caja de texto
+            if (evento.key == 'Enter') {
+                document.getElementById('caja').value = "Iniciando Transmisión";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
