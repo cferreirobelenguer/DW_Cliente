@@ -1,0 +1,41 @@
+
+
+
+<!--Elaborar el código que asigne oyente de evento "change" al select anterior. 
+  No sabemos qué item ocupa en el formulario.
+Y controlar que el texto del elemento seleccionado se visualice en el div.
+Se deberá controlar el objeto evento para presentar el valor del desplegable.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Otro de control rápido</title>
+</head>
+  <body>
+        <label>Elija un sabor de nieve:
+        <select class="nieve">
+            <option value="">Seleccione Uno …</option>
+            <option value="chocolate">Chocolate</option>
+            <option value="sardina">Sardina</option>
+            <option value="vainilla">Vainilla</option>
+        </select>
+    </label>
+    <div class="resultado"></div>
+    <script>
+            //Se selecciona el class nieve que nos sitúa en el select
+            var elemento=document.getElementsByClassName("nieve")[0];
+            //Se aplica el evento change de imprimir el resultado en el class resultado que es un div 
+            /*El evento change se dispara para elementos <input>, <select>, 
+            y <textarea> cuando una alteración al valor de un elemento es confirmada por el usuario.*/
+            elemento.addEventListener('change',function(){
+                var resultado=document.getElementsByClassName("resultado")[0];
+                //Se imprime el objeto que engloba el evento que es el valor de los option seleccionado,
+                //Se imprime con innerHTML
+                resultado.innerHTML=elemento.value;
+                //resultado.innerHTML=event.target.value;
+            })
+        
+    </script>
+  </body>
+</html>
