@@ -1,0 +1,24 @@
+
+
+<!--Ejercicio 3:
+Crear un documento HTML, “Identifica-tecla”, sin elemento alguno, 
+que permita visualizar mediante un alert la tecla que ha sido pulsada.
+Se deberá definir oyente de evento.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Se muestra el nombre de la tecla pulsada con evento.key
+        document.addEventListener('keypress',function(evento){
+            alert("La tecla pulsa es: "+evento.key);
+        },true);
+    </script>
+</body>
+</html>
