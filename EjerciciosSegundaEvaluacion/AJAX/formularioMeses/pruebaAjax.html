@@ -1,0 +1,65 @@
+<!-- Se recibe en un input el valor de un número , se lee ese número
+y se conecta por GET con servidor, si número coincide con el num por petición GET de php
+se muestra en el párrafo el resultado.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        <label for="">Introduzca número</label>
+        <input type="text" id="encabezado" />
+    </p>
+    <p>
+        <button id='boton' >Consultar</button>
+    </p>
+    <p id="resultado"></p>
+    
+	<script>
+        var numero=0;
+        var resultado="";
+        var xhr;
+        var consulta;
+        function enviarPeticionAJAX(evento){
+            //Método que conecta con servidor
+            //Si el valor del input numero es distinto de vacío se conecta con servidor
+            if(numero.value!=''){
+                console.log(numero);
+                numero.disabled=true;
+                xhr=new XMLHttpRequest();
+                //Se llama por evento de readystatechange al método gestionar que imprime el resultado
+                xhr.addEventListener('readystatechange', gestionar,false);
+                //Se recibe el dato de num por GET desde el archivo meses.php
+                xhr.open('GET','meses.php?num='+numero.value,true);
+                xhr.send(null);
+            }
+        }
+        function gestionar(evento){
+            if (evento.target.readyState == 4 && evento.target.status == 200) {
+                numero.disabled=false;
+                //Método que imprime por innerHTML el resultado en el párrafo
+                resultado.innerHTML = evento.target.responseText;
+            }
+        }
+        //Primero el documento llama por readystatechange (cuando está cargado) 
+        //al método de inicializar que nos sitúa en los elementos input,boton y párrafo
+        document.addEventListener('readystatechange', inicializar, false);
+        function inicializar(){
+            //Primero si el documento está cargado nos situamos en los elementos del input, botón y párrafo
+            if(document.readyState=='complete'){
+                numero=document.getElementById("encabezado");
+                resultado = document.getElementById('resultado');
+                consulta=document.getElementById("boton");
+                //el botón llama por evento click al método enviarPeticionAJAX que conecta con servidor
+                consulta.addEventListener('click',enviarPeticionAJAX,false);
+                
+            }
+        }
+    </script>
+</body>
+</html>
