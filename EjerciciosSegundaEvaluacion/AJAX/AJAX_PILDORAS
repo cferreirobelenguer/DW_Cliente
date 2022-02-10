@@ -1,0 +1,44 @@
+
+
+
+AJAX
+_____
+
+PROCESO:
+
+Se envía una información al servidor y el servidor envía una respuesta del servdor.
+El código js procesa esa información del servidor en nuestra web para que se entienda.
+Se pueden lanzar varias peticiones simultáneas, es asíncrono.
+
+OBJETOS QUE INTERVIENEN:
+
+NAVEGADOR
+SERVIDOR
+CÓDIGO JAVASCRIPT
+XMLHttpRequest (XHR) : ES UN VEHÍCULO O PUENTE PARA MANDAR LAS PETICIONES POST O RECIBIR LAS PETICIONES GET. ES EL NÚCLEO MÁS
+IMPORTANTE DE LA TECNOLOGÍA AJAX.
+
+PASOS PARA ENVIAR PETICIÓN AL SERVIDOR Y PROCESAR LA RESPUESTA:
+_______________________________________________________________
+
+1. Crear instancia de XMLHttpRequest
+var mi_var=new XMLHttpRequest();
+
+2. Utilizar el método open() del objeto XHR para especificar qué petición se enviará al servidor y donde irá la petición dentro del servidor.
+  Dos formas de enviar la información al servidor
+    GET: la información de la petición se envía utilizando la URL del navegador como medio. Utilizado habitualmente para recibir y procesar
+    respuesta del servidor.
+    POST: Utilizado habitualmente para actualizar información alojada en el servidor (actualizaciones en BBDD). Se debe utilizar el método send() del 
+    objeto XHR.
+  Especificaremos la página alojada en el servidor encargada de procesar la información:
+    mi_var.open("GET","TIENDA.PHP?id_PRODUCTO=45");
+ 
+3. Crear una función Javascript que gestione la respuesta:
+  Modificando el DOM
+  
+ 4. Recibir la repsuesta:
+  La respuesta está formada por diferentes piezas de información: estado de la respuesta (código), texto de respuesta, XML
+  de respuesta (código), texto de respuesta, XML de respuesta, HTML de respuesta, JSON de respuesta.
+  La mayoría de las veces se recibirá un texto de respuesta que se gestionará utilizando la propiedad responseText del objeto XHR.
+  
+  
