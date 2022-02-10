@@ -1,0 +1,50 @@
+
+<!--Imprime Hola Myndo por petición GET mediante AJAX-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button id="boton" >Mostrar contenido</button>
+    <p id="parrafo"></p>
+
+    <script>
+        var boton;
+        var parrfo;
+        var xhr;
+        function enviarAjax(evento){
+            //Conectamos con servidor
+            xhr=new XMLHttpRequest();
+            //Si el documento está completo se invoca al método gestionar que imprime los resultados
+            xhr.addEventListener('readystatechange',gestionar,false);
+            //Si llama por petición GET al archivo php hola.php
+            xhr.open('GET','hola.php',true);
+			xhr.send(null);	
+        }
+        function gestionar(event){
+            if(event.target.readyState== 4 && event.target.status ==200){
+                //Nos situamos en el párrafo e imprimimos los resultados de la petición GET
+                parrafo.innerHTML=event.target.responseText;
+                boton.addEventListener('click',enviarAjax,false);
+            }
+        }
+        //Documento llama al evento que nos sitúa en los elementos para poder interactuar con ellos
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+            //Se sitúa en el elemento párrafo
+            parrfo=document.getElementById("parrafo");
+            //Nos situamos en el elemento botón
+            boton=document.getElementById("boton");
+            //Botón al hacer click llama al método enviarAjax que conecta con servidor
+            boton.addEventListener('click',enviarAjax,false);
+
+        }
+    </script>
+</body>
+</html>
