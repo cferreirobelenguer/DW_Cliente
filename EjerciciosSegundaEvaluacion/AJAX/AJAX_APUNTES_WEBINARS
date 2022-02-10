@@ -1,0 +1,261 @@
+
+ARQUITECTURA CLIENTE-SERVIDOR
+_____________________________
+
+El navegador pide un recurso mediante HTTP, un recurso puede ser un fichero, una imagen , cualquier cosa...
+El servidor me devuelve ese recurso mediante HTTP.
+
+El la petición viajan las cabeceras, que pide al servidor que configure la respuesta que se está dando, estas cabeceras puede ser el tipo de información que se está dando, de cuánto es la
+caché, el ciclo de vida. Request HEADERS, Response Headers
+
+AJAX:
+_____
+AJAX: es un conjunto de tecnologías que permite crear aplicaciones web asíncronas, permite pedir recursos a un servidor sin necesidad de efectuar una 
+recarga de página.
+Puede manejar tipos de petición de respuesta en XML/JSON entre otros. 
+Es un conjunto de tecnologías para la arquitectura cliente-servidor.
+
+OBJETO XMLHttpRquest:
+_____________________
+Objeto XMLHttpRequest: es el objeto que usamos para interactuar con el servidor, con el puedes recibir información de una URL sin hacer una 
+recarga de página.
+Puede ser utilizado para recibir cualquier tipo de data, no sólo html.
+
+
+PRÁCTICA:
+_________
+
+GET: RECIBIR INFORMACIÓN DEL SERVIDOR
+______________________________________
+
+/*Hacer una petición de ajax por XMLHttpRequest de un json*/
+
+//Primero hace falta una instancia del objeto XMLHttpRequest
+//Se suele usar xhr como nombre 
+
+var xhr=new XMLHttpRequest();
+
+//Este objeto puede estar en diversos estados al hacer la petición: puede estar en progreso, ya cargado,etc
+
+//Inicialización en la que se dice el tipo de método en el que se va a inicializar o la url
+//El objeto xhr mantiene el estado de toda la operación
+xhr.open('GET','http://localhost:3000/user');
+
+//load es el periodo en el que se recibe la petición 
+xhr.addEventListener('load',funtion(){
+//Se pasa el JSON a objeto de javaScript
+
+//ResponseText coge la respuesta del servidor
+ var user=JSON.parse(this.responseText);
+
+ content.innerHTML=user.name;
+ });
+ 
+ //ResponseText lo vamos a tener como tipo texto independientemente de la respuesta que de el servidor
+ 
+//send
+bton.addEventListener'click',function(ev){
+  xhr.send();
+ });
+ 
+ ___________________________________________________________________________
+ 
+/*Hacer una petición de ajax por XMLHttpRequest de un html*/
+ 
+
+var xhr=new XMLHttpRequest();
+
+xhr.open('GET', 'http://localhost:3000/hello');
+
+xhr.addEventListener('load', function(){
+  var doc=this.response;
+  content.innerHTML=doc.body.innerHTML;
+ });
+ 
+ btn.addEventListener('click',function (ev){
+  xhr.responseType='document';
+  xhr.send();
+ });
+ 
+  ___________________________________________________________________________
+ 
+/*Hacer una petición de ajax por XMLHttpRequest de una imagen*/
+ 
+ xhr.open('GET', imgURL):
+ 
+ xhr.addEventListener('load',function(){
+ //Hemos creado la imagen 
+  const img=new Image();
+  //Introducimos elblob en src
+    img.src= URL.createObjectURL(this.response);
+    content.appendChild(img);
+   });
+
+ btn.addEventListener('click',function (ev){
+  xhr.responseType='blob'; //Es de tipo blob porque es una imagen y es binario
+  xhr.send();
+ });
+ 
+   ___________________________________________________________________________
+ STATUS:
+ status de la petición:
+ 200 encontrado
+ 404 not found 
+ 
+ Con lo cual hay que hacer una condición:
+ 
+ if(this.statis>=200 &&this.status<400){
+ }
+ 
+ 
+ ejemplo:
+ 
+ xhr.open('GET','http://localhost:3000/a');
+ 
+ xhr.addEventListener('load',function(){
+  if(this.status>=200 && this.status<400){
+    content.className="content success";
+   }else{
+    content.className="content error";
+    content.innerHTML="Not found";
+  });
+  
+  
+ ______________________________________________________
+ 
+ ESTADOS DE PROGRESO DE LA PETICIÓN
+ __________________________________
+ //Cuando se recibe la petición se manda el evento
+ xhr.addEventListener('load', function(){
+ });
+ //Cuando hay un error se manda evento
+ xhr.addEventListener('error'. function(){
+ 
+ });
+ //Cuando está en progreso se manda el evento
+ xhr.addEventListener('progress', function(){
+ });
+ 
+ Hay una función que automáticamente gestiona todos los estados a la vez:
+ 
+ if(xhr.status>=200 && xhr.status <400){
+  content.className="content success";
+  content.innerHTML=xhr.response.name;
+ }else{
+  content.className="content error";
+  content.innerHTML="Not found";
+ }
+}
+
+//Primero le mando al servidor las cabeceras, y luego le mando la petición, y cuando lo recibe
+//ya manda la respuesta
+
+ xhr.onreadystatechange=function(){
+  switch(this.readyState){
+    case XMLHttpRequest.HEADERS_RECEIVED:
+      console.log('headers!');
+      console.log(this.getAllResponseHeaders());
+      break;
+    case XMTHttpRequest.LOADING:
+      console.log('loading');
+      break;
+    case XMTHttpRequest.DONE:
+      console.log('donde');
+      break;
+  }
+ };
+ 
+ _______________________________________________________________________________________________________________________________________________________________
+ 
+ POST: ENVIAR INFORMACIÓN AL SERVIDOR
+ 
+
+xhr.open('POST', 'http://localhost:3000/save');
+
+btn.addEventListener('click',function (ev){
+//Se manda una URL encode, el servidor sabe que se le manda un URL encode
+  xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+  xhr.send('name=OpenWebinars$server=true');
+  
+});
+
+También se puede mandar un FromData, es un objeto especial en el que se pueden guardar datos
+
+
+xhr.open('POST', 'http://localhost:3000/save');
+
+btn.addEventListener('click',function (ev){
+  const data=new FormData();
+  data.append('name', 'OpenWebinars');
+  //xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+  xhr.send(data);
+  
+});
+
+Con un FormData no hace falta poner el setRequestHeader porque ya sabe el tipo que se pone , pero con un string si porque puede
+haber varios tipos
+
+____________________________________________________
+ENVIAR UN FORMULARIO
+
+xhr.open('POST', 'http://localhost:3000/save');
+
+btn.addEventListener('click',function (ev){
+  const data=new FormData(form);
+    const data=new FormData(form);
+    
+  //xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+  xhr.send(data);
+  
+});
+
+
+
+_________________________________________________________________
+
+ENVIAR UN JSON CON POST
+
+var xhr=new XMLHttpRequest();
+
+xhr.open('POST','http://localhost:3000/save-json');
+
+btn.addEventListener ('click', function (ev){
+  xhr.setRequestHeader('Content-Type','aplication/json');
+  xhr.send(JSON.stringify({name: 'OpenWebinars', server: true}));
+  });
+  
+  
+
+_________________________________________________________________
+
+ENVIAR DE UN FICHERO
+
+
+ENVIAR UN JSON CON POST
+
+var xhr=new XMLHttpRequest();
+
+xhr.open('POST','http://localhost:3000/file');
+
+btn.addEventListener ('click', function (ev){
+  var files=inputFile.files;
+  var data=new FormData();
+  data.append('image',files[0]);
+  xhr.send(data);
+  });
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
