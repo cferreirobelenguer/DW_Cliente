@@ -42,3 +42,5 @@ var mi_var=new XMLHttpRequest();
   La mayoría de las veces se recibirá un texto de respuesta que se gestionará utilizando la propiedad responseText del objeto XHR.
   
   
+  404 file not found es un código de respuesta del servidor, un código de error de que no se encuentra el archivo.
+  
