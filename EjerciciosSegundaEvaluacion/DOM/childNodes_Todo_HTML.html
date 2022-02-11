@@ -1,0 +1,51 @@
+
+
+<!--Mostrar todos los nodos hijos de todo el documento html usando childNodes,
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="texto">Esto es un texto que se va a cambiar completamente...
+        <table >
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <tr>
+                <td>Pepe</td>
+
+                <td>Fernandez</td>
+            </tr>
+
+        </table>
+    </div>
+    <button id="boton">Mostrar nodos hijos</button>
+    <p id="resultado"></p>
+    <script>
+        var boton;
+        var resultado;
+        document.addEventListener('readystatechange',inicializar,false);
+        function mostrarHijos(){
+            //Nos situamos en el documento html para ver el total de nodos tanto del head como del body
+            //ChildNodes devuelve la colección de hijos nodos del elemento
+            let hijos=document.documentElement.childNodes;
+            let msg="";
+            for(let i=0;i<hijos.length;i++){
+                msg+=hijos[i];
+            }
+            resultado.innerHTML=msg;
+        }
+        function inicializar(){
+            boton=document.getElementById('boton');
+            resultado=document.getElementById('resultado');
+            if(document.readyState=='complete'){
+                boton.addEventListener('click',mostrarHijos,false);
+            }
+        }
+    </script>
+</body>
+</html>
