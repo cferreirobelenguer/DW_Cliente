@@ -75,7 +75,44 @@ document.getElementById("enviar").onclick= function (){
   
   document.links
   Se obtiene las direcciones de las etiquetas <a> <area> de los atributos href.
-  Si las etiquetas 
+  Si las etiquetas no tienen el atributo href, no se obtiene nada.
+  Las referencias aparecen en el arreglo según aparezcan las etiquetas en el código fuente.
+  Posee la propiedad length y el método item()
+  
+  <a href="uno.html">uno</a>
+  <a href="dos.html">dos</a>
+  <a href="tres.html">tres</a>
+  
+  <p>Pulsa el botón para obtener los links</p>
+  <button id="pulsar">Pulsar</button>
+  
+  <script>
+    document.getElementById ("pulsar").onclick= function(){
+      var x=document.links, cadena="";
+       for(i=0;i<x.length;i++){
+        cadena+=document.links[i].href+"\n";
+        }
+        alert(cadena);
+       }
+   <script>
+   
+   ESCRIBIR HTML
+   ______________
+   
+   document.write()
+   
+   El método write() escribe desde el código JavaScript al documento HTML
+   Si el documento ha terminado de ser escrito y utiliza el método write(), el contenido de la página será borrado.
+   Puede aceptar varios parámetros, separados por comas.
+   
+   document.write(Date());  //Por ejemplo escribir en html la fecha
+   
+   
+   
+  
+  
+  
+  
   
 
 
