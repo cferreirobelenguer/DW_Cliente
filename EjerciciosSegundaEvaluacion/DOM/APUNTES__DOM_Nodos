@@ -60,8 +60,5 @@ Si un nodo es un elemento  es de tipo element (ELEMENT_NODE)  nos devuelve un no
 Si un nodo es un atributo , de tipo Attr, ATTRIBUTE_NODE nos devuelve un nodeType con valor 2.
 Si un nodo es un texto, de tipo Text, TEXT_NODE nos devuelve un nodeType con valor 4.
 
-Con esto podemos ubicar la estructura del DOM.
-
-
-
+Con esto podemos ubicar la estructura del DOM
 
