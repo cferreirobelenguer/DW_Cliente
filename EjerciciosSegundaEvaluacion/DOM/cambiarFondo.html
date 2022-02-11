@@ -1,6 +1,5 @@
 
-
-<!-- Cambiar el fondo a rojo, amarillo o verde en función de si se pulsa un 
+<!-- Cambiar el fondo a rojo, amarillo o verde o aleatorio en función de si se pulsa un 
 botón u otro-->
 <!DOCTYPE html>
 <html lang="en">
@@ -15,10 +14,13 @@ botón u otro-->
     <button id="rojo">Rojo</button>
     <button id="verde" >Verde</button>
     <button id="amarillo">Amarillo</button>
+    <button id="alterna">Colores aleatorios</button>
     <script>
         var botonrojo;
         var botonverde;
         var botonamarillo;
+        var botonalterna;
+        var aleatorio;
         //Primero se llama al evento de inicializar
         document.addEventListener('readystatechange',inicializar,false);
         //Funciones de los eventos de cada botón que cambian el fondo del document.body
@@ -31,15 +33,26 @@ botón u otro-->
         function fondoamarillo(){
             document.body.style.backgroundColor='yellow';
         }
+        function fondoaltera(){
+            let coloresAleatorios=['red','green','yellow'];
+            
+            console.log(aleatorio);
+            setInterval(function(){
+                aleatorio=Math.round(Math.random()*(coloresAleatorios.length-0)+0);
+                document.body.style.backgroundColor=coloresAleatorios[aleatorio];
+            },1000);
+        }
         function inicializar(){
             //Nos situamos en los botones y llamamos al evento click en cada botón
             botonrojo=document.getElementById("rojo");
             botonverde=document.getElementById("verde");
             botonamarillo=document.getElementById("amarillo");
+            botonalterna=document.getElementById("alterna");
             if(document.readyState=='complete'){
                 botonrojo.addEventListener('click',fondorojo,false);
                 botonverde.addEventListener('click',fondoverde,false);
                 botonamarillo.addEventListener('click',fondoamarillo,false);
+                botonalterna.addEventListener('click',fondoaltera,false);
             }
         }
     </script>
