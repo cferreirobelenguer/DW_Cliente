@@ -1,0 +1,48 @@
+
+
+<!-- Cambiar el fondo a rojo, amarillo o verde en función de si se pulsa un 
+botón u otro-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Selecciona un color de fondo</h1>
+    <button id="rojo">Rojo</button>
+    <button id="verde" >Verde</button>
+    <button id="amarillo">Amarillo</button>
+    <script>
+        var botonrojo;
+        var botonverde;
+        var botonamarillo;
+        //Primero se llama al evento de inicializar
+        document.addEventListener('readystatechange',inicializar,false);
+        //Funciones de los eventos de cada botón que cambian el fondo del document.body
+        function fondorojo(){
+            document.body.style.backgroundColor='red';
+        }
+        function fondoverde(){
+            document.body.style.backgroundColor='green';
+        }
+        function fondoamarillo(){
+            document.body.style.backgroundColor='yellow';
+        }
+        function inicializar(){
+            //Nos situamos en los botones y llamamos al evento click en cada botón
+            botonrojo=document.getElementById("rojo");
+            botonverde=document.getElementById("verde");
+            botonamarillo=document.getElementById("amarillo");
+            if(document.readyState=='complete'){
+                botonrojo.addEventListener('click',fondorojo,false);
+                botonverde.addEventListener('click',fondoverde,false);
+                botonamarillo.addEventListener('click',fondoamarillo,false);
+            }
+        }
+    </script>
+</body>
+
+</html>
