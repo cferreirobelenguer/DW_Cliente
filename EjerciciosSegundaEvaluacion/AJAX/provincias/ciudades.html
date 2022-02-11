@@ -1,0 +1,96 @@
+<!-- Generar una vista de un archivo json en un html mediante ajax,
+cuando se seleccione una comunidad, se muestra mediante un select hecho por DOM la provincia
+obtenida mediante ajax de un json-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda de provincias</title>
+</head>
+<body>
+    <form id="formulario">
+        <label for='comunidades'>Comunidades: </label>
+            <select id='comunidades' name='comunidades'>
+                <option value='' selected='selected'>--Elija una comunidad--</option>
+                <option>andalucia</option>
+                <option>aragon</option>
+                <option>asturias</option>
+                <option>baleares</option>
+                <option>canarias</option>
+                <option>castilla la mancha</option>
+                <option>castilla y leon</option>
+                <option>cataluña</option>
+                <option>comunidad valenciana</option>
+                <option>extremadura</option>
+                <option>galicia</option>
+                <option>la rioja</option>
+                <option>madrid</option>
+            </select>
+    </form>
+    <p id="provincias">
+
+    </p>
+    <script>
+        var provincias;
+        var comunidades;
+        var objetoPeticion;
+        var objetoRespuesta;
+
+        function generarAjax(event){
+            if(comunidades.value!=''){
+                objetoPeticion=comunidades;
+                comunidades.disabled=true;
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'provincias.json', true);
+                //Cuando la petición está procesada y espera respuesta se dispara el evento de generar respuesta
+                xhr.addEventListener('load', generar, false);
+                
+		        xhr.send(null);
+            }else{
+                provincias.value='';
+            }
+        }
+        function generar(event){
+            //Me imprime todo 2 veces y no entiendo el motivo
+            //El status es 200 
+            console.log(event.target.status);
+                comunidades.disabled=false;
+                //ResponseText pasa la respuesta del servidor en formato texto
+                objetoRespuesta = this.responseText;
+                //Lo pasa a array de objetos
+                let datos=JSON.parse(this.responseText);
+                console.log(datos);
+                //provincias.innerHTML = `${datos[comunidades.value]}`;
+                let total=datos[comunidades.value];
+                //Se crea select con los items de provincias en DOM
+                let elemento=document.createElement('select');
+                for(let item of total){
+                    let opciones=document.createElement('option');
+                    let texto=document.createTextNode(item);
+                    opciones.setAttribute("value",item);
+                    
+                    elemento.appendChild(opciones);
+                    opciones.appendChild(texto);
+
+                }
+                provincias.appendChild(elemento);
+            }
+        
+        
+
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+            if(document.readyState=='complete'){
+                //Nos situamos en los elementos e invocamos un evento change al introducir la comunidad en select
+                comunidades=document.getElementById("comunidades");
+                provincias=document.getElementById("provincias");
+                comunidades.addEventListener('change',generarAjax,false);
+                
+            }
+        }
+    </script>
+
+</body>
+</html>
