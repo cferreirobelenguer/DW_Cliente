@@ -1,0 +1,67 @@
+
+DOM
+___
+
+CONCEPTO
+________
+
+Estructura de nuestra página web.
+A las etiwuetas las llamaremos elementos o nodos.
+Tenemos una etiqueta raíz o root html.
+Todo nood tendrá un nodo padre.
+Los nodos del mismo padre serán hermanos o sibling.
+Los nodos que tienen un nodo padre se llaman hijos o children.
+
+Los textos y atributos son nodos.
+
+
+
+EJEMPLO DE DOCUMENT OBJECT MODEL nodeList:
+___________________________________________
+
+ul  li            texto
+    li            texto
+    li            texto
+    atributo li 
+    
+En este caso ul es el elemento padre.
+Los elementos de en medio son los hijos (nodeChild) de ul y a su vez son hermanos o sibling entre sí.
+Y los textos son hijos de li.
+Con respecto a la fila de en medio el primer hijo li es firtChild y el último lastChild
+Todos los elementos pertenecen a la misma rama o nodeList.
+
+Los textos y los atributos se consideran nodos, igual que las etiquetas.
+Todos los nodos pueden tener sólo una etiqueta padre (parent) y muchos nodos hijos (children).
+
+Si hay varias etiquetas que tienen el mismo padre (sibling) la primera etiqueta que aparezca en el código se le considera
+el primer hijo o first child.
+
+El último nodo en aparecer en el listado se le considera last child.
+
+Para ver todos los nodos hijos de un documento: document.body.childNodes.
+
+children:
+La propiedad de solo lectura children devuelve una colección de html que contiene todos los elementos hijos del elemento sobre el que se invocó.
+Element.children incluye solo nodos de elementos.
+collection=myElement.children;
+
+Por ejemplo situarnos en un elemento y recorrer sus hijos:
+
+const myElement=document.getElementById('foo');
+for(let i==;i<myElement.children.length;i++){
+  console.log(myElement.children[i].tagName);
+ }
+ 
+childNodes:
+Node.childNodes muestra todos los nodos (elementos, textos, comentarios, atributos)
+
+
+Si un nodo es un elemento  es de tipo element (ELEMENT_NODE)  nos devuelve un nodeType con valor 1.
+Si un nodo es un atributo , de tipo Attr, ATTRIBUTE_NODE nos devuelve un nodeType con valor 2.
+Si un nodo es un texto, de tipo Text, TEXT_NODE nos devuelve un nodeType con valor 4.
+
+Con esto podemos ubicar la estructura del DOM.
+
+
+
+
