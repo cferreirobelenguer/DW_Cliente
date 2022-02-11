@@ -12,3 +12,70 @@ document.documentElement
 Regresa el elemento <html>
 Es soportado por todos los navegadores
 
+ETIQUETAS FORMS
+_______________
+
+Regresa las referencias de las etiquetas <form> en un arreglo.
+
+Acepta:
+
+document.form[0];
+document.form["name"];
+document.forma.elementoForma;
+
+<form>
+  Nombre: <input type="text" name="nombre" value="Pancho"><br>
+  Apellido; <input type="text" name="apellido" value="Pantera"><br>
+  País: <input type="text" name="pais" value="México"><br>
+</form>
+
+<p>Pulse el botón para ver los elementos de la forma </p>
+
+<button id="enviar">Enviar</button>
+
+document.getElementById("enviar").onclick= function (){
+  var x=document.forms[0];
+  var cadena="Los valores de esta forma son: ";
+  for(var i=0;i<x.length;i++){
+    cadena+=x.elements[i].value+ "\n";
+   }
+   alert(cadena);
+   
+   
+ ETIQUETAS DE IMG //MANEJAR IMÁGENES
+ ___________________________________
+ 
+ Regresa un arreglo con las referencias a las etiquetas <img>
+ El orden del arreglo es como aparecen las imágenes en el documento HTML
+ El arreglo no registra a las etiquetas <input> con atributo type="image"
+ Tiene la pripiedad "length" y el método item()
+ 
+ <img src="fondos/fondo1.jpg" alt="fondo01" width="150" height="120">
+ <img src="fondos/fondo2.jpg" alt="fondo02" width="150" height="120">
+ <img src="fondos/fondo3.jpg" alt="fondo03" width="150" height="120">
+  
+  <p>Pulsa el botón para ver las URLS de las imágenes</p>
+  
+  <button id="pulsar" >Pulsar</button>
+  
+  <script>
+  document.getElementById("pulsar").onclick=function(){
+      var x=document.images;
+      var cadena="";
+      for(let i=0;i<x.length;i++){
+        cadena+=x[i].src+"\n";
+        }
+        alert(cadena);
+       }
+
+  </script>
+  
+  ETIQUETAS DE LINK A
+  ____________________
+  
+  document.links
+  Se obtiene las direcciones de las etiquetas <a> <area> de los atributos href.
+  Si las etiquetas 
+  
+
+
