@@ -1,0 +1,14 @@
+
+DOCUMENT OBJECT MODEL:
+________________________
+
+document.body:
+
+Regresa la referencia del objeto <body>
+Puedes sobreescribir los elementos dentro de <body>
+
+document.documentElement
+
+Regresa el elemento <html>
+Es soportado por todos los navegadores
+
