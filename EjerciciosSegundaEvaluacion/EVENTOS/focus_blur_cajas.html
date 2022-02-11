@@ -1,0 +1,73 @@
+
+
+
+<!--Cuando nos situamos en la caja de texto, la caja cambia de color a amarillo
+y cuando dejamos de situarnos cambia a blanca. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formulario">
+        <p>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre"/>
+        </p>
+        <p>
+            <label for="apellidos">Primer apellido</label>
+            <input type="text" id="apellidoprimer"/>
+        </p>
+        <p>
+            <label for="apellidos">Segundo apellido</label>
+            <input type="text" id="apellidosegundo"/>
+        </p>
+
+    </form>
+    <script>
+        var nombre;
+        var primer;
+        var segundo;
+        //Document llama al evento inicializar
+        document.addEventListener('readystatechange',inicializar,false);
+        //Funciones de foco del elemento, cambian el fondo de la caja a amarillo
+        function focoNombre(){
+            nombre.style.backgroundColor="yellow";
+        }
+        function focoPrimer(){
+            primer.style.backgroundColor="yellow";
+        }
+        function focoSegundo(){
+            segundo.style.backgroundColor="yellow";
+        }
+        //Funciones de no foco del elemento, cambian el fondo de la caja a blanco
+        function nofocoNombre(){
+            nombre.style.backgroundColor="white";
+        }
+        function nofocoPrimer(){
+            primer.style.backgroundColor="white";
+        }
+        function nofocoSegundo(){
+            segundo.style.backgroundColor="white";
+        }
+        //Nos situamos en los elementos y cada caja llama los eventos focus y blur
+        function inicializar(){
+            nombre=document.getElementById("nombre");
+            primer=document.getElementById("apellidoprimer");
+            segundo=document.getElementById("apellidosegundo");
+            //Evento foco en el elemento
+            nombre.addEventListener('focus',focoNombre,false);
+            primer.addEventListener('focus',focoPrimer,false);
+            segundo.addEventListener('focus',focoSegundo,false);
+            //Evento de no foco del elemento
+            nombre.addEventListener('blur',nofocoNombre,false);
+            primer.addEventListener('blur',nofocoPrimer,false);
+            segundo.addEventListener('blur',nofocoSegundo,false);
+        }
+    </script>
+</body>
+</html>
