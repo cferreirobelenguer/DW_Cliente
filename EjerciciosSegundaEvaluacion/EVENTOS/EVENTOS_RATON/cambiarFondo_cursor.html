@@ -1,0 +1,36 @@
+<!--
+    EVENTOS DE RATÓN: MOUSEOVER MOUSEOUT
+Poner fondo del body del html en rojo si se pasa el cursor por el botón,
+y si se deja de pasar el cursor por el botón de cambia a blanco-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="boton">Pulsar</button>
+    <script>
+    var boton;
+    document.addEventListener('readystatechange',inicializar,false);
+    //Funciones de cambiar todo el body de color
+    function cambiarFondo(){
+        document.body.style.backgroundColor="red";
+    }
+    function cambiarFondo2(){
+        document.body.style.backgroundColor="white";
+    }
+    function inicializar(){
+        boton=document.getElementById("boton");
+        if(document.readyState=='complete'){
+            //Botón llama al evento mouseover cuando se pasa el ratón por el botón
+            boton.addEventListener('mouseover',cambiarFondo,false);
+            //Botón llama al evento mouseover cuando se deja de pasar el ratón por el botón
+            boton.addEventListener('mouseout',cambiarFondo2,false);
+        }
+    }
+    </script>
+</body>
+</html>
