@@ -1,0 +1,76 @@
+SELECTORES
+___________
+
+
+SELECCIONAR ELEMENTOS POR LOS SELECTORES DE CSS
+________________________________________________
+
+Contamos con las instrucciones:
+
+  querySelector();
+  querySelectorAll()  //Selecciona todo
+  
+  El primero reporta sólo un elemento y el segundo un arreglo o noseList
+  
+  En caso de que no haya ninguno dará un valor null.
+  
+  Podemos seleccionar por clase, identificador, atributo o pseudo clase(CSS).
+  
+  ejemplo:
+  //selecciona un class rojo
+  var rojos=document.querySelectorAll(".rojo");
+  console.error("Tenemos "+rojos.length+" elementos rojos");
+  
+  
+  //También podemos buscar por atributo, todos los elementos p que tengan una clase
+  
+  var verdes=document.querySelectorAll("p[class]");
+  console.log("Tenemos "+verdes.length+" elementos verdes");
+  
+  //También se puede seleccionar por etiqueta
+  
+  var parrafos= document.querySelectorAll("p");
+  console.log("Tenemos "+parrafos.length+" parrafos");
+  
+  //También se pueden seleccionar varios atributos o elementos
+  var noexiste= document.querySelectorAll(".rojo",.noexiste");
+  console.log("Tenemos "+noexiste.length+" elementos de las clases rojo o noexiste");
+  
+  
+  SELECTORES DE ID
+  ________________
+  Code los id:
+  
+  document.getElementById("dhhd");
+  
+  SELECTORES DE NAME
+  __________________
+  Code los name:
+  
+  document.getElementsByName("sdhs")[0];
+  //Es un array , se indica el índice en función del número de name que hay con el mismo nombre, el índice indica la posición de los elementos
+  
+  SELECTORES DE CLASS
+  ___________________
+  Coge los class:
+  
+  document.getElementSByClassName("skhds")[0];
+   //Es un array , se indica el índice en función del número de name que hay con el mismo nombre, el índice indica la posición de los elementos
+   
+   SELECTORES DE TAG ETIQUETA
+   __________________________
+  Coge las etiquetas
+  
+  document.getElementsByTagName("p")[0];
+  //Es un array , se indica el índice en función del número de name que hay con el mismo nombre, el índice indica la posición de los elementos
+  
+  VALUE
+_________
+document.getElementsByTagName("p")[0].value; //Muestra el valor de ese p
+
+document.getElementsByTagName("p")[0]; //Se sitúa en ese elemento p
+  Si ponemos .value nos muestra el valor de ese elemento. Sin value nos situamos en el elemento para modificarlo o recorrerlo.
+  
+  
+  
+  
