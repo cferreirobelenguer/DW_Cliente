@@ -1,0 +1,57 @@
+
+addEventListener, removeEventListener
+____________________________________
+
+addEventListener()
+_________________
+
+El objeto Window, objeto document y todos los nodos de tipo element, pueden ser objetivo de eventos, 
+todos estos disponen de un método predefinido llamado addEventListener que nos permite asignar uno, 
+dos o más controladores a un evento, este método le agrega un “escuchador (oyente)” al elemento, para 
+que este atento a la interacción del usuario. La sintaxis es básicamente la siguiente:
+nodoObjetivo.addEventListener(“nombreDeEvento”, funcionAEjecutar, parametroBooleanoOpcional)
+El nodoObjetivo será un nodo que rescataremos normalmente con el método getElementById, el nombreDeEvento 
+será el nombre del evento sin el prefijo on y el parametroBooleanoOpcional especificará si el evento 
+capturado debe ser true o debe ser false, que es el valor que toma si no especificamos el parámetro.
+addEventListener es el oyente de evento. 
+
+<button id="myBtn">Botón</button>
+<p id="demo">
+
+    <script>
+        document.getElementById("myBtn").addEventListener("click", myFunction() {
+            document.getElementById("demo").innerHTML = "Hola Mundo";
+        });
+    </script>
+    
+En ejemplo anterior la etiqueta <button> con id “myBtn” con el método addEventListener le decimos que al hacer clic en el botón imprima en html “Hola Mundo”.
+
+
+removeEventListener()
+_____________________
+
+Este método nos permite remover o eliminar manejadores de evento agregado con addEventListener.
+
+<button onclick="removeHandler()">Botón</button>
+<p id="demo"></p>
+
+<script>
+    document.addEventListener("mousemove", myFunction);
+    function myFunction() {
+        document.getElementById("demo").innerHTML = Math.random();
+    }
+    function removeHandler() {
+        document.removeEventListener("mousemove", myFunction);
+    }
+</script>
+
+En el ejemplo primero le damos el método addEventListener diciéndole que cuando el mouse pase por el body se generen números aleatorios. 
+Luego con el método removeEventListener se lo quitamos al hacer clic sobre el botón.
+
+
+
+
+
+
+
+
