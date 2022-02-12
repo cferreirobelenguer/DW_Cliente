@@ -1,0 +1,45 @@
+<!-- Crea una página con un botón y una caja de texto.
+
+Definir oyente de evento click para el botón. Controlar el evento readystateChange
+del objeto document,
+En la caja de texto se mostrará el número de veces que se hace click sovre el botón. Y 
+se pondrá el color del botón en amarillo al hacer click en él, y en blanco cuando se deja de hacer click.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        <input type="text" name="texto">
+    </p>
+    <button id="boton">Pulsame</button>
+    
+    
+    <script>
+        var boton;
+        var contador=0;
+        function contar(){
+            contador++;
+            document.getElementsByName("texto")[0].value="El total de clicks es: "+contador;
+            boton.style.backgroundColor="yellow";
+        }
+        function cambiarColor(){
+            boton.style.backgroundColor="white";
+        }
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+            boton=document.getElementById("boton");
+            if(document.readyState=='complete'){
+                //Evento cuando se hace click
+                boton.addEventListener('mousedown',contar,false);
+                //Evento cuando se deja de hacer click
+                boton.addEventListener('mouseup',cambiarColor,false);
+            }
+        }
+    </script>
+</body>
+</html>
