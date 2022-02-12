@@ -1,0 +1,68 @@
+
+
+<!--Crea una página con bastantes párrafos. Haz que en cada movimiento de ratón sobre la 
+página, un pequeño cartel con  fondo morado y el texto Hola, siga al cursor del usuario
+o usuaria.-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #hola{
+            background-color:blueviolet;
+            position:fixed;
+            width: 100px;
+            height: 20px;
+            left:0;
+            top:0;
+            padding:4px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="hola">Hola</div>
+    <p>dfdgfdfgdfgdfgdfghggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        gggggggggggggggggggggggggggggggggggggg</p>
+    <p>slkjdsldfsdfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+    <p>dfdgfdfgdfgdfgdfghggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        gggggggggggggggggggggggggggggggggggggg</p>
+    <p>slkjdsldfsdfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+    <p>dfdgfdfgdfgdfgdfghggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        gggggggggggggggggggggggggggggggggggggg</p>
+    <p>slkjdsldfsdfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+    <script>
+        
+        document.addEventListener('mousemove',function(e){
+            let hola=document.getElementById("hola");
+            //Se cogen las coordenadas clientX y clientY del evento y se modifican con el atributo style
+            //a left y top añadiendo px
+            hola.style.left=e.clientX+"px";
+            hola.style.top=e.clientY+"px";
+        });
+    </script>
+</body>
+
+</html>
