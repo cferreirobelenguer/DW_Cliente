@@ -1,14 +1,25 @@
 
+MODIFICAR, TOMAR Y REMOVER TEXTO
+________________________________
 
-DOM HTML
+Por medio de la siguiente propiedad podemos modificar, recuperar su valor o remover texto con o sin etiquetas.
+
+.innerHTML
+.outerHTML
+.insertAdjacentHTML(insertionPoint, htmlText);
+.textContent
+
+La única compatible con todos los navegadores es la primera.
+
+outerHTML
 _________
+Obtiene el fragmento HTML serializado que describe el elemento incluyendo sus descendientes. Puede ser asignado para reemplazar
+el elemento por los nodos resultantes de examinar de la cadena proporcionada.
 
+var content=element.outerHTML;
 
-document es el DOM de nuestra página html, es un objeto.
-A través del document podemos interactuar con cada uno de los elementos de document. Como es
-el head (tittle), o el body (elemento, atributo,texto).
-Cada uno de estos elementos es un objeto y contiene atributos, propiedades y métodos. Podemos agregar, modificar o eliminar
-elementos del body.
+//Obtiene todos sus descendientes
+
 
 
 CREACIÓN DE DOCUMENTO HTML
@@ -97,4 +108,7 @@ Para modificar el elemento sería elemento.innerHTML=("El texto que se quiera po
     </script>
 </body>
 </html>
+
+
+
 
