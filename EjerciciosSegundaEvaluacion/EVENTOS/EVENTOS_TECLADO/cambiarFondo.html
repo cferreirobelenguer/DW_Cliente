@@ -1,0 +1,24 @@
+
+
+<!-- Poner fondo en rojo al escribir j-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        document.addEventListener('keypress',function(e){
+            console.log(e.key);
+            if(e.key=='j'){
+                document.body.style.backgroundColor='red';
+            }
+        },false);
+    </script>
+</body>
+</html>
