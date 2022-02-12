@@ -1,0 +1,55 @@
+
+
+<!--Desarrolla el código que permita cambiar el color de fondo del documento, 
+de blanco a amarillo y viceversa, al hacer click sobre el textarea.
+Igualmente, deberá permitir anular el evento anterior si el ratón se pasa sobre
+el párrafo. Este hecho se visualizará mediante un alert con el mensaje "evento anulado"-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea id='click-target' rows='5' cols='30' ></textarea>
+    <div>
+        <p id="mouse-over-target"> Pasa el mouse sobre este párrafo </p>
+    </div>
+    <script>
+        var caja;
+        var parrafo;
+
+        function cambiar(){
+            //Se activa cuando se presiona el texarea
+            document.body.style.backgroundColor='yellow';
+        }
+
+        function cambiar2(){
+            //Se activa cuando se deja de presionar el textarea
+            document.body.style.backgroundColor='white';
+        }
+        function anular(){
+            //Si se mueve el cursor por el párrafo se anulan los eventos
+            //Se han anulado los eventos
+            caja.removeEventListener('mousedown',cambiar,false);
+            caja.removeEventListener('mouseup',cambiar2,false);
+            alert("Evento anulado");
+
+        }
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+            caja=document.getElementById('click-target');
+            parrafo=document.getElementById('mouse-over-target');
+
+            if(document.readyState=='complete'){
+                //Se llama a los eventos
+                caja.addEventListener('mousedown',cambiar,false);
+                caja.addEventListener('mouseup',cambiar2,false);
+                parrafo.addEventListener('mousemove',anular,false);
+            }
+        }
+    </script>
+</body>
+</html>
