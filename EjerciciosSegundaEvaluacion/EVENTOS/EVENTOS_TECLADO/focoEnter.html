@@ -1,56 +1,67 @@
 
 
-
+<!--Desarrollar el código de javascript que permita:
+Definir el oyente de evento para cada caja de texto de manera que permita controlar
+el teclado.
+Si estando en la caja Nombre, se presiona la tecla 'Enter' el foco pasará a contraseña.
+Si estando en la caja Contraseña se preciona 'Enter', se invocará una función llamada 'Transmisión'
+y que lo único que hace es mostrar un mensaje 'Iniciando transmisión'.-->
 <!DOCTYPE html>
 <html lang="en">
-<!--Ejercicio 2:
-A partir de la siguiente imagen:
-Desarrollar el código javascript que permita:
-Definir el oyente de evento para cada caja de texto de manera que permita controlar el teclado.
-Si estando en la caja Nombre, se presiona la tecla “Intro”, código ASCII 13, el foco pasará a contraseña.
-Si estando en la caja Contraseña se presiona “Intro”, se invocará una función llamada “Transmisión” y que 
-lo único que haga se mostrar un mensaje “Iniciando transmisión”.  
--->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
     <form>
-        Nombre: <input type="text" id="nombre"><br>
-        Contraseña: <input type="password" id="clave"><br>
-        Mensajes servidor <br>
-        <textarea id="caja"></textarea>
-    </form>
-    <script>
-        //Nos situamos en los elementos con una constante
-        const control1 = document.getElementById('nombre');
-        const control2 = document.getElementById('clave');
-
-        //Realizamos los eventos de cada elemento nombre y clave, llamando a las funciones correspondientes
-        control1.addEventListener('keydown', imprimirEvento1, true);
-        control2.addEventListener('keydown', imprimirEvento2, true);
-
-        //Ponemos de parámetro de cada una de las funciones el evento que se pasa por parámetro
-        //evento.key nos da el botón que se ha pulsado cuando se produce un evento
-        function imprimirEvento1(evento) {
-            //Si la tecla pulsada es Enter se pasa el foco a la caja de texto de la clave
-            if (evento.key == 'Enter') {
-                control2.focus();
-            }
+        <p>
+            <label for="">Nombre</label>
+            <input type="text" id="nombre"/>
+        </p>
+        <p>
+            <label for="">Contraseña</label>
+            <input type="text" id="contra"/>
+        </p>
+    </form>  
+<script>
+    var nombre;
+    var contra;
+    function pulsarNombre(event){
+        //key contiene el valor de la tecla pulsada
+        //Si este valor es enter contraseña coge el foco
+        if(event.key=='Enter'){
+            console.log(event.key);
+            contra.focus();
 
         }
-        function imprimirEvento2(evento) {
-            //Si la tecla pulsada es Enter se muestra un mensaje en la caja de texto
-            if (evento.key == 'Enter') {
-                document.getElementById('caja').value = "Iniciando Transmisión";
-            }
+    }
+    function pulsarContra(event){
+        //key contiene el valor de la tecla pulsada
+        //Si este valor es enter se ejecuta el alert
+        if(event.key=='Enter'){
+            console.log(event.key);
+            //Se invoca a transmisión
+            transmisión();
         }
+    }
+    function transmisión(){
+        alert("Iniciando transmisión");
+    }
+    
+    document.addEventListener('readystatechange',inicializar,false);
+    function inicializar(){
+        nombre=document.getElementById("nombre");
+        contra=document.getElementById("contra");
+        if(document.readyState=='complete'){
+            //Se llama a los eventos keypress en las cajas
+            nombre.addEventListener('keypress',pulsarNombre,false);
+            contra.addEventListener('keypress',pulsarContra,false);
+        }
+    }
 
-    </script>
+</script>
+    
 </body>
-
 </html>
