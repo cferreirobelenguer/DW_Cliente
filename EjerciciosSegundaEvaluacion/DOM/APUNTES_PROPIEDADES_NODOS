@@ -1,0 +1,10 @@
+
+
+PROPIEDADES DE LOS NODOS:
+
+node.nodeType: nos dice el tipo de nodo
+node.nodeName: nos dice el nombre del nodo
+node.attributes: nos dice los atributos del nodo
+noce.nodeVale: nos dice el valor del nodo
+
+
