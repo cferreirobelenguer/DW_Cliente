@@ -1,0 +1,57 @@
+
+
+<!-- Tenemos una lista y al pulsar español se colocan en la lista las palabras
+documento, objeto y modelo en español, y al pulsar inglés se colocan en inglés.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li id="documento"></li>
+        <li id="objeto"></li>
+        <li id="modelo"></li>
+    </ul>
+    <button id="espanol">Español</button>
+    <button id="ingles">Inglés</button>
+
+    <script>
+        var boton1;
+        var boton2;
+        var caja1;
+        var caja2;
+        var caja3;
+
+        function traducirEspanol(){
+            caja1.innerHTML="Documento";
+            caja2.innerHTML="Objecto";
+            caja3.innerHTML="Modelo";
+        }
+        function traducirIngles(){
+            caja1.innerHTML="Document";
+            caja2.innerHTML="Object";
+            caja3.innerHTML="Model";
+        }
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+            //Nos situamos en los elementos del html
+            caja1=document.getElementById("documento");
+            caja2=document.getElementById("objeto");
+            caja3=document.getElementById("modelo");
+            boton1=document.getElementById("espanol");
+            boton2=document.getElementById("ingles");
+
+            if(document.readyState=='complete'){
+                //Se llama a los eventos de los botones
+                boton1.addEventListener('click',traducirEspanol,false);
+                boton2.addEventListener('click',traducirIngles,false);
+            }
+        }
+    </script>
+</body>
+</html>
