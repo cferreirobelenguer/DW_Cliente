@@ -1,0 +1,80 @@
+
+
+<!-- Carrousel de imágenes con setInterval-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Carrousel de imágenes</h1>
+    <img src="imagen1.jpg" id="foto" width="400" height="400"/>
+    <button id="alante">Siguiente</button>
+    <button id="Anterior">Anterior</button>
+
+    <script>
+        var contadorAlante = 0;
+        var contadorAtras=0;
+        var fotos = [
+            "imagen1.jpg",
+            "imagen2.jpg",
+            "imagen3.jpg",
+            "imagen4.jpg",
+            "imagen5.jpg",
+            "imagen6.jpg",
+        ];
+        
+        var boton1;
+        var boton2;
+        var direccionalante;
+        var direccionatras;
+        function pulsarSiguiente() {
+            clearInterval(direccionatras);
+            direccionalante=setInterval(function(){
+            if (contadorAlante==fotos.length) {
+                    contadorAlante =0;
+                }
+                console.log(contadorAlante);
+                document.getElementById("foto").src =fotos[contadorAlante];
+                console.log(fotos[contadorAlante]);
+                
+                contadorAlante++;
+                
+            },3000);
+        }
+
+        function pulsarAtras() {
+            clearInterval(direccionalante);
+            direccionatras=setInterval(function(){
+                if (contadorAtras==0) {
+                    contadorAtras =fotos.length;
+                    fotos[contadorAtras]="imagen1.jpg";
+                }
+                document.getElementById("foto").src =fotos[contadorAtras];
+                console.log(contadorAtras);
+                console.log(fotos[contadorAtras]);
+                
+                contadorAtras--;
+            },3000);
+            
+        }
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+            
+            boton1=document.getElementById("alante");
+            boton2=document.getElementById("Anterior");
+            if(document.readyState=='complete'){
+            boton1.addEventListener('click',pulsarSiguiente,false);
+            boton2.addEventListener('click',pulsarAtras,false);
+            }
+        }
+    </script>
+</body>
+
+</html>
