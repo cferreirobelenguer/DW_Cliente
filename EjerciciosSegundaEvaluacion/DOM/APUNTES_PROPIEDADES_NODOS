@@ -8,3 +8,31 @@ node.attributes: nos dice los atributos del nodo
 noce.nodeVale: nos dice el valor del nodo
 
 
+nodeType y nodeName
+___________________
+
+
+<body>
+  <h1>Introducción al DOM</h1>
+  <p> ¿Qué es el DOM?</p>
+  <ul id="dom">
+    <li>Document</li>
+    <li>Object</li>
+    <li>Model</li>
+ </ul>
+<script>
+//Muestra el número de hijos del elemento ul
+  var x=document.getElementById("dom").childNodes;
+  console.log("El número de elementos de lista son: "+x.length);
+  
+  for( var i=0;i<x.length;i++){
+    console.log("________________");
+    
+    //Muestra el tipo de nodo
+    console.loh("El tipo de nodo es :"+x[i].nodeType);
+    //Muestra el nombre del nodo
+    console.log("El nombre de nodo es : "+x[i].nodeName);
+  }
+  
+  
+  
