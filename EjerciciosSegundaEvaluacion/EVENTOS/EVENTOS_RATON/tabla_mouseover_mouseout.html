@@ -1,0 +1,43 @@
+
+<!--Crear un documento HTML inicialmente vacío, pero que al temrinar de generar el DOM
+inserte dinámicamente en el body una tabla de 5x5 celdas y mediante eventos, alterne el color
+de fondo de estas celdas cada vez que el usuario haga clic sobre ellas.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var cambios;
+    
+        function crear(){
+            //Se crea por DOM una tabla de 5x5
+            let elemento=document.createElement("table");
+            elemento.setAttribute('border',1);
+            document.body.appendChild(elemento);
+            for(let i=0;i<5;i++){
+                console.log('hola');
+                let tr=document.createElement("tr");
+                elemento.appendChild(tr);
+                for(let j=0;j<5;j++){
+                let td=document.createElement("td");
+                let texto=document.createTextNode("hola mundo");
+                tr.appendChild(td);
+                //Se crea evento onmouseover y onmouseout en cada celda
+                //Se alterna el rojo y blanco a medida que el usuario pasa el cursor por la celda o no
+                td.setAttribute('onmouseover',"this.style.backgroundColor='red'");
+                td.setAttribute('onmouseout',"this.style.backgroundColor='white'");
+                td.appendChild(texto);
+                }
+            }
+            cambios=document.getElementById("cambio");
+        
+        }
+        crear();
+    </script>
+</body>
+</html>
