@@ -1,0 +1,33 @@
+
+
+
+<!--Cmabiar el color de un h1 en función de su ek cursor pasa o no por el elemento-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="elemento_">Hola mundo</h1>
+    <script>
+        var elemento;
+        function cambiarRojo(){
+            elemento.style.color='red';
+        }
+        function cambiarAzul(){
+            elemento.style.color='blue';
+        }
+        document.addEventListener('readystatechange',cambiar,false);
+        function cambiar(){
+            elemento=document.getElementById("elemento_");
+            if(document.readyState=='complete'){
+            elemento.addEventListener('mouseover',cambiarRojo,false);
+            elemento.addEventListener('mouseout',cambiarAzul,false);
+            }
+        }
+    </script>
+</body>
+</html>
