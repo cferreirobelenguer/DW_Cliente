@@ -1,0 +1,26 @@
+
+onmouseover:
+
+Es cuando estamos encima de un elemento
+
+onmouseout:
+
+Es cuando salimos de ese elemento en el cursor.
+
+ejemplo:
+
+<h1 id="titulo'  onmouseover="rojo (this" onmouseout="azul(this)">
+  Manejo del DOM con Javascript
+</h1>
+</br>
+<script>
+  function rojo(titulo){
+    titulo.style.color='red';
+  }
+  function azul(titulo){
+    titulo.style.color='blue';
+  }
+ </script>
+
+El rotulo cambiará de rojo a blue en función de que el cursor pase o no pase por el elemento.
+
