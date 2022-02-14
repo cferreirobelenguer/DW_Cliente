@@ -1,5 +1,4 @@
 
-
 <!--Ejercicio 2:
 Dado el siguiente código html desarrollar el código script que permita:
     1. Obtener el valor del atributo ‘onclick’ del elemento botón. Para ello se utilizará uno de los  métodos DOM que permiten identificar un elemento dentro de un tipo de elemento html.
@@ -20,15 +19,19 @@ Dado el siguiente código html desarrollar el código script que permita:
         function Invocalaf(){
             //Obtener el atributo por getAttribute()
             let msg="";
-            msg+="VALOR DEL ATRIBUTO CON GetAttribute(): \n";
+        
             //Valor del atributo onclick con getAttribute
             let elemento=document.getElementsByTagName('button')[0];
-            let valor=elemento.getAttribute("onclick");
+            //Tipo de atributo
+            let nombre=elemento.getAttributeNames();
+            msg+="TIPO DE ATRIBUTO: "+nombre+"\n";
+            let valor=elemento.getAttribute(nombre);
+            msg+="VALOR DEL ATRIBUTO CON GetAttribute(): \n";
             msg+=valor+"\n";
             //Obtener el atributo pot GetNamedItem()
             msg+="<br>VALOR DEL ATRIBUTO CON GetNamedItem(): \n";
             let atributos=elemento.attributes;
-            let total=atributos.getNamedItem('onclick').value;
+            let total=atributos.getNamedItem(nombre).value;
             msg+=total+"\n";
             //El valor se muestra en el parrafo
             let parrafo=document.getElementsByTagName("p")[1];
