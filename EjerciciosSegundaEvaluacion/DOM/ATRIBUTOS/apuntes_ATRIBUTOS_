@@ -1,0 +1,171 @@
+
+Gestionar los atributos de un elemento
+______________________________________
+
+
+ A través del objeto Element, que posee propiedades asociadas a los principales atributos 
+que puede tener un elemento genérico HTML, podremos controlar las propiedades:
+
+ id
+ className
+ name
+ style
+ y title.
+
+ A través de los objetos de tipo HTMLxxxElement, podremos gestionar el resto de 
+propiedades que puede tener cada tipo de elemento en particular. 
+
+ También podemos gestionar cualquier atributo a través de la propiedad attributes (de 
+NamedNodemap) o de los métodos getAttribute(), setAttribute(), 
+removeAttribute() y hasAttribute().
+
+Nota: ¿Por qué molestarnos en aprender otras técnicas genéricas 
+para gestionar los atributos si los elementos del DOM ya nos ofrecen acceso 
+a ellos mediante propiedades? Porque recuerde que el DOM es aplicable 
+también a documentos XML, y en estos los elementos y atributos no están 
+predefinidos. Por ejemplo, si recibimos un documento XML mediante Ajax 
+nos resultará muy cómodo poder acceder a sus elementos y atributos con 
+los métodos del DOM.
+
+En la siguiente tabla se describen las propiedades genéricas.
+Propiedad Descripción
+id Lee o establece el atributo id del elemento. Recuerde que el id de cada 
+elemento debe ser exclusivo (no puede haber dos elementos con el mismo 
+id).
+
+className Lee o establece el atributo class del elemento. Pueden asignarse varias 
+clases a un elemento separando sus nombres con espacios.
+name Lee o establece el atributo name del elemento. No confundir con 
+nodeName, que lee el nombre del nodo (que en el caso de un nodo de 
+elemento es la etiqueta HTML correspondiente).
+title Lee o establece el atributo title del elemento. El valor de este atributo 
+se muestra como un mensaje de herramienta (tooltip) al colocar el puntero 
+del ratón sobre el elemento.
+style Es una referencia a un objeto cuyas propiedades coinciden con las 
+propiedades CSS configuradas para el elemento en su atributo style
+(recuerde del tema anterior que las declaraciones establecidas en el 
+atributo style poseen la máxima especificidad).
+10
+
+
+Por ejemplo, en el siguiente código tenemos un botón que cambia la clase del párrafo para aplicarle 
+un estilo diferente y otro que actúa directamente sobre su atributo style. 
+
+
+001 <!DOCTYPE html>
+002 <html>
+003 <head>
+004 <title>DOM</title>
+005 <style>
+006 .claseParrafo {color:red;}
+007 </style>
+008 </head>
+009 <body>
+010 <p id='parrafo'>El estilo de este p&aacute;rrafo est&aacute; 
+controlado por los botones.</p>
+011 <button type='button' 
+onclick='document.getElementById("parrafo").className="claseParrafo";'>Cambiar 
+clase</button>
+012 <button type='button' 
+onclick='document.getElementById("parrafo").style.color="green";'>Cambiar atributo 
+style</button>
+013 </body>
+014 </html>
+Para cualquier otra propiedad (atributo) que no sea alguna de las referenciadas anteriormente, 
+tendremos que recurrir a un procedimiento más general. En él disponemos de 2 opciones:
+1. Partiendo del objeto Element, usar sus métodos:
+ getAttribute(nombre), para leer el valor.
+ setAttribute(nombre,valor), para crear o modificar el valor.
+ removeAttribute(nombre)para eliminar el valor
+ hasAttribute(nombre) averiguar si existe un atributo. 
+Si intentamos obtener con getAttribute(nombre) un atributo que no existe 
+obtendremos el valor null; es conveniente comprobar previamente la existencia del 
+atributo con hasAttribute(nombre). Por ejemplo:
+001 <!DOCTYPE html>
+002 <html>
+003 <head>
+004 <title>DOM</title>
+005 <style>
+006 .claseParrafo {color:red;}
+007 </style>
+008 <script>
+009 function crearClase(){
+010 
+document.getElementById('parrafo').setAttribute('class','claseParrafo');
+011 }
+012 function leerClase(){
+013
+if(document.getElementById('parrafo').hasAttribute('class')){
+014
+alert(document.getElementById('parrafo').getAttribute('class'));
+015 }else{
+016 alert('No tiene clase');
+017 }
+018 }
+019 </script>
+020 </head>
+021 <body>
+022 <p id='parrafo'>El estilo de este p&aacute;rrafo est&aacute; 
+controlado por los botones.</p>
+023 <button type='button' onclick='crearClase();'>Crear clase</button>
+024 <button type='button' onclick='leerClase();'>Leer clase</button>
+025 </body>
+026 </html>
+
+
+
+2. Partiendo de la colección viva de nodos NamedNodeMap, podremos usar la propiedad 
+attributes que gestiona (lee y escribe) un tipo de dato compuesto por objetos de tipo 
+Attr, es decir, por objetos con las propiedades name y value. 
+En los namedNodeMap disponemos de los métodos:
+ getNamedItem(nombre) para obtener el atributo llamado nombre.
+ setNamedItem(objetoAttribute) para añadir o sustituir un atributo 
+asignándole un objeto de tipo Attribute. objetoAttribute es el objeto de tipo 
+Attribute devuelto por createAttribute(nombre).
+ removeNamedItem(nombre) para eliminar el atributo llamado nombre.
+Generalmente el uso de attributes resulta un poco incómodo, salvo cuando lo que nos 
+interese sea gestionar todos los atributos de un elemento.
+Nota: El objeto document nos proporciona el método 
+createAttribute(nombre)para crear un nodo de atributo, obsérvese que nombre
+en este método es una cadena.
+
+
+Por ejemplo:
+001 <!DOCTYPE html>
+002 <html>
+003 <head>
+004 <title>DOM</title>
+005 <style>
+006 .claseParrafo {color:red;}
+007 </style>
+008 <script>
+009 function crearAtributo(){
+010 atributo = document.createAttribute('class');
+011 atributo.nodeValue = 'claseParrafo';
+012
+document.getElementById('parrafo').attributes.setNamedItem(atributo);
+013 }
+014 function verAtributos(){
+015 var i;
+016 var respuesta = '';
+017 var atributos = 
+document.getElementById('parrafo').attributes;
+018 for (i=0;i<atributos.length;i++){
+019 respuesta += atributos[i].name + '=' + 
+atributos[i].value + '\n';
+020 }
+021 alert(respuesta);
+022 }
+023 </script>
+024 </head>
+025 <body>
+026 <p id='parrafo'>El estilo de este p&aacute;rrafo est&aacute; 
+controlado por los botones.</p>
+027 <button type='button' onclick='crearAtributo();'>Cambiar 
+clase</button>
+028 <button type='button' onclick='verAtributos();'>Ver todos los 
+atributos</button>
+029 </body>
+030 </html>
+
+
