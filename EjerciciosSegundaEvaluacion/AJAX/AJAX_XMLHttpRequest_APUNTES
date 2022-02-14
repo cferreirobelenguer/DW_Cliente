@@ -1,0 +1,74 @@
+
+
+Using XMLHttpRequest
+En esta guía le echaremos un vistazo a cómo usar XMLHttpRequest para enviar solicitudes HTTP con el objetivo de intercambiar datos entre el sitio web y el servidor. Se incluyen ejemplos, tanto para los casos de uso comunes de XMLHttpRequest, como para los más inusuales.
+
+Para enviar una solicitud HTTP, cree un objeto XMLHttpRequest, abra una URL y envíe la solicitud. Una vez que la transacción haya sido completada, el objeto contendrá información útil tal como el cuerpo de la respuesta y el estado HTTP del resultado.
+
+function reqListener () {
+  console.log(this.responseText);
+}
+
+var oReq = new XMLHttpRequest();
+oReq.addEventListener("load", reqListener);
+oReq.open("GET", "http://www.example.org/example.txt");
+oReq.send();
+Copy to Clipboard
+Solicitudes Síncronas y Asíncronas
+XMLHttpRequest soporta tanto comunicaciones síncronas como asíncronas.
+
+Nota: No deberias usar XMLHttpRequests síncronas porque, dada la naturaleza inherentemente asíncrona del intercambio de datos en las redes, hay multiples formas en que la memoria y eventos se puedan perder usando solicitudes síncronas.
+En versiones de Firefox anteriores a Firefox 3, (solicitudes) XMLHttpRequest síncronas bloqueaban la interfaz de usuario.  Con tal de permitirle al usuario terminar solicitudes congeladas, Firefox 3 ya no lo hace.
+
+Ejemplo: Solicitud síncrona
+Este ejemplo demuestra como hacer una solicitud síncrona.
+
+var req = new XMLHttpRequest();
+req.open('GET', 'http://www.mozilla.org/', false);
+req.send(null);
+if (req.status == 200)
+  dump(req.responseText);
+En la línea 1 se instancia un objeto XMLHttpRequest.  Después en la línea 2 se abre una nueva solicitud, especificando que una solicitud GET se utilizará para extraer la pagina de inicio de Mozilla.org, y que la operación no debe ser asíncrona.
+
+En la línea 3 se envía la solicitud.  El parámetro null indica que la solicitud GET no necesita contenido en el cuerpo.
+
+En la línea 4 se verifica el código de estatus después de que la transacción se completa.  Si el resultado es 200 -- El código HTTP para resultado "OK"-- el contenido de texto del documento se escribe en la consola.
+
+Ejemplo: Solicitudes síncronas no-HTTP
+A pesar de su nombre, XMLHttpRequest se puede usar para hacer solicitudes que no sean de HTTP.  Este ejemplo muestra como usarlo para extraer un archivo del sistemas de archivos local.
+
+var req = new XMLHttpRequest();
+req.open('GET', 'file:///home/user/file.json', false);
+req.send(null);
+if(req.status == 0)
+  dump(req.responseText);
+La clave aqui es notar que el estado del resultado se compara con 0 en lugar de 200.  Esto es porque los esquemas file y ftp no usan los codigos de resultado de HTTP.
+
+Ejemplo: Solicitudes asíncronas
+Si usas XMLHttpRequest desde una extensión, deberias usarla asíncronamente.  En este caso, recibiras una llamada de regreso cuando se hallan recibido los datos, lo cual permite al navegador continuar trabajando con normalidad mientras se maneja tu solicitud.
+
+var req = new XMLHttpRequest();
+req.open('GET', 'http://www.mozilla.org/', true);
+req.onreadystatechange = function (aEvt) {
+  if (req.readyState == 4) {
+     if(req.status == 200)
+      dump(req.responseText);
+     else
+      dump("Error loading page\n");
+  }
+};
+req.send(null); 
+La linea 2 especifica true en su tercer parametro indicando que la solicitud debe manejarse asíncronamente.
+
+Line 3 crea un objeto función para manejar eventos y lo asigna al atributo de la solicitud onreadystatechange.  Este manejador observa el readyState de la solicitud verificando si la transacción se ha completado en la linea 4, si así es, y el estatus HTTP es 200, imprime el contenido recibido.  Si ocurrió un error, se muestra un mensaje de error.
+
+La linea 11 de hecho inicia la solicitud.  La función onreadystatechange es llamada siempre que el estado de una solicitud cambia.
+
+Analizando y Manipulando el Texto de Respuesta HTML
+Si usas XMLHttpRequest para obtener el contenido de una página HTML remota, el responseText (texto de la respuesta) sera una cadena que contenga una "sopa" de etiquetas HTML, lo que puede ser dificil de analizar y manipular. Existen tres maneras principales de analizar estas cadenas HTML
+
+Analizar con nsIScriptableUnescapeHTML repidamente convertira la cadena HTML en DOM, al mismo tiempo que tira javascript y otros elementos avanzados, incluyendo la etiqueta <head> de la página.
+RegExp se puede usar si de antemano conoces el HTML que vendra en el responseText. Quizas quieras remover los saltos de linea, si usas RegExp para escanear considerandolos. Sin embargo, este metodo es un "ultimo recurso" ya que si el HTML cambia ligeramente, posiblemente fallara.
+Usar un hidden chrome o un content-level iframe para cargar toda la pagina también se puede hacer para manipularla luego como DOM, sin embargo existen riesgos de seguridad al dar a código remoto este nivel de acceso privilegiado, que puede causar problemas en la revisión de tu addon. Por ejemplo, si una pagina ejecuta el comando común "document.location = redirecttothispage.html" para cargar, esto se interpretara como cambiar la locación del navegador (document.location en una extensión) en contraposición a la locación de una página web (content.document.location en una extensión), y en consecuecia destruir todos los componentes del navegador. Alternativamente, y de algun modo mas seguro, una cadena responseText adquirida mediante XMLHttpRequest se puede analizar con RegExp para remover problemas de javascript, luego cargada en un iframe oculto previamente  establecido:
+document.getElementById('hiddenXULiframe').contentWindow.document.body.innerHTML = req.responseText
+Usi
