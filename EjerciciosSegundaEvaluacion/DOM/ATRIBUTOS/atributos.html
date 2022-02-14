@@ -1,0 +1,59 @@
+
+
+
+<!--EJEMPLO DE NamedNodeMap:
+Dado el siguiente código html desarrollar el código script que, utilizando el tipo de datos NamedNodeMap permita:
+    1. Mediante una función crear un atributo “class” para el párrafo.
+    2. Mediante otra función obtener y visualizar en un alert los atributos del elemento párrafo.-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<style>
+			.claseParrafo {color:red;}
+		</style>
+		<script>
+		</script>
+	</head>
+	<body>
+		<p id='parrafo' class="hola">El estilo de este p&aacute;rrafo est&aacute; controlado por los botones.</p>		
+		<button type='button' id="boton1">Cambiar clase</button>
+		<button type='button' id="boton2">Ver todos los atributos</button>
+        <script>
+            var parrafo;
+            var boton1;
+            var boton2;
+            //En este ejercicio usamos los métodos de  namedNodeMap: getNamedItem y setNamedItem
+            document.addEventListener('readystatechange',inicializar,false);
+
+            function crearAtributo(){
+                //Se crea el atributo claseParrafo
+                //Cogemos los atributos de parrafo
+                let total=parrafo.attributes;
+                //Creamos un atributo de class
+                let atributo=document.createAttribute('class');
+                //Le damos un valor
+                atributo.nodeValue=('claseParrafo');
+                //Añadimos ese atributo
+                total.setNamedItem(atributo);
+            }
+            function verAtributos(){
+                //Visualizamos el atributo creado con getNamedItem
+                let atributos=parrafo.attributes;
+                //parrafo.innerHTML=atributos.getNamedItem('id').value;
+                parrafo.innerHTML=atributos.getNamedItem('class').value;
+            }
+            function inicializar(){
+                //Nos situamos en los elementos y cuando el documento pasa en estado complete se llama a los eventos click de los botones
+                if(document.readyState=='complete'){
+                    parrafo=document.getElementById("parrafo");
+                    boton1=document.getElementById("boton1");
+                    boton2=document.getElementById("boton2");
+                    boton1.addEventListener('click',crearAtributo,false);
+                    boton2.addEventListener('click',verAtributos,false);
+                }
+            }
+
+        </script>
+	</body>
+</html>
