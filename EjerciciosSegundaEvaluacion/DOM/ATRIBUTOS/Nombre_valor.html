@@ -1,0 +1,47 @@
+
+
+
+<!--Ejercicio 1: 
+Dado el siguiente código html desarrollar el código script que permita:
+    1. Averiguar si el elemento párrafo tiene atributos.
+    2. Mostrar en la caja de texto el nombre de la propiedad y su valor.-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo uso Attributes</title>
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <p id="paragraph" style="color: green;">Párrafo sencillo</p>
+    <form action="">
+        <p>
+            <input type="button" value="Muestra el nombre y valor del primer attribute" onclick="listAttributes();">
+            <input id="result" type="text" size="50" maxlentgth="100" value="">
+        </p>
+    </form>
+    <script>
+        function listAttributes(){
+            
+            let elemento=document.getElementById("paragraph");
+            if(elemento.hasAttribute('id')){
+            let atributos=elemento.attributes;
+            console.log(atributos[0]);
+            let msg="";
+            //Con getAttributeNames obtenemos el nombre de los tipos de atributos
+            let nombre=elemento.getAttributeNames();
+            msg+=nombre+" : ";
+            for(let i=0;i<nombre.length;i++){
+                //Recorremos los tipos de atributos y obtenemos su valor con la propiedad
+                //NameNodeItem  getNamedItem
+                msg+=atributos.getNamedItem(nombre[i]).value+" ";
+            }
+            document.getElementById("result").value=msg;
+            }
+        }
+    </script>
+</body>
+
+</html>
