@@ -1,0 +1,75 @@
+<!-- Poner en el input un artista y mostrar el título de su album en el párrafo,
+mediante AJAX y un documento XML-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <input type="text"/>
+        </p>
+        <input type="button" id="boton" value="mostrar"/>
+    </form>
+    
+    <p id="parrafo"></p>
+
+    <script>
+        var parrafo;
+        var texto;
+        var boton;
+    
+
+        function generarAjax(event){ 
+            texto=document.getElementsByTagName('input')[0].value;
+            //console.log(texto);
+            if(texto!=''){
+                texto.disabled=true;
+                parrafo.innerHtml="";
+                const xhr=new XMLHttpRequest();
+                xhr.addEventListener('readystatechange',generar,false);
+                xhr.open('POST','cd.xml',true);
+                xhr.send();
+            }else{
+                texto='';
+                parrafo.innerHtml="Error, artista no encontrado";
+            }
+        }
+        function generar(event){
+            if(event.target.readyState==4 && event.target.status==200){
+                let msg="";
+                texto.disabled=true;
+                parrafo.desabled=true;
+                let resultado=this.responseXML;
+                //console.log(resultado);
+                let cd=resultado.getElementsByTagName("CD");
+
+                msg+="RESULTADOS DE LA BÚSQUEDA: \n";
+                for(let i=0;i<cd.length;i++){
+                    //console.log(cd[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue);
+                    if(texto==cd[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue ){
+                        console.log(cd[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue);
+                        console.log(cd[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue);
+                        msg+=cd[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue ;
+                    }
+                }
+                parrafo.innerHTML=msg;
+            }
+        }
+
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+
+            if(document.readyState=='complete'){
+                parrafo=document.getElementsByTagName('p')[0];
+                boton=document.getElementById("boton");
+                boton.addEventListener('click',generarAjax,false);
+            }
+        }
+    </script>
+</body>
+</html>
