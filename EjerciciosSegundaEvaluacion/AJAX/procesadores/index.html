@@ -1,0 +1,81 @@
+
+<!--Pasar los datos del xml cpus.xml a html. Se introduce en una caja el fabricante
+y cuando se pulsa visualizar se imprimen los procesadores de ese fabricante.-->
+<!DOCTYPE HTML>
+<HTML>
+<head><meta charset="UTF-8">
+<TITLE>HTML HACIA XML CON XHR</TITLE>
+
+<body>
+<form name="form0">
+<label>FABRICANTE DEL PROCESADOR</label>
+<BR><input type="textbox" value=""><BR><BR>
+<input type="button" id="bton" value="Visualizar"><BR><BR>
+<textarea id="modelos" rows="20" cols="30"></textarea>
+</form>
+<script>
+    
+    
+    var texto="";
+    var boton;
+    var caja;
+    
+    function generarAjax(event){
+        texto=document.getElementsByTagName("input")[0].value;
+        console.log(texto);
+        
+        if(texto!=''){  //Si hay contenido se ejecuta la condición
+        document.getElementById("modelos").value=""; //Limpiamos el textarea
+        texto.disabled=true;
+        const xhr=new XMLHttpRequest();
+        //Se carga la respuesta xml 
+        xhr.addEventListener('readystatechange',cargarXML,false);
+        //Se hace la petición GET de forma asíncrona
+        xhr.open("GET","cpus.xml",true);
+        xhr.send();
+        }
+    }
+    function cargarXML(event){
+        //Cuando la petición finaliza y está lista y el status es Ok, en ese caso se cumple la condición
+            if (event.target.readyState==4 && event.target.status==200){
+            //console.log(event.target.readyState);
+            //console.log(event.target.status);
+            var documento=event.target.responseXML;
+            //Nos situamos en procesador que es un array de objetos
+            let procesadores=documento.getElementsByTagName("procesador");
+            let msg="";
+            msg+="----Procesadores "+texto+"----\n";
+            for(let i=0;i<procesadores.length;i++){
+                //Con getAttribute accedemos en cada una de las etiquetas
+                //Nos situamos en la etiqueta fabricante para compararla con el texto de la caja
+                let datos=procesadores[i].getAttribute("fabricante");
+                
+                if(texto==datos){
+                    //console.log(procesadores[i]);
+                    //Accedemos a cada una de las etiquetas
+                    msg+="Fabricante: "+procesadores[i].getAttribute('fabricante')+"\n";
+                    msg+="Serie: "+procesadores[i].getAttribute('serie')+"\n";
+                    msg+="Modelo: "+procesadores[i].getAttribute('modelo')+"\n";
+                    msg+="Nucleos: "+procesadores[i].getAttribute('nucleos')+"\n";
+                    msg+="Caché: "+procesadores[i].getAttribute('cache')+"\n";
+                    msg+="Frecuencia: "+procesadores[i].getAttribute('frecuencia')+"\n";
+                    msg+="--------------------\n";
+                }
+            }
+            
+            document.getElementById("modelos").value=msg;
+            }
+    }
+    document.addEventListener("readystatechange",inicializar,false);
+    function inicializar(){
+        if(document.readyState=='complete'){
+            boton=document.getElementById("bton");
+            boton.addEventListener('click',generarAjax,false);
+        }
+
+    }
+</script>
+</body>
+</html>
+
+
