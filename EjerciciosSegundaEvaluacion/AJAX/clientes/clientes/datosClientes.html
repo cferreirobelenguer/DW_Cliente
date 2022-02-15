@@ -1,0 +1,82 @@
+<!--Introducir un nombre, y mostrar en formato tabla en un parrafo
+el nombre, dni y calle  cogiendo  los datos de un json mediante ajax-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p><input type="text"/></p>
+        <input type="button" id="boton" value="mostrar"/>
+    </form>
+    <p id="parrafo"></p>
+    <script>
+        var texto;
+        var parrafo;
+        var boton;
+        function generarAjax(event){
+            texto=document.getElementsByTagName("input")[0];
+            
+            if(texto.value!=''){
+                texto.disabled=true;
+                const xhr=new XMLHttpRequest();
+                xhr.addEventListener('readystatechange',generar,false);
+                xhr.open('GET','clientes.json',true);
+                xhr.send();
+            }else{
+                texto="";
+                parrafo.innerHTML="Error, no se encuentra el dato";
+            }
+        }
+        function generar(event){
+            if(event.target.readyState==4 && event.target.status==200){
+            texto.disabled=false;
+            let dato=JSON.parse(event.target.responseText);
+            console.log(dato);
+            let info=dato[texto.value];
+            console.log(info);
+            //Creamos tabla por DOM
+            let tabla=document.createElement('table');
+            tabla.setAttribute('border',1);
+            parrafo.appendChild(tabla);
+            let nombre=document.createElement('th');
+            let textoNombre=document.createTextNode('Nombre');
+            tabla.appendChild(nombre);
+            nombre.appendChild(textoNombre);
+
+            let dni=document.createElement('th');
+            let textodni=document.createTextNode('DNI');
+            tabla.appendChild(dni);
+            dni.appendChild(textodni);
+
+            let calle=document.createElement('th');
+            let textocalle=document.createTextNode('Calle');
+            tabla.appendChild(calle);
+            calle.appendChild(textocalle);
+            let fila=document.createElement('tr');
+            for(let total of info){
+                
+                let columna=document.createElement('td');
+                let contenido=document.createTextNode(total);
+                columna.appendChild(contenido);
+                fila.appendChild(columna);
+                
+            }
+            tabla.appendChild(fila);
+            }
+        }
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+            if(document.readyState=='complete'){
+                parrafo=document.getElementById("parrafo");
+                boton=document.getElementById("boton");
+                boton.addEventListener('click',generarAjax,false);
+            }
+        }
+    </script>
+</body>
+</html>
