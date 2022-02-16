@@ -1,0 +1,52 @@
+<!-- Introducir un nombre de usuario, conectar el documento html con ajax y mostrar 
+el resultado del documento php que crea un valor si o no aleatorio. 
+VERSIÓN CON GET-->
+<html>
+    <head>
+        
+        </head>
+        <body>
+            <form >
+                <table>
+                    <tr>
+                        <td>Nombre de usuario:</td>	
+                        <td><input type="text" name="Nombre" id="caja"></td>	
+                        <td><a href="#" id="enlace">Comprobar disponibilidad</a></td>	
+                    </tr>
+                </table>
+                
+            </form>
+            <script>
+            var nombre;
+            var enlace;
+
+            function generarAjax(event){
+                if(nombre.value!=''){
+                    nombre.disabled=true;
+                    const xhr=new XMLHttpRequest();
+                    xhr.addEventListener('readystatechange',generar,false);
+                    xhr.open('GET','ajax.php',true);
+                    xhr.send(null);
+                }
+            }
+            function generar(event){
+                console.log(event.target.readyState);
+                console.log(event.target.status);
+                if(event.target.readyState==4 && event.target.status==200){
+                    nombre.disabled=false;
+                    let resultado=event.target.responseText;
+                    console.log(resultado);
+                    nombre.value=resultado;
+                }
+            }
+            document.addEventListener('readystatechange',inicializar,false);
+            function inicializar(){
+                if(document.readyState=='complete'){
+                    nombre=document.getElementById('caja');
+                    enlace=document.getElementById('enlace');
+                    nombre.addEventListener('change',generarAjax,false);
+                }
+            }
+            </script>
+        </body>
+</html>
