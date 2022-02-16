@@ -1,0 +1,92 @@
+
+Objeto FormData:
+
+formdata
+
+1. Crear una instancia de objeto formData
+1. Crear un objeto vacío
+
+var formData = new FormData (); // Agregar datos a través del método append
+ 2. Use un formulario existente para inicializar el objeto
+
+// Ejemplo de formulario
+<form id="myForm" action="" method="post">
+         <input type = "text" name = "name"> Nombre
+         <input type = "password" name = "psw"> Contraseña
+         <input type = "submit" value = "Submit">
+</form>
+ 
+<script>
+ // Ejemplo de método
+ // Obtenga un formulario existente en la página
+var form = document.getElementById("myForm");
+ // inicializar con formulario
+var formData = new FormData(form);
+ // Podemos acceder a los campos en el formulario en función del nombre
+ var name = formData.get ("name"); // Obtenga el nombre
+ var psw = formData.get ("psw"); // obtener contraseña
+ // Por supuesto, puede agregar otros datos sobre esta base
+formData.append("token","kshdfiwi3rh");
+</script>
+
+
+2. Método de operación
+
+Los datos almacenados en formData existen en forma de pares de valores saludables, la clave es única y 
+una clave puede corresponder a múltiples valores. Un
+Si se utiliza la inicialización del formulario, cada campo del formulario corresponde a un dato, su atributo
+de nombre HTML es el valor clave y su atributo de valor corresponde al valor del valor. Un
+
+
+
+1. Obtenga el valor
+
+// Obtenga el valor correspondiente a través de get (clave) / getAll (clave)
+ formData.get ("nombre"); // Obtenga el primer valor con clave como nombre
+ formData.getAll ("name"); // Devuelve una matriz para obtener todos los valores con clave como nombre
+ 2 Agregar datos
+
+/ Agregar datos por agregar (clave, valor), si la clave especificada no existe, se agregarán datos nuevos, si la clave existe, se agregará al final de los datos
+formData.append("k1", "v1");
+formData.append("k1", "v2");
+formData.append("k1", "v3");
+
+El método y el resultado al obtener el valor son los siguientes
+
+formData.get("k1"); // "v1"
+formData.getAll("k1"); // ["v1","v2","v3"]
+
+
+
+ 3. Establecer y modificar datos
+
+// set (clave, valor) para establecer los datos modificados, si la clave especificada no existe, se agregará una nueva, 
+si existe, se modificará el valor correspondiente
+formData.append("k1", "v1");
+formData.set("k1", "1");
+formData.getAll("k1"); // ["1"]
+
+
+
+4. Determine si hay datos correspondientes
+
+// tiene (clave) para determinar si el valor clave correspondiente
+formData.append("k1", "v1");
+formData.append("k2",null);
+ 
+formData.has("k1"); // true
+formData.has("k2"); // true
+formData.has("k3"); // false
+
+
+5. Eliminar datos
+
+// eliminar (clave) eliminar datos
+formData.append("k1", "v1");
+formData.append("k1", "v2");
+formData.append("k1", "v1");
+formData.delete("k1");
+ 
+formData.getAll("k1");
+
+
