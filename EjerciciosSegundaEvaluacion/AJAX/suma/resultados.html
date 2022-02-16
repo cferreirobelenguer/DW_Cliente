@@ -1,0 +1,67 @@
+<!--Mostrar suma de dos números que se cogen por POST 
+introducidos por cajas de texto.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Introduce número</label>
+            <input type="number" id="numero1"/>
+        </p>
+        <p>
+            <label for="">Introduce número</label>
+            <input type="number" id="numero2"/>
+        </p>
+        <input type="button" id="boton" value="Sumar"/>
+
+    </form>
+        <p></p>
+    <script>
+        var numero1;
+        var numero2;
+        var boton;
+
+        function generarAjax(event){
+            if(numero1.value!='' & numero2.value!=''){
+                numero1.disabled=true;
+                numero2.disabled=true;
+                const xhr=new XMLHttpRequest();
+                xhr.addEventListener('readystatechange',generar,false);
+                xhr.open('POST','suma.php',true);
+                xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhr.send('valorCaja1='+numero1.value+'&valorCaja2='+numero2.value);
+            }else{
+                numero1.value='';
+                numero2.value='';
+            }
+        }
+        function generar(event){
+            if(event.target.readyState==4 && event.target.status==200){
+                numero1.disabled=false;
+                numero2.disabled=false;
+                let resultado=event.target.responseText;
+                console.log(numero1.value);
+                console.log(numero2.value);
+                console.log(resultado);
+                let parrafo=document.getElementsByTagName('p')[0].innerHTML=resultado;
+
+            }
+        }
+        document.addEventListener('readystatechange', inicializar, false);
+        function inicializar(){
+            if(document.readyState=='complete'){
+                numero1=document.getElementById('numero1');
+                numero2=document.getElementById('numero2');
+                boton=document.getElementById('boton');
+                boton.addEventListener('click',generarAjax,false);
+            }
+        }
+    </script>
+</body>
+</html>
