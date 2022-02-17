@@ -1,0 +1,123 @@
+<!--
+EJERCICIO BIBLIOTECA:
+Tengo el formulario biblioteca, relleno los datos,(formulario con titulo,autor,año publicacion,editorial,existencias)
+creo el objeto libro: por ejemplo:
+libro=new Book();
+
+Cuando le doy a consultar tengo que crear el objeto libro
+con esos datos, a partir de ahí hago un envio de petición ajax, envío el objeto creado llamado por ejemplo libro1,
+envío ese objeto en el send habría que hacer un json.stringfy(libro)
+se envía en send el objeto para que el json lo almacene,este paso está en generarAjax;
+nos devuelve el php el objeto json, en la respuesta identifico el objeto json.
+En consultar se consulta lo que recibe del servidor.
+alert(ObjetoRespuesto.titulo.existencias)
+En gestionar (que es la función de gestionar respuesta) se hace el ObjetoRespuesta=JSON.Parse(del responseText);-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formulario">
+        <p>
+            <label for="libro">Título</label>
+            <input type="text" id="titulo" name="titulo"/>
+        </p>
+        <p>
+            <label for="libro">Autor</label>
+            <input type="text" id="autor" name="autor"/>
+        </p>
+        <p>
+            <label for="libro">Año</label>
+            <input type="text" id="ano" name="ano"/>
+        </p>
+        <p>
+            <label for="libro">Publicación</label>
+            <input type="text" id="publicacion" name="publicacion"/>
+        </p>
+        <p>
+            <label for="libro">Editorial</label>
+            <input type="text" id="editorial" name="editorial"/>
+        </p>
+        <p>
+            <label for="libro">Existencias</label>
+            <input type="text" id="existencias" name="existencias"/>
+        </p>
+        <input type="button" id="consultar" value="consultar"/>
+        <p id='parrafo'></p>
+    </form>
+    <script>
+        var insertar;
+        var consulta;
+        var autor;
+        var ano;
+        var publicacion;
+        var editorial;
+        var existencias;
+        var xhr;
+        var respuesta;
+        
+        function biblio(titulo,autor,ano,publicacion,editorial,existencias){
+            this.titulo=titulo;
+            this.autor=autor;
+            this.ano=ano;
+            this.publicacion=publicacion;
+            this.editorial=editorial;
+            this.existencias=existencias;
+        }
+    
+        
+        function generarAjax(evento){
+            titulo=document.getElementById('titulo').value;
+            autor=document.getElementById('autor').value;
+            ano=document.getElementById('ano').value;
+            publicacion=document.getElementById('publicacion').value;
+            editorial=document.getElementById('editorial').value;
+            existencias=document.getElementById('existencias').value;
+
+            var libro=new biblio(titulo,autor,ano,publicacion,editorial,existencias);
+            console.log(libro);
+            xhr=new XMLHttpRequest();
+            xhr.addEventListener('readystatechange',generar,false);
+            xhr.open('POST','php-biblioteca.php',true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(JSON.stringify(libro));
+            
+        }
+        function generar(evento){
+            console.log(evento.target.readyState);
+            console.log(evento.target.status);
+            if(evento.target.readyState==4 && evento.target.status==200){
+                respuesta=JSON.parse(event.target.responseText);
+                console.log(respuesta);
+                document.getElementById('titulo').value=respuesta.titulo;
+                document.getElementById('autor').value=respuesta.autor;
+                document.getElementById('ano').value=respuesta.ano;
+                document.getElementById('publicacion').value=respuesta.publicacion;
+                document.getElementById('editorial').value=respuesta.editorial;
+                document.getElementById('existencias').value=respuesta.existencias;
+            let msg='';
+            msg+='Datos del libro '+respuesta.titulo+' :<br>';
+            msg+='Título: '+respuesta.titulo+'<br>';
+            msg+='Autor: '+respuesta.autor+'<br>';
+            msg+='Año: '+respuesta.ano+'<br>';
+            msg+='TPublicación: '+respuesta.publicacion+'<br>';
+            msg+='Editorial: '+respuesta.editorial+'<br>';
+            msg+='Existencias: '+respuesta.existencias+'<br>';
+            document.getElementById('parrafo').innerHTML=msg;
+            }
+        }
+
+        document.addEventListener('readystatechange',inicializar,false);
+        function inicializar(){
+            if(document.readyState=='complete'){
+                consulta=document.getElementById('consultar');
+                consulta.addEventListener('click',generarAjax,false);
+            }
+        }
+    </script>
+</body>
+</html>
