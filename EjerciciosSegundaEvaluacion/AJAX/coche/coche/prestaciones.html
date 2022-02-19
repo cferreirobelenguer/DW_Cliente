@@ -1,0 +1,212 @@
+<!--Ejercicio en el que se recogen datos de un formulario relacionados con datos de un vehículo,
+cuando se pulsa enviar se crea un objeto, se genera por evento de oyente una petición ajax y por post
+se manda el objeto para que lo convierta en JSON. Las existencias son aleatorias ( si o no ).
+Se genera respuesta en JSON y se pasan los datos a un array.
+Cuando pulsamos consultar, se escribe en la caja de texto de modelo el coche que se desea consultar y se muestra si 
+hay existencias o no y sus datos.-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id=formulario>
+        <p>
+            <label for="marca">Marca:</label>
+            <input type="text" name="marca" id="marca" />
+        </p>
+        <p>
+            <label for="marca">Color:</label>
+            <input type="text" name="color" id="color" />
+        </p>
+        <p>
+            <label for="marca">Modelo:</label>
+            <input type="text" name="modelo" id="modelo" />
+        </p>
+        <p>
+            <label for="marca">Caballos:</label>
+            <input type="text" name="caballos" id="caballos" />
+        </p>
+
+        <input type="button" id="enviar" value="ENVIAR" />
+        <input type="consultar" id="consultar" value="CONSULTAR" />
+    </form>
+    <p id="parrafo"></p>
+    <script>
+        var marca;
+        var color;
+        var modelo;
+        var caballos;
+        var enviar;
+        var consultar;
+        var existencias;
+        var imagen;
+        var datos = [];
+
+        function concesionario(marca, color, modelo, caballos, existencias, imagen) {
+            this.marca = marca;
+            this.color = color;
+            this.modelo = modelo;
+            this.caballos = caballos;
+            this.imagen = modelo + ".jpg";
+            //Existencias es un random que dice si hay o no existencias
+            let num = Math.round(Math.random() * (1 - 0) - 0);
+            if (num == 0) {
+                this.existencas = 'no';
+            } else {
+                this.existencias = 'si';
+            }
+
+        }
+
+        function generarAjax(event) {
+            //Se genera la petición , se envían los datos a php como objeto y este los lleva a un JSON
+            marca = document.getElementById('marca').value;
+            color = document.getElementById('color').value;
+            modelo = document.getElementById('modelo').value;
+            caballos = document.getElementById('caballos').value;
+            var coche = new concesionario(marca, color, modelo, caballos);
+            const xhr = new XMLHttpRequest();
+            xhr.addEventListener('readystatechange', generar, false);
+            xhr.open('POST', 'archivo.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.send(JSON.stringify(coche));
+            limpiar();
+
+        }
+
+        function generar(event) {
+            //Se genera respuesta cuando el documento esté cargado y se procese correctamente la petición
+            if (event.target.readyState == 4 && event.target.status == 200) {
+                let resultado = JSON.parse(event.target.responseText);
+                console.log(resultado);
+                datos.push(resultado);
+                //Se agregan los json a un array
+                console.log(datos);
+            }
+        }
+
+        function limpiar() {
+            for (let i = 0; i < 5; i++) {
+                document.getElementsByTagName('input')[i].value = '';
+            }
+        }
+
+        function consultaInfo(event) {
+
+            //Se consultan los datos por modelo y se dice si hay existencias o no
+            let consulta = prompt('Introduce modelo a buscar');
+            let consultaExistencias = "";
+            let consultaModelo;
+            let consultaMarca;
+            let consultaColor;
+            let consultaCaballos;
+            let resultadoExistencias;
+            let imagen;
+            let encontrado = false;
+            //Creamos la tabla en parrafo
+            let tabla = document.createElement('table');
+            tabla.setAttribute('border', 1);
+            let titulo1 = document.createElement('th');
+            let titulo1texto = document.createTextNode('MARCA');
+            let titulo2 = document.createElement('th');
+            let titulo2texto = document.createTextNode('MODELO');
+            let titulo3 = document.createElement('th');
+            let titulo3texto = document.createTextNode('COLOR');
+            let titulo4 = document.createElement('th');
+            let titulo4texto = document.createTextNode('CABALLOS');
+            let titulo5 = document.createElement('th');
+            let titulo5texto = document.createTextNode('EXISTENCIAS');
+            for (let j of datos) {
+
+                if (consulta == j.modelo) {
+                    consultaExistencias = j.existencias;
+                    consultaModelo = j.modelo;
+                    consultaMarca = j.marca;
+                    consultaColor = j.color;
+                    consultaCaballos = j.caballos;
+                    imagen = j.imagen;
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (encontrado == true) {
+                titulo1.appendChild(titulo1texto);
+                titulo2.appendChild(titulo2texto);
+                titulo3.appendChild(titulo3texto);
+                titulo4.appendChild(titulo4texto);
+                titulo5.appendChild(titulo5texto);
+                tabla.appendChild(titulo1);
+                tabla.appendChild(titulo2);
+                tabla.appendChild(titulo3);
+                tabla.appendChild(titulo4);
+                tabla.appendChild(titulo5);
+                let fila1 = document.createElement('tr');
+                //Se comprueban las existencias
+                if (consultaExistencias == 'si') {
+                    resultadoExistencias = 'Hay existencias del producto solicitado';
+                } else if (consultaExistencias == undefined) {
+                    resultadoExistencias = 'No hay existencias del producto solicitado';
+                }
+
+                let columna1 = document.createElement('td');
+                let texto1 = document.createTextNode(consultaMarca);
+                columna1.appendChild(texto1);
+                fila1.appendChild(columna1);
+
+                let columna2 = document.createElement('td');
+                let texto2 = document.createTextNode(consultaModelo);
+                columna2.appendChild(texto2);
+                fila1.appendChild(columna2);
+
+                let columna3 = document.createElement('td');
+                let texto3 = document.createTextNode(consultaColor);
+                columna3.appendChild(texto3);
+                fila1.appendChild(columna3);
+
+                let columna4 = document.createElement('td');
+                let texto4 = document.createTextNode(consultaCaballos);
+                columna4.append(texto4);
+                fila1.appendChild(columna4);
+
+                let columna5 = document.createElement('td');
+                let texto5 = document.createTextNode(resultadoExistencias);
+                columna5.appendChild(texto5);
+                fila1.appendChild(columna5);
+                tabla.appendChild(fila1);
+
+                parrafo.appendChild(tabla);
+                //Se crea la imagen si existe
+                if (imagen != undefined) {
+                    let crearImagen = document.createElement('img');
+                    crearImagen.setAttribute('src', imagen);
+                    crearImagen.setAttribute('with', 200);
+                    crearImagen.setAttribute('heigth', 200);
+                    parrafo.appendChild(crearImagen);
+                }
+            } else {
+                parrafo.innerHTML = 'No se encontraron ocurrencias';
+            }
+        }
+
+        document.addEventListener('readystatechange', inicializar, false);
+
+        function inicializar() {
+            if (document.readyState == 'complete') {
+                enviar = document.getElementById('enviar');
+                consultar = document.getElementById('consultar');
+                enviar.addEventListener('click', generarAjax, false);
+                consultar.addEventListener('click', consultaInfo, false);
+            }
+        }
+    </script>
+</body>
+
+</html>
