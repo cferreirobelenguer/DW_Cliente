@@ -1,5 +1,3 @@
-
-
 <!--EJERCICIO 4
 Normalmente, cuando se valida la disponibilidad de un nombre de usuario, 
 se muestra una lista de valores alternativos en el caso de que el nombre elegido 
@@ -75,7 +73,7 @@ Modificar la lista anterior para que muestre enlaces para cada uno de los nombre
 
         function generar(event) {
             if (event.target.readyState == 4 && event.target.status == 200) {
-                let contador = 0;
+                
                 console.log(event.target.readyState);
                 console.log(event.target.status);
                 login.disabled = false;
@@ -100,7 +98,7 @@ Modificar la lista anterior para que muestre enlaces para cada uno de los nombre
                         enlaces.appendChild(contenido);
                         listado.appendChild(enlaces);
                         lista.appendChild(listado);
-                        contador++;
+                        
                     }
 
                 }
