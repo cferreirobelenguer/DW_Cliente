@@ -1,0 +1,89 @@
+
+<!-- Calcular el total de una compra en función de si coges aire=750, elevalunas=400
+radio=250, si pulsas cacular hay que poner el total en la caja correspondiente.
+Si se pulsa ver se crea una nueva ventana con los datos del formulario a modo factura-->
+</head>
+<body>
+<CENTER>
+<form name="CONTROLES">
+<a>DATOS DEL PEDIDO</a>
+<p><b>Nombre y Apellidos:</b>
+<input type="textbox" name="nombre">
+<p><b>Forma de pago:</b><b>
+<input type="radio" name="GRUPORADIO" value="Mensual"></b>Mensual
+<input type="radio" name="GRUPORADIO" value="Trimestral">Trimestral
+<input type="radio" name="GRUPORADIO" value="Anual">Anual
+</p>
+<p><b>Accesorios</b><b>: 
+<input type="checkbox" name="AIRE" value="Aire Acondicionado"></b>Aire Acondicionado 
+<input type="checkbox" name="ELEVALUNAS" value="Elevalunas Eléctrico">Elevalunas Eléctrico
+<input type="checkbox" name="RADIO" value="RadioCD">RadioCD
+</p> 
+ 
+<input type="button" value="Calcular" name="Calcular"> 
+<b>TOTAL:</b> <input type="text" name="TOTAL" size="10" value=0 READONLY>Euros
+<input type="button" value="Ver selecciones" name="VER">
+</form>
+</CENTER>
+
+<script>
+
+    var calculo;
+    var ver;
+    var nombre;
+    var pago;
+    var accesorios;
+    
+
+    calculo=document.getElementsByName('Calcular')[0];
+    ver=document.getElementsByName('VER')[0];
+    //Evento del botón calcular que calcula el precio total
+    //Si el artículo es aire son 750, si es elevalunas son 400 y si es radio son 250
+    calculo.addEventListener('click',(event)=>{
+        let total=0;
+        if(document.getElementsByName('AIRE')[0].checked){
+            console.log('aire');
+            total=total+750;
+            console.log(total);
+        } else if(document.getElementsByName('ELEVALUNAS')[0].checked){
+            console.log('elevalunas');
+            console.log(total);
+            total=total+400;
+        } else if(document.getElementsByName('RADIO')[0].checked){
+            console.log('radio');
+            total=total+250;
+            console.log(total);
+        }
+        
+        document.CONTROLES.TOTAL.value=total;
+    }, false);
+    //Evento del botón ver que muestra las selecciones en una nueva ventana
+    ver.addEventListener('click',(event)=>{
+        //Datos de nombre por text
+        nombre=document.getElementsByName('nombre')[0].value;
+        //Datps de pago por radio
+        let elemento=document.getElementsByName('GRUPORADIO');
+        for(let i=0;i<elemento.length;i++){
+            if(elemento[i].checked){
+                pago=elemento[i].value;
+                console.log(pago);
+            }
+        }
+        //Datos de accesorios por radio
+        if(document.getElementsByName('AIRE')[0].checked){
+            accesorios=document.getElementsByName('AIRE')[0].value;
+        } else if(document.getElementsByName('ELEVALUNAS')[0].checked){
+            accesorios=document.getElementsByName('ELEVALUNAS')[0].value;
+        } else if(document.getElementsByName('RADIO')[0].checked){
+            accesorios=document.getElementsByName('RADIO')[0].value;
+        }
+
+        let ventana=window.open('','',width="700",heigth="700");
+        ventana.document.write("Datos de Compra: </br>");
+        ventana.document.write('Nombre de producto: '+nombre+'</br>');
+        ventana.document.write('Forma de pago: '+pago+'</br>');
+        ventana.document.write('Artículos comprados: '+accesorios+'</br>');
+    }, false);
+</script>
+</body>
+</html>
