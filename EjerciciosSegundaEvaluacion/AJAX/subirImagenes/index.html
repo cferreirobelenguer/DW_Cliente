@@ -1,0 +1,100 @@
+<!--Introducir imágenes por ajax y crear un carrousel con setInterval-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="imagen">Introduce una imagen:</label>
+            <input type='file' id='avatar' name='imagen' accept='image/*'/>
+        </p>
+        <input type="button" id="enviar" value="ENVIAR"/>
+    </form>
+    <center>
+    <br>
+    <br>
+    <br>
+    <input type="button" id="siguiente" value="SIGUIENTE"/>
+    <input type="button" id="anterior" value="ANTERIOR"/>
+    <div>
+        <br>
+        <h1>Imágenes del Rey León</h1>
+        <br>
+        <img src="" id="carrusel" with="300" height="300"></div>
+    </div>
+</center>
+    <script>
+
+        var envio;
+        var siguiente;
+        var anterior;
+        var carrusel;
+        var imagen;
+        var datos=[];
+        var contador=0;
+        var avance;
+        var retroceso;
+
+        function generarAjax(event){
+            var imagenes = new FormData(document.forms[0]);
+            const xhr=new XMLHttpRequest();
+            xhr.addEventListener('readystatechange', generar, false);
+            xhr.open('POST','ajax-imagenes.php',true); //Conexión asíncrona
+            xhr.send(imagenes); //Se manda la imagen por petición POST
+        }
+        function generar(event){
+            console.log(event.target.readyState);
+            console.log(event.target.status);
+            if(event.target.readyState==4 && event.target.status==200){
+                let resultado=event.target.responseText;
+                datos.push(resultado);
+                console.log(datos);
+                let contenedor=document.getElementsByTagName('div')[0];
+                
+            }
+        }
+        function pulsarSiguiente(){
+            clearInterval(retroceso);
+            avance=setInterval(function(){
+                if(contador==datos.length){
+                    contador=0;
+                }
+                carrusel.src=datos[contador];
+                contador++;
+            },2000);
+        }
+        function pulsarAnterior(){
+            clearInterval(avance);
+            retroceso=setInterval(function(){
+                if(contador==0){
+                    contador=datos.length;
+                    datos[contador]=datos[0];
+                }
+                carrusel.src=datos[contador];
+                contador--;
+            },2000);
+        }
+
+        document.addEventListener('readystatechange',inicializar,false);
+
+        function inicializar(){
+            if(document.readyState=='complete'){
+            
+                siguiente=document.getElementById('siguiente');
+                anterior=document.getElementById('anterior');
+                carrusel=document.getElementById('carrusel');
+                envio=document.getElementById('enviar');
+                envio.addEventListener('click', generarAjax, false);
+                siguiente.addEventListener('click', pulsarSiguiente, false);
+                anterior.addEventListener('click', pulsarAnterior, false);
+            }
+        }
+    </script>
+</body>
+</html>
