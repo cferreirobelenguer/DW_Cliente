@@ -1,0 +1,58 @@
+<!--Introducir nombre, contraseña y contraseña repetida. Si ambas contraseñas 
+son iguales se muestra el nombre en la segunda caja, sino se muestra error. 
+Usar document.Forms-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uso Input tipo text y password</title>
+</head>
+<body>
+    <p align="center"><b>VERIFICACIÓN DE LA CONTRASEÑA</b>
+    <center>
+        <FORM name="formulario1" id='form1' method="POST">
+            <table bgcolor="#FFFFCC" border="2">
+                <tr><td><label for="">Escribe tu nombre: </label></td><td><INPUT size=30 name="NOMBRE"></td></tr> 
+                <tr><td><label for="">Contraseña: </label></td><td><INPUT name="clave01" type=password size="20" id="clave01"></td></tr>
+                <tr><td><label for="">Introduce de nuevo la contraseña: </label></td><td><INPUT name="clave02" type=password size="20" id="clave02"></td></tr>
+                <tr><td><INPUT type="button" value="Enviar" name="Enviar"></td><td><INPUT type="reset" value=Restablecer></td></tr>
+            </table>
+        </FORM>
+    </center><br><br>
+    <center>
+        <table bgcolor="#FFFFCC" border="2">
+            <tr><td> 
+                <FORM name="formulario2">
+                    <label for="">Nombre del primer formulario: </label><INPUT size=30 name="NOMBRE2"> 
+                </FORM>
+            </td></tr>
+        </table>
+    </center>
+    <script>
+        var enviar;
+        var nombre;
+        var contra;
+        var contraRepe;
+
+        enviar=document.getElementsByName('Enviar')[0];
+        enviar.addEventListener('click', (event)=>{
+            nombre=document.formulario1.NOMBRE.value;
+            console.log(nombre);
+            contra=document.getElementsByName('clave01')[0].value;
+            console.log(contra);
+            contraRepe=document.getElementsByName('clave02')[0].value;
+            console.log(contraRepe);
+            if(contra==contraRepe){
+                console.log('igual');
+                document.getElementsByName('NOMBRE2')[0].value=nombre;
+            }else{
+                console.log('no igual');
+                let error='Error';
+                document.getElementsByName('NOMBRE2')[0].value=error;
+            }
+        }, false);
+    </script>
+</body>
+</html>
