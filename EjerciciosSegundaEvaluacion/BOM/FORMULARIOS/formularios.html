@@ -1,6 +1,5 @@
 
 
-
 <!-Procesar datos de formulario que contiene radio, select, y text, y llevar los datos
 por medio de evento de oyente al textarea, asociar imagen al nombre de la persona y llevar la imagen
 al img correspondiente-->
@@ -36,7 +35,7 @@ br {clear: left;} input[type="submit"], input[type="reset"] {margin:25px 5px 10p
         <input type="button" value="Enviar" id='boton'/> <input type="reset" value="Cancelar"/>
     </div>
     <div style="float:left;">
-    <div id="encuadraImagen"><img id='rostro' src='' alt="?"></div><br/>
+    <div id="encuadraImagen"><img id='rostro' src='' alt="?" with="200" height="200"></div><br/>
     <div id="datos" style="float:left;"><h4> Datos introducidos: </h4><textarea id='datosfinales' cols='35' rows='12'></textarea></div>
     </form>
     </div>
@@ -61,6 +60,7 @@ br {clear: left;} input[type="submit"], input[type="reset"] {margin:25px 5px 10p
             document.getElementById('nombre').value='';
             document.getElementById('apellidos').value='';
             document.getElementById('direccion1').value='';
+            document.getElementById('ciudad').value='';
 
         }
         function situar(){
@@ -108,6 +108,7 @@ br {clear: left;} input[type="submit"], input[type="reset"] {margin:25px 5px 10p
             msg+='Preferencias: '+prefe+'\n';
             document.getElementById('rostro').src=nombre+'.jpg';
             document.getElementById('datosfinales').value=msg;
+            limpiar();
 
         }
     
