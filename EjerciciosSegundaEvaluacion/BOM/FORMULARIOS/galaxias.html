@@ -1,0 +1,39 @@
+
+
+<!--3.- A partir del código HTML dado, “Galaxias”, desarrollar el código javascript que permita, 
+a partir del select, visualizar la imagen correspondiente al texto seleccionado en el select.-->
+<html>
+    <head>
+    </head>
+    <body>
+        <center>
+            <img id="foto" src="nebulosas%201.jpg" width="500" heigth="500">  
+        </center>
+        <br>
+        <form name="formul" align="center">
+        
+            Selecciona una opcion: 
+            
+                <select  id="opfotos">
+                <option >Selecciona una opcion</option>
+                <option value="0">foto 1</option>
+                <option value="1" >foto 2</option>
+                <option value="2">foto 3</option>
+                <option value="3">foto 4</option>
+                <option value="4">foto 5</option>
+                <option value="5">foto 6</option>
+                <option value="6">foto 7</option>
+            </select>
+        </form>
+        </body>
+        <script>
+            var seleccion=document.getElementById('opfotos');
+            seleccion.addEventListener('change', (event)=>{
+                let valor=seleccion.value;
+                console.log(valor);
+                document.getElementById('foto').src='nebulosas%20'+valor+'.jpg';
+            }, false);
+            
+
+        </script>
+    </html>
