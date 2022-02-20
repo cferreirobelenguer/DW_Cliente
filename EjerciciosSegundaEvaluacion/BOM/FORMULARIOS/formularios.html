@@ -1,0 +1,120 @@
+
+
+
+<!-Procesar datos de formulario que contiene radio, select, y text, y llevar los datos
+por medio de evento de oyente al textarea, asociar imagen al nombre de la persona y llevar la imagen
+al img correspondiente-->
+
+<!DOCTYPE html>
+<html><head><title>Controlando elementos de un formulario</title><meta charset="utf-8">
+<style type="text/css"> body {margin-left:30px; font-family: sans-serif;} h4 {margin:0;} div {float:left;}
+.estiloForm, #encuadraImagen, #datos {background-color: #f3f3f3; border: solid 2px black; margin-left:10px; width:300px; }
+.estiloForm { width: 330px; padding:10px;} #datos {margin-top: 20px; height:226px; padding:10px;}
+#encuadraImagen {width:100px; height:100px;   text-align:center;}
+.estiloForm label {display: block; width: 120px; float: left; text-align:right; margin-bottom: 35px; padding-right: 20px;}
+br {clear: left;} input[type="submit"], input[type="reset"] {margin:25px 5px 10px 5px;}
+</style>
+
+</head>
+<body><h2>Controlando Elementos</h2><h3>Examen JavaScript</h3>
+    <div class="estiloForm">
+    <form name ="formularioContacto" method="get" action="#">
+        <label>Tratamiento</label>
+        <input type="radio" name="tratamiento" id="tratarSr" value="Sr."/>Sr.
+        <input type="radio" name="tratamiento" id ="tratarSra" value="Sra."/>Sra.<br/>
+        <label>Nombre</label><input id="nombre" name="nombre" type="text"/><br/>
+        <label>Apellidos</label><input id="apellidos" name="apellidos" type="text"/><br/>
+        <label>Direccion</label><input id="direccion1" name="direccion1" type="text"/><br/>
+        <label>Ciudad</label><select id="ciudad" name="ciudad">
+            <option value="">Elija opcion</option>
+            <option value="Madrid">Madrid (ES)</option>
+            <option value="Berlin">Berlin (D)</option>
+            <option value="Paris">Paris (F)</option>
+        </select><br/>
+        <label>Preferencias</label><input name="Libros" id ='libros' type="checkbox" value='Libros'/>Libros
+        <input name="Peliculas"  id='peliculas' type="checkbox" value='Peliculas'/>Peliculas
+        <input type="button" value="Enviar" id='boton'/> <input type="reset" value="Cancelar"/>
+    </div>
+    <div style="float:left;">
+    <div id="encuadraImagen"><img id='rostro' src='' alt="?"></div><br/>
+    <div id="datos" style="float:left;"><h4> Datos introducidos: </h4><textarea id='datosfinales' cols='35' rows='12'></textarea></div>
+    </form>
+    </div>
+    <script>
+        var tratamiento;
+        var nombre;
+        var direccion;
+        var ciudad;
+        var preferencias;
+        var envio;
+        var sra;
+        var sr;
+        var ciudadTexto;
+        var prefe;
+        var imagen;
+        var seleccion;
+    
+
+        function limpiar(){
+            document.getElementById('tratarSra').value='';
+            document.getElementById('tratarSr').value='';
+            document.getElementById('nombre').value='';
+            document.getElementById('apellidos').value='';
+            document.getElementById('direccion1').value='';
+
+        }
+        function situar(){
+            //Cogemos los valores de tratamiento con radio
+                sra=document.getElementById('tratarSra');
+                sr=document.getElementById('tratarSr');
+            if(sra.checked==true){
+                tratamiento=sra.value;
+            }else if(sr.checked==true){
+                tratamiento=sr.value;
+            }
+            console.log(tratamiento);
+
+            //Cogemos los datos de nombre, apellidos y dirección con text
+            nombre=document.getElementById('nombre').value;
+            console.log(nombre);
+            apellidos=document.getElementById('apellidos').value;
+            console.log(apellidos);
+            direccion=document.getElementById('direccion1').value;
+            console.log(direccion);
+
+            //Cogemos los datos de ciudad con select
+            //obtener el valor
+            ciudad=document.getElementById('ciudad').value;
+            console.log(ciudad);
+            //obtener el texto
+            seleccion=document.getElementById('ciudad');
+            ciudadTexto=seleccion.options[seleccion.selectedIndex].value;
+            console.log(ciudadTexto);
+
+            //Obtener preferencias con radio
+            if(document.getElementById('libros').checked==true){
+                prefe=document.getElementById('libros').value;
+            }else if(document.getElementById('peliculas').checked==true){
+                prefe=document.getElementById('peliculas').value;
+            }
+            //Se concatenan los resultados en el textarea
+            let msg='';
+            msg+='DATOS DEL USUARIO:\n';
+            msg+='Tratamiento: '+tratamiento+'\n';
+            msg+='Nombre: '+nombre+'\n';
+            msg+='Apellidos: '+apellidos+'\n';
+            msg+='Dirección: '+direccion+'\n';
+            msg+='Ciudad: '+ciudadTexto+'\n';
+            msg+='Preferencias: '+prefe+'\n';
+            document.getElementById('rostro').src=nombre+'.jpg';
+            document.getElementById('datosfinales').value=msg;
+
+        }
+    
+        envio=document.getElementById('boton');
+        
+        envio.addEventListener('click',situar, false);
+        
+    </script>
+</body>
+</html>
