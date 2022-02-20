@@ -1,0 +1,209 @@
+
+<!--1.- A partir del código HTML dado, “Formulario de encuesta”, desarrollar 
+    el código javascript que permita visualizar en el textarea la información proporcionada por el cliente.
+Se deberá tratar de presentar la información de manera tabulada.-->
+
+<!DOCTYPE HTML>
+<HTML>
+
+<HEAD>
+    <TITLE>FORMULARIO DE REGISTRO</TITLE>
+
+</HEAD>
+
+<BODY>
+
+    <form name="formulario" method="post" enctype="text/plain">
+        Nombre: <input type="text" name="nombre" id="nombre" size="25" maxlength="50"><br><br>
+        Apellidos: <input type="text" name="apellidos" id="apellidos" size="35" maxlength="100">
+        <br><br>
+        Correo electrónico: <input type="text" value="@" name="correo" id="correo" size="40" maxlength="100">
+        <br><br>
+        Población: <input type="text" name="poblacion" id="poblacion" size="15" maxlength="50">
+        <br><br>
+        Provincia: <input type="text" name="provincia" id="provincia" size="15" maxlength="50">
+        <table align="center" width="100%" border="0" cellspacing="0" cellpadding="10">
+            <tr>
+                <td>Edad:<br>
+                    <input type="radio" name="edad" value="020"> 0-20<br>
+                    <input type="radio" name="edad" value="2040" checked> 20-40<br>
+                    <input type="radio" name="edad" value="4060"> 40-60<br>
+                    <input type="radio" name="edad" value="60100"> 60-100
+                </td>
+                <td>&iquest;C&oacute;mo nos conociste?<br>
+                    <input type="checkbox" name="conocer" value="Por amigos">A trav&eacute;s de un amigo.<br>
+                    <input type="checkbox" name="conocer" value="Utilizando buscador">A trav&eacute;s de un
+                    buscador.<br>
+                    <input type="checkbox" name="conocer" value="Navegando">Navegando por la red.<br>
+                    <input type="checkbox" name="conocer" value="Redes Sociales">Redes Sociales
+                </td>
+            </tr><br><br>
+            <tr>
+                <td>
+                    <input type="button" id="boton" value="Registrar">
+                </td>
+                <td>
+                    <input type="Reset" value="Limpiar">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" id="boton2" value="Buscar">
+                </td>
+            </tr>
+        </table>
+        <textarea id="objeto" rows="10" cols="50">
+
+			</textarea>
+    </form>
+    <script>
+        var registrar;
+        var buscar;
+        var nombre;
+        var apellidos;
+        var correo;
+        var poblacion;
+        var provincia;
+        var edad;
+        var conocido;
+        var datos = new Map();
+        var texto;
+        var indice;
+        var indice2;
+        //Función constructora
+
+        function persona(nombre, apellidos, correo, poblacion, provincia, edad, conocido) {
+            this.nombre = nombre;
+            this.apellidos = apellidos;
+            this.correo = correo;
+            this.poblacion = poblacion;
+            this.provincia = provincia;
+            this.edad = edad;
+            this.conocido = conocido;
+            this.toString = function () {
+                return 'Datos registrados:\nNombre: ' + this.nombre + '\nApellidos: ' + this.apellidos +
+                    '\nCorreo: ' + this.correo + '\nPoblación: ' + this.poblacion + '\nProvincia: ' + this
+                    .provincia + '\nEdad: ' + this.edad + '¿Cómo nos conociste?: ' + this.conocido;
+            }
+        }
+
+        function RegistrarUsuario() {
+
+
+            //Datos de text nombre, apellidos, correo, población y provincia
+            nombre = document.getElementById('nombre').value;
+            console.log(nombre);
+            apellidos = document.getElementById('apellidos').value;
+            console.log(apellidos);
+            correo = document.getElementById('correo').value;
+            poblacion = document.getElementById('poblacion').value;
+            provincia = document.getElementById('provincia').value;
+            //Datos de radio edad
+            let elemento = document.getElementsByName('edad');
+            let elementoEdad;
+            for (let i = 0; i<elemento.length; i++) {
+                if (elemento[i].checked) {
+                    indice=i;
+                    edad = elemento[i].value;
+                }
+            }
+
+            console.log(edad);
+            //Datos de checkbox conocer
+            let elemento2 = document.getElementsByName('conocer');
+            for (let i = 0; i<elemento2.length; i++) {
+                if (elemento2[i].checked) {
+                    indice2=i;
+                    conocido = elemento2[i].value;
+                }
+            }
+            console.log(conocido);
+            //Creación de objeto
+            var gente = new persona(nombre, apellidos, correo, poblacion, provincia, edad, conocido);
+            datos.set(nombre, gente);
+            console.log(datos);
+            document.getElementById('objeto').value = gente.toString();
+
+        }
+
+        function buscarUsuario() {
+            let info;
+            let usuario = prompt('Introduce el nombre de la persona a buscar');
+            if (datos.has(usuario)) {
+                info=datos.get(usuario);
+                document.getElementById('nombre').value=info.nombre;
+                document.getElementById('apellidos').value=info.apellidos;
+                document.getElementById('correo').value=info.correo;
+                document.getElementById('poblacion').value=info.poblacion;
+                document.getElementById('provincia').value=info.provincia;
+                document.getElementsByName('edad')[indice].checked=true;
+                document.getElementsByName('conocer')[indice2].checked=true;
+            }else{
+                alert('Usuario no encontrado');
+            }
+            document.getElementById('objeto').value='Datos registrados:\nNombre: ' + info.nombre + '\nApellidos: ' + info.apellidos +
+                    '\nCorreo: ' + info.correo + '\nPoblación: ' + info.poblacion + '\nProvincia: ' + info
+                    .provincia + '\nEdad: ' + info.edad + '¿Cómo nos conociste?: ' + info.conocido;
+            
+
+
+
+        }
+        document.addEventListener('readystatechange', inicializar, false);
+
+        function inicializar() {
+            if (document.readyState == 'complete') {
+                registrar = document.getElementById('boton');
+                buscar = document.getElementById('boton2');
+                registrar.addEventListener('click', RegistrarUsuario, false);
+                buscar.addEventListener('click', buscarUsuario, false);
+                //Eventos de foco y no foco de los input 
+            }
+        }
+        //Eventos de foco y blur en inputs
+        //foco y no foco en nombre
+        var nombre_=document.getElementById('nombre');
+        nombre_.addEventListener('focus',(event)=>{
+            nombre_.style.backgroundColor=('yellow');
+        }, false);
+        nombre_.addEventListener('blur',(event)=>{
+            nombre_.style.backgroundColor=('white');
+        }, false);
+        //foco y no foco en apellido
+        var apellidos_=document.getElementById('apellidos');
+        apellidos_.addEventListener('focus',(event)=>{
+            apellidos_.style.backgroundColor=('yellow');
+        }, false);
+        apellidos_.addEventListener('blur',(event)=>{
+            apellidos_.style.backgroundColor=('white');
+        }, false);
+        //foco y no foco en correo
+        var correo_=document.getElementById('correo');
+        correo_.addEventListener('focus',(event)=>{
+            correo_.style.backgroundColor=('yellow');
+        }, false);
+        correo_.addEventListener('blur',(event)=>{
+            correo_.style.backgroundColor=('white');
+        }, false);
+        //foco y no foco en provincia
+        var provincia_=document.getElementById('provincia');
+        provincia_.addEventListener('focus',(event)=>{
+            provincia_.style.backgroundColor=('yellow');
+        }, false);
+        provincia_.addEventListener('blur',(event)=>{
+            provincia_.style.backgroundColor=('white');
+        }, false);
+        //foco y no foco en poblacion
+        var poblacion_=document.getElementById('poblacion');
+        poblacion_.addEventListener('focus',(event)=>{
+            poblacion_.style.backgroundColor=('yellow');
+        }, false);
+        poblacion_.addEventListener('blur',(event)=>{
+            poblacion_.style.backgroundColor=('white');
+        }, false);
+        
+        
+    </script>
+</body>
+
+</html>
