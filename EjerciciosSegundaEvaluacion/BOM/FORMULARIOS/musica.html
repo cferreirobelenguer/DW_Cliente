@@ -1,0 +1,36 @@
+
+<!--Trabajar con formularios de select, mostrar el resultado en textarea-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uso select</title>
+</head>
+<body>
+    <form action="">
+        <b><i>Selecciona el tipo o tipos de música que te gusta</i></b><br><br>
+        <select id="musica" multiple size="4">
+            <option value="Rock&Roll">Rock&Roll</option>
+            <option value="Clásica">Clásica</option>
+            <option value="Heavy">Heavy</option>
+            <option value="Electrónica">Electrónica</option>
+            <option value="Tecno">Tecno</option>
+        </select><br><br>
+        <textarea id="pantalla" cols="30" rows="10"></textarea><br><br>
+        <input type="button" value="Visualizar">
+    </form>
+    <script>
+        var visualizar=document.getElementsByTagName('input')[0];
+        visualizar.addEventListener('click', (event)=>{
+            var valor=document.getElementById('musica');
+            let msg='';
+            for(let i=0;i<valor.options.length;i++){
+                if(valor.options[i].selected){
+                    msg+=valor.options[i].value+'\n';
+                }
+            }
+            document.getElementsByTagName('textarea')[0].value=msg;
+        }, false);
+    </script>
