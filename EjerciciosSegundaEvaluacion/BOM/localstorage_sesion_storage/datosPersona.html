@@ -1,0 +1,94 @@
+
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Uso Web Storage con JSON</title>
+
+
+</head>
+
+<body>
+    <form>
+        <div>
+            <label>Nombre:</label>
+            <div><input type="text" /></div>
+        </div>
+        <div>
+            <label>Apellidos:</label>
+            <div><input type="text" /></div>
+        </div>
+        <div>
+            <label>Email:</label>
+            <div><input type="text" /></div><br>
+
+        </div><br>
+        <div>
+            <div>
+                <div><input type="button" value="Grabar" /></div><br>
+            </div>
+            <div>
+                <div><input type="button" value="Recuperar" /><br />
+                    <input type="button" value="Limpiar" /></div>
+            </div>
+        </div>
+
+    </form>
+    <script>
+        var grabar;
+        var recuperar;
+        var limpiar;
+        var nombre;
+        var apellidos;
+        var email;
+
+        document.addEventListener('DOMContentLoaded', inicializar, false);
+        function persona(nombre,apellidos,email){
+            this.nombre=nombre;
+            this.apellidos=apellidos;
+            this.email=email;
+        }
+        function grabando(){
+            nombre=document.getElementsByTagName('input')[0].value;
+            apellidos=document.getElementsByTagName('input')[1].value;
+            email=document.getElementsByTagName('input')[2].value;
+            var gente=new persona(nombre, apellidos, email);
+            localStorage.setItem('contacto',JSON.stringify(gente));
+            console.log(gente);
+            console.log(localStorage);
+            alert('Datos grabados correctamente');
+            limpiarCajas();
+        }
+        function limpiando(){
+            alert('Limpiando datos');
+            localStorage.clear();
+            limpiarCajas();
+        }
+        function limpiarCajas(){
+            document.getElementsByTagName('input')[0].value='';
+            document.getElementsByTagName('input')[1].value='';
+            document.getElementsByTagName('input')[2].value='';
+        }
+        function recuperando(){
+            let info=JSON.parse(localStorage.getItem('contacto'));
+            console.log(info);
+            document.getElementsByTagName('input')[0].value=info.nombre;
+            document.getElementsByTagName('input')[1].value=info.apellidos;
+            document.getElementsByTagName('input')[2].value=info.email;
+            alert('Datos cargados correctamente');
+
+        }
+        function inicializar(){
+            grabar=document.getElementsByTagName('input')[3];
+            recuperar=document.getElementsByTagName('input')[4];
+            limpiar=document.getElementsByTagName('input')[5];
+            grabar.addEventListener('click', grabando, false);
+            recuperar.addEventListener('click', recuperando, false);
+            limpiar.addEventListener('click', limpiando, false);
+        }
+    </script>
+</body>
+
+</html>
