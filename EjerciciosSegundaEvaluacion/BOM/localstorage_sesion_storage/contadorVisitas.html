@@ -1,0 +1,33 @@
+
+
+<!--Cuenta el total de visitas a la página-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Usted ha visitado la página: </h1><span id="veces"></span><h1> veces</h1>
+    <input type="text" id="contador" disabled/>
+    <script>
+    var elemento;
+    var parrafo;
+    var texto;
+    function contarVisitas(){
+        if(!localStorage.contador){
+            localStorage.contador=0;
+        }
+
+        localStorage.contador=parseInt(localStorage.contador)+1;
+        document.getElementById('veces').textContent=localStorage.contador;
+        document.getElementById('contador').value=localStorage.contador;
+
+    }
+    document.addEventListener('DOMContentLoaded', contarVisitas, false);
+    </script>
+</body>
+</html>
