@@ -1,0 +1,49 @@
+<!--
+    Elegir opción en select y mostrar imágen, al mostrar imágen se muestra el párrafo con hidden, y al pinchar en la imagen se 
+    activa evento de mostrar imágen en nueva ventana.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Por favor elija una opción</h1>
+    <div id="eleccion" hidden="true">
+        <h1>La imagen se mostrará en una nueva ventana</h1>
+    </div>
+    <img src='' id="picture" width="200" height="200"/>
+    <form>
+        <select id="fotos">
+            <option name="imagen" value="animal1.jpg">Imagen 1</option>
+            <option name="imagen" value="animal2.jpg">Imagen 2</option>
+            <option name="imagen" value="animal3.jpg">Imagen 3</option>
+    </form>
+
+    <script>
+        
+        var elemento;
+        var ventana;
+        var valor;
+        var contenedor;
+        function crear(){
+            document.getElementById('eleccion').hidden=false;
+            valor=document.getElementById('fotos').value;
+            console.log(valor);
+            document.getElementById('picture').src=valor;
+        }
+        document.getElementById('picture').addEventListener('click',(event)=>{
+                ventana=window.open('','',width='700','700');
+                ventana.document.write("IMAGEN ELEGIDA:<br><img src='"+valor+"' width='200' heigth='200'/>");
+                document.getElementById('eleccion').hidden=true;
+            }, false);
+
+        var opcion=document.getElementById('fotos');
+        opcion.addEventListener('change', crear, false);
+        
+    </script>
+</body>
+</html>
