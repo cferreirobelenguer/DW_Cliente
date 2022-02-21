@@ -1,0 +1,195 @@
+<!--Simulación de carrito de la compra con sessionStorage, creando una nueva ventana que
+muestra el carrito al pulsar ver carrito-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--BOOTSTRAP -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    	<!-- BOOTSTRAP -->
+    	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div id="espacio" class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <br>
+    </div>
+    <center>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <button class="btn btn-dark" id="totalCompra"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-heart-fill" viewBox="0 0 16 16">
+        <path d="M11.5 4v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5ZM8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1Zm0 6.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+    </svg>Ver carrito</button>
+    </div>
+
+    <div class="d-flex justify-content-center bg-dark text-white">
+    <h1>TIENDA ONLINE</h1>
+    </div>
+
+    <div id="espacio" class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <br>
+    </div>
+    <div class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <img src="camiseta1.jpg" id="producto1" width="300" height="300"/>
+    </div>
+    <div class="d-flex justify-content-center bg-dark text-white">
+        <h3>Camiseta Lumiere</h3>
+    </div>
+    <div class="d-flex justify-content-center bg-dark text-white">
+        <p>Precio: 9.99 EUR</p>
+    </div>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <button class="btn btn-dark" id="boton1" >AÑADIR A LA CESTA</button>
+    </div>
+        
+        
+    <div id="espacio" class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <br>
+    </div>
+
+
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <img src="camiseta2.jpg" id="producto2" width="300" height="300"/>
+    </div>
+    <div id="producto2" class="d-flex justify-content-center bg-dark text-white">
+        <h3>Camiseta Rey León</h3>
+    </div>
+    <div id="producto2" class="d-flex justify-content-center bg-dark text-white">
+        <p>Precio: 12.99 EUR</p>
+    </div>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <button class="btn btn-dark" id="boton2" >AÑADIR A LA CESTA</button>
+    </div>
+        
+        
+    
+    <div id="espacio" class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <br>
+    </div>
+
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <img src="camiseta3.jpg" id="producto3" width="200" height="300"/>
+    </div>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <h3>Camiseta Mickey</h3>
+    </div>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <p>Precio: 9.99 EUR</p>
+    </div>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <button class="btn btn-dark" id="boton3">AÑADIR A LA CESTA</button>
+    </div>
+        
+        
+    </div>
+    <div id="espacio" class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <br>
+    </div>
+
+
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <br>
+        <img src="camiseta4.jpg" id="producto4" width="200" height="300"/>
+    </div>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <h3>Camiseta Bella Durmiente</h3>
+    </div>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <p>Precio: 19.99 EUR</p>
+    </div>
+    <div  class="d-flex justify-content-center bg-dark text-white">
+        <button class="btn btn-dark" id="boton4">AÑADIR A LA CESTA</button>
+    </div>
+    
+    
+    </center>
+    <script>
+        //Variables botones
+        var producto1;
+        var producto2;
+        var producto3;
+        var producto4;
+        var producto;
+        var datos=[];
+        var totalCompra;
+        var totalPrecio=0;
+        //Función constructora de tienda online
+        function tienda(imagen,descripcion,precio){
+            this.imagen=imagen;
+            this.descripcion=descripcion;
+            this.precio=precio;
+        }
+        function anadirProducto1(){
+            //Creamos objeto
+            producto=new tienda('camiseta1.jpg','Camiseta Lumiere','9.99');
+            datos.push(producto);
+            sessionStorage.setItem('total',JSON.stringify(datos));
+            console.log(sessionStorage.getItem('total'));
+        }
+        function anadirProducto2(){
+            //Creamos objeto
+            producto=new tienda('camiseta2.jpg','Camiseta Rey León','12.99');
+            datos.push(producto);
+            sessionStorage.setItem('total',JSON.stringify(datos));
+            console.log(sessionStorage.getItem('total'));
+        }
+        function anadirProducto3(){
+            //Creamos objeto
+            producto=new tienda('camiseta3.jpg','Camiseta Mickey','9.99');
+            datos.push(producto);
+            sessionStorage.setItem('total',JSON.stringify(datos));
+            console.log(sessionStorage.getItem('total'));
+        }
+        function anadirProducto4(){
+            //Creamos objeto
+            producto=new tienda('camiseta4.jpg','Camiseta Bella Durmiente','19.99');
+            datos.push(producto);
+            sessionStorage.setItem('total',JSON.stringify(datos));
+            console.log(sessionStorage.getItem('total'));
+            
+        }
+        function verTotal(){
+            let total=JSON.parse(sessionStorage.getItem('total'));
+            var ventana=window.open('','','300','300');
+            
+            ventana.document.write("<strong>CARRITO DE LA COMPRA</strong>");
+            for(let i=0;i<total.length;i++){
+                
+                ventana.document.write("<br><div><img src='"+total[i].imagen+"' width='200' heigth='200'/></div><div><br></div></div><div>"+total[i].descripcion+"</div></div><div><br></div></div><div>"+total[i].precio+"€</div>");
+                console.log(total[i].imagen);
+                let precio=parseFloat(total[i].precio);
+                console.log(precio);
+                totalPrecio+=precio;
+                sessionStorage.setItem('precio',totalPrecio);
+
+            }
+            console.log(totalPrecio);
+            ventana.document.write("<div><strong>TOTAL A PAGAR: "+sessionStorage.getItem('precio')+"€</strong></div><br><br>");
+        }
+        document.addEventListener('DOMContentLoaded', inicializar, false);
+        function inicializar(){
+            //Cogemos los botones y creamos los eventos click
+            producto1=document.getElementById('boton1');
+            producto2=document.getElementById('boton2');
+            producto3=document.getElementById('boton3');
+            producto4=document.getElementById('boton4');
+            totalCompra=document.getElementById('totalCompra');
+            producto1.addEventListener('click', anadirProducto1, false);
+            producto2.addEventListener('click', anadirProducto2, false);
+            producto3.addEventListener('click', anadirProducto3, false);
+            producto4.addEventListener('click', anadirProducto4, false);
+            totalCompra.addEventListener('click',verTotal, false);
+        }
+    </script>
+</body>
+</html>
