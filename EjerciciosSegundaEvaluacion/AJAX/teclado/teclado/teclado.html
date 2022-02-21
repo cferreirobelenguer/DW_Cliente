@@ -1,0 +1,94 @@
+
+
+<!--Realizar un formulario el que hay que elegir una acción (listar, cargar, guardar), un idioma 
+(es, de, ru, el , cz, defecto que es español) y un contenido que es una cadena de caracteres. En función de la
+acción elegida : en caso de elegir listar y un idioma , se listarán mediante AJAX por php los idiomas del teclado disponibles; 
+si se ha elegido cargar y un idioma se cargará mediante AJAX por php  el teclado del idioma correspondiente; y si se elige la opción
+guardar y una cadena de caracteres, se muestra mediante AJAX por php la cadena de caracteres correspondiente. 
+Imprimir los resultados en el párrafo mediante DOM. Realizar el ejercicio mediante POST.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Elija una acción</label>
+            listar<input type="radio" name="accion" value='listar'/>
+            cargar<input type="radio" name="accion" value='cargar'/>
+            guardar<input type="radio" name="accion" value='guardar'/>
+        </p>
+        <p>
+            <label for="">Elija un idioma</label>
+            <select name="idiomas">
+                <option value="es">Español</option>
+                <option value="de">Alemán</option>
+                <option value="ru">Ruso</option>
+                <option value="el">Griego</option>
+                <option value="cz">Checo</option>
+                <option value="defecto">idioma por defecto</option>
+            </select>
+        </p>
+        <p>
+            <label for="">Introduzca un contenido</label>
+            <input type="text" id='contenido'/>
+        </p>
+        <p id="textoContenido"></p>
+        <input type="button" id="boton" value="ENVIAR"/>
+    </form>
+    <script>
+        var boton;
+        var contenido;
+        var idioma;
+        var accion;
+        var accionResultado;
+        var idiomaResultado;
+        var textoContenido;
+
+
+        function crearContenido(event){
+                for(let i=0;i<accion.length;i++){
+                    if(accion[i].checked){
+                        accionResultado=accion[i].value;
+                    }
+                }
+                
+                var idiomaSeleccion=idioma.selectedIndex;
+                var variableIdioma=idioma.options[idiomaSeleccion].value;
+                /*console.log(idiomaResultado);
+                console.log(accionResultado);
+                console.log(contenido.value);*/
+
+
+                const xhr=new XMLHttpRequest();
+                xhr.addEventListener('readystatechange',(event)=>{
+                    if(event.target.readyState==4 && event.target.status==200){
+                        
+                        let resultado=event.target.responseText;
+                        console.log(resultado);
+                        textoContenido.innerHTML=resultado;
+                        
+                    }
+                }, false);
+                xhr.open('POST','tecladoVirtual.php',true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('accion='+accionResultado+'&idioma='+variableIdioma+'&contenido='+contenido.value);
+            
+        }
+        document.addEventListener('readystatechange',(event)=>{
+            if(document.readyState=='complete'){
+                accion=document.getElementsByName('accion');
+                idioma=document.getElementsByName('idiomas')[0];
+                contenido=document.getElementById('contenido');
+                boton=document.getElementById('boton');
+                textoContenido=document.getElementById('textoContenido');
+                boton.addEventListener('click',crearContenido, false);
+            }
+        }, false);
+    </script>
+</body>
+</html>
