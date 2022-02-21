@@ -1,0 +1,57 @@
+
+<!--Ejercicio de autocompletado de municipios por POST
+usuario introduce municipio y realiza petición por POST 
+mandando como parámetro el municipio a un documento php,
+este devolverá un listado con las sugerencias de municipios.-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <input type="text" id="municipio" />
+        </p>
+    </form>
+    <div id='contenido'>
+
+    </div>
+    <script>
+        let municipio;
+
+        function generarAjax(event){
+            if(municipio.value!=''){
+                municipio.disabled=true;
+                const xhr=new XMLHttpRequest();
+                xhr.addEventListener('readystatechange', (event)=>{
+                    
+                    if(event.target.readyState==4 && event.target.status==200){
+                        console.log(event.target.readyState);
+                        console.log(event.target.status);
+                        municipio.disabled=false;
+                        let resultado=event.target.responseText;
+                        console.log(resultado);
+                        document.getElementById('contenido').innerHTML=(resultado);
+                    }
+                }, false);
+                xhr.open('POST','autocompletaMunicipios.php',true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('municipio='+municipio.value);
+            }
+
+        }
+        function generar(event){
+
+        }
+        document.addEventListener('readystatechange',inicializar, false);
+        function inicializar(){
+            municipio=document.getElementById('municipio');
+            municipio.addEventListener('keydown', generarAjax, false);
+        }
+    </script>
+</body>
+</html>
