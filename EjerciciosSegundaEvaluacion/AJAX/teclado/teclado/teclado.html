@@ -1,5 +1,6 @@
 
 
+
 <!--Realizar un formulario el que hay que elegir una acción (listar, cargar, guardar), un idioma 
 (es, de, ru, el , cz, defecto que es español) y un contenido que es una cadena de caracteres. En función de la
 acción elegida : en caso de elegir listar y un idioma , se listarán mediante AJAX por php los idiomas del teclado disponibles; 
@@ -16,12 +17,17 @@ Imprimir los resultados en el párrafo mediante DOM. Realizar el ejercicio media
 </head>
 <body>
     <form>
+        <div id="contenido1">
         <p>
             <label for="">Elija una acción</label>
             listar<input type="radio" name="accion" value='listar'/>
             cargar<input type="radio" name="accion" value='cargar'/>
             guardar<input type="radio" name="accion" value='guardar'/>
         </p>
+        
+        <input type="button" id="boton2" value="ENVIAR"/>
+        </div>
+        <div id="contenido2" hidden="true">
         <p>
             <label for="">Elija un idioma</label>
             <select name="idiomas">
@@ -32,22 +38,30 @@ Imprimir los resultados en el párrafo mediante DOM. Realizar el ejercicio media
                 <option value="cz">Checo</option>
                 <option value="defecto">idioma por defecto</option>
             </select>
+            <input type="button" id="boton3" value="ENVIAR"/>
         </p>
+        </div>
+        <div id="contenido3" hidden="true">
         <p>
             <label for="">Introduzca un contenido</label>
             <input type="text" id='contenido'/>
         </p>
-        <p id="textoContenido"></p>
+        
         <input type="button" id="boton" value="ENVIAR"/>
+        </div>
+        <p id="textoContenido"></p>
+        <input type="reset"  value="LIMPIAR"/>
     </form>
     <script>
         var boton;
+        var boton2;
         var contenido;
         var idioma;
         var accion;
         var accionResultado;
         var idiomaResultado;
         var textoContenido;
+        var boton3;
 
 
         function crearContenido(event){
@@ -59,9 +73,9 @@ Imprimir los resultados en el párrafo mediante DOM. Realizar el ejercicio media
                 
                 var idiomaSeleccion=idioma.selectedIndex;
                 var variableIdioma=idioma.options[idiomaSeleccion].value;
-                /*console.log(idiomaResultado);
+                console.log(idiomaResultado);
                 console.log(accionResultado);
-                console.log(contenido.value);*/
+                console.log(contenido.value);
 
 
                 const xhr=new XMLHttpRequest();
@@ -81,12 +95,31 @@ Imprimir los resultados en el párrafo mediante DOM. Realizar el ejercicio media
         }
         document.addEventListener('readystatechange',(event)=>{
             if(document.readyState=='complete'){
+                boton3=document.getElementById('boton3');
+                boton2=document.getElementById('boton2');
                 accion=document.getElementsByName('accion');
                 idioma=document.getElementsByName('idiomas')[0];
                 contenido=document.getElementById('contenido');
                 boton=document.getElementById('boton');
                 textoContenido=document.getElementById('textoContenido');
+                boton3.addEventListener('click',crearContenido, false);
                 boton.addEventListener('click',crearContenido, false);
+                boton2.addEventListener('click',(event)=>{
+                    //Mostramos el contenido con hidden en función de lo elegido en accion
+                    for(let i=0;i<accion.length;i++){
+                    if(accion[i].checked){
+                        accionResultado=accion[i].value;
+                    }
+                    if((accionResultado=='listar')||(accionResultado=='cargar')){
+                        document.getElementById('contenido2').hidden=false;
+                        document.getElementById('contenido3').hidden=true;
+                    }else{
+                        document.getElementById('contenido2').hidden=true;
+                        document.getElementById('contenido3').hidden=false;
+                    }
+                }
+                
+                }, false);
             }
         }, false);
     </script>
