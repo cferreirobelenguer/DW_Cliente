@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="formulario">
+        <p>
+            <input type="text" name="nombre"/>
+        </p>
+        <select id="gustos" multisize=4>
+            <option value="cine">ir al cine</option>
+            <option value="teatro">ir al teatro</option>
+            <option value="tennis">jugar al tennis</option>
+        </select>
+    </form>
+    <script>
+        var gustos;
+        var dato;
+        var nombre;
+        function cogerDato(){
+            nombre=document.formulario.nombre.value;
+            sessionStorage.setItem('nombre',nombre);
+            console.log(sessionStorage.getItem('nombre'));
+            let elemento=gustos.selectedIndex;
+            dato=document.getElementById('gustos').options[elemento].text;
+            console.log(dato);
+            sessionStorage.setItem('gusto',dato);
+            console.log(sessionStorage.getItem('gusto'));
+            window.open('gustosDePersona.html');
+        }
+        document.addEventListener('DOMContentLoaded', (event)=>{
+            gustos=document.getElementById('gustos');
+            gustos.addEventListener('change', cogerDato, false);
+        }, false);
+        
+    </script>
+</body>
+</html>
