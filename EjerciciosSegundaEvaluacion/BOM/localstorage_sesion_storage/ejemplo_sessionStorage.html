@@ -1,0 +1,57 @@
+
+
+<!---Coger los datos de nombre, almacenarlos en sessionStorage y mostrarlos
+en el textarea. Si se pulsa guardar se almacenan en el sessionStorage y si se 
+pulsa cargar se muestran en el textarea-->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>Documento sin título</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>Nombre</td>
+            <td><input type="text" id='nombre' /></td>
+        </tr>
+        <tr>
+            <td>Contenido</td>
+            <td><textarea id="contenido" rows="3" cols="30"></textarea></td>
+        </tr>
+        <tr>
+            <td><input type="button" id="salvar" value="Guardar Datos" onclick="guardarDatos()" /></td>
+            <td><input type="button" id="cargar" value="Cargar Datos" onclick="cargarDatos()" /></td>
+        </tr>
+
+
+    </table>
+    <script>
+        var salvar;
+        var cargar;
+        var nombre;
+        function guardarDatos(){
+            nombre=document.getElementById('nombre').value;
+            sessionStorage.setItem('datos',nombre);
+            alert('Datos guardados');
+        }
+        function cargarDatos(){
+            document.getElementsByTagName('textarea')[0].value=sessionStorage.getItem('datos');
+        }
+        document.addEventListener('DOMContentLoaded', inicializar, false);
+        function inicializar(){
+            salvar=document.getElementById('salvar');
+            cargar=document.getElementById('cargar');
+            salvar.addEventListener('click', guardarDatos, false);
+            cargar.addEventListener('click', cargarDatos, false);
+        }
+    </script>
+</body>
+
+</html>
