@@ -1,0 +1,16 @@
+
+APUNTES AJAX:
+_____________
+
+Mediante AJAX es posible cargar contenido de un archivo de texto de manera asíncrona utilizando una 
+serie de métodos que debemos conocer y que son propios del objeto XMLHttpRequest del que hablamos en la lección anterior.
+
+Estos métodos son los siguientes:
+
+open (method, url, async): especifica el tipo de la petición, donde:
+method: puede ser GET o POST.
+url: la localización del archivo.
+async: que a su vez es true (asíncrono) o false (síncrono).
+send(): envía la petición al servidor (utilizado para GET).
+send(cadena): envía la petición al servidor (utilizado para POST).
+
