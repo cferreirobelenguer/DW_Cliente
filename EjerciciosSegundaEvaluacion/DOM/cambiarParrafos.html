@@ -1,0 +1,66 @@
+<!--Ejercicio de DOM en el que se pide cuando se pulsa el primer botón cambiar
+el texto de todos los párrafos, si se pulsa el segundo botón se pide cambiar las clases de párrafos
+y si se pulsa el tercer botón se pide quitar las clases de todos los párrafos. Usar evento de oyente.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main">
+        <p id="parrafo1">Este es el primer párrafo</p>
+        <p id="parrafo2">Este es el segundo párrafo</p>
+        <p id="parrafo3" class="miClase">Este es el tercer párrafo</p>
+    </div>
+    <br/>
+    <button id="cambiarTextos">Cambiar texto de párrafos</button>
+    <button id="cambiarClases">Cambiar clases de párrafos</button>
+    <button id="quitarClases">Quitar clases de todos los párrafos</button>
+    <script>
+        var boton1;
+        var boton2;
+        var boton3;
+        var contenedor;
+            function cambiarTexto(){
+                document.getElementById('parrafo1').textContent='';
+                let texto1=document.createTextNode('Hola mundo');
+                document.getElementById('parrafo1').appendChild(texto1);
+                document.getElementById('parrafo2').textContent='';
+                let texto2=document.createTextNode('Estoy programando');
+                document.getElementById('parrafo2').appendChild(texto2);
+                document.getElementById('parrafo3').textContent='';
+                let texto3=document.createTextNode('js');
+                document.getElementById('parrafo3').appendChild(texto3);
+                
+            }
+            function cambiarClases(){
+                for(let j of contenedor.children){
+                    if(!j.hasAttribute('class')){
+                        j.setAttribute('class','className');
+                        console.log(j);
+                    }
+                }
+                
+            }
+            function quitarClases(){
+                for(let i of contenedor.children){
+                    i.removeAttribute('class')
+                    console.log(i);
+                }
+            }
+
+        document.addEventListener('readystatechange', (event)=>{
+            contenedor=document.getElementById('main');
+            boton1=document.getElementById('cambiarTextos');
+            boton2=document.getElementById('cambiarClases');
+            boton3=document.getElementById('quitarClases');
+            boton1.addEventListener('click', cambiarTexto, false);
+            boton2.addEventListener('click', cambiarClases, false);
+            boton3.addEventListener('click', quitarClases, false);
+        }, false);
+    </script>
+</body>
+</html>
