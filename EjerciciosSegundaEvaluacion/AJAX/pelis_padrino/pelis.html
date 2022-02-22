@@ -1,0 +1,61 @@
+<!--Partiendo de un documento json con películas de la saga el padrino hay que coger los datos
+mediante GET por Ajax, una vez teniendo los datos se muestran los resultados en otra ventana creada con el 
+objeto window. Hacer uso de storage para coger los datos del json y mostrarlo en la ventana nueva.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>En 5 segundos se va a redirigir a otra web</h1>
+
+    <script>
+        function generar(){
+            var msg='';
+            if(event.target.readyState==4 && event.target.status==200){
+                console.log(event.target.readyState);
+                console.log(event.target.status);
+                let respuesta=JSON.parse(event.target.responseText);
+                console.log(respuesta);
+                msg='';
+                msg+="<h1>FILMOGRAFÁ SAGA EL PADRINO: </h1><br>"
+                msg+="<table border='1'>";
+                msg+="<th>Licencia</th>";
+                msg+="<th>Título</th>";
+                msg+="<th>Portada</th>";
+                msg+="<th>Año</th>";
+                
+                for(let i in respuesta){
+                    msg+="<tr>";
+                    msg+="<td>"+respuesta[i].id+"</td>";
+                    msg+="<td>"+respuesta[i].peli+"</td>";
+                    msg+="<td><img src='"+respuesta[i].foto+"' width='200' heigth='200'/></td>";
+                    msg+="<td>"+respuesta[i].year+"</td>";
+                    msg+="</td>";
+                }
+                
+                msg+="</table>";
+                //Se crea una sesión con los datos de las pelis
+                sessionStorage.setItem('datos',msg);
+                //Se redirige a la ventana creada en 5 segundos
+                let total=setTimeout(function(){
+                    let ventana=window.open('','',width='300',height='300');
+                    ventana.document.write(sessionStorage.getItem('datos'));
+                },5000);
+                    
+                }
+            
+            }
+        
+        document.addEventListener('readystatechange',(event)=>{
+            const xhr=new XMLHttpRequest();
+            xhr.addEventListener('readystatechange', generar, false);
+            xhr.open('GET', 'pelispadrino.json',true);
+            xhr.send(null);
+        }, false);
+    </script>
+</body>
+</html>

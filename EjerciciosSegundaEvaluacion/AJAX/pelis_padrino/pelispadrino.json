@@ -1,0 +1,21 @@
+
+[
+    {
+        "id": 56431,
+        "peli": "El Padrino",
+        "foto": "padrino.jpg",
+        "year": 1972
+    },
+    {
+        "id": 7553,
+        "peli": "El Padrino 2",
+        "foto": "padrino2.jpg",
+        "year": 1974
+    },
+    {
+        "id": 19563,
+        "peli": "El Padrino III",
+        "foto": "padrino3.jpg",
+        "year": 1990
+    }
+]
