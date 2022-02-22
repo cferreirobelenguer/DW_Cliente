@@ -1,0 +1,53 @@
+
+<!-- Copiar una frase de un input a fichero txt con ajax y php
+mediante GET-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        Contenido<input type="text" name="contenido"/>
+    </form>
+    <p></p>
+    <script>
+        
+        var elementoContenido;
+        var contenido;
+        function generarAjax(event){
+            contenido=elementoContenido.value;
+            console.log(contenido);
+            if(contenido!=''){
+                contenido.disabled=true;
+                const xhr=new XMLHttpRequest();
+                xhr.addEventListener('readystatechange',(event)=>{
+                    
+                    if(event.target.readyState==4 && event.target.status==200){
+                        console.log(event.target.readyState);
+                        console.log(event.target.status);
+                        contenido.disabled=false;
+                        let respuesta=event.target.responseText;
+                        console.log(respuesta);
+                        let parrafo=document.getElementsByTagName('p')[0];
+                        parrafo.innerHTML=respuesta;
+                    }
+                },false);
+                xhr.open('GET','contenidophp.php?voto='+contenido,true);
+                xhr.send(null);
+            }else{
+                contenido='';
+            }
+        }
+        document.addEventListener('readystatechange', inicializar,false);
+        function inicializar(){
+            elementoContenido=document.getElementsByName('contenido')[0];
+            elementoContenido.addEventListener('change',generarAjax,false);
+        }
+    </script>
+</body>
+</html>
