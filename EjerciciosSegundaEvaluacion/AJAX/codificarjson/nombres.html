@@ -1,0 +1,62 @@
+
+<!--Adivinar un nombre que se introduce por caja si se encuentra en el
+JSON que se recibe por Ajax mediante GET , imprimir respuesta mediante dom y usar
+evento de oyente-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Introduce un nombre a adivinar: </h1>
+    <form>
+        Nombre<input type="text" id="nombre"/>
+    </form>
+    <button id="mostrar">Mostrar</button>
+    <p id="parrafo"></p>
+    <script>
+        var mostrar;
+        var nombre;
+        document.addEventListener('readystatechange',inicializar, false);
+        function inicializar(){
+            mostrar=document.getElementById('mostrar');
+            nombre=document.getElementById('nombre');
+            function generar(event){
+                if(event.target.readyState==4 && event.target.status==200){
+                    let resultado=JSON.parse(event.target.responseText);
+                    for(let valor of resultado){
+                        if(nombre.value==valor){
+                            document.getElementById('parrafo').innerHTML=('El nombre '+nombre.value+' existe en las bbdd');
+                            
+                            break;
+                        }else{
+                            document.getElementById('parrafo').innerHTML=('El nombre '+nombre.value+' no existe en las bbdd');
+                            
+                        }
+                    }
+                    
+                }
+            }
+            function limpiar(){
+                nombre.value='';
+            }
+            mostrar.addEventListener('click', (event)=>{
+                if(nombre.value!=''){
+                    const xhr=new XMLHttpRequest();
+                    xhr.addEventListener('readystatechange',generar, false);
+                    xhr.open('GET','codificar.php',true);
+                    xhr.send(null);
+                }else{
+                    nombre.value='';
+                    document.getElementById('parrafo').innerHTML=('No se han podido procesar los datos');
+                    limpiar();
+                }
+            }, false);
+        }
+    </script>
+</body>
+
+</html>
