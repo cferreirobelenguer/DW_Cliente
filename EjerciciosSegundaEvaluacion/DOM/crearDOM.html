@@ -1,0 +1,84 @@
+
+
+<!-- Al pulsar crear párrafo se crea un párrafo dentro de contenedor, al pulsar crear imágen
+se crea una imágen dentro del contenedor, al pulsar borrar último se borra el último elemento
+del contenedor, al pulsar borrar primero se borra el primer elemento del contenedor, y al pulsar
+sustituir párrafo primero por vacío se sustituye el primer hijo del contenedor por un espacio vacío.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <br/>
+    <textarea id="texto"></textarea>
+    <br/>
+    <button id="crearParrafo">Crear parrafo</button>
+    <button id="crearImagen">Crear imagen</button>
+    <button id="borrarUltimo">Borrar ultimo</button>
+    <button id="borrarPrimero">Borrar primero</button>
+    <button id="sustituirPrimeroVacio">Sustituir primer párrafo por vacío</button>
+
+</body>
+<script>
+    var boton1;
+    var boton2;
+    var boton3;
+    var boton4;
+    var boton5;
+    var contenedor;
+    //Métodos de los eventos de click
+    function crear(){
+        //Se crea párrafo
+        let elemento=document.createElement('p');
+        elemento.setAttribute('id','parrafo');
+        let texto=document.createTextNode('Estoy creando un párrafo en dom');
+        elemento.appendChild(texto);
+        contenedor.appendChild(elemento);
+        console.log(contenedor);
+    }
+    function crearIm(){
+        let imagen=document.createElement('img');
+        imagen.setAttribute('src','imagen1.jpeg');
+        imagen.setAttribute('width','300');
+        imagen.setAttribute('height','300');
+        contenedor.appendChild(imagen);
+        console.log(contenedor);
+    }
+    function borrarlast(){
+        contenedor.removeChild(contenedor.lastChild);
+        console.log(contenedor);
+    }
+    function borrarfirst(){
+        contenedor.removeChild(contenedor.firstChild);
+        console.log(contenedor);
+    }
+    function sustituir(){
+        contenedor.firstChild.textContent='';
+        console.log(contenedor);
+    }
+    document.addEventListener('readystatechange', (event)=>{
+        if(document.readyState=='complete'){
+            //Elementos de botón
+            contenedor=document.getElementById('div1');
+            boton1=document.getElementById('crearParrafo');
+            boton2=document.getElementById('crearImagen');
+            boton3=document.getElementById('borrarUltimo');
+            boton4=document.getElementById('borrarPrimero');
+            boton5=document.getElementById('sustituirPrimeroVacio');
+            //Llamada a los eventos de click
+            boton1.addEventListener('click', crear, false);
+            boton2.addEventListener('click', crearIm, false);
+            boton3.addEventListener('click', borrarlast, false);
+            boton4.addEventListener('click', borrarfirst, false);
+            boton5.addEventListener('click', sustituir, false);
+        }
+    }, false);
+</script>
+</html>
