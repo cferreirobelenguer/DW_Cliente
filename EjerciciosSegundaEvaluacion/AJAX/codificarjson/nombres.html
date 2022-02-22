@@ -20,11 +20,7 @@ evento de oyente-->
     <script>
         var mostrar;
         var nombre;
-        document.addEventListener('readystatechange',inicializar, false);
-        function inicializar(){
-            mostrar=document.getElementById('mostrar');
-            nombre=document.getElementById('nombre');
-            function generar(event){
+        function generar(event){
                 if(event.target.readyState==4 && event.target.status==200){
                     let resultado=JSON.parse(event.target.responseText);
                     for(let valor of resultado){
@@ -40,9 +36,11 @@ evento de oyente-->
                     
                 }
             }
-            function limpiar(){
-                nombre.value='';
-            }
+        document.addEventListener('readystatechange',inicializar, false);
+
+        function inicializar(){
+            mostrar=document.getElementById('mostrar');
+            nombre=document.getElementById('nombre');
             mostrar.addEventListener('click', (event)=>{
                 if(nombre.value!=''){
                     const xhr=new XMLHttpRequest();
@@ -52,7 +50,6 @@ evento de oyente-->
                 }else{
                     nombre.value='';
                     document.getElementById('parrafo').innerHTML=('No se han podido procesar los datos');
-                    limpiar();
                 }
             }, false);
         }
