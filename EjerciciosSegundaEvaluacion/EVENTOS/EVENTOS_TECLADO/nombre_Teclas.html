@@ -1,0 +1,38 @@
+
+
+
+<!-- Mostrar nombre de teclas, y mostrar un texto determinado si es ctrl,alt,shift o mayúscula-->
+<!DOCTYPE HTML>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejemplo Uso eventos teclado</title>
+    </head>
+    <body>
+        <div id="cabecera">
+        <h2>CONTROLANDO EVENTOS DE TECLADO</h2>
+        <h3>Ejemplo JavaScript: pulse una tecla</h3></div>
+        <div id="control"></div>
+        <script>
+            var msg='';
+            document.addEventListener('keydown', (event)=>{
+                if(event.shiftKey||event.altKey||event.ctrlKey){
+                    msg+='Pulsada tecla especial-----------------------------<br>';
+                }else if(event.key=='Enter'){
+                    msg+='Pulsada tecla especial-----------------------------<br>';
+                }else if(event.key=='CapsLock'){
+                    msg+='Pulsado caps lock (act/des mayúsculas)-----------------------------';
+                }else{
+                    //Se activa el evento al pulsar una tecla
+                    console.log(event.key);
+                    msg+='Tecla pulsada: '+event.key+'-----------------------------<br>';
+                }
+                
+                document.getElementById('control').innerHTML=msg;
+            }, false);
+        </script>
+    </body>
+
+</html>
