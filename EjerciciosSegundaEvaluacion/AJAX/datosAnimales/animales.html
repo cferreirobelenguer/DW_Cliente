@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p>
+            <label for="">Nombre de mascota</label>
+            <input type="text" name="nombre"/>
+        </p>
+        <p>
+            <label for="">Raza</label>
+            <input type="text" name="raza"/>
+        </p>
+        <p> 
+            <select name="pienso">
+                <option  value="Royal Canin">Royal Canin</option>
+                <option  value="Hills">Hills</option>
+                <option  value="Gosby">Gosby</option>
+        </p>
+        <p>
+            Tamaño pequeño<input type="radio" name="tamano" value="pequeno"/>
+            Tamaño mediano<input type="radio" name="tamano" value="mediano"/>
+            Tamaño grande<input type="radio" name="tamano" value="grande"/>
+        </p>
+    </form>
+    <input type="button" id="enviar" value="ENVIAR"/>
+    <input type="reset" value="LIMPIAR"/>
+<script>
+    var enviar;
+    var nombre;
+    var raza;
+    var comida;
+    var tamano;
+    var elementoNombre;
+    var elementoRaza;
+    var elementoComida;
+    var elementoTamano;
+
+    function tienda(nombre, raza, comida, tamano){
+        this.nombre=nombre;
+        this.raza=raza;
+        this.comida=comida;
+        this.tamano=tamano;
+    }
+
+    function generarAjax(event){
+        nombre=elementoNombre.value;
+        console.log(nombre);
+        raza=elementoRaza.value;
+        let elemento=elementoComida.selectedIndex;
+        comida=elementoComida.options[elemento].text;
+        console.log(comida);
+
+        for(let i=0;i<elementoTamano.length;i++){
+            if(elementoTamano[i].checked){
+                tamano=elementoTamano[i].value;
+            }
+        }
+        console.log(tamano);
+        //Objeto
+        var animal=new tienda(nombre,raza,comida,tamano);
+        console.log(animal);
+        //Función de envío de petición
+        const xhr=new XMLHttpRequest();
+        xhr.addEventListener('readystatechange',generar,false);
+        xhr.open('POST','datos.php',true); //Conexión asíncrona
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        //Se envía el objeto como objeto JSON
+        xhr.send('animal='+JSON.stringify(animal));
+    }
+
+    function generar(event){
+        //Función de recepción de peticion
+        if(event.target.readyState==4 && event.target.status==200){
+            //El documento php ha leido el json y lo ha escrito en un fichero json llamado animales.json
+            //Se pasa el json a objeto
+            let resultado=JSON.parse(event.target.responseText);
+            console.log(resultado);
+            //Se crea nueva ventana con respuesta de petición
+            let ventana=window.open('','',width='100',heigth='100');
+            ventana.document.write('<h1>DATOS RECOPILADOS</h1><br>');
+            ventana.document.write('<h3>NOMBRE: '+resultado.nombre+'<br>');
+            ventana.document.write('<h3>RAZA: '+resultado.raza+'<br>');
+            ventana.document.write('<h3>COMIDA: '+resultado.comida+'<br>');
+            ventana.document.write('<h3>TAMAÑO: '+resultado.tamano+'<br>');
+        }
+    }
+
+
+    document.addEventListener('readystatechange',inicializar, false);
+    function inicializar(){
+        if(document.readyState=='complete'){
+            //Nos situamos en los elementos
+            enviar=document.getElementById('enviar');
+            elementoNombre=document.forms[0].nombre;
+            elementoRaza=document.forms[0].raza;
+            elementoComida=document.forms[0].pienso;
+            elementoTamano=document.forms[0].tamano;
+            //Llamamos al evento click que envía la petición
+            enviar.addEventListener('click',generarAjax,false);
+            
+
+        }
+    }
+
+</script>
+</body>
+</html>
