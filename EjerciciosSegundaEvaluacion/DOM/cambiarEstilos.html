@@ -1,0 +1,144 @@
+
+<!--1.-  A partir del código html dado, desarrolla el código javascript que permita 
+  agregar de manera dinámica, en el momento de la carga, la lista desplegable que da 
+  la opción de seleccionar el color de fondo del documento. La lista de colores a 
+  agregar es: E9FF5C, FF8F2E, 1C24FF, C2FBFF, 89FA89, FF0000.
+Para ello se utilizarán los métodos correspondientes a Objeto Elemento, no utilizar 
+inserción de código html.-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Ejemplo de Web Storage API</title>
+    
+    <link href='style.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css">
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+  <div class="wrapper">
+    <h1>Web storage</h1>
+
+    <p>Este ejemplo se desarrolla para demostrar el uso de "W3C Web Storage API". Debe ser reconocido a partir de IE8. Elige los colores para background, logos y fuentes desde el menu que se presenta a bajo, despues cierra y abre la pagina. Deberias comprobar que tu eleccion ultima se recuerda, se debe a que ha sido almacenada con Web Storage. Tambien tendrias que ver los efectos del evento de almacenamiento <a href="event.html" target="_blank">storage event output</a>.</p>
+
+    <form>
+      <div>
+        <label for="bgcolor">Elige el background color:</label>
+	    
+      </div>
+      <div>
+        <label for="font">Elige el font style:</label>
+        <select id="font">
+        	<option value="'Open Sans Condensed', sans-serif" selected>Sans-serif</option>
+        	<option value="'Bitter', serif">Serif</option>
+        	<option value="'Ubuntu Mono'">Monospace</option>
+        </select>
+      </div>
+      <div>
+        <label for="image">Selecciona una imagen:</label>
+        <select id="image">
+        	<option value="firefoxos.png" selected>Firefox</option>
+        	<option value="crocodile.png">Crocodile</option>
+        	<option value="tortoise.png">Tortoise</option>
+        </select>
+      </div>
+    </form>
+
+    <footer></footer>
+    <img src="firefoxos.png">
+  </div>
+  <script>
+    var contenedor;
+    var imagen;
+    var select2;
+    var select3;
+    var fuente;
+    
+    function cambiarImagen(){
+      //Se llama al evento de cambiar la imagen en función de lo seleccionado
+      select3=document.getElementById('image');
+        let elementoImagen=select3.selectedIndex;
+        imagen=select3.options[elementoImagen].value;
+        document.getElementsByTagName('img')[0].src=imagen;
+        
+    }
+    function cambiarFuente(){
+      select2=document.getElementById('font');
+      let elementoFuente=select2.selectedIndex;
+      fuente=select2.options[elementoFuente].text;
+      console.log(fuente);
+      document.body.style.fontFamily=fuente;
+    }
+    document.addEventListener('readystatechange', (event)=>{
+      if(document.readyState=='complete'){
+        contenedor=document.getElementsByTagName('div')[1];
+        let select=document.createElement('select');
+        select.setAttribute('id','fondos');
+        let option1=document.createElement('option');
+        option1.setAttribute('value','E9FF5C');
+        let texto1=document.createTextNode('E9FF5C');
+        
+
+        let option2=document.createElement('option');
+        option2.setAttribute('value','E9FF5C');
+        let texto2=document.createTextNode('E9FF5C');
+
+        let option3=document.createElement('option');
+        option3.setAttribute('value','1C24FF');
+        let texto3=document.createTextNode('1C24FF');
+
+        let option4=document.createElement('option');
+        option4.setAttribute('value','C2FBFF');
+        let texto4=document.createTextNode('C2FBFF');
+
+        let option5=document.createElement('option');
+        option5.setAttribute('value','89FA89');
+        let texto5=document.createTextNode('89FA89');
+
+        let option6=document.createElement('option');
+        option6.setAttribute('value','FF0000');
+        let texto6=document.createTextNode('FF0000');
+
+        option1.appendChild(texto1);
+        option2.appendChild(texto2);
+        option3.appendChild(texto3);
+        option4.appendChild(texto4);
+        option5.appendChild(texto5);
+        option6.appendChild(texto6);
+
+        select.appendChild(option1);
+        select.appendChild(option2);
+        select.appendChild(option3);
+        select.appendChild(option4);
+        select.appendChild(option5);
+        select.appendChild(option6);
+
+        //Se cambia el color de fondo del documento en función de lo que se elije en el option creado
+        contenedor.appendChild(select);
+        document.getElementById('fondos').addEventListener('change', (event)=>{
+          let elementoElegido=document.getElementById('fondos').selectedIndex;
+          let color=document.getElementById('fondos').options[elementoElegido].text;
+          console.log(color);
+          
+          document.body.style.backgroundColor='#'+color;
+          
+        }, false);
+        //Se llama al evento de cabiar la tipografía en función de lo seleccionado
+        select2=document.getElementById('font');
+
+        
+      }
+
+    }, false);
+    document.getElementById('image').addEventListener('change',cambiarImagen,false);
+    document.getElementById('font').addEventListener('change', cambiarFuente, false);
+  </script>
+  </body>
+</html>
