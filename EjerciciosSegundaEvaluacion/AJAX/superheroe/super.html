@@ -1,0 +1,54 @@
+
+<!-- Si se pulsa una tecla cualquiera que se muestren los datos del superheroe
+y que mande un alert de la tecla que se ha pulsado.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>SUPERHEROE</h1>
+    <span id='datos'></span>
+    <script>
+        var datos;
+        function generar(event){
+            if(event.target.readyState==4 && event.target.status==200){
+                let resultado=JSON.parse(event.target.responseText);
+                console.log(resultado);
+                let msg='';
+                
+                msg+="<table border='1'>";
+                msg+='<th>NAME</th>';
+                msg+='<th>AGE</th>';
+                msg+='<th>SECRET IDENTITY</h1>';
+                msg+="<th colspan='3'>POWERS</th>";
+                
+                for(let valor of resultado){
+                    msg+='<tr>'; 
+                        msg+='<td>'+valor.name+'</td>';
+                        msg+='<td>'+valor.age+'</td>';
+                        msg+='<td>'+valor.secretIdentity+'</td>';
+                        for(let i=0;i<valor.powers.length;i++){
+                        msg+='<td>'+valor.powers[i]+'</td>';
+                        }
+                    msg+='</tr>';
+                }
+                
+                msg+="</table>";
+                document.getElementById('datos').innerHTML=msg;
+            
+            }
+        }
+        //Evento de teclado al pulsar tecla
+        document.addEventListener('keydown', (event)=>{
+            const xhr=new XMLHttpRequest();
+            xhr.addEventListener('readystatechange', generar, false);
+            xhr.open('GET','datos.json',true); //Conexión asíncrona
+            xhr.send(null);
+        }, false);
+    </script>
+</body>
+</html>
