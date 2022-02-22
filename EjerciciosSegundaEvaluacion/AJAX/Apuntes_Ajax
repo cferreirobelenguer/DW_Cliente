@@ -2,6 +2,10 @@
 APUNTES AJAX:
 _____________
 
+
+ACCESO A ARCHIVOS DE TEXTO:
+___________________________
+
 Mediante AJAX es posible cargar contenido de un archivo de texto de manera asíncrona utilizando una 
 serie de métodos que debemos conocer y que son propios del objeto XMLHttpRequest del que hablamos en la lección anterior.
 
@@ -13,4 +17,47 @@ url: la localización del archivo.
 async: que a su vez es true (asíncrono) o false (síncrono).
 send(): envía la petición al servidor (utilizado para GET).
 send(cadena): envía la petición al servidor (utilizado para POST).
+
+ACCESO A ARCHIVOS XML
+_____________________
+
+Al igual que en la lección anterior cargábamos archivos de texto de manera asíncrona utilizando AJAX, podemos hacer lo mismo trabajando con XML.
+
+Para ello, usamos los mismos métodos que vimos en la lección anterior y que son los siguientes:
+
+open (method, url, async): especifica el tipo de la petición, donde:
+method: puede ser GET o POST.
+url: la localización del archivo, en este caso, XML.
+async: que a su vez es true (asíncrono) o false (síncrono).
+send(): envía la petición al servidor (utilizado para GET).
+send(cadena): envía la petición al servidor (utilizado para POST).
+
+
+JSON
+_____
+JSON es el acrónimo de Javascript Object Notation, es decir, es texto escrito en notación de objetos de Javascript. 
+En comparación con XML, es mucho más corto, más rápido de leer y escribir y puede integrar arrays, por lo que se ha 
+convertido en el candidato para sustituir a su antecesor.
+
+Las reglas a seguir para escribir con JSON son las siguientes:
+
+Hay dos tipos de elementos:
+Arrays: listas de valores entre corchetes y separadas por comas.
+[«hola», 3, «Ada Lovecode», 1.234]
+Objetos: listas de parejas nombre:valor separados por dos puntos y a su vez cada pareja por comas. 
+Los objetos se escriben entre llaves y los nombres de las parejas siempre entre comillas dobles.
+{«nombre»: «Ada Lovecode», «nacimiento»: 1815 }
+Un documento JSON únicamente contiene un elemento (objeto o array).
+El último elemento de objetos y arrays no puede ir seguido de coma.
+Los espacios en blanco y saltos de línea son irrelevantes.
+Los valores en objetos y arrays pueden ser:
+números: enteros, decimales, exponencial, etc.
+cadenas: entre comillas dobles.
+valores true, false y null (sin comillas).
+objetos y arrays: pueden contener a su vez más objetos y matrices sin límite de anidamiento.
+No pueden contener comentarios.
+
+
+
+
 
