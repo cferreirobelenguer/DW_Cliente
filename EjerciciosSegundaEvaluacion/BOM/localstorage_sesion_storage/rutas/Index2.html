@@ -1,0 +1,23 @@
+<html> 
+	<head> 
+	<title>Ejercicio 3 del 5 de marzo</title>
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	</SCRIPT>
+	</head>
+	<body > 
+	<p align="center"> Ficha resumen de las opciones elegidas</p>
+	<p align="center">
+	<img  id="imagen" src=""><br><br>
+	Ruta Elegida:<input type="textbox" id="info" value=""></input>
+	</p>
+	<script>
+		document.addEventListener('readystatechange', (event)=>{
+			console.log(sessionStorage.getItem('fotos'));
+			console.log(sessionStorage.getItem('gustos'));
+			document.getElementById('imagen').src=sessionStorage.getItem('fotos');
+			document.getElementById('info').value=sessionStorage.getItem('gustos');
+		}, false);
+	</script>
+	</body>
+</html>

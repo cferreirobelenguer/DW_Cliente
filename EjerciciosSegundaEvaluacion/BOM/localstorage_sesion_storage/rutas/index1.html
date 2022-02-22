@@ -1,0 +1,52 @@
+<html> 
+	<head> 
+	<title>Ejercicio 3 del 5 de marzo</title>
+	<SCRIPT LANGUAGE="JavaScript">
+	
+	</SCRIPT>
+	</head>
+	<body> 
+	<p align="center"> OBJETO DOCUMENT&nbsp;</p>
+	<table align="center">
+	<tr><td><img id="foto" src="Moderno.png"/></td></tr>
+	<tr><td><p> ELIJA UNA OPCI�N PARA VISITAR</p></td></tr>
+	</table>
+	<p align="center">
+	Opci�n: <a> Visita al Madrid Moderno</a><br><br>
+	<br><br> 
+	</p>
+		<script>
+			var contador=0;
+			var resultado;
+			var enlace;
+			var fotos=["Moderno.png","Austrias.png","de la Champions.png", "Museos.png"];
+			var gustos=["Moderno","Visita histórica","Futbolero", "Visita cultural"];
+			document.addEventListener('readystatechange',(event)=>{
+				resultado=setInterval(function(){
+					if(contador>=fotos.length){
+						contador=0;
+						//Se deja a 0 el timer para volver a crear la iteración ya que sino se acumulan
+						clearInterval(resultado);
+					}
+					document.getElementById('foto').src=fotos[contador];
+					sessionStorage.setItem('fotos',fotos[contador]);
+					console.log(fotos[contador]);
+					sessionStorage.setItem('gustos',gustos[contador]);
+					console.log(sessionStorage.getItem('fotos'));
+					contador++;
+				},4000);
+				
+
+			}, false);
+			function redirigir(){
+				window.open('index2.html');
+			}
+			document.addEventListener('readystatechange', (event)=>{
+				if(document.readyState=='complete'){
+					enlace=document.getElementsByTagName('a')[0];
+					enlace.addEventListener('click', redirigir, false);
+				}
+			}, false);
+		</script>
+	</body>
+</html>
